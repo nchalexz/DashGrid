@@ -1123,8 +1123,10 @@ class CarRuntime(
             ui.workspaceGeneration++
         }
         ui.workspaceConfig = config
+        val previous = ui.activeWorkspace
         val active = config.activeOrStart(ui.activeWorkspaceId) ?: return
         ui.activeWorkspaceId = active.id
+        if (previous != null && previous.id != active.id && previous.closeAppsWhenHidden) closeWorkspaceApps(previous)
     }
 
     /**
@@ -1134,8 +1136,32 @@ class CarRuntime(
     fun selectWorkspace(id: String) {
         if (ui.workspaceConfig.workspace(id) == null) return
         if (ui.activeWorkspaceId == id) return
+        val previous = ui.activeWorkspace
         ui.activeWorkspaceId = id
         workspaceStore.setLast(id)
+        if (previous != null && previous.closeAppsWhenHidden) closeWorkspaceApps(previous)
+    }
+
+    /**
+     * Releases the car-side sessions and surfaces of [workspace]'s apps, except apps another
+     * workspace still uses. Android has no public way for one app to force-stop another without
+     * root/Shizuku, so the phone app may stay alive and only stop playing when its session/audio
+     * is ours to stop.
+     */
+    private fun closeWorkspaceApps(workspace: Workspace) {
+        val usedElsewhere = ui.workspaces.filter { it.id != workspace.id }
+            .flatMapTo(HashSet()) { it.appIds() }
+        val ids = workspace.appIds() - usedElsewhere
+        if (ids.isEmpty()) return
+        for (id in ids) {
+            val app = ui.app(id)
+            connections.remove(id)?.release()
+            clusterConnections.remove(id)?.release()
+            finished.remove(id)
+            if (app != null && media.playback.value?.packageName == app.packageName) media.pause()
+        }
+        if (ui.activeNavAppId in ids) ui.activeNavAppId = null
+        if (ui.activeMediaAppId in ids) ui.activeMediaAppId = null
     }
 
     /** Steps [step] workspaces forward on the ring, wrapping from the last to the first and back. */

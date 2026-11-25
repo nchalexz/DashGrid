@@ -142,6 +142,8 @@ data class Workspace(
     val layout: WorkspaceLayout = WorkspaceLayout.SPLIT_70_30,
     val axis: WorkspaceAxis = WorkspaceAxis.HORIZONTAL,
     val items: List<WorkspaceItem> = emptyList(),
+    /** When switching away, release this workspace's car app sessions and surfaces. */
+    val closeAppsWhenHidden: Boolean = false,
 ) {
     /** A new, empty workspace: a fresh id and a preset wide enough for its first items. */
     companion object {
@@ -449,6 +451,7 @@ object WorkspaceJson {
                     put("name", ws.name)
                     put("layout", ws.layout.id)
                     put("axis", ws.axis.id)
+                    put("closeAppsWhenHidden", ws.closeAppsWhenHidden)
                     put("items", JSONArray().apply {
                         ws.items.forEach { item ->
                             put(JSONObject().apply {
@@ -502,12 +505,13 @@ object WorkspaceJson {
         val name = json.optString("name").trim().ifBlank { "Workspace" }
         val layout = WorkspaceLayout.byId(json.optString("layout"))
         val axis = WorkspaceAxis.byId(json.optString("axis"))
+        val closeAppsWhenHidden = json.optBoolean("closeAppsWhenHidden", false)
         val itemsJson = json.optJSONArray("items")
         val items = ArrayList<WorkspaceItem>(itemsJson?.length() ?: 0)
         if (itemsJson != null) for (i in 0 until itemsJson.length()) {
             decodeItem(itemsJson.optJSONObject(i))?.let(items::add)
         }
-        return Workspace(id = id, name = name, layout = layout, axis = axis, items = items)
+        return Workspace(id = id, name = name, layout = layout, axis = axis, items = items, closeAppsWhenHidden = closeAppsWhenHidden)
     }
 
     private fun decodeItem(json: JSONObject?): WorkspaceItem? {

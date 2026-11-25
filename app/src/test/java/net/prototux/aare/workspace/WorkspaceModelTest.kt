@@ -279,6 +279,13 @@ class WorkspaceModelTest {
     }
 
     @Test
+    fun closeAppsWhenHiddenRoundTrips() {
+        val ws = Workspace.create("Leaving").copy(closeAppsWhenHidden = true)
+        val decoded = WorkspaceJson.decode(WorkspaceJson.encode(WorkspaceConfig(listOf(ws))))!!
+        assertTrue(decoded.workspaces.single().closeAppsWhenHidden)
+    }
+
+    @Test
     fun oldDashboardBecomesTheFirstWorkspace() {
         val migrated = migrateDashboard(listOf("map", "media", "calendar", "notification"))
         assertEquals(1, migrated.workspaces.size)

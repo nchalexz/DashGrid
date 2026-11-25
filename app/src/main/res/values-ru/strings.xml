@@ -419,6 +419,8 @@
     <string name="workspaces_axis_vertical">Сверху и снизу</string>
     <string name="workspaces_capacity">Занято ячеек: %1$d из %2$d</string>
     <string name="workspaces_custom_hint">Своя сетка: удерживайте элемент, чтобы перетащить его, и меняйте ширину и высоту, чтобы объединять ячейки.</string>
+    <string name="workspaces_close_hidden_title">Закрывать приложения при скрытии</string>
+    <string name="workspaces_close_hidden_subtitle">При переходе на другой рабочий стол освобождать Car App сессии и поверхности этого стола. Приложение на телефоне может продолжить работу в фоне; его музыка ставится на паузу. Выкл. сохраняет маршрут и воспроизведение.</string>
     <string name="workspaces_items_count">Элементов: %1$d</string>
     <string name="workspaces_item_geometry">%1$d×%2$d ячеек в %3$d,%4$d</string>
     <string name="workspaces_tap_item">Нажмите на элемент сетки, чтобы изменить его.</string>

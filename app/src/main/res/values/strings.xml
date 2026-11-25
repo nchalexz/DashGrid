@@ -763,6 +763,8 @@
     <string name="workspaces_axis_vertical">Top and bottom</string>
     <string name="workspaces_capacity">%1$d of %2$d slots used</string>
     <string name="workspaces_custom_hint">Custom grid: long-press an item to drag it, and change its width and height to merge cells.</string>
+    <string name="workspaces_close_hidden_title">Close apps when hidden</string>
+    <string name="workspaces_close_hidden_subtitle">When you switch away, release this workspace’s car app sessions and surfaces. The phone app may keep running in the background; its music pauses. Off keeps routes and playback alive.</string>
     <string name="workspaces_items_count">%1$d items</string>
     <string name="workspaces_item_geometry">%1$d×%2$d cells at %3$d,%4$d</string>
     <string name="workspaces_tap_item">Tap an item on the grid to change it.</string>

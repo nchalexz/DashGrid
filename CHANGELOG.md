@@ -4,6 +4,15 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.0.4 — close apps when a workspace is hidden
+
+### Added
+
+- Per-workspace **Close apps when hidden** option. Switching away releases the car app sessions
+  and surfaces of that workspace and pauses its music; apps also used by another workspace stay
+  connected. Off by default, so routes and playback keep surviving page switches.
+- The setting is stored in the workspace JSON and has a unit test for the round trip.
+
 ## 1.0.3 — Home returns to the workspace; standalone-only release
 
 ### Fixed

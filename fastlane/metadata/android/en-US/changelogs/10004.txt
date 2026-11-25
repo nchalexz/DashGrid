@@ -1,0 +1,1 @@
+Per-workspace option to close its apps when hidden; standalone-only release.

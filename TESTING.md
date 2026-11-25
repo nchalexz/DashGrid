@@ -9,11 +9,11 @@
 Result for this build:
 
 ```
-869 tests, 0 failures, 0 errors, 0 skipped
+870 tests, 0 failures, 0 errors, 0 skipped
 BUILD SUCCESSFUL
 ```
 
-That is AARE's whole unit-test suite plus 27 new workspace tests
+That is AARE's whole unit-test suite plus 28 new workspace tests
 (`app/src/test/java/net/prototux/aare/workspace/WorkspaceModelTest.kt`), covering:
 
 - cyclic indexing and stepping in both directions, and the shortest ring distance;
@@ -37,20 +37,20 @@ That is AARE's whole unit-test suite plus 27 new workspace tests
 Published artifact:
 
 ```
-app/build/outputs/dashgrid/DashGrid-standalone-v1.0.3.apk
-19,429,308 bytes
-SHA-256 ceda3f9aff5b886e81dbb1d9bbdbdad211f6edccb9937e008e50bc25cfc9e95a
+app/build/outputs/dashgrid/DashGrid-standalone-v1.0.4.apk
+19,430,832 bytes
+SHA-256 8cf8887082c804106eeeaef3e88e5def383df12bf7c4ebd95e0b72563889f417
 ```
 
 Verified from the APK itself:
 
 ```sh
-apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.0.3.apk
-aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.0.3.apk
-aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-standalone-v1.0.3.apk
+apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.0.4.apk
+aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.0.4.apk
+aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-standalone-v1.0.4.apk
 ```
 
-- `package: io.dashgrid.app`, `versionCode 10003`, `versionName 1.0.3`;
+- `package: io.dashgrid.app`, `versionCode 10004`, `versionName 1.0.4`;
 - `application-label: DashGrid`;
 - signature: v1 + v2, one signer, `CN=DashGrid`, SHA-256
   `4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5`;
@@ -68,7 +68,7 @@ aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGri
 
 ```sh
 adb uninstall net.prototux.aare   # required for the standalone APK
-adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.3.apk
+adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.4.apk
 
 # Preview without a car
 # DashGrid → Settings → Workspaces → Preview car screen

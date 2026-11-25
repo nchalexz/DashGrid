@@ -454,6 +454,11 @@ private fun WorkspaceEditor(
             else stringResource(R.string.workspaces_capacity, workspace.items.size, workspace.capacity),
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
+        Toggle(
+            stringResource(R.string.workspaces_close_hidden_title),
+            stringResource(R.string.workspaces_close_hidden_subtitle),
+            workspace.closeAppsWhenHidden,
+        ) { close -> onChange(workspace.copy(closeAppsWhenHidden = close)) }
 
         SelectionSummary(workspace, selected, appLabels)
         WorkspaceGrid(

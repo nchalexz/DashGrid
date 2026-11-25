@@ -12,15 +12,15 @@
 </p>
 
 <p align="center">
-  <img alt="version 1.0.3" src="https://img.shields.io/badge/version-1.0.3-36D6C3?style=flat-square&labelColor=101418">
+  <img alt="version 1.0.4" src="https://img.shields.io/badge/version-1.0.4-36D6C3?style=flat-square&labelColor=101418">
   <img alt="Android 6+" src="https://img.shields.io/badge/Android-6%2B-36D6C3?style=flat-square&labelColor=101418">
   <img alt="GPL-3.0" src="https://img.shields.io/badge/licence-GPL--3.0-94A3B8?style=flat-square&labelColor=101418">
   <img alt="fork of AARE" src="https://img.shields.io/badge/fork-AARE-94A3B8?style=flat-square&labelColor=101418">
 </p>
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.3/DashGrid-standalone-v1.0.3.apk">
-    <img alt="Download DashGrid v1.0.3" src="https://img.shields.io/badge/Download-DashGrid--v1.0.3-36D6C3?style=for-the-badge&labelColor=101418">
+  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.4/DashGrid-standalone-v1.0.4.apk">
+    <img alt="Download DashGrid v1.0.4" src="https://img.shields.io/badge/Download-DashGrid--v1.0.4-36D6C3?style=for-the-badge&labelColor=101418">
   </a>
 </p>
 
@@ -67,6 +67,10 @@ a layout preview. The car screen stays a viewer, with no setup panels in the way
 media session — artwork, track, progress, seek, play/pause and skip — even for players that don't
 expose a car library. No root and no Google Play Services.
 
+**Let it go when you leave.** Each workspace can close its apps when you switch away: this releases
+the car-side sessions and surfaces of that page and pauses its music. Leave the option off and
+routes, playback and app state stay alive, as before.
+
 **Keep your own identity.** Different application ID, signing key, icon and theme from AARE. The
 published build stands on its own.
 
@@ -86,12 +90,12 @@ it first; that also removes AARE's settings.
 
 ```sh
 adb uninstall net.prototux.aare
-adb install -r DashGrid-standalone-v1.0.3.apk
+adb install -r DashGrid-standalone-v1.0.4.apk
 ```
 
-- Download: [DashGrid-standalone-v1.0.3.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.3/DashGrid-standalone-v1.0.3.apk)
-- Package: `io.dashgrid.app`, version 1.0.3 (10003)
-- SHA-256: `ceda3f9aff5b886e81dbb1d9bbdbdad211f6edccb9937e008e50bc25cfc9e95a`
+- Download: [DashGrid-standalone-v1.0.4.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.4/DashGrid-standalone-v1.0.4.apk)
+- Package: `io.dashgrid.app`, version 1.0.4 (10004)
+- SHA-256: `8cf8887082c804106eeeaef3e88e5def383df12bf7c4ebd95e0b72563889f417`
 - Signed with DashGrid's own key (`CN=DashGrid`); future updates must use the same key.
 
 Prefer to keep AARE installed? The side-by-side variant is still buildable locally with
@@ -114,11 +118,11 @@ sdk.dir=/path/to/android-sdk
 
 # Published standalone release APK
 ./gradlew dashgridStandaloneApk
-# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.3.apk
+# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.4.apk
 
 # Side-by-side variant for installing next to AARE (local use)
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.3.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.0.4.apk
 ```
 
 Signing reads `keystore.properties`, which is not committed. See
@@ -155,8 +159,8 @@ DashGrid.
 - Страницы листаются свайпом или точками; название на панели можно отключить.
 - Сетка 10 × 6: перетаскивание, изменение размера, объединение ячеек.
 - Живые панели приложений и виджеты; карту и музыку можно закрепить за приложением.
-- Музыка не прерывается при переключении страниц.
-- Установка: [DashGrid-standalone-v1.0.3.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.3/DashGrid-standalone-v1.0.3.apk).
+- Музыка не прерывается при переключении страниц; для каждого стола можно включить закрытие приложений при скрытии.
+- Установка: [DashGrid-standalone-v1.0.4.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.4/DashGrid-standalone-v1.0.4.apk).
   AARE нужно удалить: standalone-сборка не ставится рядом с ним.
 
 ## Licence

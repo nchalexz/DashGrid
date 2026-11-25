@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Apps
+import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Navigation
 import androidx.compose.material.icons.rounded.Pause
 import androidx.compose.material.icons.rounded.PlayArrow
@@ -67,7 +69,7 @@ internal fun ClassicShell(
                     Spacer(Modifier.weight(1f))
                     PhoneStatusIcons(state.chrome)
                 }
-                ContentArea(state, actions, appContent, navMap, Modifier.weight(1f).fillMaxWidth(), launcherHome = true)
+                ContentArea(state, actions, appContent, navMap, Modifier.weight(1f).fillMaxWidth())
                 BottomBar(state, actions)
             }
             overlay(Modifier.align(Alignment.BottomCenter))
@@ -85,10 +87,11 @@ private fun BottomBar(state: CarUiState, actions: CarActions) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        // Home: the app grid; on the app grid, back to the app used last.
-        val last = state.recentAppIds.firstNotNullOfOrNull(state::app)
-        RoundIcon(Icons.Rounded.RadioButtonChecked, stringResource(R.string.dash_menu_home), filled = false) {
-            if (state.screen is CarScreen.App || last == null) actions.goHome() else actions.openApp(last)
+        // Home: on a workspace it opens the app grid; in an app or the grid it returns to the
+        // workspace the driver left from.
+        val onWorkspace = state.screen == CarScreen.Dashboard
+        RoundIcon(if (onWorkspace) Icons.Rounded.Apps else Icons.Rounded.Home, stringResource(R.string.dash_menu_home), filled = false) {
+            if (onWorkspace) actions.openLauncher() else actions.goHome()
         }
         Box(Modifier.weight(1f)) { ActivityPill(state, actions) }
         NotificationBell(state) { state.apps.firstOrNull { it.kind == CarAppKind.NOTIFICATIONS }?.let(actions::openApp) }

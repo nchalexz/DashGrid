@@ -1,0 +1,1 @@
+Home from an app returns to the last workspace; standalone-only release.

@@ -110,13 +110,14 @@ private fun Dock(state: CarUiState, actions: CarActions, horizontal: Boolean = f
             else Icon(Icons.Rounded.Mic, "Voice", tint = if (state.listening) scheme.onPrimary else scheme.onSecondaryContainer)
         }
     }
-    // The home button: the app grid, or the dashboard when already on it.
+    // The home button: on a workspace it opens the app grid; anywhere else it returns to the
+    // workspace the driver left, never to the all-apps grid.
     val homeButton: @Composable () -> Unit = {
-        val home = state.screen == CarScreen.Launcher
+        val onWorkspace = state.screen == CarScreen.Dashboard
         Box(Modifier.size(52.dp).clip(LocalCarTheme.current.appIcon).background(MaterialTheme.colorScheme.secondaryContainer)
-            .carClickable(LocalCarTheme.current.appIcon) { if (home) actions.goHome() else actions.openLauncher() }, contentAlignment = Alignment.Center) {
-            Icon(if (home) Icons.Rounded.SpaceDashboard else Icons.Rounded.Apps, if (home) "Dashboard" else "Home",
-                tint = MaterialTheme.colorScheme.onSecondaryContainer)
+            .carClickable(LocalCarTheme.current.appIcon) { if (onWorkspace) actions.openLauncher() else actions.goHome() }, contentAlignment = Alignment.Center) {
+            Icon(if (onWorkspace) Icons.Rounded.Apps else Icons.Rounded.SpaceDashboard,
+                if (onWorkspace) "Apps" else "Home", tint = MaterialTheme.colorScheme.onSecondaryContainer)
         }
     }
     if (horizontal) {

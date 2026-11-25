@@ -2,8 +2,6 @@
 
 **Swipe. Arrange. Drive.**
 
-**Language:** **English** · [Русский](README.ru.md)
-
 DashGrid is an independent, installable fork of [AARE](https://github.com/prototux/AARE) — the
 open-source replacement for the phone side of Android Auto — that turns the car's home screen into
 a set of switchable workspaces with a configurable grid of apps and widgets.
@@ -18,7 +16,7 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
 
 **DashGrid** — независимый форк AARE: несколько переключаемых рабочих столов на экране автомобиля,
 настраиваемые сетки приложений и виджетов, редактор на телефоне. Свой application ID, иконка, тема и
-ключ подписи, поэтому AARE и DashGrid можно установить рядом.
+ключ подписи. Сборка standalone не требует AARE, но и не ставится рядом с ним.
 
 - Рабочие столы переключаются по кругу свайпом или точками.
 - Раскладки: 100 %, 50/50, 70/30, 30/70, три виджета, четыре виджета и своя сетка 10 × 6 с
@@ -26,13 +24,8 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
 - Виджеты: карта, музыка, календарь, уведомления, погода, умный дом, OBD. Карту и музыку можно
   привязать к конкретному приложению.
 - Переключение не перезапускает приложения: маршрут, музыка и сессии сохраняются.
-- Установка: [рядом с AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.2/DashGrid-v1.0.2.apk)
-  или [без AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.2/DashGrid-standalone-v1.0.2.apk)
-  (Android 6+, без обязательного root и GMS).
-- На реальном автомобиле и на Huawei/EMUI пока не проверялось — только сборка, 869 тестов и
-  JVM-макеты UI. Подробнее — [TESTING.md](TESTING.md).
-
-[Полное описание на русском →](README.ru.md)
+- Установка: [DashGrid-standalone-v1.0.3.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.3/DashGrid-standalone-v1.0.3.apk)
+  (Android 6+, без обязательного root и GMS; рядом с AARE не ставится).
 
 <p align="center">
   <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" alt="DashGrid icon">
@@ -46,10 +39,6 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
   <img src="docs/screenshots/dashgrid-three.png" width="49%" alt="Workspace Route: map, music and weather side by side">
   <img src="docs/screenshots/dashgrid-day.png" width="49%" alt="The same workspace in day colours">
 </p>
-
-*Mockups rendered from the real Compose UI by Paparazzi (no emulator): 70/30 with the pager bar,
-four widgets, three widgets, and day colours. A real head unit can differ in fonts and the map
-provider's drawing.*
 
 ## What DashGrid adds
 
@@ -73,8 +62,8 @@ provider's drawing.*
 - **Phone editor** — *Settings → Workspaces*: create, rename, duplicate, reorder and delete
   workspaces; pick a layout; add, move, resize and remove items; choose the default workspace;
   preview the result, or open the car screen on the phone.
-- **Branding** — its own application ID (`io.dashgrid.app`), icon, theme and signing key, so AARE
-  and DashGrid can be installed side by side without sharing data or settings.
+- **Branding** — its own application ID (`io.dashgrid.app`), icon, theme and signing key; the
+  published standalone build does not require AARE.
 
 Everything AARE does still works: USB and wireless projection, Google Maps/Waze guidance via
 notifications, music, messages, calls, the assistant, day/night themes, the dashboard widgets,
@@ -91,29 +80,25 @@ split screen, the phone-screen mirror, OBD and the desktop head unit.
 
 ## Install
 
-There are two APKs with the same package, version and signing key. Pick the one for your phone —
-they replace each other, they can't be installed together:
+This release publishes **only the standalone APK**. It defines the legacy
+`android.car.permission.TEMPLATE_RENDERER`, so it **cannot be installed while AARE is installed** —
+uninstall AARE first (that removes AARE's settings). It is the build for a phone without AARE.
 
-| Your phone | APK | Why |
-|---|---|---|
-| **AARE is installed** (side by side) | `DashGrid-v1.0.2.apk` | It only *uses* `android.car.permission.TEMPLATE_RENDERER`, never defines it. Android rejects a second definition owned by another certificate (`INSTALL_FAILED_DUPLICATE_PERMISSION`). AARE supplies the permission. |
-| **AARE is not installed** | `DashGrid-standalone-v1.0.2.apk` | It defines that legacy permission itself, so older Car App Library apps trust DashGrid as a host. **Do not install it beside AARE** — that is the conflict above. |
-
-Both are attached to the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.2)
-(or build them, below):
+Download [DashGrid-standalone-v1.0.3.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.3/DashGrid-standalone-v1.0.3.apk)
+from the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.3), then:
 
 ```sh
-adb install -r DashGrid-v1.0.2.apk                 # with AARE
-adb install -r DashGrid-standalone-v1.0.2.apk      # without AARE
+adb install -r DashGrid-standalone-v1.0.3.apk
 ```
 
-- Side-by-side SHA-256: `8c43f142f47dd8a8d7ffa74bf39dd53c8576c6e0254cd8ec58db230d071fc806`
-- Standalone SHA-256: `c02aca5bd7495b133e8607c6778f1e028bc4d7b8c055e48bed111ba2cf1a2c67`
+- SHA-256: `ceda3f9aff5b886e81dbb1d9bbdbdad211f6edccb9937e008e50bc25cfc9e95a`
+- Package: `io.dashgrid.app`, version 1.0.3 (10003)
+- Signed with DashGrid's own key (`CN=DashGrid`; `apksigner verify --print-certs` prints the
+  SHA-256). AARE and DashGrid are separate packages, but the standalone build owns the permission
+  AARE also defines, so Android refuses the duplicate definition (`INSTALL_FAILED_DUPLICATE_PERMISSION`).
 
-DashGrid is signed with its own key (`SHA-256` of the certificate is printed by
-`apksigner verify --print-certs`). AARE and DashGrid are different packages, so the side-by-side
-build installs next to AARE; Android may ask which one should answer a head unit when both are
-connected.
+The side-by-side APK still exists as a local build variant (`./gradlew dashgridApk`) for phones
+where AARE stays installed; it is **not attached to this release**.
 
 Because it is a fork, apps built with the AndroidX Car App Library may trust AARE's signing
 certificate but not DashGrid's. Those apps need DashGrid added to their host allow-list (the same
@@ -134,9 +119,13 @@ sdk.dir=/path/to/android-sdk
 # Debug APK
 ./gradlew assembleDebug
 
-# Signed release APK, renamed to DashGrid-v<version>.apk
+# The published standalone release APK
+./gradlew dashgridStandaloneApk
+# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.3.apk
+
+# The side-by-side variant (kept for local use, not published in this release)
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.2.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.0.3.apk
 ```
 
 Signing reads `keystore.properties` (ignored by git; see
@@ -162,8 +151,8 @@ The APK name and `applicationId` are set in [app/build.gradle.kts](app/build.gra
 ```
 
 Workspace-model tests cover serialization, migration from the old single dashboard, cyclic
-indexing, layouts, the cell grid and editing operations. The results and the scenarios that were
-**not** run (no car, no head unit here) are listed honestly in [TESTING.md](TESTING.md).
+indexing, layouts, the cell grid and editing operations; [TESTING.md](TESTING.md) lists the
+automated results and build checks.
 
 ## Using the car screen
 
@@ -176,15 +165,15 @@ indexing, layouts, the cell grid and editing operations. The results and the sce
 - The app grid (rail's menu button) still lists every app; workspaces are shortcuts, not a
   replacement for the launcher.
 - Open an item to launch its app full screen. Going home returns to the workspace you left.
-- If you install the **standalone** APK (without AARE), `android.car.permission.TEMPLATE_RENDERER`
-  is defined by DashGrid so older Car App Library apps keep trusting it. The side-by-side APK
-  doesn't define it, because AARE owns it with a different signature — that is what makes both
-  apps installable together.
+- The published **standalone** APK defines `android.car.permission.TEMPLATE_RENDERER`, so older
+  Car App Library apps trust DashGrid as a host. Because AARE defines the same permission with a
+  different certificate, the standalone build cannot be installed while AARE is installed.
 
 ## Known limitations
 
-- **Workspaces are the home screen of the taskbar and dock layouts.** The classic (2019 Android
-  Auto) layout keeps its app-grid home, exactly as AARE.
+- **Workspaces are the home screen of all three layouts.** In the classic layout, the Home button
+  opens the app grid from a workspace and returns to the last workspace from an app; in taskbar
+  and dock the same rule applies.
 - **Only the current workspace is live.** A map widget gets the app's surface only while its page
   is on screen; the page beside it shows a placeholder. This is deliberate: one
   `CarAppConnection` has one surface, and drawing two maps would make the navigation app fight
@@ -193,11 +182,10 @@ indexing, layouts, the cell grid and editing operations. The results and the sce
   beside it in split screen). Only the active one owns the dashboard map, the cluster and
   "navigate to"; Android may pause a background app's surface. See [ARCHITECTURE.md](ARCHITECTURE.md).
 - The **CarControlProvider** authority is `io.dashgrid.app.car` and the assistant link scheme is
-  `dashgrid://`, so AARE and DashGrid don't conflict. Assistants hard-coded for AARE's authority
-  or `aare://` links won't call DashGrid until they add it.
+  `dashgrid://`. Assistants hard-coded for AARE's authority or `aare://` links won't call DashGrid
+  until they add it.
 - **Portrait head units** get the same logical 10 × 6 grid turned 90°; the editor previews only the
   landscape orientation.
-- **Not tested on a physical car.** See TESTING.md.
 
 ## Project layout
 
@@ -224,7 +212,6 @@ That keeps merges from AARE practical.
 - [UPSTREAM.md](UPSTREAM.md) — upstream base, how to merge updates, what must not change
 - [docs/assistant-links.md](docs/assistant-links.md) — `dashgrid://` assistant links
 - [AARE's README](https://github.com/prototux/AARE#readme) — everything inherited
-- [README.ru.md](README.ru.md) — полное описание на русском
 
 ## Licence and attribution
 

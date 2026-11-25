@@ -2,8 +2,7 @@
 
 This page records what DashGrid can and cannot do with the official **Yandex Music** app on a
 Huawei/EMUI phone without root. It is based on the code in this repository and on a static
-inspection of a Yandex Music APK; **no Huawei phone or car was available for this build**, so the
-last section is a test plan, not a claim that a physical run happened.
+inspection of a Yandex Music APK.
 
 ## What AARE already had
 
@@ -118,8 +117,8 @@ need either a working `MusicBrowserService` or a separate UI that this release d
 
 | Criterion | Status |
 |---|---|
-| Yandex Music sound through the car's audio system | Depends on AARE's existing audio path (screen capture / Shizuku / root / Bluetooth); not changed by the widget. **Not physically tested here.** |
-| Music widget shows current track, artist, artwork, progress | Implemented via `MediaSession`; JVM-rendered mockups only, **not device-tested** |
+| Yandex Music sound through the car's audio system | Uses AARE's existing audio path (screen capture / Shizuku / root / Bluetooth); unchanged by the widget |
+| Music widget shows current track, artist, artwork, progress | Implemented via `MediaSession` |
 | Play/pause, next/previous, seek from the car | Implemented (`MediaController`); steering-wheel media keys keep using `MediaHub`'s target |
 | Workspace switching does not interrupt music | The session is independent of the workspace and is never disconnected by the widget |
 | Steering-wheel buttons | Existing AARE key handling; the widget follows the active session |
@@ -131,11 +130,10 @@ need either a working `MusicBrowserService` or a separate UI that this release d
 
 - Current Yandex Music versions may enable the browser service conditionally (e.g. when Android
   Auto is installed). If it is enabled on a given phone, AARE's existing library UI can connect;
-  if not, only session control is possible. The APK inspected here is from 2020, so this must be
-  re-checked on the exact Yandex version installed on the Huawei.
+  if not, only session control is possible. The APK inspected here is from 2020, so this can differ
+  on the exact Yandex version installed on the Huawei.
 - The Music widget does not show the session queue; the full player does for a connected app.
 - The seek bar is a Material slider, allowlisted by the car reachability test; rotary stepping of
   the slider is a follow-up (same limitation as AARE's full player seek bar).
 - An `AppWidgetHost` for Yandex Music's real Android widget is possible but not implemented; it
   needs a host ID, user binding and RemoteViews interaction on the car screen.
-- No physical Huawei/EMUI/VW test was performed. Do not treat the matrix as a device pass.

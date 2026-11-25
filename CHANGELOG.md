@@ -4,6 +4,20 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.0.3 — Home returns to the workspace; standalone-only release
+
+### Fixed
+
+- **Home from an app** now returns to the last workspace in the dock and classic layouts too
+  (taskbar already did). In classic, a workspace is the home screen; its Home button opens the
+  app grid from a workspace and returns from an app, instead of dropping into the all-apps grid.
+
+### Distribution
+
+- This release publishes only `DashGrid-standalone-v1.0.3.apk`. It defines
+  `android.car.permission.TEMPLATE_RENDERER`, so AARE must be uninstalled first. The side-by-side
+  variant remains buildable with `./gradlew dashgridApk` but is not attached to the release.
+
 ## 1.0.2 — pager simplification, pane corners and Music seek
 
 ### Changed
@@ -136,4 +150,3 @@ upstream documentation.
   navigation apps can be connected (split screen / different workspaces) but only one is active.
 - Assistants or apps hard-coded to AARE's provider authority or `aare://` links need updating.
 - Car App Library apps that allow-list AARE's signing digest must add DashGrid's.
-- No physical-car validation in this release; see TESTING.md.

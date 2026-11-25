@@ -22,16 +22,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           version="${GITHUB_REF_NAME#dashgrid-v}"
-          apk="dist/DashGrid-v${version}.apk"
           standalone="dist/DashGrid-standalone-v${version}.apk"
-          test -f "$apk" || { echo "missing $apk" >&2; exit 1; }
           test -f "$standalone" || { echo "missing $standalone" >&2; exit 1; }
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release edit "$GITHUB_REF_NAME" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
-            gh release upload "$GITHUB_REF_NAME" "$apk" "$standalone" --clobber
+            gh release upload "$GITHUB_REF_NAME" "$standalone" --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$apk" "$standalone" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
+            gh release create "$GITHUB_REF_NAME" "$standalone" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
           fi
+          # This release publishes only the standalone APK; drop a side-by-side asset if an older
+          # run of this workflow uploaded one.
+          gh release delete-asset "$GITHUB_REF_NAME" "DashGrid-v${version}.apk" --yes >/dev/null 2>&1 || true
       - name: Hide older releases
         env:
           GH_TOKEN: ${{ github.token }}

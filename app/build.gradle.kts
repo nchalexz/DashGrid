@@ -74,6 +74,15 @@ android {
                 enable = false
             }
         }
+        // A variant for phones without AARE: it defines android.car.permission.TEMPLATE_RENDERER
+        // itself (see src/standalone/AndroidManifest.xml). The default release must not define it,
+        // or Android refuses to install it beside AARE, which owns the permission with another
+        // certificate. Same application id, version and signing key: pick one variant per phone.
+        create("standalone") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.findByName("release")
+            matchingFallbacks += listOf("release")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -105,11 +114,28 @@ android {
 val dashgridVersion = providers.gradleProperty("versionName").orNull ?: dashgridVersionName
 tasks.register<Copy>("dashgridApk") {
     group = "build"
-    description = "Builds the signed release APK as DashGrid-v$dashgridVersion.apk"
+    description = "Builds the signed side-by-side APK as DashGrid-v$dashgridVersion.apk"
     dependsOn("assembleRelease")
     from(layout.buildDirectory.file("outputs/apk/release/app-release.apk"))
     into(layout.buildDirectory.dir("outputs/dashgrid"))
     rename("app-release\\.apk", "DashGrid-v$dashgridVersion.apk")
+}
+
+/** The standalone variant: only for phones where AARE is not installed. */
+tasks.register<Copy>("dashgridStandaloneApk") {
+    group = "build"
+    description = "Builds the standalone signed APK as DashGrid-standalone-v$dashgridVersion.apk"
+    dependsOn("assembleStandalone")
+    from(layout.buildDirectory.file("outputs/apk/standalone/app-standalone.apk"))
+    into(layout.buildDirectory.dir("outputs/dashgrid"))
+    rename("app-standalone\\.apk", "DashGrid-standalone-v$dashgridVersion.apk")
+}
+
+/** Both APKs, for a release that lets the user pick based on whether AARE is installed. */
+tasks.register("dashgridApks") {
+    group = "build"
+    description = "Builds both signed APKs (side-by-side and standalone)"
+    dependsOn("dashgridApk", "dashgridStandaloneApk")
 }
 
 dependencies {

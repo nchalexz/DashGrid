@@ -9,14 +9,13 @@
 
     <!--
       Car App Library apps only accept hosts they trust. Apps built with androidx.car.app up to
-      1.8.0-beta01 also trust a host that holds this permission; on a phone no system package
-      defines it, so we define it (normal protection) and hold it. Newer library versions ignore it
-      on phones: those apps need our signing digest in their allow-list instead (see docs).
+      1.8.0-beta01 also trust a host that holds this permission. DashGrid must NOT define it:
+      Android rejects installing an app that redefines a permission another app (AARE) already
+      owns with a different signing certificate (INSTALL_FAILED_DUPLICATE_PERMISSION). If AARE is
+      installed it defines the permission and DashGrid holds it; on a phone with no host defining
+      it, the declaration is inert and apps built with the old library fall back to their host
+      allow-list (as they already must for newer library versions).
     -->
-    <permission
-        android:name="android.car.permission.TEMPLATE_RENDERER"
-        android:protectionLevel="normal"
-        tools:ignore="ReservedSystemPermission" />
     <uses-permission android:name="android.car.permission.TEMPLATE_RENDERER" />
 
     <uses-permission android:name="android.permission.INTERNET" />

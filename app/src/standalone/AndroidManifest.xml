@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The standalone build (without AARE installed) defines the legacy Car App Library host
+  permission itself. The default build must not: AARE already owns that permission with a
+  different signing certificate, and Android refuses to install a second definition
+  (INSTALL_FAILED_DUPLICATE_PERMISSION). See app/src/main/AndroidManifest.xml.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <permission
+        android:name="android.car.permission.TEMPLATE_RENDERER"
+        android:protectionLevel="normal"
+        tools:ignore="ReservedSystemPermission" />
+</manifest>

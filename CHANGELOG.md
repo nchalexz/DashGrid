@@ -54,6 +54,14 @@ Internal Java/Kotlin packages deliberately stay `net.prototux.aare…`: renaming
 upstream merges and bug reports much harder. The application ID is the Android identity, and it is
 different, so AARE and DashGrid install side by side with independent data.
 
+### Packaging
+
+- Two signed APKs: `DashGrid-v1.0.0.apk` for installing **beside AARE** (it only uses, never
+  declares, `android.car.permission.TEMPLATE_RENDERER`) and
+  `DashGrid-standalone-v1.0.0.apk` for phones **without AARE** (it declares the legacy permission
+  so older Car App Library apps trust the host). This fixes
+  `INSTALL_FAILED_DUPLICATE_PERMISSION` when AARE is installed.
+
 ### Preserved from AARE
 
 USB/wireless Android Auto projection, AAP transport and TLS, the certificate download, audio and

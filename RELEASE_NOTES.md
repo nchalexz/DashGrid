@@ -15,18 +15,26 @@ and assistant.
 - Only the visible workspace is composed; app sessions, routes and playback survive switching.
 - Own application ID (`io.dashgrid.app`), icon, theme and signing key: installs beside AARE.
 
-## Install
+## Install — pick one APK
 
-Download `DashGrid-v1.0.0.apk` below and open it, or:
+AARE installed? Use the **side-by-side** APK. Without AARE? Use the **standalone** APK. They share
+the package, version and key, so they replace each other; the standalone one must not be installed
+beside AARE (it defines `android.car.permission.TEMPLATE_RENDERER`, which AARE owns with another
+certificate, and Android refuses the duplicate definition).
 
 ```sh
-adb install -r DashGrid-v1.0.0.apk
+adb install -r DashGrid-v1.0.0.apk                 # with AARE
+adb install -r DashGrid-standalone-v1.0.0.apk      # without AARE
 ```
 
-- Package: `io.dashgrid.app`
-- Version: 1.0.0 (10000)
-- SHA-256 of the APK: `e9f801b38310b186fd9dcdd8d66c56258b754b4db1d3d713c27f920e0c6c657e`
+- Package: `io.dashgrid.app`, version 1.0.0 (10000)
+- Side-by-side SHA-256: `9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a`
+- Standalone SHA-256: `7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e`
 - Signed with DashGrid's own key (not AARE's); future updates must use the same key.
+
+> **Fixed in this build:** the first upload declared the legacy car-host permission itself and EMUI
+> refused to install it beside AARE. The side-by-side APK no longer declares it; the standalone APK
+> keeps it for phones without AARE.
 
 Requires Android 6+ and a car with Android Auto (USB or wireless), or use *Settings →
 Workspaces → Preview car screen* without a car. No root and no Google Play Services are required.

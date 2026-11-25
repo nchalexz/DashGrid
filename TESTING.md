@@ -69,13 +69,21 @@ surfaces, a head unit or EMUI.
 ./gradlew dashgridApk        # successful, signed release
 ```
 
-Release artifact:
+Release artifacts:
 
 ```
-app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
-19,412,904 bytes
-SHA-256 e9f801b38310b186fd9dcdd8d66c56258b754b4db1d3d713c27f920e0c6c657e
+app/build/outputs/dashgrid/DashGrid-v1.0.0.apk                 19,412,884 bytes
+SHA-256 9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a
+
+app/build/outputs/dashgrid/DashGrid-standalone-v1.0.0.apk      19,412,892 bytes
+SHA-256 7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e
 ```
+
+The side-by-side APK must **not** contain a `<permission>` element for
+`android.car.permission.TEMPLATE_RENDERER` (only a `<uses-permission>`); the standalone APK must
+contain it. Otherwise installing beside AARE fails with `INSTALL_FAILED_DUPLICATE_PERMISSION` —
+the failure that was observed on EMUI and fixed here. Both APKs have the same package, version and
+certificate.
 
 Verified from the APK itself:
 
@@ -90,6 +98,8 @@ aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGri
 - signature: v1 (JAR) **true**, v2 **true**, one signer,
   `CN=DashGrid`, SHA-256 `4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5`;
   this is not AARE's release certificate, so the two apps are independent;
+- manifest check: the side-by-side APK has no `<permission>` for `TEMPLATE_RENDERER`; the
+  standalone APK has it (protection level normal);
 - provider authorities in the APK: `io.dashgrid.app.car`, `io.dashgrid.app.shizuku`,
   `androidx.car.app.connection`, `io.dashgrid.app.androidx-startup` — no
   `net.prototux.aare.car`, so installing AARE beside it doesn't clash;

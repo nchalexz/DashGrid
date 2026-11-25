@@ -26,7 +26,8 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
 - Виджеты: карта, музыка, календарь, уведомления, погода, умный дом, OBD. Карту и музыку можно
   привязать к конкретному приложению.
 - Переключение не перезапускает приложения: маршрут, музыка и сессии сохраняются.
-- Установка: [DashGrid-v1.0.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-v1.0.0.apk)
+- Установка: [рядом с AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-v1.0.0.apk)
+  или [без AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-standalone-v1.0.0.apk)
   (Android 6+, без обязательного root и GMS).
 - На реальном автомобиле и на Huawei/EMUI пока не проверялось — только сборка, 867 тестов и
   JVM-макеты UI. Подробнее — [TESTING.md](TESTING.md).
@@ -83,17 +84,29 @@ split screen, the phone-screen mirror, OBD and the desktop head unit.
 
 ## Install
 
-Download [DashGrid-v1.0.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-v1.0.0.apk)
-from the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.0) (or build it,
-below) and open it on the phone:
+There are two APKs with the same package, version and signing key. Pick the one for your phone —
+they replace each other, they can't be installed together:
+
+| Your phone | APK | Why |
+|---|---|---|
+| **AARE is installed** (side by side) | `DashGrid-v1.0.0.apk` | It only *uses* `android.car.permission.TEMPLATE_RENDERER`, never defines it. Android rejects a second definition owned by another certificate (`INSTALL_FAILED_DUPLICATE_PERMISSION`). AARE supplies the permission. |
+| **AARE is not installed** | `DashGrid-standalone-v1.0.0.apk` | It defines that legacy permission itself, so older Car App Library apps trust DashGrid as a host. **Do not install it beside AARE** — that is the conflict above. |
+
+Both are attached to the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.0)
+(or build them, below):
 
 ```sh
-adb install -r DashGrid-v1.0.0.apk
+adb install -r DashGrid-v1.0.0.apk                 # with AARE
+adb install -r DashGrid-standalone-v1.0.0.apk      # without AARE
 ```
 
+- Side-by-side SHA-256: `9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a`
+- Standalone SHA-256: `7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e`
+
 DashGrid is signed with its own key (`SHA-256` of the certificate is printed by
-`apksigner verify --print-certs`). AARE and DashGrid are different packages, so both can be
-installed; Android may ask which one should answer a head unit when both are connected.
+`apksigner verify --print-certs`). AARE and DashGrid are different packages, so the side-by-side
+build installs next to AARE; Android may ask which one should answer a head unit when both are
+connected.
 
 Because it is a fork, apps built with the AndroidX Car App Library may trust AARE's signing
 certificate but not DashGrid's. Those apps need DashGrid added to their host allow-list (the same
@@ -155,6 +168,10 @@ indexing, layouts, the cell grid and editing operations. The results and the sce
 - The app grid (rail's menu button) still lists every app; workspaces are shortcuts, not a
   replacement for the launcher.
 - Open an item to launch its app full screen. Going home returns to the workspace you left.
+- If you install the **standalone** APK (without AARE), `android.car.permission.TEMPLATE_RENDERER`
+  is defined by DashGrid so older Car App Library apps keep trusting it. The side-by-side APK
+  doesn't define it, because AARE owns it with a different signature — that is what makes both
+  apps installable together.
 
 ## Known limitations
 

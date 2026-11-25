@@ -1016,3 +1016,17 @@ authorization is offered only when no other method can work.
   the user turned it off.
 - **The car's notice** when only screen capture is left and it isn't authorized: open AARE on the
   phone, where Android asks.
+
+## Car-host permission: never define it in the side-by-side build
+
+Car App Library apps built up to 1.8.0-beta01 trust a host that holds
+`android.car.permission.TEMPLATE_RENDERER`. AARE defines that permission (normal protection) because
+no system package on a phone does. A second app that defines the same permission with a different
+signing certificate is refused at install time (`INSTALL_FAILED_DUPLICATE_PERMISSION`), as EMUI
+reported when DashGrid was installed beside AARE.
+
+DashGrid's side-by-side APK therefore only requests the permission and never declares it: AARE owns
+the definition, and DashGrid receives the normal permission from it. The standalone build type
+(`app/src/standalone/AndroidManifest.xml`) declares it for phones without AARE; it must not be
+installed beside AARE. The package id, version and signing key are the same, so the two APKs replace
+each other rather than coexist.

@@ -64,15 +64,24 @@ DashGrid — независимый устанавливаемый форк [AAR
 
 ## Установка
 
-Скачайте [DashGrid-v1.0.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-v1.0.0.apk)
-из [релиза](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.0) и откройте на телефоне:
+В релизе два APK с одинаковым пакетом, версией и ключом. Выберите один — они заменяют друг друга и
+вместе не ставятся:
+
+| На телефоне | APK | Почему |
+|---|---|---|
+| **AARE установлен** (рядом) | `DashGrid-v1.0.0.apk` | Только *использует* `android.car.permission.TEMPLATE_RENDERER`, но не объявляет его. Android запрещает второе объявление разрешения, которым владеет другое приложение с иной подписью (`INSTALL_FAILED_DUPLICATE_PERMISSION`). Разрешение даёт AARE. |
+| **AARE не установлен** | `DashGrid-standalone-v1.0.0.apk` | Сам объявляет это устаревшее разрешение, чтобы старые приложения Car App Library доверяли DashGrid как хосту. **Не устанавливайте рядом с AARE** — будет тот же конфликт. |
+
+Оба файла — в [релизе](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.0):
 
 ```sh
-adb install -r DashGrid-v1.0.0.apk
+adb install -r DashGrid-v1.0.0.apk                 # вместе с AARE
+adb install -r DashGrid-standalone-v1.0.0.apk      # без AARE
 ```
 
+- SHA-256 рядом с AARE: `9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a`
+- SHA-256 standalone: `7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e`
 - Пакет: `io.dashgrid.app`, версия 1.0.0 (10000).
-- SHA-256 APK: `e9f801b38310b186fd9dcdd8d66c56258b754b4db1d3d713c27f920e0c6c657e`.
 - Подпись: собственный ключ DashGrid (`CN=DashGrid`), не ключ AARE. Обновления должны быть
   подписаны тем же ключом.
 

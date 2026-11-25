@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,6 +14,8 @@ import net.prototux.aare.car.NextEvent
 import net.prototux.aare.car.Weather
 import net.prototux.aare.notify.PhoneGuidance
 import net.prototux.aare.ui.theme.AareTheme
+import net.prototux.aare.workspace.Workspace
+import net.prototux.aare.workspace.WorkspaceConfig
 
 /**
  * What kind of app an entry in the launcher is, which decides where its UI goes. [EXIT] has no UI:
@@ -149,8 +152,14 @@ class CarUiState {
     var compactRail by mutableStateOf(false)
     /** The space between the rail's apps in dp (a setting; null = the standard one, [railGapDp]). */
     var railSpacing by mutableStateOf<Int?>(null)
-    /** The dashboard's cards, in order (a setting). */
+    /** The dashboard's cards, in order (a setting; the legacy dashboard, and what the first workspace migrates from). */
     var dashboardCards by mutableStateOf(DashCard.DEFAULT)
+    /** Every workspace and how it switches: the car screen's home. */
+    var workspaceConfig by mutableStateOf(WorkspaceConfig.empty())
+    /** The workspace on screen; also saved as the last one shown. */
+    var activeWorkspaceId by mutableStateOf<String?>(null)
+    /** Bumped when workspaces are added, removed or reordered: the pager starts again on the active one. */
+    var workspaceGeneration by mutableIntStateOf(0)
     /** The map keeps the big space wherever it is in [dashboardCards] (a setting). */
     var dashboardMapBig by mutableStateOf(false)
     /** The weather next to the clock (a setting; the weather card is one of [dashboardCards]). */
@@ -179,6 +188,15 @@ class CarUiState {
     var controlScale by mutableStateOf(1f)
 
     fun app(id: String?): CarAppEntry? = apps.firstOrNull { it.id == id }
+
+    /** The workspaces in their order. */
+    val workspaces: List<Workspace> get() = workspaceConfig.workspaces
+
+    /** The workspace on screen, or the one the config says to start on when its id is gone. */
+    val activeWorkspace: Workspace? get() = workspaceConfig.activeOrStart(activeWorkspaceId)
+
+    /** The pager bar is useful only with something to page to. */
+    val showsWorkspaceBar: Boolean get() = workspaceConfig.showBar && workspaces.size > 1
 }
 
 /** The smart-home buttons and values the car shows. */
@@ -226,8 +244,27 @@ interface CarActions {
     fun commitSplitRatio(raw: Float)
     /** The rotary/D-pad knob (or a tap) moved into this pane. */
     fun focusPane(pane: CarPane)
+    /** Show workspace [id] (from the pager, a dot or the phone's settings). */
+    fun selectWorkspace(id: String)
+
+    /** Step [step] workspaces forward around the ring (negative: back). */
+    fun cycleWorkspace(step: Int)
+
     /** Send a home action (its confirmation, if it has one, was already asked). */
     fun runHomeAction(id: String)
+}
+
+/**
+ * The app a workspace item names. The phone's editor stores a package name for a Car App Library
+ * app (it can see the package without a running car session); the car screen resolves it to the
+ * entry it actually has, preferring a hosted navigation app over a launched phone app of the same
+ * package. Built-in apps and media apps are stored by their entry id and match directly.
+ */
+fun CarUiState.workspaceApp(ref: String?): CarAppEntry? {
+    if (ref.isNullOrBlank()) return null
+    apps.firstOrNull { it.id == ref }?.let { return it }
+    return apps.filter { it.packageName == ref }
+        .minByOrNull { if (it.kind == CarAppKind.NAVIGATION) 0 else 1 }
 }
 
 /** The app a message from [packageName] opens: its conversations where the car screen has them, else any app of it. */

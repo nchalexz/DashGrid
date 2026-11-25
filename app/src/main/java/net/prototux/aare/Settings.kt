@@ -102,7 +102,7 @@ class Settings(context: Context) {
 
     /** Check GitHub for a newer release and warn on the home screen. Off never touches the network. */
     var checkUpdates: Boolean
-        get() = prefs.getBoolean("check_updates", true)
+        get() = prefs.getBoolean("check_updates", false)
         set(v) = prefs.edit { putBoolean("check_updates", v) }
 
     // Update-check cache (see UpdateChecker): the latest release seen and its page, when we last
@@ -184,7 +184,7 @@ class Settings(context: Context) {
      * ("car_style"): CarPlay's keeps its look, everyone else gets AARE's.
      */
     var carThemeId: String
-        get() = prefs.getString("style_theme", null) ?: if (legacyCarPlay) "carplay" else "aare"
+        get() = prefs.getString("style_theme", null) ?: if (legacyCarPlay) "carplay" else "dashgrid"
         set(v) = prefs.edit { putString("style_theme", v) }
 
     /** The car screen's layout, an id from `CarLayout`: [carThemeId]'s rule for the old setting. */
@@ -267,7 +267,7 @@ class Settings(context: Context) {
         set(v) = prefs.edit { putBoolean("dark_bar", v) }
 
     /**
-     * Act on `aare://` links from the chosen assistant (AssistantLinkActivity). Off by default: the
+     * Act on `dashgrid://` links from the chosen assistant (AssistantLinkActivity). Off by default: the
      * driver chooses to let the assistant's replies drive the car screen.
      */
     var assistantLinks: Boolean
@@ -290,6 +290,20 @@ class Settings(context: Context) {
     var dashboardMapBig: Boolean
         get() = prefs.getBoolean("dashboard_map_big", false)
         set(v) = prefs.edit { putBoolean("dashboard_map_big", v) }
+
+    /**
+     * DashGrid's workspaces, their order, the default and the last shown, as one versioned JSON
+     * string (see [net.prototux.aare.workspace.WorkspaceJson]). Null before the first load, which
+     * migrates the old single dashboard above into the first workspace.
+     */
+    var workspacesJson: String?
+        get() = prefs.getString("workspaces", null)
+        set(v) = prefs.edit { if (v == null) remove("workspaces") else putString("workspaces", v) }
+
+    /** A saved workspaces string that couldn't be read, kept so a bug can't destroy the user's workspaces. */
+    var workspacesBrokenJson: String?
+        get() = prefs.getString("workspaces_broken", null)
+        set(v) = prefs.edit { if (v == null) remove("workspaces_broken") else putString("workspaces_broken", v) }
 
     /** Car screen colors: follow the car's day/night signal ([THEME_AUTO]), or always [THEME_DARK] / [THEME_LIGHT]. */
     var carTheme: String

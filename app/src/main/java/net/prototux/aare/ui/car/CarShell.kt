@@ -166,7 +166,6 @@ internal fun ContentArea(
     modifier: Modifier,
     launcherHome: Boolean = false,
 ) {
-    val gutter = LocalCarDimens.current.gutter
     // Give rotary / D-pad head units a starting point: focus lands on the first focusable of each
     // screen when it opens, so the highlight is visible without a touch. Harmless on touch units.
     // Asked again on an input mode change: in touch mode the request fails, so the first knob
@@ -185,10 +184,7 @@ internal fun ContentArea(
         label = "screen",
     ) { screen ->
         when (screen) {
-            CarScreen.Dashboard -> if (launcherHome) Launcher(state, actions, Modifier.fillMaxSize()) else Box(Modifier.fillMaxSize()) {
-                Wallpaper(state, Modifier.fillMaxSize())
-                Dashboard(state, actions, navMap, Modifier.fillMaxSize().padding(gutter))
-            }
+            CarScreen.Dashboard -> if (launcherHome) Launcher(state, actions, Modifier.fillMaxSize()) else WorkspaceHome(state, actions, navMap, Modifier.fillMaxSize())
             CarScreen.Launcher -> Launcher(state, actions, Modifier.fillMaxSize())
             is CarScreen.App -> {
                 val app = state.app(screen.appId)
@@ -197,7 +193,7 @@ internal fun ContentArea(
                     app != null && secondary != null -> SplitPane(app, secondary, state, actions, appContent, Modifier.fillMaxSize())
                     app != null -> appContent(app, Modifier.fillMaxSize())
                     launcherHome -> Launcher(state, actions, Modifier.fillMaxSize())
-                    else -> Dashboard(state, actions, navMap, Modifier.fillMaxSize().padding(gutter))
+                    else -> WorkspaceHome(state, actions, navMap, Modifier.fillMaxSize())
                 }
             }
         }
@@ -638,7 +634,7 @@ private fun DashSlot(
 }
 
 @Composable
-private fun Card(modifier: Modifier, onClick: (() -> Unit)? = null, content: @Composable () -> Unit) {
+internal fun Card(modifier: Modifier, onClick: (() -> Unit)? = null, content: @Composable () -> Unit) {
     val r = LocalCarDimens.current.cardRadius
     val border = LocalCarTheme.current.cardBorder
     Box(
@@ -651,8 +647,15 @@ private fun Card(modifier: Modifier, onClick: (() -> Unit)? = null, content: @Co
 }
 
 @Composable
-private fun NavCard(state: CarUiState, actions: CarActions, navMap: @Composable (CarAppEntry, Modifier) -> Unit, modifier: Modifier) {
-    val nav = state.app(state.activeNavAppId)
+internal fun NavCard(
+    state: CarUiState,
+    actions: CarActions,
+    navMap: @Composable (CarAppEntry, Modifier) -> Unit,
+    modifier: Modifier,
+    /** The app this workspace's map widget follows, or null for the app chosen in AARE's settings. */
+    navAppId: String? = null,
+) {
+    val nav = state.app(navAppId ?: state.activeNavAppId)
     val guidance = state.phoneGuidance
     Card(modifier) {
         if (guidance != null) {
@@ -768,9 +771,23 @@ fun AppIcon(app: CarAppEntry, sizeDp: Int) {
 }
 
 @Composable
-private fun MediaCard(state: CarUiState, actions: CarActions, compact: Boolean, modifier: Modifier) {
-    val np = state.nowPlaying
-    val media = state.app(np?.appId ?: state.activeMediaAppId)
+internal fun MediaCard(
+    state: CarUiState,
+    actions: CarActions,
+    compact: Boolean,
+    modifier: Modifier,
+    /** The app this workspace's music widget follows, or null for what is playing / the chosen app. */
+    mediaAppId: String? = null,
+) {
+    // A widget bound to an app shows that app's playback only: another app playing elsewhere is
+    // not this card's music.
+    val pinned = state.app(mediaAppId)
+    // The playing app may be the same package under its media entry id and the pinned widget
+    // under a car-app entry id: compare packages, not only entry ids.
+    val np = state.nowPlaying?.takeIf { now ->
+        mediaAppId == null || now.appId == mediaAppId || (pinned != null && state.app(now.appId)?.packageName == pinned.packageName)
+    }
+    val media = pinned ?: state.app(np?.appId ?: state.activeMediaAppId)
     Card(modifier, onClick = { media?.let(actions::openApp) ?: actions.openLauncher() }) {
         if (np?.art != null && !compact) {
             Image(np.art.asImageBitmap(), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.35f)

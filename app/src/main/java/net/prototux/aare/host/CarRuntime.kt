@@ -80,6 +80,11 @@ import net.prototux.aare.ui.car.NotificationsScreen
 import net.prototux.aare.ui.car.NowPlaying
 import net.prototux.aare.ui.car.RailWidget
 import net.prototux.aare.ui.car.orderKey
+import net.prototux.aare.ui.car.workspaceApp
+import net.prototux.aare.workspace.Workspace
+import net.prototux.aare.workspace.WorkspaceItemKind
+import net.prototux.aare.workspace.WorkspaceStore
+import net.prototux.aare.workspace.cyclicStep
 import net.prototux.aare.ui.car.CarDataScreen
 import net.prototux.aare.ui.car.MediaVideoScreen
 import net.prototux.aare.ui.car.PhoneScreen
@@ -120,6 +125,7 @@ class CarRuntime(
 
     val ui = CarUiState()
     val icons = IconLoader(context, this)
+    private val workspaceStore = WorkspaceStore(settings, context.getString(R.string.workspaces_default_home))
     private val main = Handler(Looper.getMainLooper())
 
     /** Hosted car app connections by entry id. */
@@ -487,6 +493,7 @@ class CarRuntime(
             "car_theme", "rail_position", "style_theme", "style_layout", "style_accent", "dark_bar", "dashboard_cards", "dashboard_map_big", "show_weather", "car_chrome", "ignore_driving",
             "car_text_size", "car_control_size", "night_source", "assistant_stop", "rail_apps", "compact_rail", "rail_spacing", "rail_widgets", "split_screen" -> main.post { applyScreenSettings() }
             "wallpaper" -> main.post { ui.wallpaper = ""; applyScreenSettings() }
+            "workspaces" -> main.post { reloadWorkspaces() }
             // Apps shown or hidden from the phone: update the car's app list now.
             "hidden_apps", "phone_screen", "assistant_pkg", "app_order", "standalone_driving_rules",
             "standalone_apps", "standalone_app_pkgs", "browser", "car_data_app" -> main.post { refreshApps() }
@@ -525,6 +532,7 @@ class CarRuntime(
         // Messages, directions and now playing all need the listener bound: make sure it is.
         CarNotificationListener.rebind(context)
         applyScreenSettings()
+        reloadWorkspaces()
         settings.registerListener(settingsListener)
         refreshApps()
         context.registerReceiver(packageReceiver, IntentFilter().apply {
@@ -702,6 +710,9 @@ class CarRuntime(
             else null
             ui.activeMediaAppId = (lastPicked ?: fallback)?.id
         }
+        // A workspace whose map widget names its navigation app makes that one active once the
+        // app list exists (the car may have started on that workspace before the scan finished).
+        syncWorkspaceNavigation()
     }
 
     /** The weather (every 30 minutes) and the next calendar event (every 5), for the rail and the dashboard. */
@@ -709,15 +720,15 @@ class CarRuntime(
         var lastWeather = 0L
         while (true) {
             val now = System.currentTimeMillis()
-            // For the bar's clock or the dashboard's weather card.
-            if (!settings.showWeather && DashCard.WEATHER !in ui.dashboardCards) ui.weather = null
+            // For the bar's clock, the dashboard's weather card, or a workspace's weather widget.
+            if (!settings.showWeather && !hasWorkspaceWidget("weather")) ui.weather = null
             else if (now - lastWeather > 30 * 60_000) {
                 val where = carLocation ?: DashboardInfo.phoneLocation(context)
                 if (where != null) {
                     kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { DashboardInfo.weather(where) }?.let { ui.weather = it; lastWeather = now }
                 }
             }
-            ui.nextEvents = if (DashCard.CALENDAR in ui.dashboardCards)
+            ui.nextEvents = if (hasWorkspaceWidget("calendar") || DashCard.CALENDAR in ui.dashboardCards)
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { DashboardInfo.nextEvents(context, settings.calendarAgendaCount) } else emptyList()
             kotlinx.coroutines.delay(5 * 60_000)
         }
@@ -960,6 +971,8 @@ class CarRuntime(
         }
 
         override fun goHome() { ui.secondaryAppId = null; ui.screen = CarScreen.Dashboard }
+        override fun selectWorkspace(id: String) { this@CarRuntime.selectWorkspace(id) }
+        override fun cycleWorkspace(step: Int) { this@CarRuntime.cycleWorkspace(step) }
         override fun openLauncher() { ui.secondaryAppId = null; ui.screen = CarScreen.Launcher }
         override fun assistant() { this@CarRuntime.assistant() }
         override fun mediaPlayPause() = media.playPause()
@@ -1090,6 +1103,62 @@ class CarRuntime(
         // An app that doesn't take back as "stop" still loses the car's microphone.
         conn?.stopMicrophone()
         ui.assistantAppId = null
+    }
+
+    // ------------------------------------------------------------------ workspaces
+
+    /** Whether any workspace carries the dashboard widget [id] (weather, calendar…). */
+    private fun hasWorkspaceWidget(id: String): Boolean =
+        ui.workspaceConfig.workspaces.any { ws -> ws.items.any { it.widgetId == id } }
+
+    /** Reads the saved workspaces (migrating the old dashboard on first use) and applies them. */
+    private fun reloadWorkspaces() {
+        val config = workspaceStore.load()
+        val old = ui.workspaceConfig
+        // A pager mid-swipe keeps its pages when only a name or a widget changed; a different list
+        // starts again on the active workspace.
+        if (config.workspaces.map { it.id to it.layout to it.axis } != old.workspaces.map { it.id to it.layout to it.axis }) {
+            ui.workspaceGeneration++
+        }
+        ui.workspaceConfig = config
+        val active = config.activeOrStart(ui.activeWorkspaceId) ?: return
+        ui.activeWorkspaceId = active.id
+        syncWorkspaceNavigation()
+    }
+
+    /**
+     * Shows workspace [id] and remembers it as the last one. Only the screen changes: apps keep
+     * their connections, their routes and their playback, because nothing here disconnects them.
+     */
+    fun selectWorkspace(id: String) {
+        if (ui.workspaceConfig.workspace(id) == null) return
+        if (ui.activeWorkspaceId == id) return
+        ui.activeWorkspaceId = id
+        workspaceStore.setLast(id)
+        syncWorkspaceNavigation()
+    }
+
+    /** Steps [step] workspaces forward on the ring, wrapping from the last to the first and back. */
+    fun cycleWorkspace(step: Int) {
+        val count = ui.workspaces.size
+        if (count < 2) return
+        val current = ui.workspaceConfig.indexOf(ui.activeWorkspaceId).coerceAtLeast(0)
+        selectWorkspace(ui.workspaces[cyclicStep(current, count, step)].id)
+    }
+
+    /**
+     * A workspace's map widget can name the navigation app it shows. Making that workspace visible
+     * makes its app the active one (the dashboard map, the cluster and "navigate to" follow it),
+     * without disconnecting any other navigation app: its own connection and route stay alive.
+     */
+    private fun syncWorkspaceNavigation() {
+        val ws = ui.activeWorkspace ?: return
+        val navAppId = ws.items.firstOrNull { it.kind == WorkspaceItemKind.WIDGET && it.widgetId == "map" }?.appId ?: return
+        val app = ui.workspaceApp(navAppId) ?: return
+        if (!app.isNavigationLike() || ui.activeNavAppId == app.id) return
+        ui.activeNavAppId = app.id
+        settings.lastNavApp = app.packageName
+        if (app.kind == CarAppKind.NAVIGATION) connection(app.id)?.connect()
     }
 
     /** Back key from the car: applies to the focused pane while split, the one app otherwise. */

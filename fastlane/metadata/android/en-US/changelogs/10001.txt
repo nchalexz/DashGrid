@@ -1,0 +1,1 @@
+Live app panes, pinned workspace widgets, Universal Media Bridge for session-only players (Yandex Music), full Russian translations, install fix for AARE coexistence.

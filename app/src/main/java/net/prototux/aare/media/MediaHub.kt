@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.graphics.Bitmap
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 /** A media app found on the phone (media3 MediaLibraryService or legacy MediaBrowserService). */
@@ -26,6 +27,48 @@ data class PlaybackInfo(
     val durationMs: Long,
     /** SystemClock.elapsedRealtime() when positionMs was sampled, to extrapolate progress. */
     val sampledAtMs: Long,
+    /** The active source can be seeked; [positionMs] and [durationMs] are meaningful. */
+    val canSeek: Boolean = false,
+    val canPrevious: Boolean = false,
+    val canNext: Boolean = false,
+    /** Buttons the media session itself offers (media3 custom layout / legacy custom actions). */
+    val actions: List<MediaActionInfo> = emptyList(),
+    /** The app's label, for the source picker; null when the app is not installed. */
+    val label: String? = null,
+)
+
+/** One transport button a media app exposes beyond play/pause and skip. */
+data class MediaActionInfo(val id: String, val label: String)
+
+/** An app with an active media session: what the universal bridge's source picker lists. */
+data class MediaSessionApp(
+    val packageName: String,
+    val label: String,
+    val playing: Boolean,
+)
+
+/**
+ * A fallback for apps whose MediaBrowser library is closed to third-party hosts (Yandex Music on
+ * some builds): the system media session still gives metadata, artwork, progress, transport and
+ * custom actions, and a session-only app can be started from its launcher intent.
+ */
+data class UniversalMediaState(
+    val packageName: String?,
+    val label: String?,
+    val title: String,
+    val artist: String,
+    val album: String,
+    val art: Bitmap?,
+    val playing: Boolean,
+    val positionMs: Long,
+    val durationMs: Long,
+    val sampledAtMs: Long,
+    val canSeek: Boolean,
+    val canPrevious: Boolean,
+    val canNext: Boolean,
+    val actions: List<MediaActionInfo>,
+    /** Other active media sessions, for the source picker. */
+    val sessions: List<MediaSessionApp>,
 )
 
 /**
@@ -43,6 +86,24 @@ interface MediaHub {
 
     /** Connects to [app] (if not already) and makes it the active one. */
     fun select(app: MediaApp)
+
+    /** Active media sessions the universal bridge can show, beyond the connected browser app. */
+    val sessions: StateFlow<List<MediaSessionApp>> get() = MutableStateFlow(emptyList())
+
+    /** Installed music players, including session-only apps with no active session yet. */
+    val musicApps: StateFlow<List<MediaSessionApp>> get() = MutableStateFlow(emptyList())
+
+    /** Follow a session-only app by package (null: automatic, the active player). */
+    fun selectSessionPackage(packageName: String?) {}
+
+    /** Seek the source the bridge currently shows. */
+    fun seekTo(positionMs: Long) {}
+
+    /** Run one of [PlaybackInfo.actions] of the current source. */
+    fun runAction(actionId: String) {}
+
+    /** Start an installed music app on the phone, for a session-only app that isn't running yet. */
+    fun launchApp(packageName: String) {}
 
     /**
      * Waits until the connection to the selected app is ready, at most [timeoutMs]. Also true when the app is

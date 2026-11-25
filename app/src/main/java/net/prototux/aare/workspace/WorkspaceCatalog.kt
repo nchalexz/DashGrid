@@ -45,7 +45,9 @@ object WorkspaceCatalog {
             builtin(context, CarRuntime.PHONE_SCREEN_ID, R.string.phone_section_title, R.drawable.ic_phone_screen, iconSizePx),
         )
         val known = builtins.mapTo(HashSet()) { it.id }
-        val carApps = CarAppCatalog.query(context, iconSizePx)
+        // A headless context (unit tests, previews) can have a PackageManager without
+        // queryIntentServices; the built-in entries still work, so don't fail the editor there.
+        val carApps = runCatching { CarAppCatalog.query(context, iconSizePx) }.getOrDefault(emptyList())
             .map { info ->
                 WorkspaceAppChoice(
                     id = info.packageName,
@@ -59,7 +61,7 @@ object WorkspaceCatalog {
             .distinctBy { it.id }
             .sortedBy { it.label.lowercase() }
         val carPackages = carApps.mapTo(HashSet()) { it.id }
-        val mediaApps = mediaApps(context, iconSizePx)
+        val mediaApps = runCatching { mediaApps(context, iconSizePx) }.getOrDefault(emptyList())
             .filter { it.packageName !in carPackages }
             .sortedBy { it.choice.label.lowercase() }
             .map { it.choice }

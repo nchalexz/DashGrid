@@ -58,7 +58,12 @@ enum class WorkspaceAxis(val id: String) {
 
 /** What an item on a workspace is: a shortcut to an app, or one of AARE's dashboard widgets. */
 enum class WorkspaceItemKind(val id: String) {
+    /** A shortcut tile: the app's icon and label; opening it shows the app full screen. */
     APP("app"),
+
+    /** The app itself, rendered into the item's cells (templates, map, media, a launched app…). */
+    PANE("pane"),
+
     WIDGET("widget");
 
     companion object {
@@ -110,6 +115,11 @@ data class WorkspaceItem(
         /** A new app shortcut, with a fresh id. */
         fun app(appId: String, rect: WorkspaceRect) = WorkspaceItem(
             id = UUID.randomUUID().toString(), kind = WorkspaceItemKind.APP, appId = appId, rect = rect.clamped(),
+        )
+
+        /** A new live app pane, with a fresh id. */
+        fun pane(appId: String, rect: WorkspaceRect) = WorkspaceItem(
+            id = UUID.randomUUID().toString(), kind = WorkspaceItemKind.PANE, appId = appId, rect = rect.clamped(),
         )
 
         /** A new widget, with a fresh id. */
@@ -501,7 +511,7 @@ object WorkspaceJson {
         val kind = WorkspaceItemKind.byId(json.optString("kind")) ?: return null
         val app = json.optString("app").takeIf { it.isNotBlank() }
         val widget = json.optString("widget").takeIf { it.isNotBlank() }
-        if (kind == WorkspaceItemKind.APP && app == null) return null
+        if ((kind == WorkspaceItemKind.APP || kind == WorkspaceItemKind.PANE) && app == null) return null
         if (kind == WorkspaceItemKind.WIDGET && widget == null) return null
         val rect = WorkspaceRect(
             col = json.optInt("col", 0),
@@ -540,7 +550,8 @@ object WorkspaceJson {
             val placed = ArrayList<WorkspaceItem>(ws.items.size)
             val occupied = ArrayList<WorkspaceRect>(ws.items.size)
             for (item in ws.items) {
-                if (item.kind == WorkspaceItemKind.APP && item.appId != null && !usedApps.add(item.appId)) continue
+                if ((item.kind == WorkspaceItemKind.APP || item.kind == WorkspaceItemKind.PANE) &&
+                    item.appId != null && !usedApps.add(item.appId)) continue
                 if (item.kind == WorkspaceItemKind.WIDGET && item.widgetId != null && !usedWidgets.add(item.widgetId)) continue
                 var rect = item.rect.clamped()
                 if (occupied.any { it.overlaps(rect) }) rect = firstFreeRect(occupied, rect.colSpan, rect.rowSpan) ?: continue

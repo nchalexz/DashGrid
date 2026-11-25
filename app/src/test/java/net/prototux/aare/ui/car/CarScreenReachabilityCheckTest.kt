@@ -100,6 +100,12 @@ class CarScreenReachabilityCheckTest {
             "the playback seek bar; stepping it by knob needs carAdjustable, not yet built (issue #320 item 3).",
         ),
         Allowed(
+            "src/main/java/net/prototux/aare/ui/car/MediaBridgeWidget.kt",
+            "Slider(",
+            "the Universal Media Bridge seek bar; touch and rotary focus come from the car UI, knob stepping " +
+                "of the slider is a follow-up (same limitation as the full player's seek bar).",
+        ),
+        Allowed(
             "src/main/java/net/prototux/aare/ui/car/CallCard.kt",
             "detectDragGestures(",
             "repositions the floating in-call strip only, a touch convenience with no knob equivalent; " +

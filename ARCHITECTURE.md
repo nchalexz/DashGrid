@@ -101,8 +101,9 @@ The phone editor (`ui/WorkspaceSettings.kt`) uses the same `WorkspaceStore` and
 - `Workspace.index` is the item's position in `workspaces`; the order is stored once, in the list,
   so reordering can never leave two workspaces with the same number.
 - `WorkspaceItem.kind` is `app` (a shortcut; `app` holds an entry id such as `phone`, or a package
-  name for a Car App Library app) or `widget` (`widget` is a `DashCard` id: `map`, `media`,
-  `calendar`, `notification`, `weather`, `home`, `car`).
+  name for a Car App Library app), `pane` (the app's own UI rendered into the cells) or `widget`
+  (`widget` is a `DashCard` id: `map`, `media`, `media_bridge`, `calendar`, `notification`,
+  `weather`, `home`, `car`).
 - `WorkspaceItem.appId` on a `map` or `media` widget is optional: it pins that widget to an app;
   without it the widget follows the car's active navigation/media app.
 - `WorkspaceItem.settings` is a string map for per-widget settings. This version only uses
@@ -158,8 +159,10 @@ wallpaper once, then a pager:
   when `showBar` is off or there is one workspace. Pages get bottom padding for it, so it never
   covers content.
 
-Items are ordinary Compose: an app shortcut is a card with the app's icon and label; widgets are
-the existing dashboard composables (`NavCard`, `MediaCard`, `CalendarAgendaCard`, `WeatherCard`,
+Items are ordinary Compose: an app shortcut is a card with the app's icon and label; a `pane` runs
+the existing full-screen `appContent` composable (Car App template, map, media, launched app) inside
+its cells, but only while its page is current — inactive pages show a placeholder so no second app
+session is started. Widgets are the existing dashboard composables (`NavCard`, `MediaCard`, `CalendarAgendaCard`, `WeatherCard`,
 `HomeCard`, `LatestNotification`, `ObdDashCard`) inside the same `Card`. Empty widgets show a calm
 placeholder rather than collapsing the grid, so positions stay stable.
 
@@ -288,7 +291,9 @@ car while the phone page was open isn't overwritten.
 | `workspace/WorkspaceModel.kt` | Data classes, presets, cells, cyclic math, JSON, migration |
 | `workspace/WorkspaceStore.kt` | Load/save/migrate through `Settings` |
 | `workspace/WorkspaceCatalog.kt` | Apps the phone editor can add |
-| `ui/car/WorkspaceHome.kt` | Pager, bar, page grid, widgets, placeholders |
+| `ui/car/WorkspaceHome.kt` | Pager, bar, page grid, live app panes, widgets, placeholders |
+| `ui/car/MediaBridgeWidget.kt` | Universal Media Bridge (system media session) |
+| `media/SessionTracker.kt` | Active MediaSession tracking behind the bridge |
 | `ui/WorkspaceSettings.kt` | Phone editor and pickers |
 | `ui/car/CarModel.kt` | Workspace fields in `CarUiState`, `selectWorkspace`/`cycleWorkspace` actions, `workspaceApp` resolver |
 | `host/CarRuntime.kt` | Loading, listener, selection, pinned navigation app |
@@ -296,3 +301,18 @@ car while the phone page was open isn't overwritten.
 | `ui/MainActivity.kt` | Workspaces settings page, About attribution |
 | `ui/theme/CarThemes.kt` | `DashGridTheme` and the brand tokens |
 | `app/build.gradle.kts` | Application ID, version, signing, `dashgridApk` |
+
+## 8. Universal Media Bridge and Yandex Music
+
+The `media_bridge` widget deliberately does not use a MediaBrowser connection. It reads the system
+`MediaSession` through `media/SessionTracker` (`MediaSessionManager`, notification access) and
+controls it with `MediaController`: art, metadata, progress/seek, transport, custom actions, source
+selection and launching a session-only app. `DefaultMediaHub` exposes the active sessions and
+installed players and lets the bridge pin a package; AARE's existing audio path and steering-wheel
+keys are unchanged.
+
+Yandex Music's exported `MusicBrowserService` is declared `android:enabled="false"` in the inspected
+APK, so the full library cannot be opened by a third-party host without enabling the component
+(root/Shizuku) or changing the app. The session bridge is the supported fallback. Full evidence,
+diagnostic commands and the acceptance matrix are in
+[docs/MEDIA_COMPATIBILITY.md](docs/MEDIA_COMPATIBILITY.md).

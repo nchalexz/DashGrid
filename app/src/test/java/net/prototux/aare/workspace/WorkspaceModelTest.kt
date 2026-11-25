@@ -52,6 +52,34 @@ class WorkspaceModelTest {
         assertEquals(-1, toLast - current) // the shortest way back from the first workspace
     }
 
+
+    // ---------------------------------------------------------------- live app panes
+
+    @Test
+    fun paneRequiresAnAppAndRoundTrips() {
+        val pane = WorkspaceItem.pane("com.example.maps", WorkspaceRect(0, 0, 6, 6))
+        val ws = Workspace.create("Panes", WorkspaceLayout.SPLIT_50).withAddedItem(pane)!!
+        val config = WorkspaceConfig(listOf(ws), defaultId = ws.id)
+        val decoded = WorkspaceJson.decode(WorkspaceJson.encode(config))!!
+        val item = decoded.workspaces.single().items.single()
+        assertEquals(WorkspaceItemKind.PANE, item.kind)
+        assertEquals("com.example.maps", item.appId)
+        assertNull(decoded.workspaces.single().item(item.id)?.widgetId)
+    }
+
+    @Test
+    fun aPaneWithoutAnAppIsDroppedAndDuplicatePaneAppsCollapse() {
+        val json = """{"workspaces":[{"id":"w","name":"W","items":[
+            {"kind":"pane","col":0,"row":0,"colSpan":5,"rowSpan":3},
+            {"kind":"pane","app":"com.example","col":0,"row":0,"colSpan":5,"rowSpan":3},
+            {"kind":"pane","app":"com.example","col":5,"row":0,"colSpan":5,"rowSpan":3},
+            {"kind":"pane","app":"com.other","col":0,"row":3,"colSpan":5,"rowSpan":3}]}]}"""
+        val ws = WorkspaceJson.decode(json)!!.workspaces.single()
+        assertEquals(2, ws.items.size)
+        assertEquals(setOf("com.example", "com.other"), ws.items.mapNotNull { it.appId }.toSet())
+        assertFalse(ws.items[0].rect.overlaps(ws.items[1].rect))
+    }
+
     // ---------------------------------------------------------------- layouts
 
     @Test

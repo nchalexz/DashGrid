@@ -91,6 +91,7 @@ import net.prototux.aare.workspace.virtualPageFor
 internal fun WorkspaceHome(
     state: CarUiState,
     actions: CarActions,
+    appContent: @Composable (CarAppEntry, Modifier) -> Unit,
     navMap: @Composable (CarAppEntry, Modifier) -> Unit,
     modifier: Modifier,
 ) {
@@ -108,9 +109,9 @@ internal fun WorkspaceHome(
         Box(modifier.fillMaxSize()) {
             Wallpaper(state, Modifier.fillMaxSize())
             if (workspaces.size == 1) {
-                WorkspacePage(workspaces.first(), state, actions, navMap, Modifier.fillMaxSize(), active = true)
+                WorkspacePage(workspaces.first(), state, actions, appContent, navMap, Modifier.fillMaxSize(), active = true)
             } else {
-                WorkspacePager(workspaces, activeIndex, state, actions, navMap, Modifier.fillMaxSize())
+                WorkspacePager(workspaces, activeIndex, state, actions, appContent, navMap, Modifier.fillMaxSize())
             }
         }
     }
@@ -123,6 +124,7 @@ private fun WorkspacePager(
     startIndex: Int,
     state: CarUiState,
     actions: CarActions,
+    appContent: @Composable (CarAppEntry, Modifier) -> Unit,
     navMap: @Composable (CarAppEntry, Modifier) -> Unit,
     modifier: Modifier,
 ) {
@@ -179,6 +181,7 @@ private fun WorkspacePager(
                     workspace = workspace,
                     state = state,
                     actions = actions,
+                    appContent = appContent,
                     navMap = navMap,
                     modifier = Modifier.fillMaxSize().padding(bottom = barHeight),
                     active = current,
@@ -208,6 +211,7 @@ internal fun WorkspacePage(
     workspace: Workspace,
     state: CarUiState,
     actions: CarActions,
+    appContent: @Composable (CarAppEntry, Modifier) -> Unit,
     navMap: @Composable (CarAppEntry, Modifier) -> Unit,
     modifier: Modifier,
     active: Boolean,
@@ -255,7 +259,7 @@ internal fun WorkspacePage(
                             height = cellHeight * rect.rowSpan + gap * (rect.rowSpan - 1).coerceAtLeast(0),
                         ),
                 ) {
-                    WorkspaceItemContent(item, workspace, state, actions, navMap, active)
+                    WorkspaceItemContent(item, workspace, state, actions, appContent, navMap, active)
                 }
             }
         }
@@ -269,6 +273,7 @@ private fun WorkspaceItemContent(
     workspace: Workspace,
     state: CarUiState,
     actions: CarActions,
+    appContent: @Composable (CarAppEntry, Modifier) -> Unit,
     navMap: @Composable (CarAppEntry, Modifier) -> Unit,
     active: Boolean,
 ) {
@@ -277,6 +282,16 @@ private fun WorkspaceItemContent(
             val app = state.workspaceApp(item.appId)
             if (app != null) WorkspaceAppTile(app, Modifier.fillMaxSize()) { actions.openApp(app) }
             else WidgetPlaceholder(Icons.Rounded.Widgets, stringResource(R.string.workspace_missing_app), null)
+        }
+        WorkspaceItemKind.PANE -> {
+            val app = state.workspaceApp(item.appId)
+            when {
+                app == null -> WidgetPlaceholder(Icons.Rounded.Widgets, stringResource(R.string.workspace_missing_app), null)
+                // Only the page on screen draws a live app: two pages must not own the same
+                // connection's surface, and inactive pages must not run a second session.
+                !active -> WidgetPlaceholder(Icons.Rounded.Apps, app.label, stringResource(R.string.workspace_pane_inactive))
+                else -> appContent(app, Modifier.fillMaxSize())
+            }
         }
         WorkspaceItemKind.WIDGET -> WorkspaceWidget(item, state, actions, navMap, active)
     }
@@ -304,6 +319,9 @@ private fun WorkspaceWidget(
         "media" -> BoxWithConstraints(Modifier.fillMaxSize()) {
             MediaCard(state, actions, compact = maxHeight < 220.dp, modifier = Modifier.fillMaxSize(),
                 mediaAppId = state.workspaceApp(item.appId)?.id)
+        }
+        "media_bridge" -> BoxWithConstraints(Modifier.fillMaxSize()) {
+            MediaBridgeWidget(state, actions, Modifier.fillMaxSize(), compact = maxHeight < 220.dp)
         }
         "calendar" -> {
             val events: List<NextEvent> = state.nextEvents

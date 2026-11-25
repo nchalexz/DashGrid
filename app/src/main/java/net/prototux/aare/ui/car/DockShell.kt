@@ -70,7 +70,7 @@ internal fun DockShell(
             val content: @Composable (Modifier) -> Unit = { modifier ->
                 Box(modifier) {
                     when (val screen = state.screen) {
-                        CarScreen.Dashboard -> WorkspaceHome(state, actions, navMap, Modifier.fillMaxSize().padding(12.dp))
+                        CarScreen.Dashboard -> WorkspaceHome(state, actions, appContent, navMap, Modifier.fillMaxSize().padding(12.dp))
                         CarScreen.Launcher -> Home(state, actions)
                         is CarScreen.App -> state.app(screen.appId)?.let { appContent(it, Modifier.fillMaxSize()) } ?: Home(state, actions)
                     }

@@ -76,6 +76,7 @@ internal class MediaConnection(
 
     override val key = "browser:${app.packageName}"
     override val packageName: String = app.packageName
+    override val label: String = app.label
     override val isConnection = true
 
     private val scope = CoroutineScope(parent.coroutineContext + SupervisorJob(parent.coroutineContext[Job]) + Dispatchers.Main.immediate)
@@ -480,6 +481,11 @@ internal class MediaConnection(
             positionMs = b.currentPosition.coerceAtLeast(0),
             durationMs = b.duration.takeIf { it != C.TIME_UNSET }?.coerceAtLeast(0) ?: 0,
             sampledAtMs = SystemClock.elapsedRealtime(),
+            canSeek = b.isCommandAvailable(Player.COMMAND_SEEK_IN_CURRENT_MEDIA_ITEM) && b.isCurrentMediaItemSeekable,
+            canPrevious = b.isCommandAvailable(Player.COMMAND_SEEK_TO_PREVIOUS),
+            canNext = b.isCommandAvailable(Player.COMMAND_SEEK_TO_NEXT),
+            actions = actionsOf(b).map { MediaActionInfo(it.id, it.label) },
+            label = app.label,
         )
         val error = b.playerError?.let { e ->
             val (label, intent) = errorAction(e.extras)

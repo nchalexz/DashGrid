@@ -26,10 +26,10 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
 - Виджеты: карта, музыка, календарь, уведомления, погода, умный дом, OBD. Карту и музыку можно
   привязать к конкретному приложению.
 - Переключение не перезапускает приложения: маршрут, музыка и сессии сохраняются.
-- Установка: [рядом с AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-v1.0.0.apk)
-  или [без AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-standalone-v1.0.0.apk)
+- Установка: [рядом с AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.1/DashGrid-v1.0.1.apk)
+  или [без AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.1/DashGrid-standalone-v1.0.1.apk)
   (Android 6+, без обязательного root и GMS).
-- На реальном автомобиле и на Huawei/EMUI пока не проверялось — только сборка, 867 тестов и
+- На реальном автомобиле и на Huawei/EMUI пока не проверялось — только сборка, 869 тестов и
   JVM-макеты UI. Подробнее — [TESTING.md](TESTING.md).
 
 [Полное описание на русском →](README.ru.md)
@@ -61,6 +61,11 @@ provider's drawing.*
   10 × 6 grid where items can be dragged, resized and merged into larger cells.
 - **Widgets** — map, music, next calendar event, latest notification, weather, smart-home actions
   and live OBD data, placed per workspace. A map or music widget can follow a specific app.
+- **Live app panes** — render an app's own screen into its cells: Car App templates, a map, a
+  media screen, a launched phone app. Shortcuts stay available as a separate, lighter tile.
+- **Universal Media Bridge** — a widget for apps whose MediaBrowser is closed to third parties
+  (Yandex Music on some builds): artwork, metadata, progress/seek, transport, custom session
+  actions, player picker and app launch, through the system media session. No root/GMS.
 - **App shortcuts** — Car App Library apps, media apps, and DashGrid's built-in screens (phone,
   notifications, browser, car data, Home, OBD, phone screen).
 - **Phone editor** — *Settings → Workspaces*: create, rename, duplicate, reorder and delete
@@ -89,19 +94,19 @@ they replace each other, they can't be installed together:
 
 | Your phone | APK | Why |
 |---|---|---|
-| **AARE is installed** (side by side) | `DashGrid-v1.0.0.apk` | It only *uses* `android.car.permission.TEMPLATE_RENDERER`, never defines it. Android rejects a second definition owned by another certificate (`INSTALL_FAILED_DUPLICATE_PERMISSION`). AARE supplies the permission. |
-| **AARE is not installed** | `DashGrid-standalone-v1.0.0.apk` | It defines that legacy permission itself, so older Car App Library apps trust DashGrid as a host. **Do not install it beside AARE** — that is the conflict above. |
+| **AARE is installed** (side by side) | `DashGrid-v1.0.1.apk` | It only *uses* `android.car.permission.TEMPLATE_RENDERER`, never defines it. Android rejects a second definition owned by another certificate (`INSTALL_FAILED_DUPLICATE_PERMISSION`). AARE supplies the permission. |
+| **AARE is not installed** | `DashGrid-standalone-v1.0.1.apk` | It defines that legacy permission itself, so older Car App Library apps trust DashGrid as a host. **Do not install it beside AARE** — that is the conflict above. |
 
-Both are attached to the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.0)
+Both are attached to the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.1)
 (or build them, below):
 
 ```sh
-adb install -r DashGrid-v1.0.0.apk                 # with AARE
-adb install -r DashGrid-standalone-v1.0.0.apk      # without AARE
+adb install -r DashGrid-v1.0.1.apk                 # with AARE
+adb install -r DashGrid-standalone-v1.0.1.apk      # without AARE
 ```
 
-- Side-by-side SHA-256: `9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a`
-- Standalone SHA-256: `7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e`
+- Side-by-side SHA-256: `7f87b613cb1082a43a976652c949c82959fc8fdbe4b5e33155ed0fd2a67d48a8`
+- Standalone SHA-256: `9d327be358c5354486de242150decf0e1e524eb6863078b70faa676a4352dd7a`
 
 DashGrid is signed with its own key (`SHA-256` of the certificate is printed by
 `apksigner verify --print-certs`). AARE and DashGrid are different packages, so the side-by-side
@@ -129,7 +134,7 @@ sdk.dir=/path/to/android-sdk
 
 # Signed release APK, renamed to DashGrid-v<version>.apk
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
 ```
 
 Signing reads `keystore.properties` (ignored by git; see
@@ -210,6 +215,7 @@ That keeps merges from AARE practical.
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — how workspaces fit into AARE, lifecycle and surfaces
 - [DESIGN.md](DESIGN.md) — colours, icon, type and car-UI rules
+- [docs/MEDIA_COMPATIBILITY.md](docs/MEDIA_COMPATIBILITY.md) — Yandex Music, media sessions and the Universal Media Bridge
 - [CHANGELOG.md](CHANGELOG.md) — what changed relative to AARE 1.6.0
 - [TESTING.md](TESTING.md) — tests run and the manual checklist
 - [UPSTREAM.md](UPSTREAM.md) — upstream base, how to merge updates, what must not change

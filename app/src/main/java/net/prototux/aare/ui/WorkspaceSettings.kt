@@ -29,6 +29,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.ArrowDownward
 import androidx.compose.material.icons.rounded.ArrowUpward
 import androidx.compose.material.icons.rounded.CalendarMonth
@@ -43,6 +44,7 @@ import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.MusicNote
 import androidx.compose.material.icons.rounded.Notifications
+import androidx.compose.material.icons.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.Visibility
@@ -116,11 +118,16 @@ import kotlin.math.roundToInt
  * Long-press an item to drag it; the selected item's width and height merge or give back cells.
  */
 @Composable
-internal fun WorkspacesSettings(settings: Settings) {
+internal fun WorkspacesSettings(
+    settings: Settings,
+    initialEditingId: String? = null,
+    /** A config to show instead of the saved one (headless previews); changes stay in this composition. */
+    initialConfig: WorkspaceConfig? = null,
+) {
     val ctx = LocalContext.current
     val store = remember(settings) { WorkspaceStore(settings, ctx.getString(R.string.workspaces_default_home)) }
-    var config by remember(store) { mutableStateOf(store.load()) }
-    var editingId by rememberSaveable { mutableStateOf<String?>(null) }
+    var config by remember(store, initialConfig) { mutableStateOf(initialConfig ?: store.load()) }
+    var editingId by rememberSaveable { mutableStateOf(initialEditingId) }
     var deleteId by remember { mutableStateOf<String?>(null) }
     var addWidgetTo by remember { mutableStateOf<String?>(null) }
     var appPicker by remember { mutableStateOf<AppPickerRequest?>(null) }
@@ -131,6 +138,10 @@ internal fun WorkspacesSettings(settings: Settings) {
 
     fun commit(next: WorkspaceConfig) {
         if (next == config) return
+        if (initialConfig != null) {
+            config = next
+            return
+        }
         // The car keeps the last workspace shown in the same file; don't overwrite a switch made
         // while this page was open with the value it was opened with.
         val savedLast = store.load().lastId
@@ -474,11 +485,30 @@ private fun WorkspaceEditor(
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
 
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.workspaces_pane_hint), style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedButton(onClick = onAddWidget) {
                 Icon(Icons.Rounded.Add, null)
                 Spacer(Modifier.width(6.dp))
                 Text(stringResource(R.string.workspaces_add_widget))
+            }
+            OutlinedButton(onClick = {
+                onPickApp(AppPickerRequest(
+                    workspaceId = workspace.id,
+                    titleRes = R.string.workspaces_choose_app,
+                    apply = { appId ->
+                        if (appId != null && appId !in workspace.appIds()) {
+                            val added = workspace.withAddedItem(WorkspaceItem.pane(appId, WorkspaceRect(0, 0, 1, 1)))
+                            if (added == null) Toast.makeText(context, R.string.workspaces_no_space, Toast.LENGTH_SHORT).show()
+                            else onChange(added)
+                        }
+                    },
+                ))
+            }) {
+                Icon(Icons.Rounded.Apps, null)
+                Spacer(Modifier.width(6.dp))
+                Text(stringResource(R.string.workspaces_add_pane))
             }
             OutlinedButton(onClick = {
                 onPickApp(AppPickerRequest(
@@ -495,7 +525,7 @@ private fun WorkspaceEditor(
             }) {
                 Icon(Icons.Rounded.Add, null)
                 Spacer(Modifier.width(6.dp))
-                Text(stringResource(R.string.workspaces_add_app))
+                Text(stringResource(R.string.workspaces_add_shortcut))
             }
         }
     }
@@ -603,12 +633,18 @@ private fun ItemInspector(
         Text(itemLabel(item, appLabels), style = MaterialTheme.typography.titleSmall)
         if (item.kind == WorkspaceItemKind.WIDGET && (item.widgetId == "map" || item.widgetId == "media")) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(stringResource(R.string.workspaces_widget_app), style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+                Text(
+                    stringResource(if (item.widgetId == "map") R.string.workspaces_map_app else R.string.workspaces_media_app),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.weight(1f),
+                )
                 TextButton(onClick = { onPickApp(true) }) {
                     Text(item.appId?.let { appLabels[it] ?: it } ?: stringResource(R.string.workspaces_app_automatic))
                 }
             }
+            Text(stringResource(R.string.workspaces_widget_app_hint), style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.workspaces_width), style = MaterialTheme.typography.bodySmall,
@@ -624,7 +660,7 @@ private fun ItemInspector(
             IconButton(onClick = { onResize(0, 1) }, enabled = item.rect.row + item.rect.rowSpan < WORKSPACE_ROWS) { Icon(Icons.Rounded.Add, null) }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (item.kind == WorkspaceItemKind.APP) {
+            if (item.kind == WorkspaceItemKind.APP || item.kind == WorkspaceItemKind.PANE) {
                 TextButton(onClick = { onPickApp(false) }) { Text(stringResource(R.string.workspaces_change_app)) }
             }
             TextButton(onClick = onRemove) {
@@ -660,11 +696,12 @@ private val splitLayouts = setOf(
 )
 
 /** The dashboard widgets a workspace can hold. */
-private val widgetIds = listOf("map", "media", "calendar", "notification", "weather", "home", "car")
+private val widgetIds = listOf("map", "media", "media_bridge", "calendar", "notification", "weather", "home", "car")
 
 private fun widgetLabel(id: String): Int = when (id) {
     "map" -> R.string.dash_card_map
     "media" -> R.string.dash_card_media
+    "media_bridge" -> R.string.dash_card_media_bridge
     "calendar" -> R.string.dash_card_calendar
     "notification" -> R.string.dash_card_notification
     "weather" -> R.string.dash_card_weather
@@ -676,6 +713,7 @@ private fun widgetLabel(id: String): Int = when (id) {
 private fun widgetIcon(id: String): ImageVector = when (id) {
     "map" -> Icons.Rounded.Map
     "media" -> Icons.Rounded.MusicNote
+    "media_bridge" -> Icons.Rounded.OpenInNew
     "calendar" -> Icons.Rounded.CalendarMonth
     "notification" -> Icons.Rounded.Notifications
     "weather" -> Icons.Rounded.Cloud
@@ -698,6 +736,7 @@ private fun layoutLabel(layout: WorkspaceLayout): Int = when (layout) {
 @Composable
 private fun itemLabel(item: WorkspaceItem, appLabels: Map<String, String>): String = when (item.kind) {
     WorkspaceItemKind.APP -> item.appId?.let { appLabels[it] ?: it } ?: "?"
+    WorkspaceItemKind.PANE -> item.appId?.let { appLabels[it] ?: it } ?: "?"
     WorkspaceItemKind.WIDGET -> item.widgetId?.let { id ->
         val base = stringResource(widgetLabel(id))
         val app = item.appId?.let { appLabels[it] ?: it }

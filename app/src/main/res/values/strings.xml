@@ -324,6 +324,14 @@
     <string name="dash_map_big_subtitle">Wherever it is in the order, the map gets the most room</string>
     <string name="dash_card_map">Map</string>
     <string name="dash_card_media">Music</string>
+    <string name="dash_card_media_bridge">Universal media</string>
+    <string name="media_bridge_none">No active player</string>
+    <string name="media_bridge_source">Player</string>
+    <string name="media_bridge_auto">Automatic</string>
+    <string name="media_bridge_open">Open app</string>
+    <string name="media_bridge_seek">Seek</string>
+    <string name="media_bridge_actions">Player actions</string>
+    <string name="media_bridge_installed">Installed players</string>
     <string name="dash_card_calendar">Next calendar event</string>
     <string name="dash_card_notification">Latest notification</string>
     <string name="dash_card_weather">Weather</string>
@@ -775,7 +783,11 @@
     <string name="workspaces_duplicate">Duplicate</string>
     <string name="workspaces_delete_title_short">Delete</string>
     <string name="workspaces_add_widget">Add widget</string>
+    <string name="workspaces_add_pane">Live app</string>
+    <string name="workspaces_add_shortcut">Shortcut</string>
     <string name="workspaces_add_app">Add app</string>
+    <string name="workspaces_pane_hint">Live app draws the app itself into its cells. Shortcut is an icon that opens it full screen.</string>
+    <string name="workspace_pane_inactive">Appears when you switch here</string>
     <string name="workspaces_widget_unavailable">Widget unavailable</string>
     <string name="workspaces_choose_widget">Add a widget</string>
     <string name="workspaces_choose_app">Choose an app</string>
@@ -784,6 +796,9 @@
     <string name="workspaces_app_automatic">Automatic</string>
     <string name="workspaces_no_space">No room at that size or place. Move another item first.</string>
     <string name="workspaces_widget_app">App</string>
+    <string name="workspaces_map_app">Map app</string>
+    <string name="workspaces_media_app">Music app</string>
+    <string name="workspaces_widget_app_hint">Automatic follows the app opened last. Choose one to pin this widget to it on every connection.</string>
     <string name="workspaces_width">Width</string>
     <string name="workspaces_height">Height</string>
     <string name="workspaces_change_app">Change app</string>

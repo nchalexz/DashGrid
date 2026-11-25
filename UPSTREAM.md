@@ -15,7 +15,7 @@ prototux/AARE” note. The fork is maintained at
 | Upstream | https://github.com/prototux/AARE |
 | Base version | AARE 1.6.0 (`versionName` 1.6.0, `versionCode` 10600) |
 | Base commit | `1aa62163` (`Merge pull request #412 …`) |
-| Fork version | DashGrid 1.0.0 (`versionCode` 10000) |
+| Fork version | DashGrid 1.0.1 (`versionCode` 10001) |
 | DashGrid branch | `feature/dashgrid-workspaces` |
 | DashGrid default branch | `main` (the fork, including workspaces) |
 
@@ -123,7 +123,7 @@ or updates.
 | `applicationId` | `io.dashgrid.app` |
 | Xposed module `applicationId` | `io.dashgrid.app.xposed` |
 | App label | `@string/app_name` = DashGrid |
-| `versionCode` / `versionName` | `10000` / `1.0.0` |
+| `versionCode` / `versionName` | `10001` / `1.0.1` |
 | APK | `app/build/outputs/dashgrid/DashGrid-v<version>.apk` |
 | Signing | `keystore/dashgrid-release.jks` + ignored `keystore.properties` |
 | Car-control authority | `io.dashgrid.app.car` |

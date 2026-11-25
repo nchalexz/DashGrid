@@ -47,4 +47,11 @@
     <string name="obd_done">Готово</string>
     <string name="obd_card_gauge">Наддув / нагрузка</string>
     <string name="obd_card_now">Расход сейчас</string>
+    <string name="obd_adapter_pick">Адаптер</string>
+    <string name="obd_adapter_auto">Автоматически: спаренное устройство с именем адаптера (OBD, ELM327, V-LINK…)</string>
+    <string name="obd_track_parked">Только на стоянке: «Трек», «Круг» и «Динамо-стенд» — для трека или закрытой площадки. Пассажирский режим снимает ограничение под вашу ответственность.</string>
+    <string name="obd_set_page_car">Автомобиль</string>
+    <string name="obd_set_page_gauges">Приборы</string>
+    <string name="obd_set_note_car">Объём двигателя: для расчёта топлива на автомобилях без датчика воздуха. Этанол: если в автомобиле нет датчика (0 — чистый бензин, 27 — бразильский бензин, 100 — этанол). Удерживайте − или + для крупных шагов.</string>
+    <string name="obd_set_note_gauges">Автоматически: нагрузка двигателя, пока не появится наддув, затем турбо-прибор. Удерживайте − или + для крупных шагов.</string>
 </resources>

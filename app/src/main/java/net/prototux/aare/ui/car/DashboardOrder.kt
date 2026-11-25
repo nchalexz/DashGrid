@@ -7,6 +7,9 @@ enum class DashCard(
 ) {
     MAP("map"),
     MEDIA("media"),
+
+    /** The Universal Media Bridge: any app's media session, not only a MediaBrowser app. */
+    MEDIA_BRIDGE("media_bridge"),
     CALENDAR("calendar"),
     NOTIFICATION("notification"),
     WEATHER("weather"),

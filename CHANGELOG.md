@@ -4,6 +4,42 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.0.1 — live app panes, media bridge and full Russian coverage
+
+### Added
+
+- **Live app panes** (`pane`): the app's own UI is rendered into its workspace cells (Car App
+  templates, map, media, launched phone apps). The editor has separate **Live app** and
+  **Shortcut** actions; shortcuts keep the old icon tile.
+- **Universal Media Bridge** (`media_bridge` widget): system media sessions via
+  `MediaSessionManager`/`MediaController`; artwork, metadata, progress, seeking, play/pause,
+  skip, custom actions, a player picker (active sessions + installed players) and launching the
+  chosen app. Works with Yandex Music's session when its MediaBrowser library is unavailable.
+- `MediaHub` additions: `sessions`, `musicApps`, `selectSessionPackage`, `seekTo`, `runAction`,
+  `launchApp`; `PlaybackInfo` carries capabilities/actions.
+- Per-widget app pinning is explicit in the editor (map/music); workspace switching no longer
+  changes the global navigation app.
+- Full Russian translations for 105 previously missing strings (audio, root, voice replies, OBD,
+  themes) and all new UI; corrected semantic errors found in the existing Russian strings.
+
+### Fixed
+
+- The side-by-side APK no longer declares `android.car.permission.TEMPLATE_RENDERER`, so it
+  installs beside AARE on EMUI (`INSTALL_FAILED_DUPLICATE_PERMISSION`).
+- The workspace editor no longer queries the package manager in a way that crashes headless
+  previews/tests; a config override lets the editor be rendered without SharedPreferences.
+
+### Research
+
+- Yandex Music APK 2020.11.1 declares an exported but **disabled** `MusicBrowserService`
+  (`android:enabled="false"`); the non-exported `MediaSessionService` is still visible through
+  `MediaSessionManager`. Full library access under no-root/no-app-change constraints is therefore
+  impossible; the bridge is the supported fallback. See `docs/MEDIA_COMPATIBILITY.md`.
+
+### Packaging
+
+- Version 1.0.1 (10001), same two APK variants and signing key as 1.0.0.
+
 ## 1.0.0 — initial DashGrid release
 
 ### Added

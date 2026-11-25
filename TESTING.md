@@ -16,7 +16,7 @@ needs a head unit, a phone, EMUI, a physical touch screen or a real drive is mar
 | Build tools | 36.0.0 |
 | SDK platform | `android-37.0` |
 | minSdk | 23 |
-| Product | `io.dashgrid.app`, DashGrid 1.0.0 (10000) |
+| Product | `io.dashgrid.app`, DashGrid 1.0.1 (10001) |
 
 ## Automated tests
 
@@ -27,7 +27,7 @@ needs a head unit, a phone, EMUI, a physical touch screen or a real drive is mar
 Result on 2026-11-25:
 
 ```
-867 tests, 0 failures, 0 errors, 0 skipped
+869 tests, 0 failures, 0 errors, 0 skipped
 BUILD SUCCESSFUL
 ```
 
@@ -55,10 +55,9 @@ translations/ids fail the build (they did during development and were fixed).
 ./gradlew :app:recordPaparazziDebug -Pmockups --no-configuration-cache --tests '*CarScreenMockups*'
 ```
 
-Paparazzi rendered the car screen from the real Compose tree at 1280 × 720, including four new
-mockups: `dashgridWorkspaces` (three workspaces, map + music 70/30, pager bar), `dashgridFourWidgets`
-(2×2), `dashgridThreeWidgets` (three columns) and `dashgridDay` (day colours). They are in
-[docs/screenshots/](docs/screenshots/).
+Paparazzi rendered the car screen from the real Compose tree at 1280 × 720, including the Russian
+workspace render, the Russian phone editor, and the Universal Media Bridge with a session-only
+player. The images are in [docs/screenshots/](docs/screenshots/).
 This proves the workspace composables lay out and draw on the JVM; it does **not** exercise touch,
 surfaces, a head unit or EMUI.
 
@@ -72,11 +71,11 @@ surfaces, a head unit or EMUI.
 Release artifacts:
 
 ```
-app/build/outputs/dashgrid/DashGrid-v1.0.0.apk                 19,412,884 bytes
-SHA-256 9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a
+app/build/outputs/dashgrid/DashGrid-v1.0.1.apk                 19,448,370 bytes
+SHA-256 7f87b613cb1082a43a976652c949c82959fc8fdbe4b5e33155ed0fd2a67d48a8
 
-app/build/outputs/dashgrid/DashGrid-standalone-v1.0.0.apk      19,412,892 bytes
-SHA-256 7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e
+app/build/outputs/dashgrid/DashGrid-standalone-v1.0.1.apk      19,448,371 bytes
+SHA-256 9d327be358c5354486de242150decf0e1e524eb6863078b70faa676a4352dd7a
 ```
 
 The side-by-side APK must **not** contain a `<permission>` element for
@@ -88,12 +87,12 @@ certificate.
 Verified from the APK itself:
 
 ```sh
-apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
-aapt2 dump badging app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
-aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
+apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
+aapt2 dump badging app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
+aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
 ```
 
-- `package: io.dashgrid.app`, `versionCode 10000`, `versionName 1.0.0`;
+- `package: io.dashgrid.app`, `versionCode 10001`, `versionName 1.0.1`;
 - `application-label: DashGrid` (all locales);
 - signature: v1 (JAR) **true**, v2 **true**, one signer,
   `CN=DashGrid`, SHA-256 `4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5`;
@@ -141,7 +140,7 @@ is possible or intended.
 ```sh
 # Build and install
 ./gradlew dashgridApk
-adb install -r app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
+adb install -r app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
 
 # Preview without a car
 # DashGrid → Settings → Workspaces → Preview car screen
@@ -151,7 +150,7 @@ adb install -r app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
 # trust the car's certificate when asked, then use Settings → Workspaces to build pages.
 ```
 
-For the update test, rebuild with `-PversionName=1.0.1 -PversionCode=10001` (same keystore) and
+For the update test, rebuild with `-PversionName=1.0.2 -PversionCode=10002` (same keystore) and
 `adb install -r`; settings must remain.
 
 ## Known gaps and risks

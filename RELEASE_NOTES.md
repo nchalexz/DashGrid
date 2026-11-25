@@ -1,40 +1,44 @@
 **Swipe. Arrange. Drive.**
 
-DashGrid 1.0.0 is the first release of the independent fork of [AARE](https://github.com/prototux/AARE).
-It turns the car's home screen into switchable workspaces with a configurable grid of apps and
-widgets, while keeping AARE's Android Auto projection, audio, navigation, music, messages, calls
-and assistant.
+DashGrid 1.0.1 is an update of the independent fork of
+[AARE](https://github.com/prototux/AARE). It adds live app panes, the Universal Media Bridge for
+apps whose MediaBrowser is closed (notably Yandex Music on some builds), full Russian coverage for
+the new screens and the two-APK packaging from 1.0.0.
 
 ## Highlights
 
-- Any number of workspaces, switched cyclically by swipe, arrows or page dots.
-- Layouts: 100 %, 50/50, 70/30, 30/70, three widgets, four widgets, custom 10 × 6 grid.
-- Drag, resize and merge cells; pin a map or music widget to an app.
-- Phone editor: create, rename, duplicate, reorder and delete workspaces, add apps/widgets,
-  choose the default, preview on the phone.
-- Only the visible workspace is composed; app sessions, routes and playback survive switching.
-- Own application ID (`io.dashgrid.app`), icon, theme and signing key: installs beside AARE.
+- **Live app panes**: an app can be rendered into its own cells — Car App templates, a map, a
+  media screen, a launched phone app — instead of a shortcut icon. “Live app” and “Shortcut” are
+  separate choices in the workspace editor.
+- **Pinned widgets**: a map or music widget can be pinned to a specific app per workspace, instead
+  of following whichever app was opened last.
+- **Universal Media Bridge**: a new `media_bridge` widget that uses the system media session
+  (`MediaSessionManager` / `MediaController`), with artwork, title/artist, progress + seeking,
+  play/pause, next/previous, custom session actions, a player picker (active sessions and installed
+  players) and a button to start the chosen app. It keeps working while switching workspaces and
+  needs neither root nor GMS; notification access is required.
+- **Yandex Music**: the official APK inspected for this release declares its
+  `MusicBrowserService` with `android:enabled="false"`, so a third-party host cannot use its full
+  library (My Wave, playlists, search) without root/Shizuku or modifying the app. The bridge is the
+  supported fallback; the exact diagnosis, APK evidence and a test plan are in
+  [docs/MEDIA_COMPATIBILITY.md](https://github.com/nchalexz/DashGrid/blob/main/docs/MEDIA_COMPATIBILITY.md).
+- **Russian**: all previously missing strings in the audio, root, voice-reply, OBD and theme
+  screens are translated, and the new workspace/media bridge strings are in both languages. A
+  Russian phone editor and car-screen mockup were rendered to check Cyrillic and long labels.
+- **Two APKs**: use the side-by-side file with AARE installed, the standalone file on a phone
+  without AARE. They share package, version and key and replace each other.
 
-## Install — pick one APK
-
-AARE installed? Use the **side-by-side** APK. Without AARE? Use the **standalone** APK. They share
-the package, version and key, so they replace each other; the standalone one must not be installed
-beside AARE (it defines `android.car.permission.TEMPLATE_RENDERER`, which AARE owns with another
-certificate, and Android refuses the duplicate definition).
+## Install
 
 ```sh
-adb install -r DashGrid-v1.0.0.apk                 # with AARE
-adb install -r DashGrid-standalone-v1.0.0.apk      # without AARE
+adb install -r DashGrid-v1.0.1.apk                 # with AARE installed
+adb install -r DashGrid-standalone-v1.0.1.apk      # without AARE
 ```
 
-- Package: `io.dashgrid.app`, version 1.0.0 (10000)
-- Side-by-side SHA-256: `9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a`
-- Standalone SHA-256: `7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e`
+- Package: `io.dashgrid.app`, version 1.0.1 (10001)
+- Side-by-side SHA-256: `7f87b613cb1082a43a976652c949c82959fc8fdbe4b5e33155ed0fd2a67d48a8`
+- Standalone SHA-256: `9d327be358c5354486de242150decf0e1e524eb6863078b70faa676a4352dd7a`
 - Signed with DashGrid's own key (not AARE's); future updates must use the same key.
-
-> **Fixed in this build:** the first upload declared the legacy car-host permission itself and EMUI
-> refused to install it beside AARE. The side-by-side APK no longer declares it; the standalone APK
-> keeps it for phones without AARE.
 
 Requires Android 6+ and a car with Android Auto (USB or wireless), or use *Settings →
 Workspaces → Preview car screen* without a car. No root and no Google Play Services are required.
@@ -42,16 +46,18 @@ Workspaces → Preview car screen* without a car. No root and no Google Play Ser
 ## Documentation
 
 [README](https://github.com/nchalexz/DashGrid#readme) ·
+[media compatibility](https://github.com/nchalexz/DashGrid/blob/main/docs/MEDIA_COMPATIBILITY.md) ·
 [architecture](https://github.com/nchalexz/DashGrid/blob/main/ARCHITECTURE.md) ·
 [test report](https://github.com/nchalexz/DashGrid/blob/main/TESTING.md) ·
 [upstream](https://github.com/nchalexz/DashGrid/blob/main/UPSTREAM.md)
 
 ## Known limitations
 
-- Not validated on a physical car or on Huawei/EMUI; only build, 867 unit tests and JVM-rendered
-  UI mockups were run.
-- Workspaces are the home of the taskbar and dock layouts; the classic layout keeps AARE's app-grid
-  home.
-- One live map surface per connection; inactive workspaces show a map placeholder.
+- **No physical validation** on Huawei/EMUI or in a car; only builds, 869 unit tests and
+  JVM-rendered UI mockups were run. The media compatibility matrix is a test plan, not a device pass.
+- Yandex Music's full library is unavailable while its MediaBrowser service is disabled; the
+  bridge controls playback through the media session but cannot browse My Wave/playlists/search.
+- One live map surface per connection; inactive workspaces show a placeholder. The classic layout
+  keeps AARE's app-grid home.
 - Car App Library apps that allow-list AARE's signing digest must add DashGrid's.
 - This is a fork, not an official AARE release. AARE is GPL-3.0; DashGrid keeps that licence.

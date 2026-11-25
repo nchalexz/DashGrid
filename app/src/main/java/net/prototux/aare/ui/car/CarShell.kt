@@ -184,7 +184,7 @@ internal fun ContentArea(
         label = "screen",
     ) { screen ->
         when (screen) {
-            CarScreen.Dashboard -> if (launcherHome) Launcher(state, actions, Modifier.fillMaxSize()) else WorkspaceHome(state, actions, navMap, Modifier.fillMaxSize())
+            CarScreen.Dashboard -> if (launcherHome) Launcher(state, actions, Modifier.fillMaxSize()) else WorkspaceHome(state, actions, appContent, navMap, Modifier.fillMaxSize())
             CarScreen.Launcher -> Launcher(state, actions, Modifier.fillMaxSize())
             is CarScreen.App -> {
                 val app = state.app(screen.appId)
@@ -193,7 +193,7 @@ internal fun ContentArea(
                     app != null && secondary != null -> SplitPane(app, secondary, state, actions, appContent, Modifier.fillMaxSize())
                     app != null -> appContent(app, Modifier.fillMaxSize())
                     launcherHome -> Launcher(state, actions, Modifier.fillMaxSize())
-                    else -> WorkspaceHome(state, actions, navMap, Modifier.fillMaxSize())
+                    else -> WorkspaceHome(state, actions, appContent, navMap, Modifier.fillMaxSize())
                 }
             }
         }
@@ -539,7 +539,7 @@ internal fun Dashboard(
     // The map and the music always have something to show (a "where to?", "nothing playing").
     val shown: (DashCard) -> Boolean = { card ->
         when (card) {
-            DashCard.MAP, DashCard.MEDIA -> true
+            DashCard.MAP, DashCard.MEDIA, DashCard.MEDIA_BRIDGE -> true
             DashCard.CALENDAR -> state.nextEvents.isNotEmpty()
             DashCard.NOTIFICATION -> state.history.isNotEmpty()
             DashCard.WEATHER -> state.weather != null
@@ -614,6 +614,7 @@ private fun DashSlot(
     when (card) {
         DashCard.MAP -> NavCard(state, actions, navMap, modifier)
         DashCard.MEDIA -> MediaCard(state, actions, compact = compact, modifier = modifier)
+        DashCard.MEDIA_BRIDGE -> MediaBridgeWidget(state, actions, modifier, compact)
         DashCard.CALENDAR -> state.nextEvents.takeIf { it.isNotEmpty() }?.let { events -> Card(modifier) { CalendarAgendaCard(events, actions::navigateTo, Modifier.fillMaxSize()) } }
         DashCard.NOTIFICATION -> state.history.firstOrNull()?.let { latest ->
             Card(modifier, onClick = { state.apps.firstOrNull { it.kind == CarAppKind.NOTIFICATIONS }?.let(actions::openApp) }) {

@@ -82,7 +82,6 @@ import net.prototux.aare.ui.car.RailWidget
 import net.prototux.aare.ui.car.orderKey
 import net.prototux.aare.ui.car.workspaceApp
 import net.prototux.aare.workspace.Workspace
-import net.prototux.aare.workspace.WorkspaceItemKind
 import net.prototux.aare.workspace.WorkspaceStore
 import net.prototux.aare.workspace.cyclicStep
 import net.prototux.aare.ui.car.CarDataScreen
@@ -560,11 +559,25 @@ class CarRuntime(
                 onPhoneGuidance?.invoke(shown)
             }
         }
+        ui.mediaBridgePackage = settings.mediaBridgePackage
+        media.selectSessionPackage(settings.mediaBridgePackage)
+        scope.launch {
+            media.sessions.collectLatest { ui.mediaSessions = it }
+        }
+        scope.launch {
+            media.musicApps.collectLatest { ui.musicApps = it }
+        }
         scope.launch {
             media.playback.collectLatest { p ->
                 ui.nowPlaying = p?.let {
-                    NowPlaying(mediaId(it.packageName), it.title, listOf(it.artist, it.album).filter { s -> s.isNotBlank() }.joinToString(" · "),
-                        it.art, it.playing, it.positionMs, it.durationMs, it.sampledAtMs)
+                    NowPlaying(
+                        mediaId(it.packageName), it.title,
+                        listOf(it.artist, it.album).filter { s -> s.isNotBlank() }.joinToString(" · "),
+                        it.art, it.playing, it.positionMs, it.durationMs, it.sampledAtMs,
+                        packageName = it.packageName, appLabel = it.label,
+                        canSeek = it.canSeek, canPrevious = it.canPrevious, canNext = it.canNext,
+                        actions = it.actions,
+                    )
                 }
                 if (p != null && ui.activeMediaAppId == null) ui.activeMediaAppId = mediaId(p.packageName)
             }
@@ -710,9 +723,6 @@ class CarRuntime(
             else null
             ui.activeMediaAppId = (lastPicked ?: fallback)?.id
         }
-        // A workspace whose map widget names its navigation app makes that one active once the
-        // app list exists (the car may have started on that workspace before the scan finished).
-        syncWorkspaceNavigation()
     }
 
     /** The weather (every 30 minutes) and the next calendar event (every 5), for the rail and the dashboard. */
@@ -1014,6 +1024,15 @@ class CarRuntime(
         override fun runHomeAction(id: String) {
             HomeHub.config.value.actions.firstOrNull { it.id == id }?.let(::runHome)
         }
+
+        override fun seekMedia(positionMs: Long) = media.seekTo(positionMs)
+        override fun runMediaAction(actionId: String) = media.runAction(actionId)
+        override fun selectMediaSource(packageName: String?) {
+            settings.mediaBridgePackage = packageName
+            ui.mediaBridgePackage = packageName
+            media.selectSessionPackage(packageName)
+        }
+        override fun openMediaApp(packageName: String) = media.launchApp(packageName)
     }
 
     /** The chosen assistant's package, or the phone's default assistant. */
@@ -1123,7 +1142,6 @@ class CarRuntime(
         ui.workspaceConfig = config
         val active = config.activeOrStart(ui.activeWorkspaceId) ?: return
         ui.activeWorkspaceId = active.id
-        syncWorkspaceNavigation()
     }
 
     /**
@@ -1135,7 +1153,6 @@ class CarRuntime(
         if (ui.activeWorkspaceId == id) return
         ui.activeWorkspaceId = id
         workspaceStore.setLast(id)
-        syncWorkspaceNavigation()
     }
 
     /** Steps [step] workspaces forward on the ring, wrapping from the last to the first and back. */
@@ -1144,21 +1161,6 @@ class CarRuntime(
         if (count < 2) return
         val current = ui.workspaceConfig.indexOf(ui.activeWorkspaceId).coerceAtLeast(0)
         selectWorkspace(ui.workspaces[cyclicStep(current, count, step)].id)
-    }
-
-    /**
-     * A workspace's map widget can name the navigation app it shows. Making that workspace visible
-     * makes its app the active one (the dashboard map, the cluster and "navigate to" follow it),
-     * without disconnecting any other navigation app: its own connection and route stay alive.
-     */
-    private fun syncWorkspaceNavigation() {
-        val ws = ui.activeWorkspace ?: return
-        val navAppId = ws.items.firstOrNull { it.kind == WorkspaceItemKind.WIDGET && it.widgetId == "map" }?.appId ?: return
-        val app = ui.workspaceApp(navAppId) ?: return
-        if (!app.isNavigationLike() || ui.activeNavAppId == app.id) return
-        ui.activeNavAppId = app.id
-        settings.lastNavApp = app.packageName
-        if (app.kind == CarAppKind.NAVIGATION) connection(app.id)?.connect()
     }
 
     /** Back key from the car: applies to the focused pane while split, the one app otherwise. */

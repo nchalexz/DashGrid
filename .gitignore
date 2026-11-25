@@ -53,3 +53,6 @@ google-services.json
 
 # DashGrid signing credentials (and the local APK drop)
 keystore.properties
+
+# Paparazzi output (docs/screenshots keeps the curated images)
+app/src/test/snapshots/

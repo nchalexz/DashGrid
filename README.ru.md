@@ -40,6 +40,12 @@ DashGrid — независимый устанавливаемый форк [AAR
   10 × 6, где элементы можно перетаскивать, растягивать и объединять в крупные ячейки.
 - **Виджеты** — карта, музыка, ближайшее событие календаря, последнее уведомление, погода,
   действия умного дома и живые данные OBD. Карту и музыку можно привязать к конкретному приложению.
+- **Живые панели приложений** — экран приложения отрисовывается прямо в ячейках: шаблоны Car App,
+  карта, медиаэкран, запущенное приложение телефона. Ярлыки остаются отдельным, более лёгким типом.
+- **Универсальный медиамост** — виджет для приложений, чей MediaBrowser закрыт для сторонних хостов
+  (Яндекс Музыка в некоторых сборках): обложка, метаданные, прогресс и перемотка, управление,
+  пользовательские действия сессии, выбор плеера и запуск приложения через системную медиасессию.
+  Без root и GMS.
 - **Ярлыки приложений** — приложения Car App Library, медиаприложения и встроенные экраны DashGrid
   (телефон, уведомления, браузер, данные автомобиля, Home, OBD, экран телефона).
 - **Редактор на телефоне** — *Настройки → Рабочие столы*: создание, переименование, дублирование,
@@ -69,19 +75,19 @@ DashGrid — независимый устанавливаемый форк [AAR
 
 | На телефоне | APK | Почему |
 |---|---|---|
-| **AARE установлен** (рядом) | `DashGrid-v1.0.0.apk` | Только *использует* `android.car.permission.TEMPLATE_RENDERER`, но не объявляет его. Android запрещает второе объявление разрешения, которым владеет другое приложение с иной подписью (`INSTALL_FAILED_DUPLICATE_PERMISSION`). Разрешение даёт AARE. |
-| **AARE не установлен** | `DashGrid-standalone-v1.0.0.apk` | Сам объявляет это устаревшее разрешение, чтобы старые приложения Car App Library доверяли DashGrid как хосту. **Не устанавливайте рядом с AARE** — будет тот же конфликт. |
+| **AARE установлен** (рядом) | `DashGrid-v1.0.1.apk` | Только *использует* `android.car.permission.TEMPLATE_RENDERER`, но не объявляет его. Android запрещает второе объявление разрешения, которым владеет другое приложение с иной подписью (`INSTALL_FAILED_DUPLICATE_PERMISSION`). Разрешение даёт AARE. |
+| **AARE не установлен** | `DashGrid-standalone-v1.0.1.apk` | Сам объявляет это устаревшее разрешение, чтобы старые приложения Car App Library доверяли DashGrid как хосту. **Не устанавливайте рядом с AARE** — будет тот же конфликт. |
 
-Оба файла — в [релизе](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.0):
+Оба файла — в [релизе](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.1):
 
 ```sh
-adb install -r DashGrid-v1.0.0.apk                 # вместе с AARE
-adb install -r DashGrid-standalone-v1.0.0.apk      # без AARE
+adb install -r DashGrid-v1.0.1.apk                 # вместе с AARE
+adb install -r DashGrid-standalone-v1.0.1.apk      # без AARE
 ```
 
-- SHA-256 рядом с AARE: `9fc864609f020da39105d45b37bc9f89ac3d1e147635256efeac32b8bdbe5c1a`
-- SHA-256 standalone: `7521eea19fb7a2f3527b27be9ceddc6131b4ec9a162741e153edc540e8a6c57e`
-- Пакет: `io.dashgrid.app`, версия 1.0.0 (10000).
+- SHA-256 рядом с AARE: `7f87b613cb1082a43a976652c949c82959fc8fdbe4b5e33155ed0fd2a67d48a8`
+- SHA-256 standalone: `9d327be358c5354486de242150decf0e1e524eb6863078b70faa676a4352dd7a`
+- Пакет: `io.dashgrid.app`, версия 1.0.1 (10000).
 - Подпись: собственный ключ DashGrid (`CN=DashGrid`), не ключ AARE. Обновления должны быть
   подписаны тем же ключом.
 
@@ -107,7 +113,7 @@ sdk.dir=/path/to/android-sdk
 
 # Подписанный release APK с именем DashGrid-v<version>.apk
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
 ```
 
 Подпись читается из `keystore.properties` (не коммитится; см.
@@ -182,6 +188,7 @@ UPSTREAM.md). Это сохраняет возможность merges из AARE.
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — как рабочие столы встроены в AARE, жизненный цикл и поверхности
 - [DESIGN.md](DESIGN.md) — цвета, иконка, типографика и правила автомобильного UI
+- [docs/MEDIA_COMPATIBILITY.md](docs/MEDIA_COMPATIBILITY.md) — Яндекс Музыка, медиасессии и универсальный медиамост
 - [CHANGELOG.md](CHANGELOG.md) — что изменено относительно AARE 1.6.0
 - [TESTING.md](TESTING.md) — выполненные тесты и ручной чек-лист
 - [UPSTREAM.md](UPSTREAM.md) — базовая версия, порядок обновлений, что нельзя менять

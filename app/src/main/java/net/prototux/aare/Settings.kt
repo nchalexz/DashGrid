@@ -286,6 +286,11 @@ class Settings(context: Context) {
         }
         set(v) = prefs.edit { putString("dashboard_cards", v.joinToString(",")) }
 
+    /** The universal media bridge's chosen session app (package), or null to follow the active player. */
+    var mediaBridgePackage: String?
+        get() = prefs.getString("media_bridge_package", null)
+        set(v) = prefs.edit { if (v == null) remove("media_bridge_package") else putString("media_bridge_package", v) }
+
     /** The map keeps the big space on the dashboard wherever it is in the order. */
     var dashboardMapBig: Boolean
         get() = prefs.getBoolean("dashboard_map_big", false)

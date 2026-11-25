@@ -91,6 +91,7 @@ object SettingsBackup {
         "night_source" to Type.STRING,
         "dashboard_map_big" to Type.BOOLEAN,
         "workspaces" to Type.STRING,
+        "media_bridge_package" to Type.STRING,
         "calendar_agenda_count" to Type.INT,
         "car_key_map" to Type.STRING_SET,
     )

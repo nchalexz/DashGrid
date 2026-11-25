@@ -2,6 +2,8 @@
 
 **Swipe. Arrange. Drive.**
 
+**Language:** **English** · [Русский](README.ru.md)
+
 DashGrid is an independent, installable fork of [AARE](https://github.com/prototux/AARE) — the
 open-source replacement for the phone side of Android Auto — that turns the car's home screen into
 a set of switchable workspaces with a configurable grid of apps and widgets.
@@ -11,6 +13,25 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
 > messaging screens, OBD support and almost all user-facing features come from AARE (GPL-3.0,
 > © the AARE contributors). DashGrid adds the workspace system, its editor and its branding. See
 > [UPSTREAM.md](UPSTREAM.md) for the exact base, the licence and how updates are merged.
+
+## Кратко по-русски
+
+**DashGrid** — независимый форк AARE: несколько переключаемых рабочих столов на экране автомобиля,
+настраиваемые сетки приложений и виджетов, редактор на телефоне. Свой application ID, иконка, тема и
+ключ подписи, поэтому AARE и DashGrid можно установить рядом.
+
+- Рабочие столы переключаются по кругу свайпом, стрелками или точками.
+- Раскладки: 100 %, 50/50, 70/30, 30/70, три виджета, четыре виджета и своя сетка 10 × 6 с
+  перетаскиванием, изменением размера и объединением ячеек.
+- Виджеты: карта, музыка, календарь, уведомления, погода, умный дом, OBD. Карту и музыку можно
+  привязать к конкретному приложению.
+- Переключение не перезапускает приложения: маршрут, музыка и сессии сохраняются.
+- Установка: [DashGrid-v1.0.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-v1.0.0.apk)
+  (Android 6+, без обязательного root и GMS).
+- На реальном автомобиле и на Huawei/EMUI пока не проверялось — только сборка, 867 тестов и
+  JVM-макеты UI. Подробнее — [TESTING.md](TESTING.md).
+
+[Полное описание на русском →](README.ru.md)
 
 <p align="center">
   <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" alt="DashGrid icon">
@@ -62,7 +83,9 @@ split screen, the phone-screen mirror, OBD and the desktop head unit.
 
 ## Install
 
-Download `dist/DashGrid-v1.0.0.apk` (or build it, below) and open it on the phone:
+Download [DashGrid-v1.0.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.0/DashGrid-v1.0.0.apk)
+from the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.0) (or build it,
+below) and open it on the phone:
 
 ```sh
 adb install -r DashGrid-v1.0.0.apk
@@ -175,6 +198,7 @@ That keeps merges from AARE practical.
 - [UPSTREAM.md](UPSTREAM.md) — upstream base, how to merge updates, what must not change
 - [docs/assistant-links.md](docs/assistant-links.md) — `dashgrid://` assistant links
 - [AARE's README](https://github.com/prototux/AARE#readme) — everything inherited
+- [README.ru.md](README.ru.md) — полное описание на русском
 
 ## Licence and attribution
 

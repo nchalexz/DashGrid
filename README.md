@@ -16,6 +16,11 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
   <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" alt="DashGrid icon">
 </p>
 
+![DashGrid on a 16:9 car screen: a map workspace, a music widget and the pager bar](docs/screenshots/dashgrid-workspaces.png)
+
+*Mockup rendered from the real Compose UI by Paparazzi (no emulator): workspace “City”, map + music
+70/30, pager bar with the other two workspaces.*
+
 ## What DashGrid adds
 
 - **Workspaces** — any number of independent home screens. Each has its own name, order,

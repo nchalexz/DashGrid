@@ -49,6 +49,18 @@ That is AARE's whole unit-test suite plus **25 new workspace tests**
 Escaped XML strings and resource references are compiled by the Android build, so missing
 translations/ids fail the build (they did during development and were fixed).
 
+## UI rendering check (JVM, not a device)
+
+```sh
+./gradlew :app:recordPaparazziDebug -Pmockups --no-configuration-cache --tests '*CarScreenMockups*'
+```
+
+Paparazzi rendered the car screen from the real Compose tree at 1280 × 720, including the new
+`dashgridWorkspaces` mockup (three workspaces, map + music 70/30, pager bar with dots/arrows). The
+image is [docs/screenshots/dashgrid-workspaces.png](docs/screenshots/dashgrid-workspaces.png).
+This proves the workspace composables lay out and draw on the JVM; it does **not** exercise touch,
+surfaces, a head unit or EMUI.
+
 ## Build verification
 
 ```sh

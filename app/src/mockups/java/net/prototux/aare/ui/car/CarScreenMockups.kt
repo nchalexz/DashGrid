@@ -23,7 +23,15 @@ import net.prototux.aare.notify.PhoneGuidance
 import net.prototux.aare.ui.theme.CarAccents
 import net.prototux.aare.ui.theme.CarTheme
 import net.prototux.aare.ui.theme.CarThemes
+import net.prototux.aare.ui.theme.DashGridTheme
 import net.prototux.aare.ui.theme.withAccent
+import net.prototux.aare.workspace.Workspace
+import net.prototux.aare.workspace.WorkspaceAxis
+import net.prototux.aare.workspace.WorkspaceConfig
+import net.prototux.aare.workspace.WorkspaceItem
+import net.prototux.aare.workspace.WorkspaceItemKind
+import net.prototux.aare.workspace.WorkspaceLayout
+import net.prototux.aare.workspace.WorkspaceRect
 import org.junit.Rule
 import org.junit.Test
 
@@ -63,6 +71,42 @@ class CarScreenMockups {
     @Test fun retro() = shot("retro", night = true)
     @Test fun retroAmber() = shot("retro", night = true, accent = "amber")
     @Test fun customDashboard() = shot("aare", night = true, cards = listOf(DashCard.MEDIA, DashCard.MAP, DashCard.WEATHER))
+
+    /** DashGrid's own home: three workspaces, the first one (map + music) showing. */
+    @Test fun dashgridWorkspaces() {
+        val state = mockState(night = true, screen = CarScreen.Dashboard).apply {
+            theme = DashGridTheme
+            workspaceConfig = WorkspaceConfig(
+                workspaces = listOf(
+                    Workspace(
+                        id = "city", name = "City", layout = WorkspaceLayout.SPLIT_70_30,
+                        items = listOf(
+                            WorkspaceItem("city-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 7, 6), widgetId = "map"),
+                            WorkspaceItem("city-media", WorkspaceItemKind.WIDGET, WorkspaceRect(7, 0, 3, 6), widgetId = "media"),
+                        ),
+                    ),
+                    Workspace(
+                        id = "highway", name = "Highway", layout = WorkspaceLayout.SPLIT_50,
+                        items = listOf(
+                            WorkspaceItem("road-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 5, 6), widgetId = "map"),
+                            WorkspaceItem("road-weather", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 0, 5, 6), widgetId = "weather"),
+                        ),
+                    ),
+                    Workspace(
+                        id = "car", name = "Car", layout = WorkspaceLayout.FULL,
+                        items = listOf(WorkspaceItem("car-obd", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "car")),
+                    ),
+                ),
+                defaultId = "city", lastId = "city", showBar = true,
+            )
+            activeWorkspaceId = "city"
+        }
+        paparazzi.snapshot {
+            CarTheme(night = true, theme = DashGridTheme) {
+                CarShell(state, NoActions, appContent = { _, m -> MapStandIn(true, m) }, navMap = { _, m -> MapStandIn(true, m) })
+            }
+        }
+    }
 
     /** The style made of [themeId] and its layout, as the settings' Style picker would set it. */
     private fun shot(
@@ -108,7 +152,7 @@ class CarScreenMockups {
         if (screen != CarScreen.Dashboard) phoneGuidance = PhoneGuidance("mock", "maps", "Maps", "300 m", "Turn right onto Aarstrasse",
             "12 min · 8.4 km", arrow = null, distance = null, instruction = "Turn right onto Aarstrasse")
         weather = Weather(18, "°C", 1, day = !night)
-        nextEvent = NextEvent("Coffee with Sam", startMs = System.currentTimeMillis() + 45 * 60_000, allDay = false, location = "Bern")
+        nextEvents = listOf(NextEvent("Coffee with Sam", startMs = System.currentTimeMillis() + 45 * 60_000, allDay = false, location = "Bern"))
     }
 
     private fun app(id: String, label: String, kind: CarAppKind, color: Int) = CarAppEntry(id, "mock.$id", label, appIcon(label, color), kind)
@@ -134,6 +178,8 @@ class CarScreenMockups {
     private object NoActions : CarActions {
         override fun openApp(app: CarAppEntry) = Unit
         override fun goHome() = Unit
+        override fun selectWorkspace(id: String) = Unit
+        override fun cycleWorkspace(step: Int) = Unit
         override fun openLauncher() = Unit
         override fun assistant() = Unit
         override fun mediaPlayPause() = Unit

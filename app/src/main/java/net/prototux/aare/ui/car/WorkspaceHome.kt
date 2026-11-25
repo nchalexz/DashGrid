@@ -30,6 +30,8 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Widgets
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,6 +41,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
@@ -188,6 +191,7 @@ private fun WorkspacePager(
                 count = count,
                 activeIndex = realIndexFor(pager.currentPage, count),
                 activeName = workspaces[realIndexFor(pager.currentPage, count)].name,
+                names = workspaces.map { it.name },
                 onPrevious = { step(-1) },
                 onNext = { step(1) },
                 onSelect = ::goTo,
@@ -210,7 +214,8 @@ internal fun WorkspacePage(
     /** Swipe the empty space: +1 for the next workspace, -1 for the previous; null to leave it to the pager. */
     onSwipe: ((Int) -> Unit)? = null,
 ) {
-    BoxWithConstraints(modifier.fillMaxSize()) {
+    val outer = LocalCarDimens.current.gutter
+    BoxWithConstraints(modifier.fillMaxSize().padding(outer)) {
         val portrait = maxHeight > maxWidth * 1.1f
         val columns = if (portrait) WORKSPACE_ROWS else WORKSPACE_COLUMNS
         val rows = if (portrait) WORKSPACE_COLUMNS else WORKSPACE_ROWS
@@ -431,6 +436,7 @@ private fun WorkspaceBar(
     count: Int,
     activeIndex: Int,
     activeName: String,
+    names: List<String>,
     onPrevious: () -> Unit,
     onNext: () -> Unit,
     onSelect: (Int) -> Unit,
@@ -487,8 +493,24 @@ private fun WorkspaceBar(
                 }
             }
         } else {
-            Text("${activeIndex + 1}/$count", style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 12.dp))
+            // More workspaces than dots fit: the counter itself opens the full list, so a
+            // specific one is still one tap away.
+            var menu by remember { mutableStateOf(false) }
+            Box {
+                Text(
+                    "${activeIndex + 1}/$count",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.clip(RoundedCornerShape(50))
+                        .carClickable(RoundedCornerShape(50)) { menu = true }
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+                DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                    names.forEachIndexed { i, name ->
+                        DropdownMenuItem(text = { Text(name) }, onClick = { menu = false; onSelect(i) })
+                    }
+                }
+            }
         }
         Spacer(Modifier.size(12.dp))
         BarButton(Icons.Rounded.ChevronRight, stringResource(R.string.workspace_next), onNext)

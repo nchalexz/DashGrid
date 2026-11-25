@@ -55,9 +55,10 @@ translations/ids fail the build (they did during development and were fixed).
 ./gradlew :app:recordPaparazziDebug -Pmockups --no-configuration-cache --tests '*CarScreenMockups*'
 ```
 
-Paparazzi rendered the car screen from the real Compose tree at 1280 × 720, including the new
-`dashgridWorkspaces` mockup (three workspaces, map + music 70/30, pager bar with dots/arrows). The
-image is [docs/screenshots/dashgrid-workspaces.png](docs/screenshots/dashgrid-workspaces.png).
+Paparazzi rendered the car screen from the real Compose tree at 1280 × 720, including four new
+mockups: `dashgridWorkspaces` (three workspaces, map + music 70/30, pager bar), `dashgridFourWidgets`
+(2×2), `dashgridThreeWidgets` (three columns) and `dashgridDay` (day colours). They are in
+[docs/screenshots/](docs/screenshots/).
 This proves the workspace composables lay out and draw on the JVM; it does **not** exercise touch,
 surfaces, a head unit or EMUI.
 
@@ -72,8 +73,8 @@ Release artifact:
 
 ```
 app/build/outputs/dashgrid/DashGrid-v1.0.0.apk
-19,396,507 bytes
-SHA-256 bad658ceddfd2bab46dff2434de10c2c3fb8cf2cbbc020c996fd45da0dede324
+19,412,904 bytes
+SHA-256 e9f801b38310b186fd9dcdd8d66c56258b754b4db1d3d713c27f920e0c6c657e
 ```
 
 Verified from the APK itself:

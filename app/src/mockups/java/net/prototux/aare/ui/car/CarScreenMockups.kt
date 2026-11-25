@@ -73,37 +73,87 @@ class CarScreenMockups {
     @Test fun customDashboard() = shot("aare", night = true, cards = listOf(DashCard.MEDIA, DashCard.MAP, DashCard.WEATHER))
 
     /** DashGrid's own home: three workspaces, the first one (map + music) showing. */
-    @Test fun dashgridWorkspaces() {
-        val state = mockState(night = true, screen = CarScreen.Dashboard).apply {
+    @Test fun dashgridWorkspaces() = workspaceShot(night = true, workspaces = cityWorkspaces(), active = "city")
+
+    /** Three equal widgets on one workspace. */
+    @Test fun dashgridThreeWidgets() = workspaceShot(
+        night = true,
+        workspaces = listOf(
+            Workspace(
+                id = "three", name = "Route", layout = WorkspaceLayout.THREE,
+                items = listOf(
+                    WorkspaceItem("t-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 4, 6), widgetId = "map"),
+                    WorkspaceItem("t-media", WorkspaceItemKind.WIDGET, WorkspaceRect(4, 0, 3, 6), widgetId = "media"),
+                    WorkspaceItem("t-weather", WorkspaceItemKind.WIDGET, WorkspaceRect(7, 0, 3, 6), widgetId = "weather"),
+                ),
+            ),
+            Workspace(
+                id = "three-spare", name = "Spare", layout = WorkspaceLayout.FULL,
+                items = listOf(WorkspaceItem("ts-media", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "media")),
+            ),
+        ),
+        active = "three",
+    )
+
+    /** Four widgets in a 2×2 grid. */
+    @Test fun dashgridFourWidgets() = workspaceShot(
+        night = true,
+        workspaces = listOf(
+            Workspace(
+                id = "four", name = "Everything", layout = WorkspaceLayout.FOUR,
+                items = listOf(
+                    WorkspaceItem("f-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 5, 3), widgetId = "map"),
+                    WorkspaceItem("f-media", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 0, 5, 3), widgetId = "media"),
+                    WorkspaceItem("f-weather", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 3, 5, 3), widgetId = "weather"),
+                    WorkspaceItem("f-calendar", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 3, 5, 3), widgetId = "calendar"),
+                ),
+            ),
+            Workspace(
+                id = "four-spare", name = "Spare", layout = WorkspaceLayout.FULL,
+                items = listOf(WorkspaceItem("fs-media", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "media")),
+            ),
+        ),
+        active = "four",
+    )
+
+    /** The same configuration in day colours. */
+    @Test fun dashgridDay() = workspaceShot(night = false, workspaces = cityWorkspaces(), active = "city")
+
+    private fun cityWorkspaces(): List<Workspace> = listOf(
+        Workspace(
+            id = "city", name = "City", layout = WorkspaceLayout.SPLIT_70_30,
+            items = listOf(
+                WorkspaceItem("city-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 7, 6), widgetId = "map"),
+                WorkspaceItem("city-media", WorkspaceItemKind.WIDGET, WorkspaceRect(7, 0, 3, 6), widgetId = "media"),
+            ),
+        ),
+        Workspace(
+            id = "highway", name = "Highway", layout = WorkspaceLayout.SPLIT_50,
+            items = listOf(
+                WorkspaceItem("road-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 5, 6), widgetId = "map"),
+                WorkspaceItem("road-weather", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 0, 5, 6), widgetId = "weather"),
+            ),
+        ),
+        Workspace(
+            id = "car", name = "Car", layout = WorkspaceLayout.FULL,
+            items = listOf(WorkspaceItem("car-obd", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "car")),
+        ),
+    )
+
+    private fun workspaceShot(night: Boolean, workspaces: List<Workspace>, active: String) {
+        val state = mockState(night, CarScreen.Dashboard).apply {
             theme = DashGridTheme
             workspaceConfig = WorkspaceConfig(
-                workspaces = listOf(
-                    Workspace(
-                        id = "city", name = "City", layout = WorkspaceLayout.SPLIT_70_30,
-                        items = listOf(
-                            WorkspaceItem("city-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 7, 6), widgetId = "map"),
-                            WorkspaceItem("city-media", WorkspaceItemKind.WIDGET, WorkspaceRect(7, 0, 3, 6), widgetId = "media"),
-                        ),
-                    ),
-                    Workspace(
-                        id = "highway", name = "Highway", layout = WorkspaceLayout.SPLIT_50,
-                        items = listOf(
-                            WorkspaceItem("road-map", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 5, 6), widgetId = "map"),
-                            WorkspaceItem("road-weather", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 0, 5, 6), widgetId = "weather"),
-                        ),
-                    ),
-                    Workspace(
-                        id = "car", name = "Car", layout = WorkspaceLayout.FULL,
-                        items = listOf(WorkspaceItem("car-obd", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "car")),
-                    ),
-                ),
-                defaultId = "city", lastId = "city", showBar = true,
+                workspaces = workspaces,
+                defaultId = active,
+                lastId = active,
+                showBar = true,
             )
-            activeWorkspaceId = "city"
+            activeWorkspaceId = active
         }
         paparazzi.snapshot {
-            CarTheme(night = true, theme = DashGridTheme) {
-                CarShell(state, NoActions, appContent = { _, m -> MapStandIn(true, m) }, navMap = { _, m -> MapStandIn(true, m) })
+            CarTheme(night = night, theme = DashGridTheme) {
+                CarShell(state, NoActions, appContent = { _, m -> MapStandIn(night, m) }, navMap = { _, m -> MapStandIn(night, m) })
             }
         }
     }

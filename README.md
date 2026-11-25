@@ -16,10 +16,18 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
   <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" alt="DashGrid icon">
 </p>
 
-![DashGrid on a 16:9 car screen: a map workspace, a music widget and the pager bar](docs/screenshots/dashgrid-workspaces.png)
+<p align="center">
+  <img src="docs/screenshots/dashgrid-workspaces.png" width="49%" alt="Workspace City: map 70% + music 30%, pager bar">
+  <img src="docs/screenshots/dashgrid-four.png" width="49%" alt="Workspace Everything: four widgets in a 2x2 grid">
+</p>
+<p align="center">
+  <img src="docs/screenshots/dashgrid-three.png" width="49%" alt="Workspace Route: map, music and weather side by side">
+  <img src="docs/screenshots/dashgrid-day.png" width="49%" alt="The same workspace in day colours">
+</p>
 
-*Mockup rendered from the real Compose UI by Paparazzi (no emulator): workspace “City”, map + music
-70/30, pager bar with the other two workspaces.*
+*Mockups rendered from the real Compose UI by Paparazzi (no emulator): 70/30 with the pager bar,
+four widgets, three widgets, and day colours. A real head unit can differ in fonts and the map
+provider's drawing.*
 
 ## What DashGrid adds
 

@@ -7,8 +7,8 @@
 <p align="center"><strong>Swipe. Arrange. Drive.</strong></p>
 
 <p align="center">
-  An independent fork of AARE that turns the car screen into switchable workspaces —<br>
-  a configurable grid of live apps and widgets, edited from the phone.
+  Your car screen, arranged the way you drive.<br>
+  One page for the city, one for the open road, one for the car itself — and you decide what lives on each.
 </p>
 
 <p align="center">
@@ -28,36 +28,47 @@
   <img src="docs/screenshots/dashgrid-workspaces.png" width="100%" alt="DashGrid on a 16:9 car screen: map and music workspace, pager dots">
 </p>
 
-> **Fork of AARE.** The Android Auto projection protocol, transport, audio, microphone, app
-> hosting, Car App Library integration and the built-in screens are AARE's (GPL-3.0, © the AARE
-> contributors). DashGrid adds workspaces, the grid editor, live app panes and its own identity.
-> See [UPSTREAM.md](UPSTREAM.md).
+> **AARE underneath.** DashGrid is an independent fork of [AARE](https://github.com/prototux/AARE).
+> The Android Auto connection, the sound, the app hosting and the built-in screens are AARE's work.
+> The home screen, the editor and the look are DashGrid's. If you've used AARE before, everything
+> under the surface will feel familiar.
 
-| Workspaces | Grid | Widgets | Layouts |
-|:--|:--|:--|:--|
-| Any number, cyclic paging | 10 × 6, drag, resize, merge | 7 built-in types + live app panes | Taskbar, dock, classic |
+## A home screen that fits the drive
 
-## Workspaces, not a dashboard
+Most car screens give you one layout and hope it works for every trip. DashGrid treats the screen
+like a small stack of pages instead. A workspace is just that: a page with a name, a layout and
+whatever you want on it. Swipe sideways, tap a dot, or press Home. The last page wraps around to
+the first, so the gesture never dead-ends.
 
-Each workspace is its own home screen: a name, an order, a layout and a set of app shortcuts,
-live app panes and widgets. Switch with a horizontal swipe, the dots, or the Home button — past
-the last workspace comes the first one. The workspace you leave an app from is the one you return
-to.
+The point is not to fill the screen with controls. It is to stop hunting for the same app every
+time you get in.
 
-The editor lives on the phone, where a keyboard and precision touch make sense. The car screen
-stays a viewer: no setup UI, no accidental drags while driving.
+**At a glance:** any number of workspaces · a 10 × 6 grid · seven widget types · live app panes ·
+three layouts (taskbar, dock, classic).
 
-## What you get
+## What it feels like
 
-| Area | What it does |
-|:--|:--|
-| **Workspaces** | Independent pages with their own layouts and items; create, rename, duplicate, reorder, delete, choose a default. |
-| **Grid** | 100 %, 50/50, 70/30, 30/70, three widgets, four widgets, or a custom 10 × 6 grid. Long-press to drag, change width/height to merge cells. |
-| **Live app panes** | Render an app's own screen into its cells — Car App templates, a map, a media screen, a launched phone app — with the same rounded corners as widgets. |
-| **Widgets** | Map, music, calendar, latest notification, weather, smart-home actions and live OBD. Map and music widgets can be pinned to a specific app per workspace. |
-| **Music** | The Music widget follows session-only players (Yandex Music, podcasts, radio) through `MediaSessionManager`, with artwork, progress, seek, play/pause and skip. No root, no GMS. |
-| **Pager** | Compact bar with dots and an optional workspace name. No arrows: swipe the bar, empty space, or tap a dot. |
-| **Identity** | Own application ID and signing key, icon, DashGrid theme, Russian and English UI. |
+**Arrange once, then leave it alone.** Put a map and music side by side for the city, a weather
+card and the next calendar event for a longer drive, or one big app for the car. Presets cover
+100 %, 50/50, 70/30, 30/70, three widgets, four widgets and a free 10 × 6 grid.
+
+**Resize by dragging.** Long-press an item on the phone, move it, change its width and height, and
+let it merge cells. Map and music widgets can be pinned to a particular app per workspace, so each
+page keeps its own player instead of following whatever opened last.
+
+**Let an app draw itself.** A live pane is an app's own screen inside its cells — a Car App
+template, a map, a media screen, a launched phone app — with the same rounded corners as the
+widgets around it. Shortcuts are still there when you just want an icon that opens full screen.
+
+**Edit on the phone. Drive on the car.** The editor needs a keyboard, precision touch and room for
+a layout preview. The car screen stays a viewer, with no setup panels in the way.
+
+**Keep the music going.** Switching pages never stops playback. The Music widget follows the active
+media session — artwork, track, progress, seek, play/pause and skip — even for players that don't
+expose a car library. No root and no Google Play Services.
+
+**Keep your own identity.** Different application ID, signing key, icon and theme from AARE. The
+published build stands on its own.
 
 ## Screens
 
@@ -69,9 +80,9 @@ stays a viewer: no setup UI, no accidental drags while driving.
 
 ## Install
 
-This release publishes **one APK: the standalone build**. It defines the legacy
-`android.car.permission.TEMPLATE_RENDERER`, so it cannot be installed while AARE is installed.
-Uninstall AARE first; this removes AARE's settings.
+This release ships **one APK: the standalone build**. It carries its own legacy host permission,
+which means it cannot be installed while AARE is installed. If AARE is still on the phone, remove
+it first; that also removes AARE's settings.
 
 ```sh
 adb uninstall net.prototux.aare
@@ -81,10 +92,10 @@ adb install -r DashGrid-standalone-v1.0.3.apk
 - Download: [DashGrid-standalone-v1.0.3.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.3/DashGrid-standalone-v1.0.3.apk)
 - Package: `io.dashgrid.app`, version 1.0.3 (10003)
 - SHA-256: `ceda3f9aff5b886e81dbb1d9bbdbdad211f6edccb9937e008e50bc25cfc9e95a`
-- Signed with DashGrid's own key (`CN=DashGrid`); updates must use the same key.
+- Signed with DashGrid's own key (`CN=DashGrid`); future updates must use the same key.
 
-The side-by-side variant, for a phone where AARE stays installed, is a local build only:
-`./gradlew dashgridApk`. It is not attached to this release.
+Prefer to keep AARE installed? The side-by-side variant is still buildable locally with
+`./gradlew dashgridApk`; it is not attached to this release.
 
 ## Build
 
@@ -117,15 +128,14 @@ DashGrid.
 
 </details>
 
-## Compatibility
+## Good to know
 
-| Case | Result |
-|:--|:--|
-| Android 6+ phone, no root, no Google Play Services | Works with AARE's non-root audio and connection paths. |
-| AARE installed alongside | Use the local side-by-side build; the published standalone APK conflicts on `TEMPLATE_RENDERER`. |
-| Yandex Music | Full library is closed: its `MusicBrowserService` is disabled in the inspected APK. The Music widget controls the active session instead. [Details](docs/MEDIA_COMPATIBILITY.md). |
-| Other music apps | AARE's MediaBrowser UI for apps that expose an enabled library; the Music widget for session-only apps. |
-| Head units | AARE's USB/wireless Android Auto transport and certificate flow are unchanged. |
+- **No root, no Google Play Services.** AARE's non-root connection and audio paths are enough.
+- **The published APK is standalone.** It cannot sit beside AARE; the side-by-side build is a
+  local variant.
+- **Music apps:** AARE's full car library appears for apps that expose one. Apps that only publish
+  a media session still get artwork, metadata, seek and transport in the Music widget.
+- **Head units:** USB and wireless Android Auto, plus the certificate flow, are unchanged from AARE.
 
 ## Documentation
 
@@ -133,21 +143,21 @@ DashGrid.
 |:--|:--|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | How workspaces, panes, paging and the media fallback fit into AARE |
 | [DESIGN.md](DESIGN.md) | Palette, icon, typography and car-UI rules |
-| [docs/MEDIA_COMPATIBILITY.md](docs/MEDIA_COMPATIBILITY.md) | Yandex Music diagnosis, session fallback and test plan |
 | [TESTING.md](TESTING.md) | Automated tests and build checks |
 | [CHANGELOG.md](CHANGELOG.md) | Changes relative to AARE 1.6.0 |
 | [UPSTREAM.md](UPSTREAM.md) | Base commit, merge process, identifiers that must not change |
 
 ## По-русски
 
-**DashGrid** — независимый форк AARE: переключаемые рабочие столы, живые панели приложений и
-виджеты, редактор на телефоне. Свой application ID и ключ подписи.
+**DashGrid** — независимый форк AARE с переключаемыми рабочими столами. Одна страница для города,
+другая для трассы, третья для самой машины — вы решаете, что на каждой.
 
-- Рабочие столы листаются свайпом или точками; название на панели можно отключить.
-- Раскладки 100 %, 50/50, 70/30, 30/70, три/четыре виджета и своя сетка 10 × 6.
-- Музыка продолжает играть при переключении; Яндекс Музыка управляется через медиасессию.
+- Страницы листаются свайпом или точками; название на панели можно отключить.
+- Сетка 10 × 6: перетаскивание, изменение размера, объединение ячеек.
+- Живые панели приложений и виджеты; карту и музыку можно закрепить за приложением.
+- Музыка не прерывается при переключении страниц.
 - Установка: [DashGrid-standalone-v1.0.3.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.3/DashGrid-standalone-v1.0.3.apk).
-  AARE должен быть удалён: standalone-сборка не ставится рядом с ним.
+  AARE нужно удалить: standalone-сборка не ставится рядом с ним.
 
 ## Licence
 

@@ -53,7 +53,6 @@ internal fun CarSettingsScreen(settings: Settings, modifier: Modifier) {
     var audio by remember { mutableStateOf(settings.carAudio) }
     var darkBar by remember { mutableStateOf(settings.darkBar) }
     var railWidgets by remember { mutableStateOf(RailWidget.parse(settings.railWidgets)) }
-    var cards by remember { mutableStateOf(DashCard.parse(settings.dashboardCards)) }
     var mapBig by remember { mutableStateOf(settings.dashboardMapBig) }
     var agendaCount by remember { mutableStateOf(settings.calendarAgendaCount) }
     var passenger by remember { mutableStateOf(settings.ignoreDriving) }
@@ -87,7 +86,8 @@ internal fun CarSettingsScreen(settings: Settings, modifier: Modifier) {
             RailWidgetsEditor(railWidgets, LocalCarDimens.current.touchTarget) { railWidgets = it; settings.railWidgets = it.map(RailWidget::id) }
         }
         item {
-            DashboardCardsEditor(cards, LocalCarDimens.current.touchTarget, available = DashCard.entries.filter { it != DashCard.CAR || settings.obdAdapter }) { cards = it; settings.dashboardCards = it.map(DashCard::id) }
+            Text(stringResource(R.string.workspaces_car_hint), style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         item { SwitchRow(stringResource(R.string.dash_map_big_title), mapBig) { mapBig = it; settings.dashboardMapBig = it } }
         item {

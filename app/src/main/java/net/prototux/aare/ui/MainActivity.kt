@@ -79,6 +79,7 @@ import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material.icons.rounded.Mic
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
+import androidx.compose.material.icons.rounded.SpaceDashboard
 import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.Tv
@@ -235,6 +236,7 @@ class MainActivity : ComponentActivity() {
 /** The settings pages, Android Auto style: one per topic, opened from the home page. */
 private enum class Page(val titleRes: Int, val subtitleRes: Int, val icon: ImageVector) {
     CAR_SCREEN(R.string.setup_page_car_screen_title, R.string.setup_page_car_screen_subtitle, Icons.Rounded.Dashboard),
+    WORKSPACES(R.string.workspaces_page_title, R.string.workspaces_page_subtitle, Icons.Rounded.SpaceDashboard),
     APPS(R.string.setup_page_apps_title, R.string.setup_page_apps_subtitle, Icons.Rounded.Apps),
     ASSISTANT(R.string.assistant_settings_title, R.string.assistant_page_subtitle, Icons.Rounded.Mic),
     MESSAGES(R.string.msg_settings_title, R.string.msg_page_subtitle, Icons.Rounded.Forum),
@@ -303,6 +305,7 @@ private fun Home() {
                             item { CarScreenSettings(settings, refresh) }
                             item { TouchCalibrationCard() }
                         }
+                        Page.WORKSPACES -> item { WorkspacesSettings(settings) }
                         Page.APPS -> item { AppsCard(settings) }
                         Page.ASSISTANT -> item { AssistantCard(settings) }
                         Page.MESSAGES -> item { MessageSettings(settings, refresh) }
@@ -1117,7 +1120,8 @@ private fun CarScreenSettings(settings: Settings, refresh: Int) {
                 weather = it; settings.showWeather = it
             }
             Spacer(Modifier.height(8.dp))
-            DashboardCardsEditor(cards, 48.dp) { cards = it; settings.dashboardCards = it.map(DashCard::id) }
+            Text(stringResource(R.string.workspaces_phone_hint), style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(12.dp))
             Choices(stringResource(R.string.setup_choice_map_inset), listOf("0" to stringResource(R.string.setup_map_inset_none), "24" to stringResource(R.string.setup_map_inset_small),
                 "40" to stringResource(R.string.setup_map_inset_medium), "56" to stringResource(R.string.setup_map_inset_large)), mapInset.toString()) {
@@ -2219,6 +2223,14 @@ private fun AboutScreen() {
             Pill(stringResource(R.string.about_link_discussions), Icons.Rounded.Forum) {
                 ctx.startSafely(Intent(Intent.ACTION_VIEW, Uri.parse(AboutLinks.DISCUSSIONS)))
             }
+        }
+    }
+    Spacer(Modifier.height(16.dp))
+    Section(stringResource(R.string.about_upstream_title)) {
+        Text(stringResource(R.string.about_upstream_text), style = MaterialTheme.typography.bodyMedium)
+        Spacer(Modifier.height(10.dp))
+        Pill(stringResource(R.string.about_link_upstream), Icons.Rounded.Code) {
+            ctx.startSafely(Intent(Intent.ACTION_VIEW, Uri.parse(AboutLinks.UPSTREAM)))
         }
     }
     Spacer(Modifier.height(16.dp))

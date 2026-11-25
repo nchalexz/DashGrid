@@ -24,6 +24,8 @@ jobs:
           version="${GITHUB_REF_NAME#dashgrid-v}"
           apk="dist/DashGrid-v${version}.apk"
           test -f "$apk" || { echo "missing $apk" >&2; exit 1; }
-          gh release create "$GITHUB_REF_NAME" "$apk" \
-            --title "DashGrid ${version}" \
-            --generate-notes
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release edit "$GITHUB_REF_NAME" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
+          else
+            gh release create "$GITHUB_REF_NAME" "$apk" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
+          fi

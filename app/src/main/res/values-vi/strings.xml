@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AARE</string>
-    <string name="mirror_touch_description">Cho phép bạn dùng màn hình điện thoại từ xe: AARE lặp lại các lần chạm trên màn hình xe sang điện thoại, và kiểm tra ứng dụng nào đang hiển thị để màn hình điện thoại tạm dừng khi lái xe, trừ khi đó là ứng dụng điều hướng. AARE không đọc gì khác.</string>
+    <string name="app_name">DashGrid</string>
+    <string name="mirror_touch_description">Cho phép bạn dùng màn hình điện thoại từ xe: DashGrid lặp lại các lần chạm trên màn hình xe sang điện thoại, và kiểm tra ứng dụng nào đang hiển thị để màn hình điện thoại tạm dừng khi lái xe, trừ khi đó là ứng dụng điều hướng. DashGrid không đọc gì khác.</string>
     <string name="mirror_locked_placeholder">Màn hình điện thoại tạm dừng khi điện thoại đang khóa. Mở khóa điện thoại để hiển thị.</string>
-    <string name="mirror_driving_no_accessibility">Màn hình điện thoại tạm dừng khi đang lái xe. Để hiển thị ứng dụng điều hướng khi lái xe, hãy bật AARE trong cài đặt trợ năng của điện thoại: điều này giúp AARE biết ứng dụng nào đang mở.</string>
+    <string name="mirror_driving_no_accessibility">Màn hình điện thoại tạm dừng khi đang lái xe. Để hiển thị ứng dụng điều hướng khi lái xe, hãy bật DashGrid trong cài đặt trợ năng của điện thoại: điều này giúp DashGrid biết ứng dụng nào đang mở.</string>
     <string name="mirror_driving_nav_only">Màn hình điện thoại tạm dừng khi đang lái xe. Nó chỉ hiển thị ứng dụng điều hướng.</string>
-    <string name="mirror_need_screen_capture">Màn hình điện thoại cần quyền ghi màn hình của Android. Trên điện thoại, mở cài đặt Âm thanh xe hơi của AARE, nhấn Quyền ghi màn hình và chọn Toàn bộ màn hình.</string>
-    <string name="mirror_capture_failed">Android đã từ chối chia sẻ màn hình điện thoại. Trên điện thoại, nhấn lại Quyền ghi màn hình trong cài đặt Âm thanh xe hơi của AARE và chọn Toàn bộ màn hình.</string>
-    <string name="mirror_need_accessibility">Để dùng điện thoại từ xe, hãy bật AARE trong cài đặt trợ năng của điện thoại.</string>
+    <string name="mirror_need_screen_capture">Màn hình điện thoại cần quyền ghi màn hình của Android. Trên điện thoại, mở cài đặt Âm thanh xe hơi của DashGrid, nhấn Quyền ghi màn hình và chọn Toàn bộ màn hình.</string>
+    <string name="mirror_capture_failed">Android đã từ chối chia sẻ màn hình điện thoại. Trên điện thoại, nhấn lại Quyền ghi màn hình trong cài đặt Âm thanh xe hơi của DashGrid và chọn Toàn bộ màn hình.</string>
+    <string name="mirror_need_accessibility">Để dùng điện thoại từ xe, hãy bật DashGrid trong cài đặt trợ năng của điện thoại.</string>
 
     <!-- common: shared across screens -->
     <string name="common_back">Quay lại</string>
@@ -32,7 +32,7 @@
     <string name="setup_page_connection_subtitle">Không dây, chất lượng video, xe của bạn</string>
     <string name="setup_page_advanced_title">Nâng cao</string>
     <string name="setup_page_advanced_subtitle">Máy chủ đầu đĩa, chứng chỉ, nhật ký</string>
-    <string name="setup_tagline">Trình chiếu màn hình xe mã nguồn mở</string>
+    <string name="setup_tagline">Swipe. Arrange. Drive.</string>
     <string name="setup_status_certificate">chứng chỉ: %1$s</string>
     <string name="setup_status_disconnected_hint">Cắm điện thoại vào cổng USB Android Auto của xe, hoặc kết nối không dây với xe đã ghép đôi.</string>
     <string name="setup_status_last_error">Lỗi gần nhất: %1$s</string>
@@ -49,7 +49,7 @@
     <string name="setup_check_audio_subtitle">Cho phép âm thanh của điện thoại truyền đến xe</string>
     <string name="setup_action_set_up">Thiết lập</string>
     <string name="setup_old_android_title">Đang chạy trên phiên bản Android cũ hơn</string>
-    <string name="setup_old_android_message">AARE cũng chạy trên Android 6 và 7, nhưng Android 8 là nền tảng được hỗ trợ tốt hơn. Trên Android 6 và 7, thông báo kết nối không thể đặt vào kênh riêng, nên không thể tắt tiếng riêng biệt với các thông báo khác của AARE trong cài đặt hệ thống. Mọi thứ khác hoạt động như bình thường, hoặc tự động chuyển về phương thức cũ hơn.</string>
+    <string name="setup_old_android_message">DashGrid cũng chạy trên Android 6 và 7, nhưng Android 8 là nền tảng được hỗ trợ tốt hơn. Trên Android 6 và 7, thông báo kết nối không thể đặt vào kênh riêng, nên không thể tắt tiếng riêng biệt với các thông báo khác của DashGrid trong cài đặt hệ thống. Mọi thứ khác hoạt động như bình thường, hoặc tự động chuyển về phương thức cũ hơn.</string>
     <string name="setup_old_android_dont_show_again">Không hiển thị lại</string>
     <string name="setup_section_connecting">Đang kết nối</string>
     <string name="setup_toggle_wireless_title">Không dây</string>
@@ -68,10 +68,10 @@
     <string name="setup_section_location">Vị trí</string>
     <string name="setup_toggle_car_gps_title">Dùng GPS của xe</string>
     <string name="setup_toggle_car_gps_subtitle">Khi đang kết nối, các ứng dụng trên điện thoại sẽ thấy vị trí của xe thay vì vị trí của điện thoại, để ứng dụng điều hướng không lẫn hai vị trí này</string>
-    <string name="setup_check_mock_location_title">Cho phép AARE đặt vị trí</string>
-    <string name="setup_check_mock_location_subtitle">Tùy chọn nhà phát triển &gt; Chọn ứng dụng vị trí giả &gt; AARE</string>
+    <string name="setup_check_mock_location_title">Cho phép DashGrid đặt vị trí</string>
+    <string name="setup_check_mock_location_subtitle">Tùy chọn nhà phát triển &gt; Chọn ứng dụng vị trí giả &gt; DashGrid</string>
     <string name="setup_check_background_location_title">Điều hướng khi điện thoại bị khóa</string>
-    <string name="setup_check_background_location_subtitle">Không bắt buộc. Khi AARE tự khởi động (Bluetooth của xe), các ứng dụng điều hướng vẫn giữ được vị trí khi điện thoại bị khóa. Quyền &gt; Vị trí &gt; Luôn cho phép</string>
+    <string name="setup_check_background_location_subtitle">Không bắt buộc. Khi DashGrid tự khởi động (Bluetooth của xe), các ứng dụng điều hướng vẫn giữ được vị trí khi điện thoại bị khóa. Quyền &gt; Vị trí &gt; Luôn cho phép</string>
     <string name="setup_section_video">Video</string>
     <string name="setup_toggle_60fps_title">Ưu tiên 60 fps</string>
     <string name="setup_toggle_60fps_subtitle">Mượt hơn khi xe hỗ trợ</string>
@@ -157,9 +157,9 @@
     <string name="setup_app_kind_media">Nhạc, podcast, radio</string>
     <string name="setup_app_group_messaging">Tin nhắn</string>
     <string name="setup_app_kind_messaging">Tin nhắn từ thông báo của ứng dụng</string>
-    <string name="setup_app_group_aare">AARE</string>
-    <string name="setup_app_builtin_subtitle">Tích hợp sẵn trong AARE. Khi ẩn, nó chỉ rời khỏi lưới ứng dụng: cuộc gọi và chuông vẫn hoạt động.</string>
-    <string name="setup_section_unsupported_apps">Ứng dụng Android Auto mà AARE không thể hiển thị</string>
+    <string name="setup_app_group_aare">DashGrid</string>
+    <string name="setup_app_builtin_subtitle">Tích hợp sẵn trong DashGrid. Khi ẩn, nó chỉ rời khỏi lưới ứng dụng: cuộc gọi và chuông vẫn hoạt động.</string>
+    <string name="setup_section_unsupported_apps">Ứng dụng Android Auto mà DashGrid không thể hiển thị</string>
     <string name="setup_hint_allowlist">Các ứng dụng được xây dựng với phiên bản mới của thư viện xe hơi của Google chỉ chấp nhận các host trong danh sách cho phép của họ; xem README.</string>
     <string name="setup_app_entry_phone">Điện thoại</string>
     <string name="setup_app_entry_settings">Cài đặt</string>
@@ -172,7 +172,7 @@
     <string name="setup_toggle_compact_rail_subtitle">Thanh hẹp hơn, biểu tượng nhỏ hơn và khoảng cách gọn hơn</string>
     <string name="setup_section_connection_log">Nhật ký kết nối</string>
     <string name="setup_section_car_buttons">Nút trên xe</string>
-    <string name="setup_car_buttons_hint">Các phím AARE đã nhận từ xe này. Chọn chức năng cho từng phím; phím để ở “Mặc định” giữ hoạt động bình thường.</string>
+    <string name="setup_car_buttons_hint">Các phím DashGrid đã nhận từ xe này. Chọn chức năng cho từng phím; phím để ở “Mặc định” giữ hoạt động bình thường.</string>
     <string name="setup_car_buttons_empty">Chưa nhận được nút nào. Hãy kết nối với xe và nhấn một nút.</string>
     <string name="setup_car_button_default">Mặc định</string>
     <string name="setup_car_action_home">Trang chủ</string>
@@ -185,7 +185,7 @@
     <string name="setup_car_action_open_media">Mở ứng dụng đa phương tiện</string>
     <string name="setup_car_action_open_phone">Mở ứng dụng Điện thoại</string>
     <string name="setup_car_action_nothing">Không làm gì</string>
-    <string name="setup_about_text">AARE %1$s · GPL-3.0-or-later · Không liên kết với Google. Android Auto là thương hiệu của Google LLC.</string>
+    <string name="setup_about_text">DashGrid %1$s · GPL-3.0-or-later · Không liên kết với Google. Android Auto là thương hiệu của Google LLC.</string>
     <string name="setup_choice_style">Kiểu</string>
     <string name="setup_choice_theme">Giao diện</string>
     <string name="setup_choice_layout">Bố cục</string>
@@ -212,16 +212,16 @@
 
     <!-- cert: certificate management -->
     <string name="cert_section_title">Chứng chỉ điện thoại</string>
-    <string name="cert_hint">Đầu đĩa kiểm tra chứng chỉ của điện thoại. Đầu đĩa mã nguồn mở chấp nhận chứng chỉ được tạo tự động; xe dùng phần mềm đầu đĩa của Google chỉ chấp nhận chứng chỉ do Google cấp, mà AARE không thể kèm theo. Bạn có thể nhập chứng chỉ mà bạn có quyền sử dụng (chứng chỉ PEM + khóa PKCS#8, hoặc PKCS#12). Bạn cũng có thể tải xuống chứng chỉ từ ứng dụng Android Auto mới nhất (github.com/iscle/android-auto-certificates).</string>
+    <string name="cert_hint">Đầu đĩa kiểm tra chứng chỉ của điện thoại. Đầu đĩa mã nguồn mở chấp nhận chứng chỉ được tạo tự động; xe dùng phần mềm đầu đĩa của Google chỉ chấp nhận chứng chỉ do Google cấp, mà DashGrid không thể kèm theo. Bạn có thể nhập chứng chỉ mà bạn có quyền sử dụng (chứng chỉ PEM + khóa PKCS#8, hoặc PKCS#12). Bạn cũng có thể tải xuống chứng chỉ từ ứng dụng Android Auto mới nhất (github.com/iscle/android-auto-certificates).</string>
     <string name="cert_entry_subtitle">%1$s · đến %2$s</string>
     <string name="cert_action_remove">Xóa</string>
     <string name="cert_action_import">Nhập chứng chỉ…</string>
     <string name="cert_action_download">Tải chứng chỉ xuống</string>
     <string name="cert_auto_update_title">Tự động cập nhật chứng chỉ đã tải xuống</string>
-    <string name="cert_auto_update_subtitle">Một lần mỗi ngày, không bao giờ trong lúc đang kết nối, AARE sẽ hỏi kho đó xem có chứng chỉ mới hơn không và sử dụng nó. Dù thế nào, AARE cũng sẽ cảnh báo hai tuần trước khi chứng chỉ của Google hết hạn.</string>
+    <string name="cert_auto_update_subtitle">Một lần mỗi ngày, không bao giờ trong lúc đang kết nối, DashGrid sẽ hỏi kho đó xem có chứng chỉ mới hơn không và sử dụng nó. Dù thế nào, DashGrid cũng sẽ cảnh báo hai tuần trước khi chứng chỉ của Google hết hạn.</string>
     <string name="cert_expiring_banner_title">Chứng chỉ của Google hết hạn vào %1$s</string>
     <string name="cert_expired_banner_title">Chứng chỉ của Google đã hết hạn vào %1$s</string>
-    <string name="cert_expiry_banner_subtitle">Những xe chỉ chấp nhận chứng chỉ đó sẽ từ chối AARE. Nhấn để tải xuống chứng chỉ mới hơn.</string>
+    <string name="cert_expiry_banner_subtitle">Những xe chỉ chấp nhận chứng chỉ đó sẽ từ chối DashGrid. Nhấn để tải xuống chứng chỉ mới hơn.</string>
     <string name="cert_action_downloading">Đang tải xuống…</string>
     <string name="cert_download_unavailable">Kho chứng chỉ không còn tồn tại (đã bị xóa hoặc gỡ bỏ): %1$s. Thay vào đó, hãy trích xuất chứng chỉ từ ứng dụng Android Auto (xem README).</string>
     <string name="cert_download_network">Không tải được chứng chỉ: %1$s. Hãy kiểm tra kết nối rồi thử lại.</string>
@@ -256,7 +256,7 @@
     <string name="msg_section_while_driving">Khi đang lái xe</string>
     <string name="msg_toggle_dnd_title">Không làm phiền</string>
     <string name="msg_toggle_dnd_subtitle">Im lặng điện thoại khi đang kết nối; cuộc gọi và cuộc trò chuyện ưu tiên vẫn được thông báo</string>
-    <string name="msg_check_dnd_access_title">Cho phép AARE bật Không làm phiền</string>
+    <string name="msg_check_dnd_access_title">Cho phép DashGrid bật Không làm phiền</string>
     <string name="msg_check_dnd_access_subtitle">Android chỉ hỏi một lần</string>
     <string name="msg_toggle_autoreply_title">Tự động trả lời</string>
     <string name="msg_toggle_autoreply_subtitle">Tự động trả lời người gửi tin, một lần cho mỗi cuộc trò chuyện trong mỗi chuyến đi (không áp dụng cho nhóm)</string>
@@ -276,29 +276,29 @@
     <string name="audio_method_shizuku">Shizuku hoặc root</string>
     <string name="audio_method_root_policy">Root, nhạc và điều hướng tách riêng</string>
     <string name="audio_method_playback_capture">Quyền ghi màn hình</string>
-    <string name="audio_policy_not_ready">Giống Android Auto: nhạc và giọng điều hướng tách riêng, loa điện thoại tắt. Cần điện thoại đã root: cài AARE như ứng dụng hệ thống bằng module Magisk (xem README).</string>
+    <string name="audio_policy_not_ready">Giống Android Auto: nhạc và giọng điều hướng tách riêng, loa điện thoại tắt. Cần điện thoại đã root: cài DashGrid như ứng dụng hệ thống bằng module Magisk (xem README).</string>
     <string name="audio_shizuku_ready">Đã sẵn sàng. Mọi âm thanh điện thoại phát ra đều truyền đến xe, kể cả giọng điều hướng; điện thoại vẫn im lặng.</string>
     <string name="audio_shizuku_needs_android12">Cần Android 12 hoặc mới hơn.</string>
-    <string name="audio_shizuku_tap_allow">Shizuku đang chạy: nhấn để cho phép AARE.</string>
+    <string name="audio_shizuku_tap_allow">Shizuku đang chạy: nhấn để cho phép DashGrid.</string>
     <string name="audio_shizuku_install_hint">Không cần root. Cài Shizuku, khởi động nó (gỡ lỗi không dây, một lần mỗi khi khởi động lại máy), rồi trở lại đây.</string>
     <string name="audio_playback_ready">Đã sẵn sàng. Chỉ phương tiện: không có giọng điều hướng, một số ứng dụng không hỗ trợ, và điện thoại vẫn tiếp tục phát.</string>
     <string name="audio_playback_not_ready">Hoạt động ở mọi nơi, nhưng có hạn chế: chỉ phương tiện, không có giọng điều hướng. Android sẽ hỏi quyền ghi màn hình: chọn Toàn bộ màn hình (cũng được dùng cho màn hình điện thoại).</string>
-    <string name="audio_notice_setup_hint">Mở AARE trên điện thoại và thiết lập âm thanh xe hơi để nghe điện thoại trên xe</string>
+    <string name="audio_notice_setup_hint">Mở DashGrid trên điện thoại và thiết lập âm thanh xe hơi để nghe điện thoại trên xe</string>
     <string name="audio_section_car_mic">Micrô của xe</string>
     <string name="audio_toggle_car_mic_title">Micrô của xe cho ứng dụng điện thoại</string>
     <string name="audio_toggle_car_mic_subtitle">Khi kết nối với xe có micrô, tính năng nhập bằng giọng nói, ứng dụng ghi âm và tin nhắn thoại trên điện thoại sẽ nghe từ xe thay vì điện thoại. Cuộc gọi vẫn dùng micrô riêng. Cần Shizuku.</string>
     <string name="audio_car_mic_ready">Đã sẵn sàng: bật hoặc tắt có hiệu lực ngay, kể cả khi đang kết nối.</string>
     <string name="audio_car_mic_needs_android10">Cần Android 10 hoặc mới hơn.</string>
-    <string name="audio_car_mic_needs_shizuku">Cần Shizuku đang chạy và đã cấp quyền cho AARE (xem phương thức Shizuku ở trên).</string>
+    <string name="audio_car_mic_needs_shizuku">Cần Shizuku đang chạy và đã cấp quyền cho DashGrid (xem phương thức Shizuku ở trên).</string>
 
     <!-- phone: phone screen feature -->
     <string name="phone_section_title">Màn hình điện thoại</string>
     <string name="phone_toggle_enable_title">Màn hình điện thoại trên xe</string>
-    <string name="phone_toggle_enable_subtitle">Màn hình riêng của điện thoại, dùng cho các ứng dụng mà AARE không thể hiển thị (Google Maps, Waze). Tạm dừng khi điện thoại đang khóa, và khi đang lái xe trừ khi có ứng dụng điều hướng đang dẫn đường. Không khả dụng trên máy chủ đầu đĩa trừ khi được bật ở đó</string>
+    <string name="phone_toggle_enable_subtitle">Màn hình riêng của điện thoại, dùng cho các ứng dụng mà DashGrid không thể hiển thị (Google Maps, Waze). Tạm dừng khi điện thoại đang khóa, và khi đang lái xe trừ khi có ứng dụng điều hướng đang dẫn đường. Không khả dụng trên máy chủ đầu đĩa trừ khi được bật ở đó</string>
     <string name="phone_check_touch_title">Chạm trên màn hình điện thoại</string>
-    <string name="phone_check_touch_subtitle">Bật AARE trong Trợ năng. Ứng dụng cài từ bên ngoài có thể cần bật "Cho phép cài đặt bị hạn chế" trong thông tin ứng dụng AARE trước</string>
+    <string name="phone_check_touch_subtitle">Bật DashGrid trong Trợ năng. Ứng dụng cài từ bên ngoài có thể cần bật "Cho phép cài đặt bị hạn chế" trong thông tin ứng dụng DashGrid trước</string>
     <string name="phone_hint_touch_capture">Hình ảnh sử dụng quyền ghi màn hình (trang Âm thanh xe hơi, chọn Toàn bộ màn hình).</string>
-    <string name="phone_app_row_subtitle">Màn hình riêng của điện thoại, dùng cho các ứng dụng mà AARE không thể hiển thị</string>
+    <string name="phone_app_row_subtitle">Màn hình riêng của điện thoại, dùng cho các ứng dụng mà DashGrid không thể hiển thị</string>
 
     <!-- assistant: voice assistant settings and bar -->
     <string name="assistant_settings_title">Trợ lý giọng nói</string>
@@ -320,12 +320,12 @@
     <string name="notif_action_navigate">Điều hướng</string>
     <string name="notif_action_open">Mở</string>
     <string name="notif_cert_updated_title">Chứng chỉ đã được cập nhật</string>
-    <string name="notif_cert_updated_message">AARE đã tải xuống chứng chỉ Android Auto mới hơn, có hiệu lực đến %1$s.</string>
+    <string name="notif_cert_updated_message">DashGrid đã tải xuống chứng chỉ Android Auto mới hơn, có hiệu lực đến %1$s.</string>
     <string name="notif_cert_expiring_title">Chứng chỉ sắp hết hạn</string>
-    <string name="notif_cert_expiring_text">%1$s hết hạn vào %2$s. Sau thời điểm đó, những xe chỉ chấp nhận chứng chỉ của Google sẽ từ chối AARE: hãy tải xuống chứng chỉ mới hơn.</string>
+    <string name="notif_cert_expiring_text">%1$s hết hạn vào %2$s. Sau thời điểm đó, những xe chỉ chấp nhận chứng chỉ của Google sẽ từ chối DashGrid: hãy tải xuống chứng chỉ mới hơn.</string>
     <string name="notif_cert_expired_title">Chứng chỉ đã hết hạn</string>
-    <string name="notif_cert_expired_text">%1$s đã hết hạn vào %2$s. Hiện tại, những xe chỉ chấp nhận chứng chỉ của Google sẽ từ chối AARE: hãy tải xuống chứng chỉ mới hơn.</string>
-    <string name="notif_cert_download_title">Đầu đĩa đã từ chối chứng chỉ của AARE</string>
+    <string name="notif_cert_expired_text">%1$s đã hết hạn vào %2$s. Hiện tại, những xe chỉ chấp nhận chứng chỉ của Google sẽ từ chối DashGrid: hãy tải xuống chứng chỉ mới hơn.</string>
+    <string name="notif_cert_download_title">Đầu đĩa đã từ chối chứng chỉ của DashGrid</string>
     <string name="notif_cert_download_message">Đầu đĩa này chỉ chấp nhận chứng chỉ do Google cấp. Hãy tải chứng chỉ đó từ ứng dụng Android Auto mới nhất, rồi kết nối lại.</string>
     <string name="notif_cert_download_progress">Đang tải chứng chỉ của Android Auto…</string>
     <string name="notif_cert_download_ready_title">Chứng chỉ đã sẵn sàng</string>
@@ -341,11 +341,11 @@
     <string name="notif_trust_warning">Chỉ tin tưởng đầu đĩa mà bạn đang kết nối ngay lúc này</string>
     <string name="notif_untrusted_message">SHA-256 %1$s... %2$s, rồi kết nối lại.</string>
     <string name="notif_trust_reconnect_suffix">%1$s, rồi kết nối lại.</string>
-    <string name="notif_cert_changed_message">chứng chỉ đầu đĩa đã thay đổi: chỉ nhấn Tin tưởng trong thông báo hoặc trong AARE nếu phần mềm của nó đã được cập nhật, rồi kết nối lại</string>
-    <string name="notif_cert_untrusted_message">chứng chỉ đầu đĩa chưa được tin tưởng: nhấn Tin tưởng trong thông báo hoặc trong AARE, rồi kết nối lại</string>
+    <string name="notif_cert_changed_message">chứng chỉ đầu đĩa đã thay đổi: chỉ nhấn Tin tưởng trong thông báo hoặc trong DashGrid nếu phần mềm của nó đã được cập nhật, rồi kết nối lại</string>
+    <string name="notif_cert_untrusted_message">chứng chỉ đầu đĩa chưa được tin tưởng: nhấn Tin tưởng trong thông báo hoặc trong DashGrid, rồi kết nối lại</string>
     <string name="notif_cert_dates_title">Kiểm tra ngày và giờ của xe</string>
-    <string name="notif_cert_not_yet_valid_message">đầu đĩa báo rằng chứng chỉ của AARE chưa có hiệu lực: có thể đồng hồ của nó đang chạy chậm. Hãy đặt lại ngày và giờ của xe, rồi kết nối lại</string>
-    <string name="notif_cert_expired_message">đầu đĩa báo rằng chứng chỉ của AARE đã hết hạn: nếu chưa, có thể đồng hồ của xe đang chạy nhanh. Hãy đặt lại ngày và giờ của xe, hoặc lấy chứng chỉ mới hơn trong mục Nâng cao, rồi kết nối lại</string>
+    <string name="notif_cert_not_yet_valid_message">đầu đĩa báo rằng chứng chỉ của DashGrid chưa có hiệu lực: có thể đồng hồ của nó đang chạy chậm. Hãy đặt lại ngày và giờ của xe, rồi kết nối lại</string>
+    <string name="notif_cert_expired_message">đầu đĩa báo rằng chứng chỉ của DashGrid đã hết hạn: nếu chưa, có thể đồng hồ của xe đang chạy nhanh. Hãy đặt lại ngày và giờ của xe, hoặc lấy chứng chỉ mới hơn trong mục Nâng cao, rồi kết nối lại</string>
     <string name="notif_car_nearby_title">Xe ở gần</string>
     <string name="notif_car_nearby_text">Nhấn để kết nối không dây</string>
     <string name="notif_status_connecting_to">Đang kết nối đến %1$s</string>
@@ -365,9 +365,9 @@
     <string name="notif_navigation_title">Điều hướng</string>
     <string name="notif_navigation_no_app_text">Không có ứng dụng điều hướng trên xe</string>
     <string name="notif_assistant_title">Trợ lý</string>
-    <string name="notif_assistant_choose_text">Chọn một trợ lý giọng nói trong cài đặt AARE trên điện thoại</string>
+    <string name="notif_assistant_choose_text">Chọn một trợ lý giọng nói trong cài đặt DashGrid trên điện thoại</string>
     <string name="notif_assistant_no_car_screen">%1$s không có màn hình dành cho xe: đã mở trên điện thoại</string>
-    <string name="notif_assistant_cant_open">Không thể mở %1$s. Hãy chọn trợ lý khác trong cài đặt AARE</string>
+    <string name="notif_assistant_cant_open">Không thể mở %1$s. Hãy chọn trợ lý khác trong cài đặt DashGrid</string>
     <string name="notif_parked_only_title">Không khả dụng khi đang lái xe</string>
     <string name="notif_parked_only_text">Đỗ xe để dùng tính năng này</string>
     <string name="notif_empty">Không có thông báo</string>
@@ -415,7 +415,7 @@
     <string name="media_queue_empty">Hàng chờ đang trống</string>
 
     <!-- msg: messaging screen (notifications-based conversations) -->
-    <string name="msg_no_access">Cấp quyền truy cập thông báo cho AARE trên điện thoại để xem tin nhắn ở đây</string>
+    <string name="msg_no_access">Cấp quyền truy cập thông báo cho DashGrid trên điện thoại để xem tin nhắn ở đây</string>
     <string name="msg_listener_not_ready">Chưa có gì để xem ở đây</string>
     <string name="msg_reply_sent">Đã gửi trả lời</string>
     <string name="msg_reply_rejected">%1$s không chấp nhận trả lời</string>
@@ -435,7 +435,7 @@
     <string name="phone_tab_recents">Gần đây</string>
     <string name="phone_tab_contacts">Danh bạ</string>
     <string name="phone_tab_keypad">Bàn phím số</string>
-    <string name="phone_permissions_placeholder">Cho phép quyền gọi điện, lịch sử gọi và danh bạ trong AARE trên điện thoại (Hoàn tất thiết lập).</string>
+    <string name="phone_permissions_placeholder">Cho phép quyền gọi điện, lịch sử gọi và danh bạ trong DashGrid trên điện thoại (Hoàn tất thiết lập).</string>
     <string name="phone_notice_calling_title">Đang gọi</string>
     <string name="phone_no_recent_calls">Không có cuộc gọi gần đây</string>
     <string name="phone_no_contacts">Không có danh bạ có số điện thoại</string>
@@ -468,7 +468,7 @@
 
     <!-- standalone: launching ordinary phone apps on the car screen (root/Shizuku, parked only) -->
     <string name="standalone_section_title">Ứng dụng trên màn hình xe (nâng cao)</string>
-    <string name="standalone_section_warning">Đây không phải là ứng dụng Android Auto: AARE hiển thị màn hình điện thoại bình thường của chúng, mặc định chỉ khi đã đỗ xe, và cần root hoặc Shizuku. Sử dụng với rủi ro của riêng bạn.</string>
+    <string name="standalone_section_warning">Đây không phải là ứng dụng Android Auto: DashGrid hiển thị màn hình điện thoại bình thường của chúng, mặc định chỉ khi đã đỗ xe, và cần root hoặc Shizuku. Sử dụng với rủi ro của riêng bạn.</string>
     <string name="standalone_toggle_title">Khởi chạy ứng dụng điện thoại trên màn hình xe</string>
     <string name="standalone_toggle_subtitle">Chọn ứng dụng bên dưới, và với mỗi ứng dụng, những gì nó được làm khi đang lái xe.</string>
     <string name="standalone_keep_awake_title">Chế độ không ngủ cho ứng dụng độc lập</string>
@@ -501,12 +501,12 @@
     <string name="assistant_stop_style_voice_button">Nút giọng nói chuyển thành Dừng</string>
     <string name="assistant_stop_style_red_restart">Nút dừng màu đỏ, nút giọng nói hỏi lại</string>
     <string name="assistant_stop_style_red_stop">Nút dừng màu đỏ, nút giọng nói cũng dừng</string>
-    <string name="assistant_links_subtitle">Cho phép các liên kết aare:// trong câu trả lời của trợ lý đã chọn điều khiển nhạc, hoặc đề xuất điều hướng, mở ứng dụng hay gọi điện trên màn hình xe. Liên kết từ các ứng dụng khác và từ trang web sẽ bị bỏ qua.</string>
+    <string name="assistant_links_subtitle">Cho phép các liên kết dashgrid:// trong câu trả lời của trợ lý đã chọn điều khiển nhạc, hoặc đề xuất điều hướng, mở ứng dụng hay gọi điện trên màn hình xe. Liên kết từ các ứng dụng khác và từ trang web sẽ bị bỏ qua.</string>
     <!-- setup_page: car data entry -->
     <string name="setup_page_car_data_title">Dữ liệu xe</string>
     <string name="setup_page_car_data_subtitle">Tốc độ, số và cảm biến trực tiếp từ xe</string>
     <string name="setup_page_about_title">Giới thiệu</string>
-    <string name="setup_page_about_subtitle">AARE là gì, các liên kết của dự án và những ai đã giúp xây dựng nó</string>
+    <string name="setup_page_about_subtitle">DashGrid là gì, các liên kết của dự án và những ai đã giúp xây dựng nó</string>
 
     <!-- car_data: the read-only car sensor viewer -->
     <string name="car_data_not_connected">Kết nối với xe để xem dữ liệu của xe.</string>
@@ -564,8 +564,8 @@
     <string name="car_data_show_in_car_subtitle">Thêm ứng dụng chẩn đoán trên xe cho dữ liệu trực tiếp này</string>
 
     <!-- about: the About page -->
-    <string name="about_section_what_title">AARE là gì</string>
-    <string name="about_text">AARE là một bản triển khai lại mã nguồn mở của phía điện thoại trong Android Auto: nó giao tiếp trực tiếp với đầu đĩa của xe bằng giao thức chiếu Android Auto, tự vẽ màn hình xe, và chạy các ứng dụng điều hướng, phương tiện và tin nhắn mà không cần Dịch vụ Google Play.</string>
+    <string name="about_section_what_title">DashGrid là gì</string>
+    <string name="about_text">DashGrid là một bản triển khai lại mã nguồn mở của phía điện thoại trong Android Auto: nó giao tiếp trực tiếp với đầu đĩa của xe bằng giao thức chiếu Android Auto, tự vẽ màn hình xe, và chạy các ứng dụng điều hướng, phương tiện và tin nhắn mà không cần Dịch vụ Google Play.</string>
     <string name="about_section_links_title">Dự án</string>
     <string name="about_link_repository">Kho mã nguồn</string>
     <string name="about_link_issues">Vấn đề</string>
@@ -581,7 +581,7 @@
     <string name="about_oss_protocol_title">Định nghĩa giao thức</string>
 
     <string name="obd_adapter_title">Đọc bộ chuyển đổi OBD2</string>
-    <string name="obd_adapter_subtitle">Bộ chuyển đổi ELM327 ghép nối qua Bluetooth, được đọc khi xe đang kết nối: dữ liệu động cơ mà xe không gửi cho AARE. Chỉ đọc: AARE không bao giờ ghi vào xe.</string>
+    <string name="obd_adapter_subtitle">Bộ chuyển đổi ELM327 ghép nối qua Bluetooth, được đọc khi xe đang kết nối: dữ liệu động cơ mà xe không gửi cho DashGrid. Chỉ đọc: DashGrid không bao giờ ghi vào xe.</string>
     <string name="obd_simulated_title">Bộ chuyển đổi OBD2 mô phỏng (gỡ lỗi)</string>
     <string name="obd_simulated_subtitle">Một chiếc xe mô phỏng thay cho bộ chuyển đổi thật, để thử trang này</string>
     <string name="obd_section">Bộ chuyển đổi OBD2</string>
@@ -606,7 +606,7 @@
     <string name="vehicles_import">Nhập file…</string>
     <string name="vehicles_template">Ghi tệp mẫu</string>
     <string name="vehicles_builtin_fixes_title">Bản sửa lỗi xe tích hợp</string>
-    <string name="vehicles_builtin_fixes_subtitle">Các bản sửa lỗi AARE cung cấp cho một số đầu xe cụ thể: không kết nối không dây ở nơi nó lỗi, kích thước video, giọng dẫn đường, xe điện, hình dạng điểm ảnh màn hình, tên mục Thoát. Tắt: mọi xe hoạt động như trước. Một quy tắc trong vehicles.json có thể bật chúng cho một xe (builtInFixes).</string>
+    <string name="vehicles_builtin_fixes_subtitle">Các bản sửa lỗi DashGrid cung cấp cho một số đầu xe cụ thể: không kết nối không dây ở nơi nó lỗi, kích thước video, giọng dẫn đường, xe điện, hình dạng điểm ảnh màn hình, tên mục Thoát. Tắt: mọi xe hoạt động như trước. Một quy tắc trong vehicles.json có thể bật chúng cho một xe (builtInFixes).</string>
     <string name="quirks_section_title">Điểm đặc thù của xe</string>
     <string name="quirks_subtitle">Đây, là danh sách điểm đặc thù.</string>
     <string name="quirks_hint">Ghi đè điểm đặc thù trong vehicles.json cho một xe: đầu xe kết nối gần nhất. Tự động giữ nguyên những gì bản sửa lỗi xe tích hợp và vehicles.json của bạn quy định cho xe đó. Các xe khác không bị ảnh hưởng.</string>
@@ -622,9 +622,9 @@
     <string name="quirks_single_channel_capture_title">Giọng dẫn đường trên một kênh</string>
     <string name="quirks_single_channel_capture_subtitle">Bật: gửi giọng dẫn đường trên kênh nhạc và không dùng kênh dẫn đường. Tắt: dùng kênh dẫn đường như bình thường.</string>
     <string name="quirks_wifi_media_silence_title">Im lặng khi bắt đầu nhạc qua Wi-Fi</string>
-    <string name="quirks_wifi_media_silence_subtitle">Bật: gửi các thông báo im lặng trong vehicles.json (hoặc mặc định của AARE) trước khi luồng nhạc bắt đầu qua Wi-Fi. Tắt: không gửi.</string>
+    <string name="quirks_wifi_media_silence_subtitle">Bật: gửi các thông báo im lặng trong vehicles.json (hoặc mặc định của DashGrid) trước khi luồng nhạc bắt đầu qua Wi-Fi. Tắt: không gửi.</string>
     <string name="quirks_wifi_guidance_silence_title">Im lặng khi bắt đầu dẫn đường qua Wi-Fi</string>
-    <string name="quirks_wifi_guidance_silence_subtitle">Bật: gửi các thông báo im lặng trong vehicles.json (hoặc mặc định của AARE) trước khi luồng giọng dẫn đường bắt đầu qua Wi-Fi. Tắt: không gửi.</string>
+    <string name="quirks_wifi_guidance_silence_subtitle">Bật: gửi các thông báo im lặng trong vehicles.json (hoặc mặc định của DashGrid) trước khi luồng giọng dẫn đường bắt đầu qua Wi-Fi. Tắt: không gửi.</string>
     <string name="quirks_media_on_gain_transient_title">Nhạc trong khi có lời nhắc dẫn đường</string>
     <string name="quirks_media_on_gain_transient_subtitle">Bật: nhạc vẫn tiếp tục phát khi xe trả lời yêu cầu của lời nhắc dẫn đường bằng GAIN_TRANSIENT. Tắt: khi đó chỉ giọng dẫn đường được phát. Một GAIN_TRANSIENT trả lời yêu cầu riêng của nhạc, hoặc do xe tự gửi, luôn cho phép nhạc phát.</string>
     <string name="quirks_pause_on_guidance_only_title">Tạm dừng nhạc khi chỉ cấp quyền dẫn đường</string>
@@ -644,7 +644,7 @@
     <string name="setup_toggle_force_h264_title">Buộc dùng video H.264</string>
     <string name="setup_toggle_constant_bitrate_title">Video tốc độ bit không đổi</string>
     <string name="setup_toggle_constant_bitrate_subtitle">Giữ cho mỗi khung hình có kích thước gần như bằng nhau. Hãy bật nếu xe ngắt kết nối khi toàn bộ hình ảnh thay đổi, như khi hiển thị màn hình điện thoại hoặc video. Hình ảnh nhiều chi tiết sẽ mượt hơn một chút. Có hiệu lực từ lần kết nối tiếp theo.</string>
-    <string name="setup_toggle_force_h264_subtitle">Theo mặc định, AARE sử dụng codec tốt nhất mà xe và điện thoại đều hỗ trợ (H.265…). Bật tùy chọn này nếu hình ảnh trên xe bị lỗi.</string>
+    <string name="setup_toggle_force_h264_subtitle">Theo mặc định, DashGrid sử dụng codec tốt nhất mà xe và điện thoại đều hỗ trợ (H.265…). Bật tùy chọn này nếu hình ảnh trên xe bị lỗi.</string>
     <string name="common_ok">OK</string>
     <string name="common_try_again">Thử lại</string>
     <string name="common_something_went_wrong">Đã xảy ra lỗi</string>
@@ -654,14 +654,14 @@
     <string name="update_check_now">Kiểm tra ngay</string>
     <string name="update_checking">Đang kiểm tra…</string>
     <string name="update_check_latest">Bạn đang dùng phiên bản mới nhất (%1$s).</string>
-    <string name="update_check_available">Đã có AARE %1$s: xem màn hình chính.</string>
+    <string name="update_check_available">Đã có DashGrid %1$s: xem màn hình chính.</string>
     <string name="update_check_failed">Không kết nối được GitHub. Hãy thử lại sau.</string>
     <string name="update_available_title">Có cập nhật mới — %1$s</string>
     <string name="update_available_subtitle">Bạn đang dùng %1$s. Nhấn để xem bản phát hành.</string>
     <string name="setup_log_save">Lưu</string>
     <string name="setup_section_developer_log">Nhật ký nhà phát triển</string>
     <string name="setup_toggle_dev_log_title">Chế độ nhà phát triển</string>
-    <string name="setup_toggle_dev_log_subtitle">Ghi mọi thứ AARE ghi nhật ký vào các tệp văn bản trong %1$s (tối đa 50 MB). Tắt chế độ này sẽ xóa các tệp: hãy lưu chúng trước.</string>
+    <string name="setup_toggle_dev_log_subtitle">Ghi mọi thứ DashGrid ghi nhật ký vào các tệp văn bản trong %1$s (tối đa 50 MB). Tắt chế độ này sẽ xóa các tệp: hãy lưu chúng trước.</string>
     <string name="setup_toggle_dev_log_privacy_title">Ẩn dữ liệu cá nhân</string>
     <string name="setup_toggle_dev_log_privacy_subtitle">Che các địa chỉ, tên mạng và thiết bị cùng các dữ liệu cá nhân khác mà nó nhận ra. Hãy đọc tệp trước khi chia sẻ.</string>
     <string name="setup_dev_log_save">Lưu nhật ký nhà phát triển</string>
@@ -669,7 +669,7 @@
     <string name="setup_toggle_verbose_log_title">Nhật ký giao thức chi tiết</string>
     <string name="setup_toggle_verbose_log_subtitle">Ghi lại toàn bộ dấu vết giao thức của màn hình xe vào nhật ký này, để đính kèm vào báo cáo lỗi. Ghi rất nhiều; nếu không cần thì nên để tắt.</string>
     <string name="setup_section_backup">Sao lưu cài đặt</string>
-    <string name="setup_backup_hint">Lưu cài đặt vào tệp hoặc tải lại từ tệp. Đầu đĩa được tin tưởng, chứng chỉ, trạng thái riêng của điện thoại và các tùy chọn mở AARE ra mạng hoặc bỏ qua bước kiểm tra an toàn (máy chủ đầu đĩa, chế độ hành khách, âm thanh qua root…) không được đưa vào: hãy đặt chúng thủ công trên từng điện thoại.</string>
+    <string name="setup_backup_hint">Lưu cài đặt vào tệp hoặc tải lại từ tệp. Đầu đĩa được tin tưởng, chứng chỉ, trạng thái riêng của điện thoại và các tùy chọn mở DashGrid ra mạng hoặc bỏ qua bước kiểm tra an toàn (máy chủ đầu đĩa, chế độ hành khách, âm thanh qua root…) không được đưa vào: hãy đặt chúng thủ công trên từng điện thoại.</string>
     <string name="setup_backup_export">Xuất…</string>
     <string name="setup_backup_import">Nhập…</string>
     <string name="setup_backup_import_confirm_title">Thay thế cài đặt?</string>
@@ -678,7 +678,7 @@
     <string name="setup_backup_import_done">Đã nhập cài đặt.</string>
     <string name="setup_backup_import_done_skipped">Đã nhập cài đặt. Bỏ qua vì không xác định, bị chặn hoặc không hợp lệ: %1$d</string>
     <string name="setup_backup_import_blocked">Không được nhập, để đảm bảo an toàn (hãy bật các mục này thủ công trên điện thoại này): %1$s</string>
-    <string name="setup_backup_import_failed">Không thể nhập tệp này: đây không phải tệp cài đặt AARE hoặc tệp quá lớn.</string>
+    <string name="setup_backup_import_failed">Không thể nhập tệp này: đây không phải tệp cài đặt DashGrid hoặc tệp quá lớn.</string>
     <string name="setup_backup_export_failed">Không thể lưu tệp cài đặt.</string>
     <string name="setup_nothing_to_open">Điện thoại này không có ứng dụng nào để mở nội dung này</string>
     <string name="setup_wallpaper_failed">Không thể dùng ảnh này làm hình nền</string>
@@ -706,7 +706,7 @@
     <string name="media_error_skip_limit">Đã đạt giới hạn chuyển bài</string>
     <string name="media_error_setup">Hoàn tất thiết lập %1$s trên điện thoại của bạn</string>
     <string name="media_error_end_of_playlist">Đã hết danh sách phát</string>
-    <string name="media_error_permission">%1$s không cho phép AARE duyệt nội dung</string>
+    <string name="media_error_permission">%1$s không cho phép DashGrid duyệt nội dung</string>
     <string name="media_error_io">Lỗi mạng hoặc bộ nhớ</string>
     <string name="media_error_not_supported">Không được %1$s hỗ trợ</string>
     <string name="media_error_disconnected">%1$s đã ngắt kết nối</string>
@@ -721,7 +721,7 @@
     <string name="carapp_error_no_answer">%1$s không phản hồi. Có thể nó chỉ chấp nhận Android Auto của Google (xem danh sách ứng dụng trên điện thoại).</string>
     <string name="carapp_error_api_level">%1$s cần API xe cấp %2$d; thiết bị này hỗ trợ %3$d</string>
     <string name="carapp_error_stopped">%1$s đã dừng</string>
-    <string name="carapp_error_google_only">%1$s chỉ chấp nhận Android Auto của Google. Cần cho phép AARE (xem danh sách ứng dụng trên điện thoại).</string>
+    <string name="carapp_error_google_only">%1$s chỉ chấp nhận Android Auto của Google. Cần cho phép DashGrid (xem danh sách ứng dụng trên điện thoại).</string>
     <string name="carapp_error_cant_start">%1$s không thể khởi động: %2$s</string>
 
     <string name="dash_card_home">Nhà</string>
@@ -731,7 +731,7 @@
     <string name="home_page_title">Hành động Nhà</string>
     <string name="home_page_subtitle">Nút và giá trị nhà thông minh trên xe, qua MQTT hoặc HTTP</string>
     <string name="home_toggle_title">Hiện hành động Nhà trên xe</string>
-    <string name="home_toggle_subtitle">Một ứng dụng Nhà và một thẻ trên bảng điều khiển. AARE chỉ kết nối tới máy chủ của bạn khi màn hình xe đang mở.</string>
+    <string name="home_toggle_subtitle">Một ứng dụng Nhà và một thẻ trên bảng điều khiển. DashGrid chỉ kết nối tới máy chủ của bạn khi màn hình xe đang mở.</string>
     <string name="home_intro">Hành động là các nút phát một tin nhắn MQTT hoặc gửi một yêu cầu HTTP (mở cửa garage, bật đèn). Ô hiển thị một giá trị từ một topic MQTT hoặc một phản hồi HTTP. Home Assistant hoạt động qua REST API, webhook hoặc MQTT của nó.</string>
     <string name="home_section_connections">Kết nối</string>
     <string name="home_broker_title">Broker MQTT</string>
@@ -831,7 +831,7 @@
     <string name="home_preset_http_webhook_subtitle">Gửi một yêu cầu POST đến một địa chỉ</string>
     <string name="home_preset_http_json">Giá trị JSON qua HTTP</string>
     <string name="home_preset_http_json_subtitle">Một ô với một giá trị từ phản hồi JSON, được kiểm tra định kỳ</string>
-    <string name="home_car_empty">Hãy thiết lập hành động nhà trên điện thoại: AARE &gt; Hành động Nhà.</string>
+    <string name="home_car_empty">Hãy thiết lập hành động nhà trên điện thoại: DashGrid &gt; Hành động Nhà.</string>
     <string name="home_confirm_question">%1$s ngay bây giờ?</string>
     <string name="home_confirm_run">Chạy</string>
     <string name="home_action_done">Xong</string>
@@ -846,37 +846,37 @@
     <string name="home_error_http_lan_off">http:// thường đang tắt: hãy bật \"Cho phép http thường trên mạng gia đình của tôi\" cho máy chủ HTTP</string>
     <string name="home_error_tls">chứng chỉ của máy chủ không được tin cậy</string>
     <string name="home_error_generic">đã xảy ra lỗi</string>
-    <string name="shizuku_setup_title">Cấp quyền cho AARE bằng Shizuku</string>
+    <string name="shizuku_setup_title">Cấp quyền cho DashGrid bằng Shizuku</string>
     <string name="shizuku_setup_subtitle">Một lần nhấn cấp những gì còn thiếu, không cần hộp thoại riêng của từng quyền: micro, vị trí, danh bạ, lịch sử gọi, lịch, cuộc gọi điện thoại, thiết bị lân cận (Bluetooth, Wi-Fi), mạng cục bộ, thông báo và quyền truy cập thông báo</string>
     <string name="shizuku_setup_working">Đang cấp…</string>
     <string name="shizuku_setup_result_title">Đã cấp bằng Shizuku</string>
     <string name="shizuku_setup_nothing_to_grant">Mọi thứ đã được cấp từ trước.</string>
     <string name="shizuku_setup_not_granted">Chưa cấp: %1$s</string>
     <string name="shizuku_setup_notification_access">Quyền truy cập thông báo</string>
-    <string name="shizuku_setup_helper_failed">Trình hỗ trợ của Shizuku không khởi động được. Hãy kiểm tra Shizuku đang chạy và cho phép AARE.</string>
+    <string name="shizuku_setup_helper_failed">Trình hỗ trợ của Shizuku không khởi động được. Hãy kiểm tra Shizuku đang chạy và cho phép DashGrid.</string>
     <string name="aa_section_title">Android Auto của Google</string>
-    <string name="aa_state_enabled">Đã cài và đang hoạt động: khi xe kết nối, Android có thể giao xe cho Android Auto thay vì AARE, hoặc hỏi dùng ứng dụng nào.</string>
+    <string name="aa_state_enabled">Đã cài và đang hoạt động: khi xe kết nối, Android có thể giao xe cho Android Auto thay vì DashGrid, hoặc hỏi dùng ứng dụng nào.</string>
     <string name="aa_state_disabled">Đã tắt: Android Auto không nhận xe. Dữ liệu của nó vẫn được giữ lại.</string>
     <string name="aa_action_disable">Ngăn Android Auto nhận xe</string>
     <string name="aa_action_enable">Bật lại Android Auto</string>
     <string name="aa_working">Đang xử lý…</string>
-    <string name="aa_needs_shizuku">Qua Shizuku (đang chạy và cho phép AARE), hoặc tự tay trong thông tin ứng dụng của Android Auto.</string>
+    <string name="aa_needs_shizuku">Qua Shizuku (đang chạy và cho phép DashGrid), hoặc tự tay trong thông tin ứng dụng của Android Auto.</string>
     <string name="aa_app_info">Thông tin ứng dụng Android Auto</string>
     <string name="aa_failed">Không thành công: %1$s</string>
     <string name="aa_confirm_title">Tắt Android Auto?</string>
-    <string name="aa_confirm_text">AARE tắt Android Auto của Google cho người dùng này qua Shizuku (pm disable-user). Nó dừng chạy, biến mất khỏi danh sách ứng dụng và không còn phản hồi khi xe kết nối, vì vậy xe luôn đến với AARE.\n\nKhông có gì bị gỡ cài đặt và dữ liệu của nó vẫn được giữ lại. Các xe, ứng dụng hoặc tính năng cần Android Auto của Google sẽ không hoạt động cho đến khi bạn bật lại bằng nút ở đây.</string>
+    <string name="aa_confirm_text">DashGrid tắt Android Auto của Google cho người dùng này qua Shizuku (pm disable-user). Nó dừng chạy, biến mất khỏi danh sách ứng dụng và không còn phản hồi khi xe kết nối, vì vậy xe luôn đến với DashGrid.\n\nKhông có gì bị gỡ cài đặt và dữ liệu của nó vẫn được giữ lại. Các xe, ứng dụng hoặc tính năng cần Android Auto của Google sẽ không hoạt động cho đến khi bạn bật lại bằng nút ở đây.</string>
     <string name="aa_confirm_action">Tắt</string>
 
     <string name="setup_section_companion">Không dây một lần nhấn</string>
-    <string name="setup_companion_hint">Liên kết một xe mà bạn đã từng kết nối không dây: Android sẽ khởi động AARE khi Bluetooth của xe đó kết nối, ngay cả khi điện thoại đang ở trong túi. Android sẽ hỏi bạn xác nhận một lần cho mỗi xe.</string>
+    <string name="setup_companion_hint">Liên kết một xe mà bạn đã từng kết nối không dây: Android sẽ khởi động DashGrid khi Bluetooth của xe đó kết nối, ngay cả khi điện thoại đang ở trong túi. Android sẽ hỏi bạn xác nhận một lần cho mỗi xe.</string>
     <string name="setup_companion_empty">Kết nối không dây với một xe một lần, rồi trở lại đây để liên kết nó.</string>
     <string name="setup_companion_failed">Android không liên kết được xe: %1$s</string>
     <string name="setup_action_associate">Liên kết</string>
     <string name="setup_toggle_companion_shizuku_title">Chấp thuận Wi-Fi của xe bằng Shizuku</string>
-    <string name="setup_toggle_companion_shizuku_subtitle">Với các xe đã liên kết, Shizuku trả lời câu hỏi \"kết nối với thiết bị\" của Android, nên câu hỏi đó không xuất hiện lại. Mạng của xe vẫn luôn là mạng riêng của AARE, không bao giờ là kết nối internet của điện thoại. Cần Shizuku đang chạy và cho phép AARE.</string>
+    <string name="setup_toggle_companion_shizuku_subtitle">Với các xe đã liên kết, Shizuku trả lời câu hỏi \"kết nối với thiết bị\" của Android, nên câu hỏi đó không xuất hiện lại. Mạng của xe vẫn luôn là mạng riêng của DashGrid, không bao giờ là kết nối internet của điện thoại. Cần Shizuku đang chạy và cho phép DashGrid.</string>
 
     <string name="setup_toggle_auto_pair_title">Tự động ghép đôi Bluetooth của xe</string>
-    <string name="setup_toggle_auto_pair_subtitle">Đối với các cuộc gọi: khi một xe mà điện thoại chưa ghép đôi yêu cầu ghép đôi qua Android Auto, AARE sẽ ghép đôi với xe đó qua Shizuku thay cho hộp thoại của Android, nếu mã khớp với mã xe đã gửi. Không bao giờ ghép với thiết bị khác. Cần Shizuku đang chạy và cho phép AARE.</string>
+    <string name="setup_toggle_auto_pair_subtitle">Đối với các cuộc gọi: khi một xe mà điện thoại chưa ghép đôi yêu cầu ghép đôi qua Android Auto, DashGrid sẽ ghép đôi với xe đó qua Shizuku thay cho hộp thoại của Android, nếu mã khớp với mã xe đã gửi. Không bao giờ ghép với thiết bị khác. Cần Shizuku đang chạy và cho phép DashGrid.</string>
 
     <string name="calibration_title">Hiệu chỉnh màn hình cảm ứng</string>
     <string name="calibration_intro">Nếu các lần chạm rơi sai chỗ trên màn hình xe, hãy đo màn hình cảm ứng của xe này: bạn đặt vùng hiển thị từ điện thoại, rồi chạm vào 4 mục tiêu trên màn hình xe. Hãy làm khi xe đang đỗ.</string>
@@ -887,7 +887,7 @@
     <string name="calibration_start">Bắt đầu hiệu chỉnh</string>
     <string name="calibration_reset">Đặt lại về giá trị của xe</string>
     <string name="calibration_forget">Quên</string>
-    <string name="calibration_area_help">Bước 1/3. Trên màn hình xe, một chữ L màu vàng đánh dấu mỗi góc của vùng mà AARE vẽ. Di chuyển từng cạnh cho đến khi chữ L của nó nằm ngay sát mép màn hình và hiện đầy đủ.</string>
+    <string name="calibration_area_help">Bước 1/3. Trên màn hình xe, một chữ L màu vàng đánh dấu mỗi góc của vùng mà DashGrid vẽ. Di chuyển từng cạnh cho đến khi chữ L của nó nằm ngay sát mép màn hình và hiện đầy đủ.</string>
     <string name="calibration_area_value">%1$s: %2$d px</string>
     <string name="calibration_edge_left">Trái</string>
     <string name="calibration_edge_top">Trên</string>

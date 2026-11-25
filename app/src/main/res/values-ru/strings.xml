@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AARE</string>
-    <string name="mirror_touch_description">Позволяет использовать экран телефона из автомобиля: AARE повторяет на телефоне касания, сделанные на экране автомобиля, и проверяет, какое приложение активно, чтобы экран телефона оставался приостановленным во время движения, если на нём не отображается навигационное приложение. AARE больше ничего не считывает.</string>
+    <string name="app_name">DashGrid</string>
+    <string name="mirror_touch_description">Позволяет использовать экран телефона из автомобиля: DashGrid повторяет на телефоне касания, сделанные на экране автомобиля, и проверяет, какое приложение активно, чтобы экран телефона оставался приостановленным во время движения, если на нём не отображается навигационное приложение. DashGrid больше ничего не считывает.</string>
     <string name="mirror_locked_placeholder">Экран телефона приостановлен, пока телефон заблокирован. Разблокируйте телефон, чтобы показать его.</string>
-    <string name="mirror_driving_no_accessibility">Экран телефона приостановлен во время движения. Чтобы показывать навигационные приложения во время движения, включите AARE в настройках специальных возможностей телефона: это сообщает AARE, какое приложение открыто.</string>
+    <string name="mirror_driving_no_accessibility">Экран телефона приостановлен во время движения. Чтобы показывать навигационные приложения во время движения, включите DashGrid в настройках специальных возможностей телефона: это сообщает DashGrid, какое приложение открыто.</string>
     <string name="mirror_driving_nav_only">Экран телефона приостановлен во время движения. Он показывает только навигационные приложения.</string>
-    <string name="mirror_need_screen_capture">Экрану телефона нужно разрешение Android на захват экрана. На телефоне откройте настройки Звук в автомобиле приложения AARE, нажмите Разрешение на захват экрана и выберите Весь экран.</string>
-    <string name="mirror_capture_failed">Android отказался транслировать экран телефона. На телефоне снова нажмите Разрешение на захват экрана в настройках Звук в автомобиле приложения AARE и выберите Весь экран.</string>
-    <string name="mirror_need_accessibility">Чтобы использовать телефон из автомобиля, включите AARE в настройках специальных возможностей телефона.</string>
+    <string name="mirror_need_screen_capture">Экрану телефона нужно разрешение Android на захват экрана. На телефоне откройте настройки Звук в автомобиле приложения DashGrid, нажмите Разрешение на захват экрана и выберите Весь экран.</string>
+    <string name="mirror_capture_failed">Android отказался транслировать экран телефона. На телефоне снова нажмите Разрешение на захват экрана в настройках Звук в автомобиле приложения DashGrid и выберите Весь экран.</string>
+    <string name="mirror_need_accessibility">Чтобы использовать телефон из автомобиля, включите DashGrid в настройках специальных возможностей телефона.</string>
 
     <!-- common: shared across screens -->
     <string name="common_back">Назад</string>
@@ -32,7 +32,7 @@
     <string name="setup_page_connection_subtitle">Беспроводное соединение, качество видео, ваши автомобили</string>
     <string name="setup_page_advanced_title">Дополнительно</string>
     <string name="setup_page_advanced_subtitle">Сервер головного устройства, сертификаты, журнал</string>
-    <string name="setup_tagline">Проекция для автомобиля с открытым кодом</string>
+    <string name="setup_tagline">Swipe. Arrange. Drive.</string>
     <string name="setup_status_certificate">сертификат: %1$s</string>
     <string name="setup_status_disconnected_hint">Подключите телефон к USB-порту Android Auto в автомобиле или соединитесь по беспроводной сети с парным автомобилем.</string>
     <string name="setup_status_last_error">Последняя ошибка: %1$s</string>
@@ -49,7 +49,7 @@
     <string name="setup_check_audio_subtitle">Разрешить звуку телефона достигать автомобиля</string>
     <string name="setup_action_set_up">Настроить</string>
     <string name="setup_old_android_title">Работает на более старой версии Android</string>
-    <string name="setup_old_android_message">AARE также работает на Android 6 и 7, но Android 8 — это лучше поддерживаемая база. На Android 6 и 7 уведомления о соединении не могут быть помещены в собственный канал, поэтому их нельзя отключить отдельно от других уведомлений AARE в настройках системы. Всё остальное работает так же или автоматически переключается на более старый метод.</string>
+    <string name="setup_old_android_message">DashGrid также работает на Android 6 и 7, но Android 8 — это лучше поддерживаемая база. На Android 6 и 7 уведомления о соединении не могут быть помещены в собственный канал, поэтому их нельзя отключить отдельно от других уведомлений DashGrid в настройках системы. Всё остальное работает так же или автоматически переключается на более старый метод.</string>
     <string name="setup_old_android_dont_show_again">Не показывать снова</string>
     <string name="setup_section_connecting">Подключение</string>
     <string name="setup_toggle_wireless_title">По беспроводной сети</string>
@@ -68,10 +68,10 @@
     <string name="setup_section_location">Местоположение</string>
     <string name="setup_toggle_car_gps_title">Использовать GPS автомобиля</string>
     <string name="setup_toggle_car_gps_subtitle">При соединении приложения на телефоне видят позицию автомобиля вместо позиции телефона, поэтому навигационные приложения не путают их</string>
-    <string name="setup_check_mock_location_title">Разрешить AARE устанавливать местоположение</string>
-    <string name="setup_check_mock_location_subtitle">Параметры разработчика &gt; Выбрать приложение фиктивного местоположения &gt; AARE</string>
+    <string name="setup_check_mock_location_title">Разрешить DashGrid устанавливать местоположение</string>
+    <string name="setup_check_mock_location_subtitle">Параметры разработчика &gt; Выбрать приложение фиктивного местоположения &gt; DashGrid</string>
     <string name="setup_check_background_location_title">Навигация при заблокированном телефоне</string>
-    <string name="setup_check_background_location_subtitle">Необязательно. Когда AARE запускается самостоятельно (по Bluetooth автомобиля), навигационные приложения сохраняют позицию при заблокированном телефоне. Разрешения &gt; Местоположение &gt; Всегда разрешать</string>
+    <string name="setup_check_background_location_subtitle">Необязательно. Когда DashGrid запускается самостоятельно (по Bluetooth автомобиля), навигационные приложения сохраняют позицию при заблокированном телефоне. Разрешения &gt; Местоположение &gt; Всегда разрешать</string>
     <string name="setup_section_video">Видео</string>
     <string name="setup_toggle_60fps_title">Предпочитать 60 кадров/с</string>
     <string name="setup_toggle_60fps_subtitle">Плавнее, если автомобиль это поддерживает</string>
@@ -157,9 +157,9 @@
     <string name="setup_app_kind_media">Музыка, подкасты, радио</string>
     <string name="setup_app_group_messaging">Сообщения</string>
     <string name="setup_app_kind_messaging">Сообщения из его уведомлений</string>
-    <string name="setup_app_group_aare">AARE</string>
-    <string name="setup_app_builtin_subtitle">Встроено в AARE. Если скрыть, исчезнет только из сетки приложений: звонки и колокольчик продолжат работать.</string>
-    <string name="setup_section_unsupported_apps">Приложения Android Auto, которые AARE не может показать</string>
+    <string name="setup_app_group_aare">DashGrid</string>
+    <string name="setup_app_builtin_subtitle">Встроено в DashGrid. Если скрыть, исчезнет только из сетки приложений: звонки и колокольчик продолжат работать.</string>
+    <string name="setup_section_unsupported_apps">Приложения Android Auto, которые DashGrid не может показать</string>
     <string name="setup_hint_allowlist">Приложения, созданные на новых версиях библиотеки Google для автомобилей, принимают только хосты из списка разрешённых; см. README.</string>
     <string name="setup_app_entry_phone">Телефон</string>
     <string name="setup_app_entry_settings">Настройки</string>
@@ -172,7 +172,7 @@
     <string name="setup_toggle_compact_rail_subtitle">Более узкая панель с меньшими значками и плотными отступами</string>
     <string name="setup_section_connection_log">Журнал соединений</string>
     <string name="setup_section_car_buttons">Кнопки автомобиля</string>
-    <string name="setup_car_buttons_hint">Кнопки, которые AARE получал от этого автомобиля. Выберите, что делает каждая; кнопка, оставленная на «По умолчанию», работает как обычно.</string>
+    <string name="setup_car_buttons_hint">Кнопки, которые DashGrid получал от этого автомобиля. Выберите, что делает каждая; кнопка, оставленная на «По умолчанию», работает как обычно.</string>
     <string name="setup_car_buttons_empty">Кнопки пока не обнаружены. Подключитесь к автомобилю и нажмите любую.</string>
     <string name="setup_car_button_default">По умолчанию</string>
     <string name="setup_car_action_home">Главный экран</string>
@@ -185,7 +185,7 @@
     <string name="setup_car_action_open_media">Открыть медиаприложение</string>
     <string name="setup_car_action_open_phone">Открыть приложение «Телефон»</string>
     <string name="setup_car_action_nothing">Ничего</string>
-    <string name="setup_about_text">AARE %1$s · GPL-3.0-or-later · Не связано с Google. Android Auto является товарным знаком Google LLC.</string>
+    <string name="setup_about_text">DashGrid %1$s · GPL-3.0-or-later · Не связано с Google. Android Auto является товарным знаком Google LLC.</string>
     <string name="setup_choice_style">Стиль</string>
     <string name="setup_choice_theme">Тема</string>
     <string name="setup_choice_layout">Макет</string>
@@ -212,16 +212,16 @@
 
     <!-- cert: certificate management -->
     <string name="cert_section_title">Сертификаты телефона</string>
-    <string name="cert_hint">Головные устройства проверяют сертификат телефона. Головные устройства с открытым кодом принимают сгенерированный сертификат; автомобили с программным обеспечением головного устройства Google принимают только сертификат, выданный Google, который AARE не может включить. Вы можете импортировать тот, на использование которого у вас есть право (сертификат PEM + ключ PKCS#8, или PKCS#12). Также можно скачать сертификат из последней версии Android Auto (github.com/iscle/android-auto-certificates).</string>
+    <string name="cert_hint">Головные устройства проверяют сертификат телефона. Головные устройства с открытым кодом принимают сгенерированный сертификат; автомобили с программным обеспечением головного устройства Google принимают только сертификат, выданный Google, который DashGrid не может включить. Вы можете импортировать тот, на использование которого у вас есть право (сертификат PEM + ключ PKCS#8, или PKCS#12). Также можно скачать сертификат из последней версии Android Auto (github.com/iscle/android-auto-certificates).</string>
     <string name="cert_entry_subtitle">%1$s · до %2$s</string>
     <string name="cert_action_remove">Удалить</string>
     <string name="cert_action_import">Импортировать сертификат…</string>
     <string name="cert_action_download">Скачать сертификат</string>
     <string name="cert_auto_update_title">Автоматически обновлять загруженный сертификат</string>
-    <string name="cert_auto_update_subtitle">Один раз в день, никогда во время соединения, AARE запрашивает у того же репозитория более новый сертификат и использует его. В любом случае AARE предупреждает за две недели до истечения срока действия сертификата Google.</string>
+    <string name="cert_auto_update_subtitle">Один раз в день, никогда во время соединения, DashGrid запрашивает у того же репозитория более новый сертификат и использует его. В любом случае DashGrid предупреждает за две недели до истечения срока действия сертификата Google.</string>
     <string name="cert_expiring_banner_title">Сертификат Google истекает %1$s</string>
     <string name="cert_expired_banner_title">Сертификат Google истёк %1$s</string>
-    <string name="cert_expiry_banner_subtitle">Автомобили, которые принимают только его, откажут AARE. Нажмите, чтобы скачать более новый.</string>
+    <string name="cert_expiry_banner_subtitle">Автомобили, которые принимают только его, откажут DashGrid. Нажмите, чтобы скачать более новый.</string>
     <string name="cert_action_downloading">Загрузка…</string>
     <string name="cert_download_unavailable">Репозиторий сертификатов больше не существует (удалён или заблокирован): %1$s. Вместо этого извлеките сертификат из приложения Android Auto (см. README).</string>
     <string name="cert_download_network">Не удалось скачать сертификат: %1$s. Проверьте подключение и повторите попытку.</string>
@@ -256,7 +256,7 @@
     <string name="msg_section_while_driving">Во время движения</string>
     <string name="msg_toggle_dnd_title">Не беспокоить</string>
     <string name="msg_toggle_dnd_subtitle">Отключать звук телефона во время соединения; звонки и приоритетные беседы всё равно проходят</string>
-    <string name="msg_check_dnd_access_title">Разрешить AARE включать Не беспокоить</string>
+    <string name="msg_check_dnd_access_title">Разрешить DashGrid включать Не беспокоить</string>
     <string name="msg_check_dnd_access_subtitle">Android спрашивает один раз</string>
     <string name="msg_toggle_autoreply_title">Автоответ</string>
     <string name="msg_toggle_autoreply_subtitle">Отвечает тем, кто пишет, один раз за беседу за поездку (не группам)</string>
@@ -276,29 +276,29 @@
     <string name="audio_method_shizuku">Shizuku или root</string>
     <string name="audio_method_root_policy">Root, музыка и навигация отдельно</string>
     <string name="audio_method_playback_capture">Разрешение на захват экрана</string>
-    <string name="audio_policy_not_ready">Как Android Auto: музыка и голос навигации отдельно, динамик телефона выключен. Требуется телефон с root-правами: установите AARE как системное приложение с помощью модуля Magisk (см. README).</string>
+    <string name="audio_policy_not_ready">Как Android Auto: музыка и голос навигации отдельно, динамик телефона выключен. Требуется телефон с root-правами: установите DashGrid как системное приложение с помощью модуля Magisk (см. README).</string>
     <string name="audio_shizuku_ready">Готово. Всё, что воспроизводит телефон, идёт в автомобиль, включая голос навигации; телефон остаётся тихим.</string>
     <string name="audio_shizuku_needs_android12">Требуется Android 12 или новее.</string>
-    <string name="audio_shizuku_tap_allow">Shizuku работает: нажмите, чтобы разрешить AARE.</string>
+    <string name="audio_shizuku_tap_allow">Shizuku работает: нажмите, чтобы разрешить DashGrid.</string>
     <string name="audio_shizuku_install_hint">Root-права не нужны. Установите Shizuku, запустите его (беспроводная отладка, один раз после перезагрузки), а затем вернитесь сюда.</string>
     <string name="audio_playback_ready">Готово. Только медиа: без голоса навигации, некоторые приложения отключаются, а телефон тоже продолжает воспроизведение.</string>
     <string name="audio_playback_not_ready">Работает везде, с ограничениями: только медиа, без голоса навигации. Android спросит о захвате экрана: выберите Весь экран (также используется экраном телефона).</string>
-    <string name="audio_notice_setup_hint">Откройте AARE на телефоне и настройте звук в автомобиле, чтобы слышать телефон в автомобиле</string>
+    <string name="audio_notice_setup_hint">Откройте DashGrid на телефоне и настройте звук в автомобиле, чтобы слышать телефон в автомобиле</string>
     <string name="audio_section_car_mic">Микрофон машины</string>
     <string name="audio_toggle_car_mic_title">Микрофон машины для приложений телефона</string>
     <string name="audio_toggle_car_mic_subtitle">При подключении к машине с микрофоном голосовой ввод, диктофоны и голосовые сообщения на телефоне слышат машину вместо телефона. Звонки используют свой микрофон. Требуется Shizuku.</string>
     <string name="audio_car_mic_ready">Готово: включение и выключение действуют сразу, даже во время подключения.</string>
     <string name="audio_car_mic_needs_android10">Требуется Android 10 или новее.</string>
-    <string name="audio_car_mic_needs_shizuku">Требуется Shizuku, запущенный и разрешённый для AARE (см. способ Shizuku выше).</string>
+    <string name="audio_car_mic_needs_shizuku">Требуется Shizuku, запущенный и разрешённый для DashGrid (см. способ Shizuku выше).</string>
 
     <!-- phone: phone screen feature -->
     <string name="phone_section_title">Экран телефона</string>
     <string name="phone_toggle_enable_title">Экран телефона в автомобиле</string>
-    <string name="phone_toggle_enable_subtitle">Собственный экран телефона, для приложений, которые AARE не может разместить (Google Maps, Waze). Приостановлен, когда телефон заблокирован, и во время движения, если навигационное приложение не ведёт маршрут. Не предлагается на сервере головного устройства, если там не включён</string>
+    <string name="phone_toggle_enable_subtitle">Собственный экран телефона, для приложений, которые DashGrid не может разместить (Google Maps, Waze). Приостановлен, когда телефон заблокирован, и во время движения, если навигационное приложение не ведёт маршрут. Не предлагается на сервере головного устройства, если там не включён</string>
     <string name="phone_check_touch_title">Касание на экране телефона</string>
-    <string name="phone_check_touch_subtitle">Включите AARE в Специальных возможностях. Приложениям, установленным не из магазина, может сначала потребоваться «Разрешить ограниченные настройки» в информации о приложении AARE</string>
+    <string name="phone_check_touch_subtitle">Включите DashGrid в Специальных возможностях. Приложениям, установленным не из магазина, может сначала потребоваться «Разрешить ограниченные настройки» в информации о приложении DashGrid</string>
     <string name="phone_hint_touch_capture">Изображение использует разрешение на захват экрана (страница Звук в автомобиле, выберите Весь экран).</string>
-    <string name="phone_app_row_subtitle">Собственный экран телефона, для приложений, которые AARE не может разместить</string>
+    <string name="phone_app_row_subtitle">Собственный экран телефона, для приложений, которые DashGrid не может разместить</string>
 
     <!-- assistant: voice assistant settings and bar -->
     <string name="assistant_settings_title">Голосовой ассистент</string>
@@ -320,12 +320,12 @@
     <string name="notif_action_navigate">Маршрут</string>
     <string name="notif_action_open">Открыть</string>
     <string name="notif_cert_updated_title">Сертификат обновлён</string>
-    <string name="notif_cert_updated_message">AARE скачал более новый сертификат Android Auto, действительный до %1$s.</string>
+    <string name="notif_cert_updated_message">DashGrid скачал более новый сертификат Android Auto, действительный до %1$s.</string>
     <string name="notif_cert_expiring_title">Сертификат скоро истекает</string>
-    <string name="notif_cert_expiring_text">%1$s истекает %2$s. Автомобили, которые принимают только сертификат Google, после этого откажут AARE: скачайте более новый.</string>
+    <string name="notif_cert_expiring_text">%1$s истекает %2$s. Автомобили, которые принимают только сертификат Google, после этого откажут DashGrid: скачайте более новый.</string>
     <string name="notif_cert_expired_title">Сертификат истёк</string>
-    <string name="notif_cert_expired_text">%1$s истёк %2$s. Автомобили, которые принимают только сертификат Google, теперь отказывают AARE: скачайте более новый.</string>
-    <string name="notif_cert_download_title">Головное устройство отклонило сертификат AARE</string>
+    <string name="notif_cert_expired_text">%1$s истёк %2$s. Автомобили, которые принимают только сертификат Google, теперь отказывают DashGrid: скачайте более новый.</string>
+    <string name="notif_cert_download_title">Головное устройство отклонило сертификат DashGrid</string>
     <string name="notif_cert_download_message">Это головное устройство принимает только сертификат, выданный Google. Скачайте его из последней версии приложения Android Auto, затем подключитесь снова.</string>
     <string name="notif_cert_download_progress">Скачивание сертификата Android Auto…</string>
     <string name="notif_cert_download_ready_title">Сертификат готов</string>
@@ -341,11 +341,11 @@
     <string name="notif_trust_warning">Доверяйте только тому головному устройству, к которому вы подключены прямо сейчас</string>
     <string name="notif_untrusted_message">SHA-256 %1$s... %2$s, затем подключитесь снова.</string>
     <string name="notif_trust_reconnect_suffix">%1$s, затем подключитесь снова.</string>
-    <string name="notif_cert_changed_message">сертификат головного устройства изменился: нажмите Доверять в уведомлении или в AARE только если его программное обеспечение было обновлено, затем подключитесь снова</string>
-    <string name="notif_cert_untrusted_message">сертификат головного устройства ещё не доверенный: нажмите Доверять в уведомлении или в AARE, затем подключитесь снова</string>
+    <string name="notif_cert_changed_message">сертификат головного устройства изменился: нажмите Доверять в уведомлении или в DashGrid только если его программное обеспечение было обновлено, затем подключитесь снова</string>
+    <string name="notif_cert_untrusted_message">сертификат головного устройства ещё не доверенный: нажмите Доверять в уведомлении или в DashGrid, затем подключитесь снова</string>
     <string name="notif_cert_dates_title">Проверьте дату и время автомобиля</string>
-    <string name="notif_cert_not_yet_valid_message">головное устройство сообщает, что сертификат AARE пока недействителен: его часы, вероятно, отстают. Установите дату и время автомобиля, затем подключитесь снова</string>
-    <string name="notif_cert_expired_message">головное устройство сообщает, что сертификат AARE истёк: если это не так, часы автомобиля спешат. Установите дату и время автомобиля или получите более новый сертификат в разделе Дополнительно, затем подключитесь снова</string>
+    <string name="notif_cert_not_yet_valid_message">головное устройство сообщает, что сертификат DashGrid пока недействителен: его часы, вероятно, отстают. Установите дату и время автомобиля, затем подключитесь снова</string>
+    <string name="notif_cert_expired_message">головное устройство сообщает, что сертификат DashGrid истёк: если это не так, часы автомобиля спешат. Установите дату и время автомобиля или получите более новый сертификат в разделе Дополнительно, затем подключитесь снова</string>
     <string name="notif_car_nearby_title">Автомобиль рядом</string>
     <string name="notif_car_nearby_text">Нажмите, чтобы соединиться по беспроводной сети</string>
     <string name="notif_status_connecting_to">Соединение с %1$s</string>
@@ -365,9 +365,9 @@
     <string name="notif_navigation_title">Навигация</string>
     <string name="notif_navigation_no_app_text">В автомобиле нет навигационного приложения</string>
     <string name="notif_assistant_title">Ассистент</string>
-    <string name="notif_assistant_choose_text">Выберите голосового ассистента в настройках AARE на телефоне</string>
+    <string name="notif_assistant_choose_text">Выберите голосового ассистента в настройках DashGrid на телефоне</string>
     <string name="notif_assistant_no_car_screen">У %1$s нет экрана для автомобиля: он открылся на телефоне</string>
-    <string name="notif_assistant_cant_open">Не удаётся открыть %1$s. Выберите другого ассистента в настройках AARE</string>
+    <string name="notif_assistant_cant_open">Не удаётся открыть %1$s. Выберите другого ассистента в настройках DashGrid</string>
     <string name="notif_parked_only_title">Недоступно во время движения</string>
     <string name="notif_parked_only_text">Остановитесь на парковке, чтобы использовать это</string>
     <string name="notif_empty">Нет уведомлений</string>
@@ -377,6 +377,83 @@
     <string name="notif_unseen_overflow">9+</string>
 
     <!-- dash: car shell / dashboard chrome -->
+    <!-- workspaces: multiple home screens -->
+    <string name="workspace_previous">Предыдущий рабочий стол</string>
+    <string name="workspace_next">Следующий рабочий стол</string>
+    <string name="workspace_empty_title">Этот рабочий стол пуст</string>
+    <string name="workspace_empty_hint">Добавьте ярлыки приложений и виджеты в DashGrid на телефоне, затем вернитесь.</string>
+    <string name="workspace_open_apps">Открыть приложения</string>
+    <string name="workspace_missing_app">Приложение недоступно</string>
+    <string name="workspace_widget_unavailable">Виджет недоступен</string>
+    <string name="workspace_no_events">Нет предстоящих событий</string>
+    <string name="workspace_no_notifications">Нет новых уведомлений</string>
+    <string name="workspace_no_weather">Погода недоступна</string>
+    <string name="workspace_no_home">Нет действий умного дома</string>
+    <string name="workspace_no_obd">Адаптер не подключён</string>
+    <string name="workspaces_page_title">Рабочие столы</string>
+    <string name="workspaces_page_subtitle">Домашние экраны, их сетки, приложения и виджеты</string>
+    <string name="workspaces_phone_hint">Домашний экран автомобиля теперь состоит из рабочих столов. Откройте «Рабочие столы», чтобы добавлять их, менять и переименовывать.</string>
+    <string name="workspaces_car_hint">Рабочие столы настраиваются в DashGrid на телефоне; здесь вы переключаетесь между ними и пользуетесь ими.</string>
+    <string name="workspaces_section_list">Рабочие столы</string>
+    <string name="workspaces_intro">Каждый рабочий стол — собственная сетка ярлыков приложений и виджетов. Переключайтесь между ними на экране автомобиля свайпом, стрелками или точками.</string>
+    <string name="workspaces_item_count">Элементов: %1$d</string>
+    <string name="workspaces_add">Добавить рабочий стол</string>
+    <string name="workspaces_default_name">Рабочий стол %1$d</string>
+    <string name="workspaces_default_home">Главный</string>
+    <string name="workspaces_duplicate_name">%1$s — копия</string>
+    <string name="workspaces_section_edit">Редактирование «%1$s»</string>
+    <string name="workspaces_editing">Редактирование</string>
+    <string name="workspaces_name">Название</string>
+    <string name="workspaces_rename">Сохранить название</string>
+    <string name="workspaces_layout">Раскладка</string>
+    <string name="workspaces_layout_full">100%</string>
+    <string name="workspaces_layout_split50">50 / 50</string>
+    <string name="workspaces_layout_split70_30">70 / 30</string>
+    <string name="workspaces_layout_split30_70">30 / 70</string>
+    <string name="workspaces_layout_three">Три виджета</string>
+    <string name="workspaces_layout_four">Четыре виджета</string>
+    <string name="workspaces_layout_custom">Своя сетка</string>
+    <string name="workspaces_layout_too_small">В этой раскладке меньше ячеек, чем элементов. Сначала удалите элемент.</string>
+    <string name="workspaces_axis">Направление разделения</string>
+    <string name="workspaces_axis_horizontal">Слева и справа</string>
+    <string name="workspaces_axis_vertical">Сверху и снизу</string>
+    <string name="workspaces_capacity">Занято ячеек: %1$d из %2$d</string>
+    <string name="workspaces_custom_hint">Своя сетка: удерживайте элемент, чтобы перетащить его, и меняйте ширину и высоту, чтобы объединять ячейки.</string>
+    <string name="workspaces_items_count">Элементов: %1$d</string>
+    <string name="workspaces_item_geometry">%1$d×%2$d ячеек в %3$d,%4$d</string>
+    <string name="workspaces_tap_item">Нажмите на элемент сетки, чтобы изменить его.</string>
+    <string name="workspaces_default_badge">По умолчанию</string>
+    <string name="workspaces_more">Ещё</string>
+    <string name="workspaces_edit">Изменить</string>
+    <string name="workspaces_set_default">Сделать основным</string>
+    <string name="workspaces_up">Выше</string>
+    <string name="workspaces_down">Ниже</string>
+    <string name="workspaces_duplicate">Дублировать</string>
+    <string name="workspaces_delete_title_short">Удалить</string>
+    <string name="workspaces_add_widget">Добавить виджет</string>
+    <string name="workspaces_add_app">Добавить приложение</string>
+    <string name="workspaces_widget_unavailable">Виджет недоступен</string>
+    <string name="workspaces_choose_widget">Добавить виджет</string>
+    <string name="workspaces_choose_app">Выбрать приложение</string>
+    <string name="workspaces_no_widgets_left">Все виджеты уже есть на этом рабочем столе.</string>
+    <string name="workspaces_no_apps">Совместимых приложений на телефоне не найдено.</string>
+    <string name="workspaces_app_automatic">Автоматически</string>
+    <string name="workspaces_no_space">Здесь не хватает места. Сначала переместите другой элемент.</string>
+    <string name="workspaces_widget_app">Приложение</string>
+    <string name="workspaces_width">Ширина</string>
+    <string name="workspaces_height">Высота</string>
+    <string name="workspaces_change_app">Сменить приложение</string>
+    <string name="workspaces_remove">Удалить</string>
+    <string name="workspaces_delete_title">Удалить «%1$s»?</string>
+    <string name="workspaces_delete_text">Рабочий стол и его ярлыки будут удалены с телефона. Сами приложения и их данные останутся.</string>
+    <string name="workspaces_delete">Удалить</string>
+    <string name="workspaces_section_switching">Переключение</string>
+    <string name="workspaces_swipe_anywhere_title">Свайп в любом месте</string>
+    <string name="workspaces_swipe_anywhere_subtitle">Переключать рабочие столы свайпом по всей площади. Выкл.: свайп по панели и пустому месту, чтобы карта сохраняла свои жесты.</string>
+    <string name="workspaces_show_bar_title">Панель переключения</string>
+    <string name="workspaces_show_bar_subtitle">Показывать на экране автомобиля название рабочего стола, стрелки и точки.</string>
+    <string name="workspaces_preview">Предпросмотр экрана автомобиля</string>
+    <string name="workspaces_preview_hint">Открывает экран автомобиля на телефоне с сохранёнными рабочими столами.</string>
     <string name="dash_menu_apps">Приложения</string>
     <string name="dash_menu_home">Главный экран</string>
 
@@ -415,7 +492,7 @@
     <string name="media_queue_empty">Очередь пуста</string>
 
     <!-- msg: messaging screen (notifications-based conversations) -->
-    <string name="msg_no_access">Дайте AARE доступ к уведомлениям на телефоне, чтобы видеть сообщения здесь</string>
+    <string name="msg_no_access">Дайте DashGrid доступ к уведомлениям на телефоне, чтобы видеть сообщения здесь</string>
     <string name="msg_listener_not_ready">Здесь пока ничего нет</string>
     <string name="msg_reply_sent">Ответ отправлен</string>
     <string name="msg_reply_rejected">%1$s не принял ответ</string>
@@ -435,7 +512,7 @@
     <string name="phone_tab_recents">Недавние</string>
     <string name="phone_tab_contacts">Контакты</string>
     <string name="phone_tab_keypad">Клавиатура</string>
-    <string name="phone_permissions_placeholder">Разрешите звонки, историю звонков и контакты в AARE на телефоне (Завершить настройку).</string>
+    <string name="phone_permissions_placeholder">Разрешите звонки, историю звонков и контакты в DashGrid на телефоне (Завершить настройку).</string>
     <string name="phone_notice_calling_title">Звонок</string>
     <string name="phone_no_recent_calls">Нет недавних звонков</string>
     <string name="phone_no_contacts">Нет контактов с номером телефона</string>
@@ -468,7 +545,7 @@
 
     <!-- standalone: launching ordinary phone apps on the car screen (root/Shizuku, parked only) -->
     <string name="standalone_section_title">Приложения на экране автомобиля (расширенные)</string>
-    <string name="standalone_section_warning">Это не приложения Android Auto: AARE показывает их обычный экран телефона, по умолчанию только на парковке, и требует root или Shizuku. Используйте на свой риск.</string>
+    <string name="standalone_section_warning">Это не приложения Android Auto: DashGrid показывает их обычный экран телефона, по умолчанию только на парковке, и требует root или Shizuku. Используйте на свой риск.</string>
     <string name="standalone_toggle_title">Запуск приложений телефона на экране автомобиля</string>
     <string name="standalone_toggle_subtitle">Выберите приложения ниже и для каждого — что ему можно во время движения.</string>
     <string name="standalone_keep_awake_title">Режим без отключения экрана для автономных приложений</string>
@@ -501,12 +578,12 @@
     <string name="assistant_stop_style_voice_button">Голосовая кнопка превращается в Остановить</string>
     <string name="assistant_stop_style_red_restart">Красная кнопка стоп, голосовая кнопка спрашивает снова</string>
     <string name="assistant_stop_style_red_stop">Красная кнопка стоп, голосовая кнопка тоже останавливает</string>
-    <string name="assistant_links_subtitle">Ссылки aare:// в ответах выбранного ассистента могут управлять музыкой или предлагать на экране автомобиля проложить маршрут, открыть приложение или позвонить. Ссылки из других приложений и с веб-страниц игнорируются.</string>
+    <string name="assistant_links_subtitle">Ссылки dashgrid:// в ответах выбранного ассистента могут управлять музыкой или предлагать на экране автомобиля проложить маршрут, открыть приложение или позвонить. Ссылки из других приложений и с веб-страниц игнорируются.</string>
     <!-- setup_page: car data entry -->
     <string name="setup_page_car_data_title">Данные автомобиля</string>
     <string name="setup_page_car_data_subtitle">Скорость, передача и датчики автомобиля в реальном времени</string>
     <string name="setup_page_about_title">О приложении</string>
-    <string name="setup_page_about_subtitle">Что такое AARE, ссылки проекта и кто помог его создать</string>
+    <string name="setup_page_about_subtitle">Что такое DashGrid, ссылки проекта и кто помог его создать</string>
 
     <!-- car_data: the read-only car sensor viewer -->
     <string name="car_data_not_connected">Подключитесь к автомобилю, чтобы увидеть его данные.</string>
@@ -564,12 +641,15 @@
     <string name="car_data_show_in_car_subtitle">Добавьте диагностическое приложение в автомобиле для этих данных в реальном времени</string>
 
     <!-- about: the About page -->
-    <string name="about_section_what_title">Что такое AARE</string>
-    <string name="about_text">AARE — это реализация с открытым исходным кодом телефонной стороны Android Auto: она напрямую взаимодействует с головным устройством автомобиля по протоколу проекции Android Auto, сама отрисовывает экран автомобиля и запускает приложения навигации, медиа и сообщений без необходимости в Сервисах Google Play.</string>
+    <string name="about_section_what_title">Что такое DashGrid</string>
+    <string name="about_upstream_title">Оригинальный проект</string>
+    <string name="about_upstream_text">DashGrid — форк AARE (автор prototux), используется по лицензии GPL-3.0. Протокол проекции, транспорт, аудио, микрофон, хостинг приложений и виджеты взяты из AARE; порядок получения обновлений описан в UPSTREAM.md.</string>
+    <string name="about_text">DashGrid — независимый форк AARE, открытой реализации телефонной стороны Android Auto. Как и AARE, DashGrid напрямую говорит с головным устройством по протоколу проекции Android Auto, сам рисует экран автомобиля и запускает навигационные, музыкальные и мессенджер-приложения без сервисов Google Play. DashGrid добавляет переключаемые рабочие столы, настраиваемую сетку приложений и виджетов и редактор рабочих столов на телефоне.</string>
     <string name="about_section_links_title">Проект</string>
     <string name="about_link_repository">Репозиторий</string>
     <string name="about_link_issues">Проблемы</string>
     <string name="about_link_discussions">Обсуждения</string>
+    <string name="about_link_upstream">AARE на GitHub</string>
     <string name="about_section_thanks_title">Благодарности</string>
     <string name="about_thanks_security_review">Проверка безопасности</string>
     <string name="about_thanks_code_and_docs">Код и документация</string>
@@ -581,7 +661,7 @@
     <string name="about_oss_protocol_title">Определения протокола</string>
 
     <string name="obd_adapter_title">Читать адаптер OBD2</string>
-    <string name="obd_adapter_subtitle">Адаптер ELM327, сопряжённый по Bluetooth, читается, пока машина подключена: данные двигателя, которые машина не передаёт AARE. Только чтение: AARE никогда ничего не записывает в машину.</string>
+    <string name="obd_adapter_subtitle">Адаптер ELM327, сопряжённый по Bluetooth, читается, пока машина подключена: данные двигателя, которые машина не передаёт DashGrid. Только чтение: DashGrid никогда ничего не записывает в машину.</string>
     <string name="obd_simulated_title">Имитация адаптера OBD2 (отладка)</string>
     <string name="obd_simulated_subtitle">Имитация машины вместо настоящего адаптера, чтобы попробовать эту страницу</string>
     <string name="obd_section">Адаптер OBD2</string>
@@ -606,7 +686,7 @@
     <string name="vehicles_import">Импортировать файл…</string>
     <string name="vehicles_template">Записать шаблон</string>
     <string name="vehicles_builtin_fixes_title">Встроенные исправления для автомобилей</string>
-    <string name="vehicles_builtin_fixes_subtitle">Исправления, которые AARE поставляет для отдельных головных устройств: без беспроводной связи там, где она не работает, размер видео, голос навигации, электромобили, форма пикселей экрана, название пункта выхода. Выключено: каждый автомобиль работает как раньше. Правило в vehicles.json может включить их для одного автомобиля (builtInFixes).</string>
+    <string name="vehicles_builtin_fixes_subtitle">Исправления, которые DashGrid поставляет для отдельных головных устройств: без беспроводной связи там, где она не работает, размер видео, голос навигации, электромобили, форма пикселей экрана, название пункта выхода. Выключено: каждый автомобиль работает как раньше. Правило в vehicles.json может включить их для одного автомобиля (builtInFixes).</string>
     <string name="quirks_section_title">Особенности автомобиля</string>
     <string name="quirks_subtitle">Это, список особенностей.</string>
     <string name="quirks_hint">Переопределяет особенности из vehicles.json для одного автомобиля: головного устройства, подключённого последним. Автоматически сохраняет то, что для него говорят встроенные исправления для автомобилей и ваш vehicles.json. Другие автомобили не затрагиваются.</string>
@@ -622,9 +702,9 @@
     <string name="quirks_single_channel_capture_title">Голос навигации на одном канале</string>
     <string name="quirks_single_channel_capture_subtitle">Вкл: голос навигации отправляется по каналу музыки, а канал навигации не используется. Выкл: канал навигации используется как обычно.</string>
     <string name="quirks_wifi_media_silence_title">Тишина перед началом музыки по Wi-Fi</string>
-    <string name="quirks_wifi_media_silence_subtitle">Вкл: перед началом потока музыки по Wi-Fi отправляются тихие сообщения из vehicles.json (или стандартные сообщения AARE). Выкл: не отправляются.</string>
+    <string name="quirks_wifi_media_silence_subtitle">Вкл: перед началом потока музыки по Wi-Fi отправляются тихие сообщения из vehicles.json (или стандартные сообщения DashGrid). Выкл: не отправляются.</string>
     <string name="quirks_wifi_guidance_silence_title">Тишина перед началом навигации по Wi-Fi</string>
-    <string name="quirks_wifi_guidance_silence_subtitle">Вкл: перед началом потока голоса навигации по Wi-Fi отправляются тихие сообщения из vehicles.json (или стандартные сообщения AARE). Выкл: не отправляются.</string>
+    <string name="quirks_wifi_guidance_silence_subtitle">Вкл: перед началом потока голоса навигации по Wi-Fi отправляются тихие сообщения из vehicles.json (или стандартные сообщения DashGrid). Выкл: не отправляются.</string>
     <string name="quirks_media_on_gain_transient_title">Музыка во время подсказок навигации</string>
     <string name="quirks_media_on_gain_transient_subtitle">Вкл: музыка продолжает играть, если автомобиль отвечает на запрос подсказки навигации сигналом GAIN_TRANSIENT. Выкл: в этом случае звучит только голос навигации. GAIN_TRANSIENT, отвечающий на собственный запрос музыки или отправленный автомобилем по своей инициативе, всегда позволяет музыке играть.</string>
     <string name="quirks_pause_on_guidance_only_title">Пауза музыки при доступе только для навигации</string>
@@ -644,7 +724,7 @@
     <string name="setup_toggle_force_h264_title">Принудительно использовать видео H.264</string>
     <string name="setup_toggle_constant_bitrate_title">Видео с постоянным битрейтом</string>
     <string name="setup_toggle_constant_bitrate_subtitle">Сохраняет примерно одинаковый размер каждого кадра. Включите, если автомобиль разрывает соединение при изменении всей картинки целиком, например при показе экрана телефона или видео. Насыщенные детали изображения становятся чуть мягче. Вступает в силу со следующего соединения.</string>
-    <string name="setup_toggle_force_h264_subtitle">По умолчанию AARE использует лучший кодек, поддерживаемый и автомобилем, и телефоном (H.265…). Включите, если изображение в автомобиле искажено.</string>
+    <string name="setup_toggle_force_h264_subtitle">По умолчанию DashGrid использует лучший кодек, поддерживаемый и автомобилем, и телефоном (H.265…). Включите, если изображение в автомобиле искажено.</string>
     <string name="common_ok">OK</string>
     <string name="common_try_again">Повторить</string>
     <string name="common_something_went_wrong">Что-то пошло не так</string>
@@ -654,14 +734,14 @@
     <string name="update_check_now">Проверить сейчас</string>
     <string name="update_checking">Проверка…</string>
     <string name="update_check_latest">У вас последняя версия (%1$s).</string>
-    <string name="update_check_available">Доступна AARE %1$s: см. главный экран.</string>
+    <string name="update_check_available">Доступна DashGrid %1$s: см. главный экран.</string>
     <string name="update_check_failed">Не удалось связаться с GitHub. Попробуйте позже.</string>
     <string name="update_available_title">Доступно обновление — %1$s</string>
     <string name="update_available_subtitle">У вас %1$s. Нажмите, чтобы посмотреть релиз.</string>
     <string name="setup_log_save">Сохранить</string>
     <string name="setup_section_developer_log">Журнал разработчика</string>
     <string name="setup_toggle_dev_log_title">Режим разработчика</string>
-    <string name="setup_toggle_dev_log_subtitle">Записывает всё, что регистрирует AARE, в текстовые файлы в %1$s (до 50 MB). При отключении они удаляются: сначала сохраните их.</string>
+    <string name="setup_toggle_dev_log_subtitle">Записывает всё, что регистрирует DashGrid, в текстовые файлы в %1$s (до 50 MB). При отключении они удаляются: сначала сохраните их.</string>
     <string name="setup_toggle_dev_log_privacy_title">Скрывать личные данные</string>
     <string name="setup_toggle_dev_log_privacy_subtitle">Маскирует адреса, названия сетей и устройств и другие распознанные личные данные. Прочитайте файл, прежде чем делиться им.</string>
     <string name="setup_dev_log_save">Сохранить журнал разработчика</string>
@@ -669,7 +749,7 @@
     <string name="setup_toggle_verbose_log_title">Подробный журнал протокола</string>
     <string name="setup_toggle_verbose_log_subtitle">Записывать в этот журнал полную трассировку протокола головного устройства, чтобы приложить её к отчёту об ошибке. Записывается много данных; в остальных случаях оставьте выключенным.</string>
     <string name="setup_section_backup">Резервная копия настроек</string>
-    <string name="setup_backup_hint">Сохраните настройки в файл или загрузите их обратно. Доверенные головные устройства, сертификаты, данные, привязанные к телефону, и параметры, которые открывают AARE для сети или отключают проверку безопасности (сервер головного устройства, режим пассажира, звук через root…), не переносятся: задайте их вручную на каждом телефоне.</string>
+    <string name="setup_backup_hint">Сохраните настройки в файл или загрузите их обратно. Доверенные головные устройства, сертификаты, данные, привязанные к телефону, и параметры, которые открывают DashGrid для сети или отключают проверку безопасности (сервер головного устройства, режим пассажира, звук через root…), не переносятся: задайте их вручную на каждом телефоне.</string>
     <string name="setup_backup_export">Экспорт…</string>
     <string name="setup_backup_import">Импорт…</string>
     <string name="setup_backup_import_confirm_title">Заменить настройки?</string>
@@ -678,7 +758,7 @@
     <string name="setup_backup_import_done">Настройки импортированы.</string>
     <string name="setup_backup_import_done_skipped">Настройки импортированы. Пропущено (неизвестные, запрещённые или неверные): %1$d</string>
     <string name="setup_backup_import_blocked">Не импортировано в целях безопасности (включите это вручную на этом телефоне): %1$s</string>
-    <string name="setup_backup_import_failed">Этот файл нельзя импортировать: это не файл настроек AARE или он слишком большой.</string>
+    <string name="setup_backup_import_failed">Этот файл нельзя импортировать: это не файл настроек DashGrid или он слишком большой.</string>
     <string name="setup_backup_export_failed">Не удалось сохранить файл настроек.</string>
     <string name="setup_nothing_to_open">На этом телефоне нет приложения, которое может это открыть</string>
     <string name="setup_wallpaper_failed">Не удалось использовать это фото в качестве обоев</string>
@@ -706,7 +786,7 @@
     <string name="media_error_skip_limit">Достигнут лимит пропусков</string>
     <string name="media_error_setup">Завершите настройку %1$s на телефоне</string>
     <string name="media_error_end_of_playlist">Конец плейлиста</string>
-    <string name="media_error_permission">%1$s не разрешает AARE просматривать его</string>
+    <string name="media_error_permission">%1$s не разрешает DashGrid просматривать его</string>
     <string name="media_error_io">Проблема с сетью или хранилищем</string>
     <string name="media_error_not_supported">Не поддерживается %1$s</string>
     <string name="media_error_disconnected">%1$s отключён</string>
@@ -721,7 +801,7 @@
     <string name="carapp_error_no_answer">%1$s не ответил. Возможно, он принимает только Google Android Auto (см. список приложений на телефоне).</string>
     <string name="carapp_error_api_level">%1$s требует уровень API автомобиля %2$d; это головное устройство поддерживает %3$d</string>
     <string name="carapp_error_stopped">%1$s остановлен</string>
-    <string name="carapp_error_google_only">%1$s принимает только Google Android Auto. Ему нужно разрешить AARE (см. список приложений на телефоне).</string>
+    <string name="carapp_error_google_only">%1$s принимает только Google Android Auto. Ему нужно разрешить DashGrid (см. список приложений на телефоне).</string>
     <string name="carapp_error_cant_start">%1$s не удалось запустить: %2$s</string>
 
     <string name="dash_card_home">Дом</string>
@@ -731,7 +811,7 @@
     <string name="home_page_title">Действия Дома</string>
     <string name="home_page_subtitle">Кнопки и значения умного дома в автомобиле, по MQTT или HTTP</string>
     <string name="home_toggle_title">Показывать действия Дома в автомобиле</string>
-    <string name="home_toggle_subtitle">Приложение «Дом» и карточка на панели приборов. AARE подключается к вашим серверам только пока включён экран автомобиля.</string>
+    <string name="home_toggle_subtitle">Приложение «Дом» и карточка на панели приборов. DashGrid подключается к вашим серверам только пока включён экран автомобиля.</string>
     <string name="home_intro">Действия — это кнопки, которые публикуют сообщение MQTT или отправляют HTTP-запрос (открыть гараж, включить свет). Плитки показывают значение из топика MQTT или HTTP-ответа. Home Assistant работает через свой REST API, вебхук или MQTT.</string>
     <string name="home_section_connections">Подключения</string>
     <string name="home_broker_title">MQTT-брокер</string>
@@ -834,7 +914,7 @@
     <string name="home_preset_http_webhook_subtitle">Отправляет POST-запрос на адрес</string>
     <string name="home_preset_http_json">JSON-значение по HTTP</string>
     <string name="home_preset_http_json_subtitle">Плитка с одним значением из JSON-ответа, опрашиваемая периодически</string>
-    <string name="home_car_empty">Настройте действия Дома на телефоне: AARE &gt; Действия Дома.</string>
+    <string name="home_car_empty">Настройте действия Дома на телефоне: DashGrid &gt; Действия Дома.</string>
     <string name="home_confirm_question">%1$s сейчас?</string>
     <string name="home_confirm_run">Запустить</string>
     <string name="home_action_done">Готово</string>
@@ -849,37 +929,37 @@
     <string name="home_error_http_lan_off">обычный http:// отключён: включите \"Разрешить обычный http в моей домашней сети\" для HTTP-сервера</string>
     <string name="home_error_tls">сертификат сервера не является доверенным</string>
     <string name="home_error_generic">что-то пошло не так</string>
-    <string name="shizuku_setup_title">Предоставить разрешения AARE через Shizuku</string>
+    <string name="shizuku_setup_title">Предоставить разрешения DashGrid через Shizuku</string>
     <string name="shizuku_setup_subtitle">Одно нажатие предоставляет всё, что ещё не выдано, без отдельного диалога для каждого разрешения: микрофон, местоположение, контакты, журнал вызовов, календарь, телефонные звонки, устройства рядом (Bluetooth, Wi-Fi), локальная сеть, уведомления и доступ к уведомлениям</string>
     <string name="shizuku_setup_working">Предоставление…</string>
     <string name="shizuku_setup_result_title">Предоставлено через Shizuku</string>
     <string name="shizuku_setup_nothing_to_grant">Всё уже было предоставлено.</string>
     <string name="shizuku_setup_not_granted">Не предоставлено: %1$s</string>
     <string name="shizuku_setup_notification_access">Доступ к уведомлениям</string>
-    <string name="shizuku_setup_helper_failed">Вспомогательный модуль Shizuku не запустился. Убедитесь, что Shizuku работает и разрешает AARE.</string>
+    <string name="shizuku_setup_helper_failed">Вспомогательный модуль Shizuku не запустился. Убедитесь, что Shizuku работает и разрешает DashGrid.</string>
     <string name="aa_section_title">Android Auto от Google</string>
-    <string name="aa_state_enabled">Установлено и включено: когда автомобиль подключается, Android может передать его Android Auto вместо AARE или спросить, какое приложение использовать.</string>
+    <string name="aa_state_enabled">Установлено и включено: когда автомобиль подключается, Android может передать его Android Auto вместо DashGrid или спросить, какое приложение использовать.</string>
     <string name="aa_state_disabled">Отключено: Android Auto не забирает автомобиль. Его данные сохраняются.</string>
     <string name="aa_action_disable">Не позволять Android Auto забирать автомобиль</string>
     <string name="aa_action_enable">Включить Android Auto снова</string>
     <string name="aa_working">Выполняется…</string>
-    <string name="aa_needs_shizuku">Через Shizuku (работает и разрешает AARE), либо вручную в информации о приложении Android Auto.</string>
+    <string name="aa_needs_shizuku">Через Shizuku (работает и разрешает DashGrid), либо вручную в информации о приложении Android Auto.</string>
     <string name="aa_app_info">Информация о приложении Android Auto</string>
     <string name="aa_failed">Не удалось: %1$s</string>
     <string name="aa_confirm_title">Отключить Android Auto?</string>
-    <string name="aa_confirm_text">AARE отключает Android Auto от Google для этого пользователя через Shizuku (pm disable-user). Приложение перестаёт работать, исчезает из списка приложений и больше не отвечает при подключении автомобиля, так что автомобиль всегда достаётся AARE.\n\nНичего не удаляется, и его данные сохраняются. Автомобили, приложения или функции, которым нужен Android Auto от Google, не будут работать, пока вы не включите его снова этой кнопкой.</string>
+    <string name="aa_confirm_text">DashGrid отключает Android Auto от Google для этого пользователя через Shizuku (pm disable-user). Приложение перестаёт работать, исчезает из списка приложений и больше не отвечает при подключении автомобиля, так что автомобиль всегда достаётся DashGrid.\n\nНичего не удаляется, и его данные сохраняются. Автомобили, приложения или функции, которым нужен Android Auto от Google, не будут работать, пока вы не включите его снова этой кнопкой.</string>
     <string name="aa_confirm_action">Отключить</string>
 
     <string name="setup_section_companion">Беспроводное соединение одним нажатием</string>
-    <string name="setup_companion_hint">Привяжите автомобиль, к которому вы уже подключались по беспроводной сети: после этого Android запускает AARE при подключении Bluetooth этого автомобиля, даже если телефон в кармане. Android просит подтверждение один раз для каждого автомобиля.</string>
+    <string name="setup_companion_hint">Привяжите автомобиль, к которому вы уже подключались по беспроводной сети: после этого Android запускает DashGrid при подключении Bluetooth этого автомобиля, даже если телефон в кармане. Android просит подтверждение один раз для каждого автомобиля.</string>
     <string name="setup_companion_empty">Подключитесь к автомобилю по беспроводной сети один раз, затем вернитесь сюда, чтобы привязать его.</string>
     <string name="setup_companion_failed">Android не привязал автомобиль: %1$s</string>
     <string name="setup_action_associate">Привязать</string>
     <string name="setup_toggle_companion_shizuku_title">Подтверждать Wi-Fi автомобиля через Shizuku</string>
-    <string name="setup_toggle_companion_shizuku_subtitle">Для привязанных автомобилей Shizuku отвечает на вопрос Android \"подключиться к устройству\", поэтому он больше не задаётся. Сеть автомобиля остаётся собственной сетью AARE и никогда не становится интернет-подключением телефона. Требует, чтобы Shizuku работал и разрешал AARE.</string>
+    <string name="setup_toggle_companion_shizuku_subtitle">Для привязанных автомобилей Shizuku отвечает на вопрос Android \"подключиться к устройству\", поэтому он больше не задаётся. Сеть автомобиля остаётся собственной сетью DashGrid и никогда не становится интернет-подключением телефона. Требует, чтобы Shizuku работал и разрешал DashGrid.</string>
 
     <string name="setup_toggle_auto_pair_title">Автоматически сопрягать Bluetooth автомобиля</string>
-    <string name="setup_toggle_auto_pair_subtitle">Для звонков: когда автомобиль, с которым телефон не сопряжён, запрашивает сопряжение через Android Auto, AARE сопрягается с этим автомобилем через Shizuku вместо диалога Android, если код совпадает с тем, что отправил автомобиль. Никогда с любым другим устройством. Требует, чтобы Shizuku работал и разрешал AARE.</string>
+    <string name="setup_toggle_auto_pair_subtitle">Для звонков: когда автомобиль, с которым телефон не сопряжён, запрашивает сопряжение через Android Auto, DashGrid сопрягается с этим автомобилем через Shizuku вместо диалога Android, если код совпадает с тем, что отправил автомобиль. Никогда с любым другим устройством. Требует, чтобы Shizuku работал и разрешал DashGrid.</string>
 
     <string name="calibration_title">Калибровка сенсорного экрана</string>
     <string name="calibration_intro">Если касания на экране автомобиля попадают не туда, измерьте сенсорный экран этого автомобиля: задайте видимую область на телефоне, затем коснитесь 4 целей на экране автомобиля. Делайте это на стоянке.</string>
@@ -890,7 +970,7 @@
     <string name="calibration_start">Начать калибровку</string>
     <string name="calibration_reset">Вернуть значения автомобиля</string>
     <string name="calibration_forget">Забыть</string>
-    <string name="calibration_area_help">Шаг 1 из 3. На экране автомобиля жёлтая буква L отмечает каждый угол области, в которой рисует AARE. Сдвигайте каждый край, пока его L не окажется точно у края экрана и не будет видна полностью.</string>
+    <string name="calibration_area_help">Шаг 1 из 3. На экране автомобиля жёлтая буква L отмечает каждый угол области, в которой рисует DashGrid. Сдвигайте каждый край, пока его L не окажется точно у края экрана и не будет видна полностью.</string>
     <string name="calibration_area_value">%1$s: %2$d пикс.</string>
     <string name="calibration_edge_left">Слева</string>
     <string name="calibration_edge_top">Сверху</string>

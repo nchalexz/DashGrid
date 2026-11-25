@@ -21,8 +21,8 @@ import kotlin.concurrent.thread
  */
 object UpdateChecker {
     private const val TAG = "AareUpdate"
-    private const val LATEST = "https://api.github.com/repos/prototux/AARE/releases/latest"
-    private const val RELEASES = "https://github.com/prototux/AARE/releases/latest"
+    private const val LATEST = "https://api.github.com/repos/nchalexz/DashGrid/releases/latest"
+    private const val RELEASES = "https://github.com/nchalexz/DashGrid/releases/latest"
     /** A release published in the morning shows the same day, not up to a day later (once a day did). */
     private const val CHECK_EVERY_MS = 6 * 60 * 60 * 1000L
 

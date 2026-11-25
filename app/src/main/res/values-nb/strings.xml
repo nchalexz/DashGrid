@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AARE</string>
-    <string name="mirror_touch_description">Lar deg bruke telefonskjermen fra bilen: AARE gjengir berøringene som gjøres på bilskjermen, på telefonen, og kontrollerer hvilken app som er i forgrunnen, slik at telefonskjermen forblir pauset under kjøring med mindre den viser en navigasjonsapp. AARE leser ingenting annet.</string>
+    <string name="app_name">DashGrid</string>
+    <string name="mirror_touch_description">Lar deg bruke telefonskjermen fra bilen: DashGrid gjengir berøringene som gjøres på bilskjermen, på telefonen, og kontrollerer hvilken app som er i forgrunnen, slik at telefonskjermen forblir pauset under kjøring med mindre den viser en navigasjonsapp. DashGrid leser ingenting annet.</string>
     <string name="mirror_locked_placeholder">Telefonskjermen er pauset mens telefonen er låst. Lås opp telefonen for å vise den.</string>
-    <string name="mirror_driving_no_accessibility">Telefonskjermen er pauset under kjøring. For å vise navigasjonsapper under kjøring, slå på AARE i telefonens tilgjengelighetsinnstillinger: det forteller AARE hvilken app som er åpen.</string>
+    <string name="mirror_driving_no_accessibility">Telefonskjermen er pauset under kjøring. For å vise navigasjonsapper under kjøring, slå på DashGrid i telefonens tilgjengelighetsinnstillinger: det forteller DashGrid hvilken app som er åpen.</string>
     <string name="mirror_driving_nav_only">Telefonskjermen er pauset under kjøring. Den viser bare navigasjonsapper.</string>
-    <string name="mirror_need_screen_capture">Telefonskjermen trenger Androids tillatelse for skjermopptak. Åpne AAREs innstillinger for Bilaudio på telefonen, trykk på Tillatelse for skjermopptak og velg Hele skjermen.</string>
-    <string name="mirror_capture_failed">Android avslo å dele telefonskjermen. Trykk på nytt på Tillatelse for skjermopptak i AAREs innstillinger for Bilaudio på telefonen og velg Hele skjermen.</string>
-    <string name="mirror_need_accessibility">For å bruke telefonen fra bilen, slå på AARE i telefonens tilgjengelighetsinnstillinger.</string>
+    <string name="mirror_need_screen_capture">Telefonskjermen trenger Androids tillatelse for skjermopptak. Åpne DashGrids innstillinger for Bilaudio på telefonen, trykk på Tillatelse for skjermopptak og velg Hele skjermen.</string>
+    <string name="mirror_capture_failed">Android avslo å dele telefonskjermen. Trykk på nytt på Tillatelse for skjermopptak i DashGrids innstillinger for Bilaudio på telefonen og velg Hele skjermen.</string>
+    <string name="mirror_need_accessibility">For å bruke telefonen fra bilen, slå på DashGrid i telefonens tilgjengelighetsinnstillinger.</string>
 
     <!-- common: shared across screens -->
     <string name="common_back">Tilbake</string>
@@ -32,7 +32,7 @@
     <string name="setup_page_connection_subtitle">Trådløst, videokvalitet, dine biler</string>
     <string name="setup_page_advanced_title">Avansert</string>
     <string name="setup_page_advanced_subtitle">Head unit-server, sertifikater, logg</string>
-    <string name="setup_tagline">Åpen kildekode bilprojisering</string>
+    <string name="setup_tagline">Swipe. Arrange. Drive.</string>
     <string name="setup_status_certificate">sertifikat: %1$s</string>
     <string name="setup_status_disconnected_hint">Koble telefonen til bilens Android Auto USB-port, eller koble trådløst til en tilkoblet bil.</string>
     <string name="setup_status_last_error">Siste feil: %1$s</string>
@@ -49,7 +49,7 @@
     <string name="setup_check_audio_subtitle">Lar telefonens lyd nå bilen</string>
     <string name="setup_action_set_up">Sett opp</string>
     <string name="setup_old_android_title">Kjører på en eldre Android</string>
-    <string name="setup_old_android_message">AARE kjører også på Android 6 og 7, men Android 8 er den bedre støttede basen. På Android 6 og 7 kan ikke tilkoblingsvarsler plasseres i sin egen kanal, så de kan ikke dempes separat fra AAREs andre varsler i systeminnstillingene. Alt annet fungerer på samme måte, eller faller automatisk tilbake til en eldre metode.</string>
+    <string name="setup_old_android_message">DashGrid kjører også på Android 6 og 7, men Android 8 er den bedre støttede basen. På Android 6 og 7 kan ikke tilkoblingsvarsler plasseres i sin egen kanal, så de kan ikke dempes separat fra DashGrids andre varsler i systeminnstillingene. Alt annet fungerer på samme måte, eller faller automatisk tilbake til en eldre metode.</string>
     <string name="setup_old_android_dont_show_again">Vis ikke igjen</string>
     <string name="setup_section_connecting">Kobler til</string>
     <string name="setup_toggle_wireless_title">Trådløst</string>
@@ -68,10 +68,10 @@
     <string name="setup_section_location">Posisjon</string>
     <string name="setup_toggle_car_gps_title">Bruk bilens GPS</string>
     <string name="setup_toggle_car_gps_subtitle">Mens tilkoblet ser apper på telefonen bilens posisjon i stedet for telefonens egen, slik at navigasjonsapper ikke blander de to</string>
-    <string name="setup_check_mock_location_title">Tillat AARE å angi posisjonen</string>
-    <string name="setup_check_mock_location_subtitle">Utvikleralternativer &gt; Velg app for simulert posisjon &gt; AARE</string>
+    <string name="setup_check_mock_location_title">Tillat DashGrid å angi posisjonen</string>
+    <string name="setup_check_mock_location_subtitle">Utvikleralternativer &gt; Velg app for simulert posisjon &gt; DashGrid</string>
     <string name="setup_check_background_location_title">Navigasjon med låst telefon</string>
-    <string name="setup_check_background_location_subtitle">Valgfritt. Når AARE starter av seg selv (bilens Bluetooth), beholder navigasjonsapper posisjonen med telefonen låst. Tillatelser &gt; Posisjon &gt; Tillat alltid</string>
+    <string name="setup_check_background_location_subtitle">Valgfritt. Når DashGrid starter av seg selv (bilens Bluetooth), beholder navigasjonsapper posisjonen med telefonen låst. Tillatelser &gt; Posisjon &gt; Tillat alltid</string>
     <string name="setup_section_video">Video</string>
     <string name="setup_toggle_60fps_title">Foretrekk 60 fps</string>
     <string name="setup_toggle_60fps_subtitle">Jevnere når bilen støtter det</string>
@@ -157,9 +157,9 @@
     <string name="setup_app_kind_media">Musikk, podkaster, radio</string>
     <string name="setup_app_group_messaging">Meldinger</string>
     <string name="setup_app_kind_messaging">Meldinger fra sine varsler</string>
-    <string name="setup_app_group_aare">AARE</string>
-    <string name="setup_app_builtin_subtitle">Innebygd i AARE. Skjult forsvinner den bare fra app-rutenettet: anrop og bjellen virker fortsatt.</string>
-    <string name="setup_section_unsupported_apps">Android Auto-apper AARE ikke kan vise</string>
+    <string name="setup_app_group_aare">DashGrid</string>
+    <string name="setup_app_builtin_subtitle">Innebygd i DashGrid. Skjult forsvinner den bare fra app-rutenettet: anrop og bjellen virker fortsatt.</string>
+    <string name="setup_section_unsupported_apps">Android Auto-apper DashGrid ikke kan vise</string>
     <string name="setup_hint_allowlist">Apper bygget med nyere versjoner av Googles bilbibliotek godtar bare verter på sin tillatelsesliste; se README.</string>
     <string name="setup_app_entry_phone">Telefon</string>
     <string name="setup_app_entry_settings">Innstillinger</string>
@@ -172,7 +172,7 @@
     <string name="setup_toggle_compact_rail_subtitle">En smalere stolpe, med mindre ikoner og tettere avstand</string>
     <string name="setup_section_connection_log">Tilkoblingslogg</string>
     <string name="setup_section_car_buttons">Bilens knapper</string>
-    <string name="setup_car_buttons_hint">Knapper AARE har sett fra denne bilen. Velg hva hver av dem gjør; en knapp som står på «Standard», beholder sin vanlige funksjon.</string>
+    <string name="setup_car_buttons_hint">Knapper DashGrid har sett fra denne bilen. Velg hva hver av dem gjør; en knapp som står på «Standard», beholder sin vanlige funksjon.</string>
     <string name="setup_car_buttons_empty">Ingen knapper sett ennå. Koble til en bil og trykk på en.</string>
     <string name="setup_car_button_default">Standard</string>
     <string name="setup_car_action_home">Hjem</string>
@@ -185,7 +185,7 @@
     <string name="setup_car_action_open_media">Åpne medieapp</string>
     <string name="setup_car_action_open_phone">Åpne telefonapp</string>
     <string name="setup_car_action_nothing">Ingenting</string>
-    <string name="setup_about_text">AARE %1$s · GPL-3.0-or-later · Ikke tilknyttet Google. Android Auto er et varemerke som tilhører Google LLC.</string>
+    <string name="setup_about_text">DashGrid %1$s · GPL-3.0-or-later · Ikke tilknyttet Google. Android Auto er et varemerke som tilhører Google LLC.</string>
     <string name="setup_choice_style">Stil</string>
     <string name="setup_choice_theme">Tema</string>
     <string name="setup_choice_layout">Oppsett</string>
@@ -212,16 +212,16 @@
 
     <!-- cert: certificate management -->
     <string name="cert_section_title">Telefonsertifikater</string>
-    <string name="cert_hint">Head units kontrollerer telefonens sertifikat. Head units med åpen kildekode godtar det genererte; biler som bruker Googles head unit-programvare godtar bare et sertifikat utstedt av Google, som AARE ikke kan inkludere. Du kan importere et du har rett til å bruke (PEM-sertifikat + PKCS#8-nøkkel, eller PKCS#12). Du kan også laste ned det fra den nyeste Android Auto-appen (github.com/iscle/android-auto-certificates).</string>
+    <string name="cert_hint">Head units kontrollerer telefonens sertifikat. Head units med åpen kildekode godtar det genererte; biler som bruker Googles head unit-programvare godtar bare et sertifikat utstedt av Google, som DashGrid ikke kan inkludere. Du kan importere et du har rett til å bruke (PEM-sertifikat + PKCS#8-nøkkel, eller PKCS#12). Du kan også laste ned det fra den nyeste Android Auto-appen (github.com/iscle/android-auto-certificates).</string>
     <string name="cert_entry_subtitle">%1$s · til %2$s</string>
     <string name="cert_action_remove">Fjern</string>
     <string name="cert_action_import">Importer sertifikat…</string>
     <string name="cert_action_download">Last ned sertifikat</string>
     <string name="cert_auto_update_title">Oppdater det nedlastede sertifikatet automatisk</string>
-    <string name="cert_auto_update_subtitle">En gang om dagen, aldri mens tilkoblet, spør AARE det samme lageret om et nyere sertifikat og bruker det. Uansett advarer AARE to uker før Googles sertifikat utløper.</string>
+    <string name="cert_auto_update_subtitle">En gang om dagen, aldri mens tilkoblet, spør DashGrid det samme lageret om et nyere sertifikat og bruker det. Uansett advarer DashGrid to uker før Googles sertifikat utløper.</string>
     <string name="cert_expiring_banner_title">Googles sertifikat utløper %1$s</string>
     <string name="cert_expired_banner_title">Googles sertifikat utløp %1$s</string>
-    <string name="cert_expiry_banner_subtitle">Biler som bare godtar det, vil avvise AARE. Trykk for å laste ned et nyere.</string>
+    <string name="cert_expiry_banner_subtitle">Biler som bare godtar det, vil avvise DashGrid. Trykk for å laste ned et nyere.</string>
     <string name="cert_action_downloading">Laster ned…</string>
     <string name="cert_download_unavailable">Sertifikatlageret finnes ikke lenger (slettet eller fjernet): %1$s. Hent i stedet ut sertifikatet fra Android Auto-appen (se README).</string>
     <string name="cert_download_network">Kunne ikke laste ned sertifikatet: %1$s. Sjekk tilkoblingen og prøv igjen.</string>
@@ -256,7 +256,7 @@
     <string name="msg_section_while_driving">Under kjøring</string>
     <string name="msg_toggle_dnd_title">Ikke forstyrr</string>
     <string name="msg_toggle_dnd_subtitle">Setter telefonen på lydløs mens tilkoblet; samtaler og prioriterte samtaler kommer fortsatt gjennom</string>
-    <string name="msg_check_dnd_access_title">Tillat AARE å slå på Ikke forstyrr</string>
+    <string name="msg_check_dnd_access_title">Tillat DashGrid å slå på Ikke forstyrr</string>
     <string name="msg_check_dnd_access_subtitle">Android spør én gang</string>
     <string name="msg_toggle_autoreply_title">Autosvar</string>
     <string name="msg_toggle_autoreply_subtitle">Svarer personer som skriver, én gang per samtale per kjøretur (ikke grupper)</string>
@@ -276,29 +276,29 @@
     <string name="audio_method_shizuku">Shizuku eller root</string>
     <string name="audio_method_root_policy">Root, musikk og navigasjon separat</string>
     <string name="audio_method_playback_capture">Tillatelse for skjermopptak</string>
-    <string name="audio_policy_not_ready">Som Android Auto: musikk og navigasjonsstemme separat, telefonhøyttaler av. Krever en rootet telefon: installer AARE som systemapp med Magisk-modulen (se README).</string>
+    <string name="audio_policy_not_ready">Som Android Auto: musikk og navigasjonsstemme separat, telefonhøyttaler av. Krever en rootet telefon: installer DashGrid som systemapp med Magisk-modulen (se README).</string>
     <string name="audio_shizuku_ready">Klar. Alt telefonen spiller går til bilen, inkludert navigasjonsstemme; telefonen forblir stille.</string>
     <string name="audio_shizuku_needs_android12">Krever Android 12 eller nyere.</string>
-    <string name="audio_shizuku_tap_allow">Shizuku kjører: trykk for å tillate AARE.</string>
+    <string name="audio_shizuku_tap_allow">Shizuku kjører: trykk for å tillate DashGrid.</string>
     <string name="audio_shizuku_install_hint">Ingen root nødvendig. Installer Shizuku, start det (trådløs feilsøking, én gang per omstart), og kom så tilbake hit.</string>
     <string name="audio_playback_ready">Klar. Bare media: ingen navigasjonsstemme, noen apper deltar ikke, og telefonen fortsetter også å spille.</string>
     <string name="audio_playback_not_ready">Fungerer overalt, med begrensninger: bare media, ingen navigasjonsstemme. Android spør om å ta opp skjermen: velg Hele skjermen (brukes også av telefonskjermen).</string>
-    <string name="audio_notice_setup_hint">Åpne AARE på telefonen og sett opp Bilaudio for å høre telefonen i bilen</string>
+    <string name="audio_notice_setup_hint">Åpne DashGrid på telefonen og sett opp Bilaudio for å høre telefonen i bilen</string>
     <string name="audio_section_car_mic">Bilens mikrofon</string>
     <string name="audio_toggle_car_mic_title">Bilens mikrofon for telefonens apper</string>
     <string name="audio_toggle_car_mic_subtitle">Når telefonen er koblet til en bil med mikrofon, hører taleinntasting, lydopptakere og talemeldinger på telefonen bilen i stedet for telefonen. Samtaler beholder sin egen mikrofon. Krever Shizuku.</string>
     <string name="audio_car_mic_ready">Klar: å slå det på eller av gjelder med en gang, også mens du er tilkoblet.</string>
     <string name="audio_car_mic_needs_android10">Krever Android 10 eller nyere.</string>
-    <string name="audio_car_mic_needs_shizuku">Krever Shizuku, kjørende og tillatt for AARE (se Shizuku-metoden ovenfor).</string>
+    <string name="audio_car_mic_needs_shizuku">Krever Shizuku, kjørende og tillatt for DashGrid (se Shizuku-metoden ovenfor).</string>
 
     <!-- phone: phone screen feature -->
     <string name="phone_section_title">Telefonskjerm</string>
     <string name="phone_toggle_enable_title">Telefonskjerm i bilen</string>
-    <string name="phone_toggle_enable_subtitle">Telefonens egen skjerm, for apper AARE ikke kan være vert for (Google Maps, Waze). Pauset mens telefonen er låst, og under kjøring med mindre en navigasjonsapp veileder. Tilbys ikke på head unit-serveren med mindre aktivert der</string>
+    <string name="phone_toggle_enable_subtitle">Telefonens egen skjerm, for apper DashGrid ikke kan være vert for (Google Maps, Waze). Pauset mens telefonen er låst, og under kjøring med mindre en navigasjonsapp veileder. Tilbys ikke på head unit-serveren med mindre aktivert der</string>
     <string name="phone_check_touch_title">Berøring på telefonskjermen</string>
-    <string name="phone_check_touch_subtitle">Slå på AARE i Tilgjengelighet. Sideinnlastede apper kan først trenge "Tillat begrensede innstillinger" i AAREs appinfo</string>
+    <string name="phone_check_touch_subtitle">Slå på DashGrid i Tilgjengelighet. Sideinnlastede apper kan først trenge "Tillat begrensede innstillinger" i DashGrids appinfo</string>
     <string name="phone_hint_touch_capture">Bildet bruker skjermopptak-tillatelsen (siden Bilaudio, velg Hele skjermen).</string>
-    <string name="phone_app_row_subtitle">Telefonens egen skjerm, for apper AARE ikke kan være vert for</string>
+    <string name="phone_app_row_subtitle">Telefonens egen skjerm, for apper DashGrid ikke kan være vert for</string>
 
     <!-- assistant: voice assistant settings and bar -->
     <string name="assistant_settings_title">Taleassistent</string>
@@ -320,12 +320,12 @@
     <string name="notif_action_navigate">Naviger</string>
     <string name="notif_action_open">Åpne</string>
     <string name="notif_cert_updated_title">Sertifikat oppdatert</string>
-    <string name="notif_cert_updated_message">AARE lastet ned et nyere Android Auto-sertifikat, gyldig til %1$s.</string>
+    <string name="notif_cert_updated_message">DashGrid lastet ned et nyere Android Auto-sertifikat, gyldig til %1$s.</string>
     <string name="notif_cert_expiring_title">Sertifikatet utløper snart</string>
-    <string name="notif_cert_expiring_text">%1$s utløper %2$s. Biler som bare godtar Googles sertifikat, vil avvise AARE etter det: last ned et nyere.</string>
+    <string name="notif_cert_expiring_text">%1$s utløper %2$s. Biler som bare godtar Googles sertifikat, vil avvise DashGrid etter det: last ned et nyere.</string>
     <string name="notif_cert_expired_title">Sertifikatet er utløpt</string>
-    <string name="notif_cert_expired_text">%1$s utløp %2$s. Biler som bare godtar Googles sertifikat, avviser nå AARE: last ned et nyere.</string>
-    <string name="notif_cert_download_title">Head unit avslo AAREs sertifikat</string>
+    <string name="notif_cert_expired_text">%1$s utløp %2$s. Biler som bare godtar Googles sertifikat, avviser nå DashGrid: last ned et nyere.</string>
+    <string name="notif_cert_download_title">Head unit avslo DashGrids sertifikat</string>
     <string name="notif_cert_download_message">Denne head unit-en godtar bare Googles sertifikat. Last det ned fra den nyeste Android Auto-appen, og koble deretter til igjen.</string>
     <string name="notif_cert_download_progress">Laster ned Android Autos sertifikat…</string>
     <string name="notif_cert_download_ready_title">Sertifikatet er klart</string>
@@ -341,11 +341,11 @@
     <string name="notif_trust_warning">Stol bare på en head unit du er tilkoblet akkurat nå</string>
     <string name="notif_untrusted_message">SHA-256 %1$s... %2$s, koble deretter til igjen.</string>
     <string name="notif_trust_reconnect_suffix">%1$s, koble deretter til igjen.</string>
-    <string name="notif_cert_changed_message">head unit-sertifikat endret: trykk på Stol på i varselet eller i AARE bare hvis programvaren er oppdatert, koble deretter til igjen</string>
-    <string name="notif_cert_untrusted_message">head unit-sertifikat ikke betrodd ennå: trykk på Stol på i varselet eller i AARE, koble deretter til igjen</string>
+    <string name="notif_cert_changed_message">head unit-sertifikat endret: trykk på Stol på i varselet eller i DashGrid bare hvis programvaren er oppdatert, koble deretter til igjen</string>
+    <string name="notif_cert_untrusted_message">head unit-sertifikat ikke betrodd ennå: trykk på Stol på i varselet eller i DashGrid, koble deretter til igjen</string>
     <string name="notif_cert_dates_title">Kontroller bilens dato og klokkeslett</string>
-    <string name="notif_cert_not_yet_valid_message">head unit-en sier at AAREs sertifikat ikke er gyldig ennå: klokken er sannsynligvis forsinket. Still inn bilens dato og klokkeslett, koble deretter til igjen</string>
-    <string name="notif_cert_expired_message">head unit-en sier at AAREs sertifikat er utløpt: hvis det ikke er det, går bilens klokke fort. Still inn bilens dato og klokkeslett, eller hent et nyere sertifikat under Avansert, koble deretter til igjen</string>
+    <string name="notif_cert_not_yet_valid_message">head unit-en sier at DashGrids sertifikat ikke er gyldig ennå: klokken er sannsynligvis forsinket. Still inn bilens dato og klokkeslett, koble deretter til igjen</string>
+    <string name="notif_cert_expired_message">head unit-en sier at DashGrids sertifikat er utløpt: hvis det ikke er det, går bilens klokke fort. Still inn bilens dato og klokkeslett, eller hent et nyere sertifikat under Avansert, koble deretter til igjen</string>
     <string name="notif_car_nearby_title">Bil i nærheten</string>
     <string name="notif_car_nearby_text">Trykk for å koble til trådløst</string>
     <string name="notif_status_connecting_to">Kobler til %1$s</string>
@@ -365,9 +365,9 @@
     <string name="notif_navigation_title">Navigasjon</string>
     <string name="notif_navigation_no_app_text">Ingen navigasjonsapp i bilen</string>
     <string name="notif_assistant_title">Assistent</string>
-    <string name="notif_assistant_choose_text">Velg en taleassistent i AAREs innstillinger på telefonen</string>
+    <string name="notif_assistant_choose_text">Velg en taleassistent i DashGrids innstillinger på telefonen</string>
     <string name="notif_assistant_no_car_screen">%1$s har ingen bilskjerm: den ble åpnet på telefonen</string>
-    <string name="notif_assistant_cant_open">%1$s kan ikke åpnes. Velg en annen assistent i AAREs innstillinger</string>
+    <string name="notif_assistant_cant_open">%1$s kan ikke åpnes. Velg en annen assistent i DashGrids innstillinger</string>
     <string name="notif_parked_only_title">Ikke tilgjengelig under kjøring</string>
     <string name="notif_parked_only_text">Parker for å bruke dette</string>
     <string name="notif_empty">Ingen varsler</string>
@@ -415,7 +415,7 @@
     <string name="media_queue_empty">Køen er tom</string>
 
     <!-- msg: messaging screen (notifications-based conversations) -->
-    <string name="msg_no_access">Gi AARE varseltilgang på telefonen for å se meldinger her</string>
+    <string name="msg_no_access">Gi DashGrid varseltilgang på telefonen for å se meldinger her</string>
     <string name="msg_listener_not_ready">Ingenting å se her ennå</string>
     <string name="msg_reply_sent">Svar sendt</string>
     <string name="msg_reply_rejected">%1$s godtok ikke svaret</string>
@@ -435,7 +435,7 @@
     <string name="phone_tab_recents">Nylige</string>
     <string name="phone_tab_contacts">Kontakter</string>
     <string name="phone_tab_keypad">Tastatur</string>
-    <string name="phone_permissions_placeholder">Tillat samtaler, samtalehistorikk og kontakter i AARE på telefonen (Fullfør oppsettet).</string>
+    <string name="phone_permissions_placeholder">Tillat samtaler, samtalehistorikk og kontakter i DashGrid på telefonen (Fullfør oppsettet).</string>
     <string name="phone_notice_calling_title">Ringer</string>
     <string name="phone_no_recent_calls">Ingen nylige samtaler</string>
     <string name="phone_no_contacts">Ingen kontakter med et telefonnummer</string>
@@ -468,7 +468,7 @@
 
     <!-- standalone: launching ordinary phone apps on the car screen (root/Shizuku, parked only) -->
     <string name="standalone_section_title">Apper på bilskjermen (avansert)</string>
-    <string name="standalone_section_warning">Dette er ikke Android Auto-apper: AARE viser deres vanlige telefonskjerm, som standard bare når bilen er parkert, og krever root eller Shizuku. Bruk på eget ansvar.</string>
+    <string name="standalone_section_warning">Dette er ikke Android Auto-apper: DashGrid viser deres vanlige telefonskjerm, som standard bare når bilen er parkert, og krever root eller Shizuku. Bruk på eget ansvar.</string>
     <string name="standalone_toggle_title">Start telefonapper på bilskjermen</string>
     <string name="standalone_toggle_subtitle">Velg appene nedenfor, og for hver hva den kan gjøre under kjøring.</string>
     <string name="standalone_keep_awake_title">Ingen-dvale-modus for frittstående apper</string>
@@ -501,12 +501,12 @@
     <string name="assistant_stop_style_voice_button">Taleknappen blir til Stopp</string>
     <string name="assistant_stop_style_red_restart">Rød stoppknapp, taleknappen spør på nytt</string>
     <string name="assistant_stop_style_red_stop">Rød stoppknapp, taleknappen stopper også</string>
-    <string name="assistant_links_subtitle">La aare://-lenker i svarene fra den valgte assistenten styre musikken, eller tilby å navigere, åpne en app eller ringe på bilens skjerm. Lenker fra andre apper og fra nettsider ignoreres.</string>
+    <string name="assistant_links_subtitle">La dashgrid://-lenker i svarene fra den valgte assistenten styre musikken, eller tilby å navigere, åpne en app eller ringe på bilens skjerm. Lenker fra andre apper og fra nettsider ignoreres.</string>
     <!-- setup_page: car data entry -->
     <string name="setup_page_car_data_title">Bildata</string>
     <string name="setup_page_car_data_subtitle">Hastighet, gir og sensorer direkte fra bilen</string>
     <string name="setup_page_about_title">Om</string>
-    <string name="setup_page_about_subtitle">Hva AARE er, prosjektlenkene, og hvem som har bidratt til å bygge det</string>
+    <string name="setup_page_about_subtitle">Hva DashGrid er, prosjektlenkene, og hvem som har bidratt til å bygge det</string>
 
     <!-- car_data: the read-only car sensor viewer -->
     <string name="car_data_not_connected">Koble til en bil for å se dataene.</string>
@@ -564,8 +564,8 @@
     <string name="car_data_show_in_car_subtitle">Legg til en diagnoseapp i bilen for disse direktedataene</string>
 
     <!-- about: the About page -->
-    <string name="about_section_what_title">Hva AARE er</string>
-    <string name="about_text">AARE er en open source-reimplementering av telefonsiden av Android Auto: den snakker Android Autos projeksjonsprotokoll direkte med bilens head unit, tegner selv bilskjermen, og kjører navigasjons-, medie- og meldingsapper uten behov for Google Play-tjenester.</string>
+    <string name="about_section_what_title">Hva DashGrid er</string>
+    <string name="about_text">DashGrid er en open source-reimplementering av telefonsiden av Android Auto: den snakker Android Autos projeksjonsprotokoll direkte med bilens head unit, tegner selv bilskjermen, og kjører navigasjons-, medie- og meldingsapper uten behov for Google Play-tjenester.</string>
     <string name="about_section_links_title">Prosjekt</string>
     <string name="about_link_repository">Kodelager</string>
     <string name="about_link_issues">Problemer</string>
@@ -581,7 +581,7 @@
     <string name="about_oss_protocol_title">Protokolldefinisjoner</string>
 
     <string name="obd_adapter_title">Les en OBD2-adapter</string>
-    <string name="obd_adapter_subtitle">En ELM327-adapter paret via Bluetooth, lest mens bilen er tilkoblet: motordata som bilen ikke sender til AARE. Bare lesing: AARE skriver aldri til bilen.</string>
+    <string name="obd_adapter_subtitle">En ELM327-adapter paret via Bluetooth, lest mens bilen er tilkoblet: motordata som bilen ikke sender til DashGrid. Bare lesing: DashGrid skriver aldri til bilen.</string>
     <string name="obd_simulated_title">Simulert OBD2-adapter (feilsøking)</string>
     <string name="obd_simulated_subtitle">En simulert bil i stedet for en ekte adapter, for å prøve denne siden</string>
     <string name="obd_section">OBD2-adapter</string>
@@ -606,7 +606,7 @@
     <string name="vehicles_import">Importer fil…</string>
     <string name="vehicles_template">Skriv mal</string>
     <string name="vehicles_builtin_fixes_title">Innebygde bilrettinger</string>
-    <string name="vehicles_builtin_fixes_subtitle">Rettinger AARE leverer for bestemte hovedenheter: ingen trådløs der det feiler, videostørrelse, navigasjonsstemme, elbiler, skjermens pikselform, navnet på Avslutt. Av: hver bil fungerer som før. En regel i vehicles.json kan slå dem på for én bil (builtInFixes).</string>
+    <string name="vehicles_builtin_fixes_subtitle">Rettinger DashGrid leverer for bestemte hovedenheter: ingen trådløs der det feiler, videostørrelse, navigasjonsstemme, elbiler, skjermens pikselform, navnet på Avslutt. Av: hver bil fungerer som før. En regel i vehicles.json kan slå dem på for én bil (builtInFixes).</string>
     <string name="quirks_section_title">Bilfinurligheter</string>
     <string name="quirks_subtitle">Dette, er listen over finurligheter.</string>
     <string name="quirks_hint">Overstyrer vehicles.json sine finurligheter for én bil: hovedenheten som sist koblet til. Automatisk beholder det de innebygde bilrettingene og din vehicles.json sier om den. Andre biler påvirkes ikke.</string>
@@ -622,9 +622,9 @@
     <string name="quirks_single_channel_capture_title">Navigasjonsstemme på én kanal</string>
     <string name="quirks_single_channel_capture_subtitle">På: sender navigasjonsstemmen på musikkkanalen og lar veiledningskanalen stå ubrukt. Av: bruker veiledningskanalen normalt.</string>
     <string name="quirks_wifi_media_silence_title">Stillhet ved musikkstart over Wi-Fi</string>
-    <string name="quirks_wifi_media_silence_subtitle">På: sender vehicles.json sine stille meldinger (eller AAREs standard) før en musikkstrøm starter over Wi-Fi. Av: sender ingen.</string>
+    <string name="quirks_wifi_media_silence_subtitle">På: sender vehicles.json sine stille meldinger (eller DashGrids standard) før en musikkstrøm starter over Wi-Fi. Av: sender ingen.</string>
     <string name="quirks_wifi_guidance_silence_title">Stillhet ved veiledningsstart over Wi-Fi</string>
-    <string name="quirks_wifi_guidance_silence_subtitle">På: sender vehicles.json sine stille meldinger (eller AAREs standard) før en navigasjonsstemme-strøm starter over Wi-Fi. Av: sender ingen.</string>
+    <string name="quirks_wifi_guidance_silence_subtitle">På: sender vehicles.json sine stille meldinger (eller DashGrids standard) før en navigasjonsstemme-strøm starter over Wi-Fi. Av: sender ingen.</string>
     <string name="quirks_media_on_gain_transient_title">Musikk under navigasjonsvarsler</string>
     <string name="quirks_media_on_gain_transient_subtitle">På: musikken fortsetter å spille når bilen svarer på en navigasjonsvarsels forespørsel med GAIN_TRANSIENT. Av: da spiller bare navigasjonsstemmen. En GAIN_TRANSIENT som svarer på musikkens egen forespørsel, eller som bilen sender på eget initiativ, lar alltid musikken spille.</string>
     <string name="quirks_pause_on_guidance_only_title">Pause musikk ved kun veiledning</string>
@@ -644,7 +644,7 @@
     <string name="setup_toggle_force_h264_title">Tving frem H.264-video</string>
     <string name="setup_toggle_constant_bitrate_title">Video med konstant bitrate</string>
     <string name="setup_toggle_constant_bitrate_subtitle">Holder hver ramme på omtrent samme størrelse. Slå på hvis bilen bryter tilkoblingen når hele bildet endrer seg, som med telefonskjermen eller en video. Travle bilder blir litt mykere. Trer i kraft fra neste tilkobling.</string>
-    <string name="setup_toggle_force_h264_subtitle">Som standard bruker AARE den beste kodeken som bilen og telefonen har felles (H.265…). Slå på hvis bildet i bilen er forstyrret.</string>
+    <string name="setup_toggle_force_h264_subtitle">Som standard bruker DashGrid den beste kodeken som bilen og telefonen har felles (H.265…). Slå på hvis bildet i bilen er forstyrret.</string>
     <string name="common_ok">OK</string>
     <string name="common_try_again">Prøv igjen</string>
     <string name="common_something_went_wrong">Noe gikk feil</string>
@@ -654,14 +654,14 @@
     <string name="update_check_now">Sjekk nå</string>
     <string name="update_checking">Sjekker…</string>
     <string name="update_check_latest">Du har nyeste versjon (%1$s).</string>
-    <string name="update_check_available">AARE %1$s er tilgjengelig: se startskjermen.</string>
+    <string name="update_check_available">DashGrid %1$s er tilgjengelig: se startskjermen.</string>
     <string name="update_check_failed">Fikk ikke kontakt med GitHub. Prøv igjen senere.</string>
     <string name="update_available_title">Oppdatering tilgjengelig — %1$s</string>
     <string name="update_available_subtitle">Du har %1$s. Trykk for å se utgivelsen.</string>
     <string name="setup_log_save">Lagre</string>
     <string name="setup_section_developer_log">Utviklerlogg</string>
     <string name="setup_toggle_dev_log_title">Utviklermodus</string>
-    <string name="setup_toggle_dev_log_subtitle">Skriver alt AARE logger til tekstfiler i %1$s (opptil 50 MB). Hvis du slår den av, slettes de: lagre dem først.</string>
+    <string name="setup_toggle_dev_log_subtitle">Skriver alt DashGrid logger til tekstfiler i %1$s (opptil 50 MB). Hvis du slår den av, slettes de: lagre dem først.</string>
     <string name="setup_toggle_dev_log_privacy_title">Skjul personlige data</string>
     <string name="setup_toggle_dev_log_privacy_subtitle">Maskerer adresser, navn på nettverk og enheter og andre personlige data den gjenkjenner. Les filen før du deler den.</string>
     <string name="setup_dev_log_save">Lagre utviklerlogg</string>
@@ -669,7 +669,7 @@
     <string name="setup_toggle_verbose_log_title">Detaljert protokollogg</string>
     <string name="setup_toggle_verbose_log_subtitle">Lagre hele protokollsporet mot hodeenheten i denne loggen, for å legge ved en feilrapport. Logger mye; la den stå av ellers.</string>
     <string name="setup_section_backup">Sikkerhetskopi av innstillinger</string>
-    <string name="setup_backup_hint">Lagre innstillingene i en fil, eller last inn en igjen. Betrodde head units, sertifikater, telefonspesifikk tilstand og valg som åpner AARE mot nettverket eller hopper over en sikkerhetssjekk (head unit-server, passasjermodus, lyd via root…), utelates: still dem inn manuelt på hver telefon.</string>
+    <string name="setup_backup_hint">Lagre innstillingene i en fil, eller last inn en igjen. Betrodde head units, sertifikater, telefonspesifikk tilstand og valg som åpner DashGrid mot nettverket eller hopper over en sikkerhetssjekk (head unit-server, passasjermodus, lyd via root…), utelates: still dem inn manuelt på hver telefon.</string>
     <string name="setup_backup_export">Eksporter…</string>
     <string name="setup_backup_import">Importer…</string>
     <string name="setup_backup_import_confirm_title">Erstatte innstillingene?</string>
@@ -678,7 +678,7 @@
     <string name="setup_backup_import_done">Innstillingene er importert.</string>
     <string name="setup_backup_import_done_skipped">Innstillingene er importert. Utelatt som ukjent, blokkert eller ugyldig: %1$d</string>
     <string name="setup_backup_import_blocked">Ikke importert, av sikkerhetshensyn (slå disse på manuelt på denne telefonen): %1$s</string>
-    <string name="setup_backup_import_failed">Filen kan ikke importeres: den er ikke en AARE-innstillingsfil, eller den er for stor.</string>
+    <string name="setup_backup_import_failed">Filen kan ikke importeres: den er ikke en DashGrid-innstillingsfil, eller den er for stor.</string>
     <string name="setup_backup_export_failed">Kunne ikke lagre innstillingsfilen.</string>
     <string name="setup_nothing_to_open">Denne telefonen har ingen app som kan åpne dette</string>
     <string name="setup_wallpaper_failed">Kunne ikke bruke dette bildet som bakgrunn</string>
@@ -706,7 +706,7 @@
     <string name="media_error_skip_limit">Du har nådd grensen for å hoppe over spor</string>
     <string name="media_error_setup">Fullfør oppsettet av %1$s på telefonen din</string>
     <string name="media_error_end_of_playlist">Slutten av spillelisten</string>
-    <string name="media_error_permission">%1$s tillater ikke at AARE blar i den</string>
+    <string name="media_error_permission">%1$s tillater ikke at DashGrid blar i den</string>
     <string name="media_error_io">Problem med nettverk eller lagring</string>
     <string name="media_error_not_supported">Ikke støttet av %1$s</string>
     <string name="media_error_disconnected">%1$s koblet fra</string>
@@ -721,7 +721,7 @@
     <string name="carapp_error_no_answer">%1$s svarte ikke. Den godtar muligens bare Googles Android Auto (se applisten på telefonen).</string>
     <string name="carapp_error_api_level">%1$s krever bil-API-nivå %2$d; denne verten støtter %3$d</string>
     <string name="carapp_error_stopped">%1$s stoppet</string>
-    <string name="carapp_error_google_only">%1$s godtar bare Googles Android Auto. Den må tillate AARE (se applisten på telefonen).</string>
+    <string name="carapp_error_google_only">%1$s godtar bare Googles Android Auto. Den må tillate DashGrid (se applisten på telefonen).</string>
     <string name="carapp_error_cant_start">%1$s kunne ikke starte: %2$s</string>
 
     <string name="dash_card_home">Hjem</string>
@@ -731,7 +731,7 @@
     <string name="home_page_title">Hjemmehandlinger</string>
     <string name="home_page_subtitle">Smarthus-knapper og -verdier i bilen, over MQTT eller HTTP</string>
     <string name="home_toggle_title">Vis hjemmehandlinger i bilen</string>
-    <string name="home_toggle_subtitle">En Hjem-app og dashbord-kort. AARE kobler til serverne dine bare mens bilskjermen er på.</string>
+    <string name="home_toggle_subtitle">En Hjem-app og dashbord-kort. DashGrid kobler til serverne dine bare mens bilskjermen er på.</string>
     <string name="home_intro">Handlinger er knapper som publiserer en MQTT-melding eller sender en HTTP-forespørsel (åpne garasjen, slå på lysene). Fliser viser en verdi fra et MQTT-emne eller et HTTP-svar. Home Assistant fungerer via sitt REST-API, en webhook eller MQTT.</string>
     <string name="home_section_connections">Tilkoblinger</string>
     <string name="home_broker_title">MQTT-broker</string>
@@ -832,7 +832,7 @@
     <string name="home_preset_http_webhook_subtitle">Sender en POST til en adresse</string>
     <string name="home_preset_http_json">HTTP JSON-verdi</string>
     <string name="home_preset_http_json_subtitle">En flis med én verdi fra et JSON-svar, som avleses periodisk</string>
-    <string name="home_car_empty">Sett opp hjemmehandlinger på telefonen: AARE > Hjemmehandlinger.</string>
+    <string name="home_car_empty">Sett opp hjemmehandlinger på telefonen: DashGrid > Hjemmehandlinger.</string>
     <string name="home_confirm_question">%1$s nå?</string>
     <string name="home_confirm_run">Kjør</string>
     <string name="home_action_done">Utført</string>
@@ -847,37 +847,37 @@
     <string name="home_error_http_lan_off">vanlig http:// er av: slå på \"Tillat vanlig http på hjemmenettverket mitt\" for HTTP-serveren</string>
     <string name="home_error_tls">serverens sertifikat er ikke pålitelig</string>
     <string name="home_error_generic">noe gikk feil</string>
-    <string name="shizuku_setup_title">Gi AARE tillatelser med Shizuku</string>
+    <string name="shizuku_setup_title">Gi DashGrid tillatelser med Shizuku</string>
     <string name="shizuku_setup_subtitle">Ett trykk gir det som fortsatt mangler, uten hver tillatelses egen dialog: mikrofon, posisjon, kontakter, samtalelogg, kalender, telefonsamtaler, enheter i nærheten (Bluetooth, Wi-Fi), lokalt nettverk, varsler og varseltilgang</string>
     <string name="shizuku_setup_working">Gir tilgang…</string>
     <string name="shizuku_setup_result_title">Gitt med Shizuku</string>
     <string name="shizuku_setup_nothing_to_grant">Alt var allerede gitt.</string>
     <string name="shizuku_setup_not_granted">Ikke gitt: %1$s</string>
     <string name="shizuku_setup_notification_access">Varseltilgang</string>
-    <string name="shizuku_setup_helper_failed">Shizukus hjelper startet ikke. Kontroller at Shizuku kjører og tillater AARE.</string>
+    <string name="shizuku_setup_helper_failed">Shizukus hjelper startet ikke. Kontroller at Shizuku kjører og tillater DashGrid.</string>
     <string name="aa_section_title">Googles Android Auto</string>
-    <string name="aa_state_enabled">Installert og aktivert: når en bil kobles til, kan Android gi den til Android Auto i stedet for AARE, eller spørre hvilken app som skal brukes.</string>
+    <string name="aa_state_enabled">Installert og aktivert: når en bil kobles til, kan Android gi den til Android Auto i stedet for DashGrid, eller spørre hvilken app som skal brukes.</string>
     <string name="aa_state_disabled">Deaktivert: Android Auto tar ikke bilen. Dataene blir beholdt.</string>
     <string name="aa_action_disable">Stopp Android Auto fra å ta bilen</string>
     <string name="aa_action_enable">Aktiver Android Auto igjen</string>
     <string name="aa_working">Arbeider…</string>
-    <string name="aa_needs_shizuku">Via Shizuku (kjører og tillater AARE), eller manuelt i Android Autos appinfo.</string>
+    <string name="aa_needs_shizuku">Via Shizuku (kjører og tillater DashGrid), eller manuelt i Android Autos appinfo.</string>
     <string name="aa_app_info">Android Autos appinfo</string>
     <string name="aa_failed">Fungerte ikke: %1$s</string>
     <string name="aa_confirm_title">Deaktivere Android Auto?</string>
-    <string name="aa_confirm_text">AARE deaktiverer Googles Android Auto for denne brukeren via Shizuku (pm disable-user). Den stopper å kjøre, forsvinner fra applisten og svarer ikke lenger når en bil kobles til, så bilen går alltid til AARE.\n\nIngenting avinstalleres, og dataene blir beholdt. Biler, apper eller funksjoner som trenger Googles Android Auto vil ikke fungere før du aktiverer den igjen med knappen her.</string>
+    <string name="aa_confirm_text">DashGrid deaktiverer Googles Android Auto for denne brukeren via Shizuku (pm disable-user). Den stopper å kjøre, forsvinner fra applisten og svarer ikke lenger når en bil kobles til, så bilen går alltid til DashGrid.\n\nIngenting avinstalleres, og dataene blir beholdt. Biler, apper eller funksjoner som trenger Googles Android Auto vil ikke fungere før du aktiverer den igjen med knappen her.</string>
     <string name="aa_confirm_action">Deaktiver</string>
 
     <string name="setup_section_companion">Trådløst med ett trykk</string>
-    <string name="setup_companion_hint">Tilknytt en bil du allerede har koblet til trådløst: Android starter da AARE når denne bilens Bluetooth kobler til, selv med telefonen i lommen. Android ber deg bekrefte én gang per bil.</string>
+    <string name="setup_companion_hint">Tilknytt en bil du allerede har koblet til trådløst: Android starter da DashGrid når denne bilens Bluetooth kobler til, selv med telefonen i lommen. Android ber deg bekrefte én gang per bil.</string>
     <string name="setup_companion_empty">Koble til en bil trådløst én gang, og kom så tilbake hit for å tilknytte den.</string>
     <string name="setup_companion_failed">Android tilknyttet ikke bilen: %1$s</string>
     <string name="setup_action_associate">Tilknytt</string>
     <string name="setup_toggle_companion_shizuku_title">Godkjenn bilens Wi-Fi med Shizuku</string>
-    <string name="setup_toggle_companion_shizuku_subtitle">For tilknyttede biler svarer Shizuku på Androids spørsmål om å \"koble til enhet\", så det blir ikke spurt igjen. Bilens nettverk forblir AAREs eget, aldri telefonens internettforbindelse. Krever at Shizuku kjører og tillater AARE.</string>
+    <string name="setup_toggle_companion_shizuku_subtitle">For tilknyttede biler svarer Shizuku på Androids spørsmål om å \"koble til enhet\", så det blir ikke spurt igjen. Bilens nettverk forblir DashGrids eget, aldri telefonens internettforbindelse. Krever at Shizuku kjører og tillater DashGrid.</string>
 
     <string name="setup_toggle_auto_pair_title">Koble sammen bilens Bluetooth automatisk</string>
-    <string name="setup_toggle_auto_pair_subtitle">For samtaler: når en bil telefonen ikke er koblet sammen med ber om sammenkobling via Android Auto, kobler AARE seg sammen med den bilen via Shizuku i stedet for Androids dialog, hvis koden stemmer med den bilen sendte. Aldri med noen annen enhet. Krever at Shizuku kjører og tillater AARE.</string>
+    <string name="setup_toggle_auto_pair_subtitle">For samtaler: når en bil telefonen ikke er koblet sammen med ber om sammenkobling via Android Auto, kobler DashGrid seg sammen med den bilen via Shizuku i stedet for Androids dialog, hvis koden stemmer med den bilen sendte. Aldri med noen annen enhet. Krever at Shizuku kjører og tillater DashGrid.</string>
 
     <string name="calibration_title">Kalibrering av berøringsskjermen</string>
     <string name="calibration_intro">Hvis trykk havner feil sted på bilskjermen, kan du måle opp berøringsskjermen i denne bilen: du stiller inn det synlige området på telefonen og trykker deretter på 4 mål på bilskjermen. Gjør det mens bilen står stille.</string>
@@ -888,7 +888,7 @@
     <string name="calibration_start">Start kalibrering</string>
     <string name="calibration_reset">Tilbakestill til bilens verdier</string>
     <string name="calibration_forget">Glem</string>
-    <string name="calibration_area_help">Trinn 1 av 3. På bilskjermen markerer en gul L hvert hjørne av området AARE tegner i. Flytt hver kant til L-en sitter helt ved kanten av skjermen og er fullt synlig.</string>
+    <string name="calibration_area_help">Trinn 1 av 3. På bilskjermen markerer en gul L hvert hjørne av området DashGrid tegner i. Flytt hver kant til L-en sitter helt ved kanten av skjermen og er fullt synlig.</string>
     <string name="calibration_area_value">%1$s: %2$d px</string>
     <string name="calibration_edge_left">Venstre</string>
     <string name="calibration_edge_top">Topp</string>

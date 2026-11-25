@@ -50,3 +50,6 @@ google-services.json
 
 # Claude Code agent worktrees
 .claude/
+
+# DashGrid signing credentials (and the local APK drop)
+keystore.properties

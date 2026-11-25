@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AARE</string>
-    <string name="mirror_touch_description">Lehetővé teszi, hogy a telefon képernyőjét az autóból használd: az AARE továbbítja a telefonnak az autó képernyőjén végzett érintéseket, és figyeli, melyik alkalmazás van előtérben, így a telefon képernyője vezetés közben szünetel, kivéve ha navigációs alkalmazást mutat. Az AARE mást nem olvas.</string>
+    <string name="app_name">DashGrid</string>
+    <string name="mirror_touch_description">Lehetővé teszi, hogy a telefon képernyőjét az autóból használd: az DashGrid továbbítja a telefonnak az autó képernyőjén végzett érintéseket, és figyeli, melyik alkalmazás van előtérben, így a telefon képernyője vezetés közben szünetel, kivéve ha navigációs alkalmazást mutat. Az DashGrid mást nem olvas.</string>
     <string name="mirror_locked_placeholder">A telefon képernyője szünetel, amíg a telefon zárolva van. Oldd fel a telefont a megjelenítéséhez.</string>
-    <string name="mirror_driving_no_accessibility">A telefon képernyője szünetel vezetés közben. Ahhoz, hogy navigációs alkalmazásokat vezetés közben is megjeleníthess, kapcsold be az AARE-t a telefon kezelési segítség beállításaiban: ez jelzi az AARE-nak, melyik alkalmazás van megnyitva.</string>
+    <string name="mirror_driving_no_accessibility">A telefon képernyője szünetel vezetés közben. Ahhoz, hogy navigációs alkalmazásokat vezetés közben is megjeleníthess, kapcsold be az DashGrid-t a telefon kezelési segítség beállításaiban: ez jelzi az DashGrid-nak, melyik alkalmazás van megnyitva.</string>
     <string name="mirror_driving_nav_only">A telefon képernyője szünetel vezetés közben. Csak navigációs alkalmazásokat jelenít meg.</string>
-    <string name="mirror_need_screen_capture">A telefon képernyőjéhez szükség van az Android képernyőrögzítési jogosultságára. A telefonon nyisd meg az AARE Autó hangja beállításait, koppints a Képernyőrögzítési jogosultság elemre, és válaszd a Teljes képernyőt.</string>
-    <string name="mirror_capture_failed">Az Android megtagadta a telefon képernyőjének megosztását. A telefonon koppints újra a Képernyőrögzítési jogosultság elemre az AARE Autó hangja beállításaiban, és válaszd a Teljes képernyőt.</string>
-    <string name="mirror_need_accessibility">A telefon autóból történő használatához kapcsold be az AARE-t a telefon kezelési segítség beállításaiban.</string>
+    <string name="mirror_need_screen_capture">A telefon képernyőjéhez szükség van az Android képernyőrögzítési jogosultságára. A telefonon nyisd meg az DashGrid Autó hangja beállításait, koppints a Képernyőrögzítési jogosultság elemre, és válaszd a Teljes képernyőt.</string>
+    <string name="mirror_capture_failed">Az Android megtagadta a telefon képernyőjének megosztását. A telefonon koppints újra a Képernyőrögzítési jogosultság elemre az DashGrid Autó hangja beállításaiban, és válaszd a Teljes képernyőt.</string>
+    <string name="mirror_need_accessibility">A telefon autóból történő használatához kapcsold be az DashGrid-t a telefon kezelési segítség beállításaiban.</string>
 
     <!-- common: shared across screens -->
     <string name="common_back">Vissza</string>
@@ -32,7 +32,7 @@
     <string name="setup_page_connection_subtitle">Vezeték nélküli kapcsolat, videóminőség, autóid</string>
     <string name="setup_page_advanced_title">Speciális</string>
     <string name="setup_page_advanced_subtitle">Fejegység-szerver, tanúsítványok, napló</string>
-    <string name="setup_tagline">Nyílt forráskódú autós kijelzés</string>
+    <string name="setup_tagline">Swipe. Arrange. Drive.</string>
     <string name="setup_status_certificate">tanúsítvány: %1$s</string>
     <string name="setup_status_disconnected_hint">Csatlakoztasd a telefont az autó Android Auto USB-portjára, vagy kapcsolódj vezeték nélkül egy párosított autóhoz.</string>
     <string name="setup_status_last_error">Legutóbbi hiba: %1$s</string>
@@ -49,7 +49,7 @@
     <string name="setup_check_audio_subtitle">Engedd, hogy a telefon hangja elérje az autót</string>
     <string name="setup_action_set_up">Beállítás</string>
     <string name="setup_old_android_title">Régebbi Androidon fut</string>
-    <string name="setup_old_android_message">Az AARE az Android 6-on és 7-en is fut, de az Android 8 a jobban támogatott alap. Android 6-on és 7-en a kapcsolódási értesítések nem helyezhetők el saját csatornájukban, így nem némíthatók el külön az AARE többi értesítésétől a rendszerbeállításokban. Minden más ugyanúgy működik, vagy automatikusan egy régebbi módszerre esik vissza.</string>
+    <string name="setup_old_android_message">Az DashGrid az Android 6-on és 7-en is fut, de az Android 8 a jobban támogatott alap. Android 6-on és 7-en a kapcsolódási értesítések nem helyezhetők el saját csatornájukban, így nem némíthatók el külön az DashGrid többi értesítésétől a rendszerbeállításokban. Minden más ugyanúgy működik, vagy automatikusan egy régebbi módszerre esik vissza.</string>
     <string name="setup_old_android_dont_show_again">Ne jelenjen meg újra</string>
     <string name="setup_section_connecting">Kapcsolódás</string>
     <string name="setup_toggle_wireless_title">Vezeték nélküli</string>
@@ -68,10 +68,10 @@
     <string name="setup_section_location">Helyadatok</string>
     <string name="setup_toggle_car_gps_title">Az autó GPS-ének használata</string>
     <string name="setup_toggle_car_gps_subtitle">Csatlakoztatva a telefon alkalmazásai az autó pozícióját látják a telefon saját helyzete helyett, így a navigációs alkalmazások nem keverik össze a kettőt</string>
-    <string name="setup_check_mock_location_title">Engedélyezd, hogy az AARE beállítsa a helyet</string>
-    <string name="setup_check_mock_location_subtitle">Fejlesztői beállítások &gt; Látszatpozíció-alkalmazás kiválasztása &gt; AARE</string>
+    <string name="setup_check_mock_location_title">Engedélyezd, hogy az DashGrid beállítsa a helyet</string>
+    <string name="setup_check_mock_location_subtitle">Fejlesztői beállítások &gt; Látszatpozíció-alkalmazás kiválasztása &gt; DashGrid</string>
     <string name="setup_check_background_location_title">Navigáció zárolt telefonnal</string>
-    <string name="setup_check_background_location_subtitle">Opcionális. Amikor az AARE önmagától elindul (az autó Bluetooth-ja), a navigációs alkalmazások megtartják a helyzetet zárolt telefonnal is. Engedélyek &gt; Helyadatok &gt; Mindig engedélyezve</string>
+    <string name="setup_check_background_location_subtitle">Opcionális. Amikor az DashGrid önmagától elindul (az autó Bluetooth-ja), a navigációs alkalmazások megtartják a helyzetet zárolt telefonnal is. Engedélyek &gt; Helyadatok &gt; Mindig engedélyezve</string>
     <string name="setup_section_video">Videó</string>
     <string name="setup_toggle_60fps_title">60 fps előnyben részesítése</string>
     <string name="setup_toggle_60fps_subtitle">Simább, ha az autó támogatja</string>
@@ -157,9 +157,9 @@
     <string name="setup_app_kind_media">Zene, podcastok, rádió</string>
     <string name="setup_app_group_messaging">Üzenetek</string>
     <string name="setup_app_kind_messaging">Üzenetek az értesítéseiből</string>
-    <string name="setup_app_group_aare">AARE</string>
-    <string name="setup_app_builtin_subtitle">Az AARE része. Elrejtve csak az alkalmazásrácsból tűnik el: a hívások és a csengő továbbra is működnek.</string>
-    <string name="setup_section_unsupported_apps">Android Auto alkalmazások, amelyeket az AARE nem tud megjeleníteni</string>
+    <string name="setup_app_group_aare">DashGrid</string>
+    <string name="setup_app_builtin_subtitle">Az DashGrid része. Elrejtve csak az alkalmazásrácsból tűnik el: a hívások és a csengő továbbra is működnek.</string>
+    <string name="setup_section_unsupported_apps">Android Auto alkalmazások, amelyeket az DashGrid nem tud megjeleníteni</string>
     <string name="setup_hint_allowlist">A Google autós könyvtárának újabb verzióival készült alkalmazások csak az engedélyezési listájukon lévő hosztokat fogadják el; lásd a README-t.</string>
     <string name="setup_app_entry_phone">Telefon</string>
     <string name="setup_app_entry_settings">Beállítások</string>
@@ -172,7 +172,7 @@
     <string name="setup_toggle_compact_rail_subtitle">Keskenyebb sáv, kisebb ikonokkal és szorosabb térközökkel</string>
     <string name="setup_section_connection_log">Kapcsolati napló</string>
     <string name="setup_section_car_buttons">Autó gombjai</string>
-    <string name="setup_car_buttons_hint">Az AARE által ebből az autóból észlelt gombok. Válassza ki, mit csináljon mindegyik; az „Alapértelmezett” beállításon hagyott gomb a szokásos módon működik.</string>
+    <string name="setup_car_buttons_hint">Az DashGrid által ebből az autóból észlelt gombok. Válassza ki, mit csináljon mindegyik; az „Alapértelmezett” beállításon hagyott gomb a szokásos módon működik.</string>
     <string name="setup_car_buttons_empty">Még nincs észlelt gomb. Csatlakozzon egy autóhoz, és nyomjon meg egyet.</string>
     <string name="setup_car_button_default">Alapértelmezett</string>
     <string name="setup_car_action_home">Kezdőlap</string>
@@ -185,7 +185,7 @@
     <string name="setup_car_action_open_media">Médiaalkalmazás megnyitása</string>
     <string name="setup_car_action_open_phone">Telefonalkalmazás megnyitása</string>
     <string name="setup_car_action_nothing">Semmi</string>
-    <string name="setup_about_text">AARE %1$s · GPL-3.0-or-later · Nem áll kapcsolatban a Google-lel. Az Android Auto a Google LLC védjegye.</string>
+    <string name="setup_about_text">DashGrid %1$s · GPL-3.0-or-later · Nem áll kapcsolatban a Google-lel. Az Android Auto a Google LLC védjegye.</string>
     <string name="setup_choice_style">Stílus</string>
     <string name="setup_choice_theme">Téma</string>
     <string name="setup_choice_layout">Elrendezés</string>
@@ -212,16 +212,16 @@
 
     <!-- cert: certificate management -->
     <string name="cert_section_title">Telefon tanúsítványai</string>
-    <string name="cert_hint">A fejegységek ellenőrzik a telefon tanúsítványát. A nyílt forráskódú fejegységek elfogadják a generáltat; a Google fejegység-szoftverét használó autók csak a Google által kiadott tanúsítványt fogadják el, amelyet az AARE nem tartalmazhat. Importálhatsz olyat, amelynek használatára jogosultsággal rendelkezel (PEM tanúsítvány + PKCS#8 kulcs, vagy PKCS#12). A legújabb Android Auto alkalmazás tanúsítványát is letöltheted (github.com/iscle/android-auto-certificates).</string>
+    <string name="cert_hint">A fejegységek ellenőrzik a telefon tanúsítványát. A nyílt forráskódú fejegységek elfogadják a generáltat; a Google fejegység-szoftverét használó autók csak a Google által kiadott tanúsítványt fogadják el, amelyet az DashGrid nem tartalmazhat. Importálhatsz olyat, amelynek használatára jogosultsággal rendelkezel (PEM tanúsítvány + PKCS#8 kulcs, vagy PKCS#12). A legújabb Android Auto alkalmazás tanúsítványát is letöltheted (github.com/iscle/android-auto-certificates).</string>
     <string name="cert_entry_subtitle">%1$s · eddig: %2$s</string>
     <string name="cert_action_remove">Eltávolítás</string>
     <string name="cert_action_import">Tanúsítvány importálása…</string>
     <string name="cert_action_download">Tanúsítvány letöltése</string>
     <string name="cert_auto_update_title">A letöltött tanúsítvány automatikus frissítése</string>
-    <string name="cert_auto_update_subtitle">Naponta egyszer, soha csatlakozás közben, az AARE megkérdezi ugyanazt a tárolót egy újabb tanúsítványról, és használja azt. Mindenesetre az AARE két héttel a Google tanúsítványának lejárata előtt figyelmeztet.</string>
+    <string name="cert_auto_update_subtitle">Naponta egyszer, soha csatlakozás közben, az DashGrid megkérdezi ugyanazt a tárolót egy újabb tanúsítványról, és használja azt. Mindenesetre az DashGrid két héttel a Google tanúsítványának lejárata előtt figyelmeztet.</string>
     <string name="cert_expiring_banner_title">A Google tanúsítványa lejár: %1$s</string>
     <string name="cert_expired_banner_title">A Google tanúsítványa lejárt: %1$s</string>
-    <string name="cert_expiry_banner_subtitle">Azok az autók, amelyek csak ezt fogadják el, elutasítják az AARE-t. Koppints egy újabb letöltéséhez.</string>
+    <string name="cert_expiry_banner_subtitle">Azok az autók, amelyek csak ezt fogadják el, elutasítják az DashGrid-t. Koppints egy újabb letöltéséhez.</string>
     <string name="cert_action_downloading">Letöltés…</string>
     <string name="cert_download_unavailable">A tanúsítványtároló már nem létezik (törölték vagy eltávolították): %1$s. Inkább nyerd ki a tanúsítványt az Android Auto alkalmazásból (lásd a README-t).</string>
     <string name="cert_download_network">Nem sikerült letölteni a tanúsítványt: %1$s. Ellenőrizd a kapcsolatot, és próbáld újra.</string>
@@ -256,7 +256,7 @@
     <string name="msg_section_while_driving">Vezetés közben</string>
     <string name="msg_toggle_dnd_title">Ne zavarjanak</string>
     <string name="msg_toggle_dnd_subtitle">A telefon elnémítása csatlakozás közben; a hívások és a kiemelt beszélgetések továbbra is átjutnak</string>
-    <string name="msg_check_dnd_access_title">Engedélyezd, hogy az AARE bekapcsolja a Ne zavarjanak módot</string>
+    <string name="msg_check_dnd_access_title">Engedélyezd, hogy az DashGrid bekapcsolja a Ne zavarjanak módot</string>
     <string name="msg_check_dnd_access_subtitle">Az Android egyszer kérdezi</string>
     <string name="msg_toggle_autoreply_title">Automatikus válasz</string>
     <string name="msg_toggle_autoreply_subtitle">Válasz az íróknak, utazásonként egyszer beszélgetésenként (csoportoknál nem)</string>
@@ -276,29 +276,29 @@
     <string name="audio_method_shizuku">Shizuku vagy root</string>
     <string name="audio_method_root_policy">Root, a zene és a navigáció különválasztva</string>
     <string name="audio_method_playback_capture">Képernyőrögzítési jogosultság</string>
-    <string name="audio_policy_not_ready">Mint az Android Auto: a zene és a navigációs hang külön, a telefon hangszórója kikapcsolva. Rootolt telefon szükséges: telepítsd az AARE-t rendszeralkalmazásként a Magisk modullal (lásd a README-t).</string>
+    <string name="audio_policy_not_ready">Mint az Android Auto: a zene és a navigációs hang külön, a telefon hangszórója kikapcsolva. Rootolt telefon szükséges: telepítsd az DashGrid-t rendszeralkalmazásként a Magisk modullal (lásd a README-t).</string>
     <string name="audio_shizuku_ready">Kész. Minden, amit a telefon lejátszik, eljut az autóba, a navigációs hangot is beleértve; a telefon néma marad.</string>
     <string name="audio_shizuku_needs_android12">Android 12 vagy újabb szükséges.</string>
-    <string name="audio_shizuku_tap_allow">A Shizuku fut: koppints az AARE engedélyezéséhez.</string>
+    <string name="audio_shizuku_tap_allow">A Shizuku fut: koppints az DashGrid engedélyezéséhez.</string>
     <string name="audio_shizuku_install_hint">Root nem szükséges. Telepítsd a Shizukut, indítsd el (vezeték nélküli hibakeresés, újraindításonként egyszer), majd gyere vissza ide.</string>
     <string name="audio_playback_ready">Kész. Csak média: navigációs hang nélkül, néhány alkalmazás kimaradhat, és a telefon is tovább játssza a hangot.</string>
     <string name="audio_playback_not_ready">Mindenhol működik, korlátokkal: csak média, navigációs hang nélkül. Az Android a képernyő rögzítését kéri: válaszd a Teljes képernyőt (ezt használja a telefon képernyője is).</string>
-    <string name="audio_notice_setup_hint">Nyisd meg az AARE-t a telefonon, és állítsd be az autó hangját, hogy halld a telefont az autóban</string>
+    <string name="audio_notice_setup_hint">Nyisd meg az DashGrid-t a telefonon, és állítsd be az autó hangját, hogy halld a telefont az autóban</string>
     <string name="audio_section_car_mic">Az autó mikrofonja</string>
     <string name="audio_toggle_car_mic_title">Az autó mikrofonja a telefon alkalmazásaihoz</string>
     <string name="audio_toggle_car_mic_subtitle">Mikrofonos autóhoz csatlakoztatva a telefon hangalapú gépelése, hangrögzítői és hangüzenetei az autót hallják a telefon helyett. A hívások megtartják saját mikrofonjukat. Shizuku szükséges.</string>
     <string name="audio_car_mic_ready">Kész: a be- vagy kikapcsolás azonnal érvényes, csatlakozás közben is.</string>
     <string name="audio_car_mic_needs_android10">Android 10 vagy újabb szükséges.</string>
-    <string name="audio_car_mic_needs_shizuku">Futó, az AARE számára engedélyezett Shizuku szükséges (lásd a fenti Shizuku módszert).</string>
+    <string name="audio_car_mic_needs_shizuku">Futó, az DashGrid számára engedélyezett Shizuku szükséges (lásd a fenti Shizuku módszert).</string>
 
     <!-- phone: phone screen feature -->
     <string name="phone_section_title">Telefon képernyője</string>
     <string name="phone_toggle_enable_title">Telefon képernyője az autóban</string>
-    <string name="phone_toggle_enable_subtitle">A telefon saját képernyője, azoknak az alkalmazásoknak, amelyeket az AARE nem tud megjeleníteni (Google Maps, Waze). Szünetel, amíg a telefon zárolva van, és vezetés közben, kivéve ha egy navigációs alkalmazás útvonalat ad. A fejegység-szerveren nem elérhető, kivéve ha ott engedélyezve van</string>
+    <string name="phone_toggle_enable_subtitle">A telefon saját képernyője, azoknak az alkalmazásoknak, amelyeket az DashGrid nem tud megjeleníteni (Google Maps, Waze). Szünetel, amíg a telefon zárolva van, és vezetés közben, kivéve ha egy navigációs alkalmazás útvonalat ad. A fejegység-szerveren nem elérhető, kivéve ha ott engedélyezve van</string>
     <string name="phone_check_touch_title">Érintés a telefon képernyőjén</string>
-    <string name="phone_check_touch_subtitle">Kapcsold be az AARE-t a Kezelési segítségben. A nem a Play Store-ból telepített alkalmazásoknak előbb szükségük lehet a „Korlátozott beállítások engedélyezése” opcióra az AARE alkalmazásinfójában</string>
+    <string name="phone_check_touch_subtitle">Kapcsold be az DashGrid-t a Kezelési segítségben. A nem a Play Store-ból telepített alkalmazásoknak előbb szükségük lehet a „Korlátozott beállítások engedélyezése” opcióra az DashGrid alkalmazásinfójában</string>
     <string name="phone_hint_touch_capture">A kép a képernyőrögzítési jogosultságot használja (Autó hangja lap, válaszd a Teljes képernyőt).</string>
-    <string name="phone_app_row_subtitle">A telefon saját képernyője, azoknak az alkalmazásoknak, amelyeket az AARE nem tud megjeleníteni</string>
+    <string name="phone_app_row_subtitle">A telefon saját képernyője, azoknak az alkalmazásoknak, amelyeket az DashGrid nem tud megjeleníteni</string>
 
     <!-- assistant: voice assistant settings and bar -->
     <string name="assistant_settings_title">Hangalapú asszisztens</string>
@@ -320,12 +320,12 @@
     <string name="notif_action_navigate">Navigáció</string>
     <string name="notif_action_open">Megnyitás</string>
     <string name="notif_cert_updated_title">Tanúsítvány frissítve</string>
-    <string name="notif_cert_updated_message">Az AARE letöltött egy újabb Android Auto tanúsítványt, amely %1$s-ig érvényes.</string>
+    <string name="notif_cert_updated_message">Az DashGrid letöltött egy újabb Android Auto tanúsítványt, amely %1$s-ig érvényes.</string>
     <string name="notif_cert_expiring_title">A tanúsítvány hamarosan lejár</string>
-    <string name="notif_cert_expiring_text">%1$s lejár: %2$s. Az autók, amelyek csak a Google tanúsítványát fogadják el, ezután elutasítják az AARE-t: töltsön le egy újabbat.</string>
+    <string name="notif_cert_expiring_text">%1$s lejár: %2$s. Az autók, amelyek csak a Google tanúsítványát fogadják el, ezután elutasítják az DashGrid-t: töltsön le egy újabbat.</string>
     <string name="notif_cert_expired_title">A tanúsítvány lejárt</string>
-    <string name="notif_cert_expired_text">%1$s lejárt: %2$s. Azok az autók, amelyek csak a Google tanúsítványát fogadják el, most elutasítják az AARE-t: töltsön le egy újabbat.</string>
-    <string name="notif_cert_download_title">A fejegység elutasította az AARE tanúsítványát</string>
+    <string name="notif_cert_expired_text">%1$s lejárt: %2$s. Azok az autók, amelyek csak a Google tanúsítványát fogadják el, most elutasítják az DashGrid-t: töltsön le egy újabbat.</string>
+    <string name="notif_cert_download_title">A fejegység elutasította az DashGrid tanúsítványát</string>
     <string name="notif_cert_download_message">Ez a fejegység csak a Google tanúsítványát fogadja el. Töltsd le a legújabb Android Auto alkalmazásból, majd csatlakozz újra.</string>
     <string name="notif_cert_download_progress">Az Android Auto tanúsítványának letöltése…</string>
     <string name="notif_cert_download_ready_title">A tanúsítvány készen áll</string>
@@ -341,11 +341,11 @@
     <string name="notif_trust_warning">Csak olyan fejegységben bízz meg, amelyhez éppen most csatlakozol</string>
     <string name="notif_untrusted_message">SHA-256 %1$s... %2$s, majd csatlakozz újra.</string>
     <string name="notif_trust_reconnect_suffix">%1$s, majd csatlakozz újra.</string>
-    <string name="notif_cert_changed_message">a fejegység tanúsítványa megváltozott: koppints a Megbízom gombra az értesítésben vagy az AARE-ban, de csak ha a szoftvere frissült, majd csatlakozz újra</string>
-    <string name="notif_cert_untrusted_message">a fejegység tanúsítványa még nem megbízható: koppints a Megbízom gombra az értesítésben vagy az AARE-ban, majd csatlakozz újra</string>
+    <string name="notif_cert_changed_message">a fejegység tanúsítványa megváltozott: koppints a Megbízom gombra az értesítésben vagy az DashGrid-ban, de csak ha a szoftvere frissült, majd csatlakozz újra</string>
+    <string name="notif_cert_untrusted_message">a fejegység tanúsítványa még nem megbízható: koppints a Megbízom gombra az értesítésben vagy az DashGrid-ban, majd csatlakozz újra</string>
     <string name="notif_cert_dates_title">Ellenőrizd az autó dátumát és idejét</string>
-    <string name="notif_cert_not_yet_valid_message">a fejegység szerint az AARE tanúsítványa még nem érvényes: az órája valószínűleg lassik. Állítsd be az autó dátumát és idejét, majd csatlakozz újra</string>
-    <string name="notif_cert_expired_message">a fejegység szerint az AARE tanúsítványa lejárt: ha nem, akkor az autó órája siet. Állítsd be az autó dátumát és idejét, vagy szerezz egy újabb tanúsítványt a Speciális alatt, majd csatlakozz újra</string>
+    <string name="notif_cert_not_yet_valid_message">a fejegység szerint az DashGrid tanúsítványa még nem érvényes: az órája valószínűleg lassik. Állítsd be az autó dátumát és idejét, majd csatlakozz újra</string>
+    <string name="notif_cert_expired_message">a fejegység szerint az DashGrid tanúsítványa lejárt: ha nem, akkor az autó órája siet. Állítsd be az autó dátumát és idejét, vagy szerezz egy újabb tanúsítványt a Speciális alatt, majd csatlakozz újra</string>
     <string name="notif_car_nearby_title">Autó a közelben</string>
     <string name="notif_car_nearby_text">Koppints a vezeték nélküli csatlakozáshoz</string>
     <string name="notif_status_connecting_to">Csatlakozás ehhez: %1$s</string>
@@ -365,9 +365,9 @@
     <string name="notif_navigation_title">Navigáció</string>
     <string name="notif_navigation_no_app_text">Nincs navigációs alkalmazás az autóban</string>
     <string name="notif_assistant_title">Asszisztens</string>
-    <string name="notif_assistant_choose_text">Válassz hangalapú asszisztenst az AARE beállításaiban a telefonon</string>
+    <string name="notif_assistant_choose_text">Válassz hangalapú asszisztenst az DashGrid beállításaiban a telefonon</string>
     <string name="notif_assistant_no_car_screen">%1$s: nincs autós képernyője, a telefonon nyílt meg</string>
-    <string name="notif_assistant_cant_open">%1$s nem nyitható meg. Válassz másik asszisztenst az AARE beállításaiban</string>
+    <string name="notif_assistant_cant_open">%1$s nem nyitható meg. Válassz másik asszisztenst az DashGrid beállításaiban</string>
     <string name="notif_parked_only_title">Vezetés közben nem elérhető</string>
     <string name="notif_parked_only_text">Állj meg a használatához</string>
     <string name="notif_empty">Nincs értesítés</string>
@@ -415,7 +415,7 @@
     <string name="media_queue_empty">A lejátszási lista üres</string>
 
     <!-- msg: messaging screen (notifications-based conversations) -->
-    <string name="msg_no_access">Adj az AARE-nak értesítés-hozzáférést a telefonon, hogy itt láthasd az üzeneteket</string>
+    <string name="msg_no_access">Adj az DashGrid-nak értesítés-hozzáférést a telefonon, hogy itt láthasd az üzeneteket</string>
     <string name="msg_listener_not_ready">Itt még nincs mit megjeleníteni</string>
     <string name="msg_reply_sent">Válasz elküldve</string>
     <string name="msg_reply_rejected">%1$s nem fogadta el a választ</string>
@@ -435,7 +435,7 @@
     <string name="phone_tab_recents">Legutóbbiak</string>
     <string name="phone_tab_contacts">Névjegyek</string>
     <string name="phone_tab_keypad">Billentyűzet</string>
-    <string name="phone_permissions_placeholder">Engedélyezd a hívásokat, a híváselőzményeket és a névjegyeket az AARE-ban a telefonon (Beállítás befejezése).</string>
+    <string name="phone_permissions_placeholder">Engedélyezd a hívásokat, a híváselőzményeket és a névjegyeket az DashGrid-ban a telefonon (Beállítás befejezése).</string>
     <string name="phone_notice_calling_title">Hívás</string>
     <string name="phone_no_recent_calls">Nincs legutóbbi hívás</string>
     <string name="phone_no_contacts">Nincs telefonszámmal rendelkező névjegy</string>
@@ -468,7 +468,7 @@
 
     <!-- standalone: launching ordinary phone apps on the car screen (root/Shizuku, parked only) -->
     <string name="standalone_section_title">Alkalmazások az autó képernyőjén (haladó)</string>
-    <string name="standalone_section_warning">Ezek nem Android Auto alkalmazások: az AARE a szokásos telefonos képernyőjüket jeleníti meg, alapértelmezés szerint csak álló autóban, és root vagy Shizuku szükséges hozzá. Használata saját felelősségre.</string>
+    <string name="standalone_section_warning">Ezek nem Android Auto alkalmazások: az DashGrid a szokásos telefonos képernyőjüket jeleníti meg, alapértelmezés szerint csak álló autóban, és root vagy Shizuku szükséges hozzá. Használata saját felelősségre.</string>
     <string name="standalone_toggle_title">Telefonos alkalmazások indítása az autó képernyőjén</string>
     <string name="standalone_toggle_subtitle">Válaszd ki az alkalmazásokat lent, és mindegyiknél, mit tehet vezetés közben.</string>
     <string name="standalone_keep_awake_title">Nincs alvás mód az önálló alkalmazásokhoz</string>
@@ -501,12 +501,12 @@
     <string name="assistant_stop_style_voice_button">A hanggomb Leállításra vált</string>
     <string name="assistant_stop_style_red_restart">Piros leállítógomb, a hanggomb újra kérdez</string>
     <string name="assistant_stop_style_red_stop">Piros leállítógomb, a hanggomb is leállít</string>
-    <string name="assistant_links_subtitle">A kiválasztott asszisztens válaszaiban lévő aare:// hivatkozások vezérelhetik a zenét, vagy az autó képernyőjén felajánlhatják a navigációt, egy alkalmazás megnyitását vagy egy hívást. A más alkalmazásokból és weboldalakról érkező hivatkozások figyelmen kívül maradnak.</string>
+    <string name="assistant_links_subtitle">A kiválasztott asszisztens válaszaiban lévő dashgrid:// hivatkozások vezérelhetik a zenét, vagy az autó képernyőjén felajánlhatják a navigációt, egy alkalmazás megnyitását vagy egy hívást. A más alkalmazásokból és weboldalakról érkező hivatkozások figyelmen kívül maradnak.</string>
     <!-- setup_page: car data entry -->
     <string name="setup_page_car_data_title">Autó adatai</string>
     <string name="setup_page_car_data_subtitle">Élő sebesség, sebességfokozat és érzékelők az autóból</string>
     <string name="setup_page_about_title">Névjegy</string>
-    <string name="setup_page_about_subtitle">Mi az AARE, a projekt linkjei, és kik segítettek megépíteni</string>
+    <string name="setup_page_about_subtitle">Mi az DashGrid, a projekt linkjei, és kik segítettek megépíteni</string>
 
     <!-- car_data: the read-only car sensor viewer -->
     <string name="car_data_not_connected">Csatlakozzon egy autóhoz az adatainak megtekintéséhez.</string>
@@ -564,8 +564,8 @@
     <string name="car_data_show_in_car_subtitle">Adj hozzá egy diagnosztikai alkalmazást az autóban ehhez az élő adathoz</string>
 
     <!-- about: the About page -->
-    <string name="about_section_what_title">Mi az AARE</string>
-    <string name="about_text">Az AARE az Android Auto telefonos oldalának nyílt forráskódú újraimplementációja: közvetlenül az autó fejegységével beszéli az Android Auto projekciós protokollját, maga rajzolja ki az autó képernyőjét, és navigációs, média- és üzenetküldő alkalmazásokat futtat a Google Play szolgáltatások nélkül.</string>
+    <string name="about_section_what_title">Mi az DashGrid</string>
+    <string name="about_text">Az DashGrid az Android Auto telefonos oldalának nyílt forráskódú újraimplementációja: közvetlenül az autó fejegységével beszéli az Android Auto projekciós protokollját, maga rajzolja ki az autó képernyőjét, és navigációs, média- és üzenetküldő alkalmazásokat futtat a Google Play szolgáltatások nélkül.</string>
     <string name="about_section_links_title">Projekt</string>
     <string name="about_link_repository">Tároló</string>
     <string name="about_link_issues">Problémák</string>
@@ -581,7 +581,7 @@
     <string name="about_oss_protocol_title">Protokolldefiníciók</string>
 
     <string name="obd_adapter_title">OBD2-adapter olvasása</string>
-    <string name="obd_adapter_subtitle">Bluetoothon párosított ELM327-adapter, amelyet az autó csatlakozása alatt olvas: motoradatok, amelyeket az autó nem küld az AARE-nek. Csak olvasás: az AARE soha nem ír az autóba.</string>
+    <string name="obd_adapter_subtitle">Bluetoothon párosított ELM327-adapter, amelyet az autó csatlakozása alatt olvas: motoradatok, amelyeket az autó nem küld az DashGrid-nek. Csak olvasás: az DashGrid soha nem ír az autóba.</string>
     <string name="obd_simulated_title">Szimulált OBD2-adapter (hibakeresés)</string>
     <string name="obd_simulated_subtitle">Szimulált autó valódi adapter helyett, az oldal kipróbálásához</string>
     <string name="obd_section">OBD2-adapter</string>
@@ -606,7 +606,7 @@
     <string name="vehicles_import">Fájl importálása…</string>
     <string name="vehicles_template">Sablon írása</string>
     <string name="vehicles_builtin_fixes_title">Beépített autójavítások</string>
-    <string name="vehicles_builtin_fixes_subtitle">Az AARE által adott javítások bizonyos fejegységekhez: nincs vezeték nélküli kapcsolat, ahol nem működik, videóméret, navigációs hang, elektromos autók, a képernyő pixeleinek alakja, a Kilépés elem neve. Ki: minden autó úgy működik, mint eddig. Egy vehicles.json-szabály egy autóhoz bekapcsolhatja őket (builtInFixes).</string>
+    <string name="vehicles_builtin_fixes_subtitle">Az DashGrid által adott javítások bizonyos fejegységekhez: nincs vezeték nélküli kapcsolat, ahol nem működik, videóméret, navigációs hang, elektromos autók, a képernyő pixeleinek alakja, a Kilépés elem neve. Ki: minden autó úgy működik, mint eddig. Egy vehicles.json-szabály egy autóhoz bekapcsolhatja őket (builtInFixes).</string>
     <string name="quirks_section_title">Autós furcsaságok</string>
     <string name="quirks_subtitle">Ez, a furcsaságok listája.</string>
     <string name="quirks_hint">A vehicles.json furcsaságait felülírja egy autóra: a legutóbb csatlakoztatott fejegységre. Az Automatikus megtartja, amit róla a beépített autójavítások és a vehicles.json mond. Más autókra nincs hatással.</string>
@@ -622,9 +622,9 @@
     <string name="quirks_single_channel_capture_title">Egycsatornás navigációs hang</string>
     <string name="quirks_single_channel_capture_subtitle">Be: a navigációs hangot a zenecsatornán küldi, a navigációs csatornát kihagyva. Ki: a navigációs csatornát a szokásos módon használja.</string>
     <string name="quirks_wifi_media_silence_title">Wi-Fi zeneindítási csend</string>
-    <string name="quirks_wifi_media_silence_subtitle">Be: elküldi a vehicles.json néma üzeneteit (vagy az AARE alapértelmezését), mielőtt egy zenefolyam elindulna Wi-Fi-n. Ki: nem küld semmit.</string>
+    <string name="quirks_wifi_media_silence_subtitle">Be: elküldi a vehicles.json néma üzeneteit (vagy az DashGrid alapértelmezését), mielőtt egy zenefolyam elindulna Wi-Fi-n. Ki: nem küld semmit.</string>
     <string name="quirks_wifi_guidance_silence_title">Wi-Fi navigációs indítási csend</string>
-    <string name="quirks_wifi_guidance_silence_subtitle">Be: elküldi a vehicles.json néma üzeneteit (vagy az AARE alapértelmezését), mielőtt egy navigációshang-folyam elindulna Wi-Fi-n. Ki: nem küld semmit.</string>
+    <string name="quirks_wifi_guidance_silence_subtitle">Be: elküldi a vehicles.json néma üzeneteit (vagy az DashGrid alapértelmezését), mielőtt egy navigációshang-folyam elindulna Wi-Fi-n. Ki: nem küld semmit.</string>
     <string name="quirks_media_on_gain_transient_title">Zene navigációs utasítások közben</string>
     <string name="quirks_media_on_gain_transient_subtitle">Be: a zene tovább szól, ha az autó egy navigációs utasítás kérését GAIN_TRANSIENT-tel válaszolja meg. Ki: ekkor csak a navigációs hang szól. Ha a GAIN_TRANSIENT a zene saját kérésére érkezik, vagy az autó saját magától küldi, a zene mindig szólhat.</string>
     <string name="quirks_pause_on_guidance_only_title">Zene szüneteltetése csak navigációnál</string>
@@ -644,7 +644,7 @@
     <string name="setup_toggle_force_h264_title">H.264 videó kényszerítése</string>
     <string name="setup_toggle_constant_bitrate_title">Állandó bitrátájú videó</string>
     <string name="setup_toggle_constant_bitrate_subtitle">Minden képkockát körülbelül azonos méretben tart. Kapcsold be, ha az autó megszakítja a kapcsolatot a teljes kép megváltozásakor, mint a telefon képernyőjénél vagy egy videónál. A zsúfolt képek kissé puhábbak lesznek. A következő csatlakozástól lép életbe.</string>
-    <string name="setup_toggle_force_h264_subtitle">Alapértelmezés szerint az AARE a legjobb, az autó és a telefon által is támogatott kodeket használja (H.265…). Kapcsolja be, ha az autó képe akadozik.</string>
+    <string name="setup_toggle_force_h264_subtitle">Alapértelmezés szerint az DashGrid a legjobb, az autó és a telefon által is támogatott kodeket használja (H.265…). Kapcsolja be, ha az autó képe akadozik.</string>
     <!-- newly translated strings -->
     <string name="common_ok">OK</string>
     <string name="common_try_again">Próbáld újra</string>
@@ -655,14 +655,14 @@
     <string name="update_check_now">Ellenőrzés most</string>
     <string name="update_checking">Ellenőrzés…</string>
     <string name="update_check_latest">A legújabb verzió van telepítve (%1$s).</string>
-    <string name="update_check_available">Elérhető az AARE %1$s: lásd a kezdőképernyőt.</string>
+    <string name="update_check_available">Elérhető az DashGrid %1$s: lásd a kezdőképernyőt.</string>
     <string name="update_check_failed">A GitHub nem érhető el. Próbáld újra később.</string>
     <string name="update_available_title">Elérhető frissítés — %1$s</string>
     <string name="update_available_subtitle">A jelenlegi verziód: %1$s. Koppints a kiadás megtekintéséhez.</string>
     <string name="setup_log_save">Mentés</string>
     <string name="setup_section_developer_log">Fejlesztői napló</string>
     <string name="setup_toggle_dev_log_title">Fejlesztői mód</string>
-    <string name="setup_toggle_dev_log_subtitle">Mindent szöveges fájlokba ír, amit az AARE naplóz, ide: %1$s (legfeljebb 50 MB). Kikapcsoláskor törlődnek: előbb mentsd el őket.</string>
+    <string name="setup_toggle_dev_log_subtitle">Mindent szöveges fájlokba ír, amit az DashGrid naplóz, ide: %1$s (legfeljebb 50 MB). Kikapcsoláskor törlődnek: előbb mentsd el őket.</string>
     <string name="setup_toggle_dev_log_privacy_title">Személyes adatok elrejtése</string>
     <string name="setup_toggle_dev_log_privacy_subtitle">Elfedi a címeket, a hálózatok és eszközök nevét, valamint a felismert egyéb személyes adatokat. Megosztás előtt olvasd át a fájlt.</string>
     <string name="setup_dev_log_save">Fejlesztői napló mentése</string>
@@ -670,7 +670,7 @@
     <string name="setup_toggle_verbose_log_title">Részletes protokollnapló</string>
     <string name="setup_toggle_verbose_log_subtitle">A teljes fejegység-protokoll naplózása ebbe a naplóba, hogy csatolni lehessen egy hibajelentéshez. Sokat naplóz; egyébként hagyd kikapcsolva.</string>
     <string name="setup_section_backup">Beállítások mentése</string>
-    <string name="setup_backup_hint">Mentse a beállításokat fájlba, vagy töltse vissza őket. A megbízható fejegységek, a tanúsítványok, a telefonhoz kötött adatok és azok a beállítások, amelyek az AARE-t a hálózat felé nyitják vagy kiiktatnak egy biztonsági ellenőrzést (fejegység-szerver, utas mód, root hang…), kimaradnak: ezeket minden telefonon kézzel állítsa be.</string>
+    <string name="setup_backup_hint">Mentse a beállításokat fájlba, vagy töltse vissza őket. A megbízható fejegységek, a tanúsítványok, a telefonhoz kötött adatok és azok a beállítások, amelyek az DashGrid-t a hálózat felé nyitják vagy kiiktatnak egy biztonsági ellenőrzést (fejegység-szerver, utas mód, root hang…), kimaradnak: ezeket minden telefonon kézzel állítsa be.</string>
     <string name="setup_backup_export">Exportálás…</string>
     <string name="setup_backup_import">Importálás…</string>
     <string name="setup_backup_import_confirm_title">Lecseréli a beállításokat?</string>
@@ -679,7 +679,7 @@
     <string name="setup_backup_import_done">Beállítások importálva.</string>
     <string name="setup_backup_import_done_skipped">Beállítások importálva. Kihagyva (ismeretlen, tiltott vagy érvénytelen): %1$d</string>
     <string name="setup_backup_import_blocked">Nincs importálva, biztonsági okból (kapcsold be ezeket kézzel ezen a telefonon): %1$s</string>
-    <string name="setup_backup_import_failed">Ez a fájl nem importálható: nem AARE-beállításfájl, vagy túl nagy.</string>
+    <string name="setup_backup_import_failed">Ez a fájl nem importálható: nem DashGrid-beállításfájl, vagy túl nagy.</string>
     <string name="setup_backup_export_failed">Nem sikerült menteni a beállításfájlt.</string>
     <string name="setup_nothing_to_open">Ezen a telefonon nincs olyan alkalmazás, amely meg tudná nyitni ezt</string>
     <string name="setup_wallpaper_failed">Nem sikerült ezt a fényképet háttérképként beállítani</string>
@@ -707,7 +707,7 @@
     <string name="media_error_skip_limit">Elérted az átugrási korlátot</string>
     <string name="media_error_setup">Fejezd be a %1$s beállítását a telefonodon</string>
     <string name="media_error_end_of_playlist">A lejátszási lista vége</string>
-    <string name="media_error_permission">%1$s nem engedi, hogy az AARE böngésszen benne</string>
+    <string name="media_error_permission">%1$s nem engedi, hogy az DashGrid böngésszen benne</string>
     <string name="media_error_io">Hálózati vagy tárolási probléma</string>
     <string name="media_error_not_supported">A %1$s nem támogatja</string>
     <string name="media_error_disconnected">%1$s leválasztva</string>
@@ -722,7 +722,7 @@
     <string name="carapp_error_no_answer">%1$s nem válaszolt. Lehet, hogy csak a Google Android Auto alkalmazását fogadja el (lásd az alkalmazáslistát a telefonon).</string>
     <string name="carapp_error_api_level">A %1$s a %2$d autós API szintet igényli; ez a fejegység a %3$d szintet támogatja</string>
     <string name="carapp_error_stopped">%1$s leállt</string>
-    <string name="carapp_error_google_only">%1$s csak a Google Android Auto alkalmazását fogadja el. Engedélyeznie kell az AARE-t (lásd az alkalmazáslistát a telefonon).</string>
+    <string name="carapp_error_google_only">%1$s csak a Google Android Auto alkalmazását fogadja el. Engedélyeznie kell az DashGrid-t (lásd az alkalmazáslistát a telefonon).</string>
     <string name="carapp_error_cant_start">%1$s nem tudott elindulni: %2$s</string>
 
     <string name="dash_card_home">Otthon</string>
@@ -732,7 +732,7 @@
     <string name="home_page_title">Otthoni műveletek</string>
     <string name="home_page_subtitle">Okosotthon-gombok és értékek az autóban, MQTT-n vagy HTTP-n keresztül</string>
     <string name="home_toggle_title">Otthoni műveletek megjelenítése az autóban</string>
-    <string name="home_toggle_subtitle">Egy Otthon alkalmazás és műszerfal-kártya. Az AARE csak akkor csatlakozik a szervereidhez, amíg az autó képernyője be van kapcsolva.</string>
+    <string name="home_toggle_subtitle">Egy Otthon alkalmazás és műszerfal-kártya. Az DashGrid csak akkor csatlakozik a szervereidhez, amíg az autó képernyője be van kapcsolva.</string>
     <string name="home_intro">A műveletek gombok, amelyek egy MQTT-üzenetet küldenek ki, vagy egy HTTP-kérést indítanak (garázs nyitása, lámpa felkapcsolása). A csempék egy MQTT-topic vagy egy HTTP-válasz értékét mutatják. A Home Assistant a REST API-ján, egy webhookon vagy MQTT-n keresztül működik.</string>
     <string name="home_section_connections">Kapcsolatok</string>
     <string name="home_broker_title">MQTT-broker</string>
@@ -833,7 +833,7 @@
     <string name="home_preset_http_webhook_subtitle">POST-ot küld egy címre</string>
     <string name="home_preset_http_json">HTTP JSON érték</string>
     <string name="home_preset_http_json_subtitle">Egy csempe egy értékkel egy JSON-válaszból, időzítve lekérdezve</string>
-    <string name="home_car_empty">Állítsd be az otthoni műveleteket a telefonon: AARE > Otthoni műveletek.</string>
+    <string name="home_car_empty">Állítsd be az otthoni műveleteket a telefonon: DashGrid > Otthoni műveletek.</string>
     <string name="home_confirm_question">%1$s most?</string>
     <string name="home_confirm_run">Futtatás</string>
     <string name="home_action_done">Kész</string>
@@ -848,37 +848,37 @@
     <string name="home_error_http_lan_off">a sima http:// ki van kapcsolva: kapcsold be a HTTP-szerver \"Sima http engedélyezése az otthoni hálózaton\" beállítását</string>
     <string name="home_error_tls">a szerver tanúsítványa nem megbízható</string>
     <string name="home_error_generic">valami hiba történt</string>
-    <string name="shizuku_setup_title">Az AARE engedélyeinek megadása Shizukuval</string>
+    <string name="shizuku_setup_title">Az DashGrid engedélyeinek megadása Shizukuval</string>
     <string name="shizuku_setup_subtitle">Egy koppintás megadja, amit még nem adtál meg, az egyes engedélyek saját párbeszédpanelje nélkül: mikrofon, helyadatok, névjegyek, híváselőzmények, naptár, telefonhívások, közeli eszközök (Bluetooth, Wi-Fi), helyi hálózat, értesítések és értesítés-hozzáférés</string>
     <string name="shizuku_setup_working">Megadás…</string>
     <string name="shizuku_setup_result_title">Megadva Shizukuval</string>
     <string name="shizuku_setup_nothing_to_grant">Minden már megadva volt.</string>
     <string name="shizuku_setup_not_granted">Nincs megadva: %1$s</string>
     <string name="shizuku_setup_notification_access">Értesítés-hozzáférés</string>
-    <string name="shizuku_setup_helper_failed">A Shizuku segédprogramja nem indult el. Ellenőrizd, hogy a Shizuku fut, és engedélyezi az AARE-t.</string>
+    <string name="shizuku_setup_helper_failed">A Shizuku segédprogramja nem indult el. Ellenőrizd, hogy a Shizuku fut, és engedélyezi az DashGrid-t.</string>
     <string name="aa_section_title">A Google Android Autója</string>
-    <string name="aa_state_enabled">Telepítve és engedélyezve: amikor egy autó csatlakozik, az Android az AARE helyett az Android Autónak adhatja, vagy megkérdezheti, melyik alkalmazást használd.</string>
+    <string name="aa_state_enabled">Telepítve és engedélyezve: amikor egy autó csatlakozik, az Android az DashGrid helyett az Android Autónak adhatja, vagy megkérdezheti, melyik alkalmazást használd.</string>
     <string name="aa_state_disabled">Letiltva: az Android Auto nem veszi át az autót. Az adatai megmaradnak.</string>
     <string name="aa_action_disable">Az Android Auto megakadályozása az autó átvételében</string>
     <string name="aa_action_enable">Az Android Auto újbóli engedélyezése</string>
     <string name="aa_working">Folyamatban…</string>
-    <string name="aa_needs_shizuku">A Shizukun keresztül (fut, és engedélyezi az AARE-t), vagy kézzel az Android Auto alkalmazásinfójában.</string>
+    <string name="aa_needs_shizuku">A Shizukun keresztül (fut, és engedélyezi az DashGrid-t), vagy kézzel az Android Auto alkalmazásinfójában.</string>
     <string name="aa_app_info">Az Android Auto alkalmazásinfója</string>
     <string name="aa_failed">Nem sikerült: %1$s</string>
     <string name="aa_confirm_title">Letiltod az Android Autót?</string>
-    <string name="aa_confirm_text">Az AARE a Shizukun keresztül (pm disable-user) letiltja a Google Android Autóját ennél a felhasználónál. Leáll, eltűnik az alkalmazáslistából, és nem válaszol többé, amikor egy autó csatlakozik, így az autó mindig az AARE-hoz kerül.\n\nSemmi nem lesz eltávolítva, az adatai megmaradnak. Azok az autók, alkalmazások vagy funkciók, amelyeknek szükségük van a Google Android Autójára, nem fognak működni, amíg itt a gombbal újra nem engedélyezed.</string>
+    <string name="aa_confirm_text">Az DashGrid a Shizukun keresztül (pm disable-user) letiltja a Google Android Autóját ennél a felhasználónál. Leáll, eltűnik az alkalmazáslistából, és nem válaszol többé, amikor egy autó csatlakozik, így az autó mindig az DashGrid-hoz kerül.\n\nSemmi nem lesz eltávolítva, az adatai megmaradnak. Azok az autók, alkalmazások vagy funkciók, amelyeknek szükségük van a Google Android Autójára, nem fognak működni, amíg itt a gombbal újra nem engedélyezed.</string>
     <string name="aa_confirm_action">Letiltás</string>
 
     <string name="setup_section_companion">Vezeték nélküli egy koppintással</string>
-    <string name="setup_companion_hint">Társíts egy autót, amelyhez már csatlakoztál vezeték nélkül: az Android ezután elindítja az AARE-t, amint az autó Bluetooth-ja csatlakozik, még akkor is, ha a telefon a zsebben van. Az Android autónkként egyszer kér megerősítést.</string>
+    <string name="setup_companion_hint">Társíts egy autót, amelyhez már csatlakoztál vezeték nélkül: az Android ezután elindítja az DashGrid-t, amint az autó Bluetooth-ja csatlakozik, még akkor is, ha a telefon a zsebben van. Az Android autónkként egyszer kér megerősítést.</string>
     <string name="setup_companion_empty">Csatlakozz egyszer vezeték nélkül egy autóhoz, majd gyere vissza ide a társításhoz.</string>
     <string name="setup_companion_failed">Az Android nem tudta társítani az autót: %1$s</string>
     <string name="setup_action_associate">Társítás</string>
     <string name="setup_toggle_companion_shizuku_title">Az autó Wi-Fi-jének jóváhagyása Shizukuval</string>
-    <string name="setup_toggle_companion_shizuku_subtitle">Társított autóknál a Shizuku válaszol az Android \"csatlakozás az eszközhöz\" kérdésére, így az nem jelenik meg újra. Az autó hálózata az AARE sajátja marad, soha nem a telefon internetkapcsolata. Igényli, hogy a Shizuku fusson, és engedélyezze az AARE-t.</string>
+    <string name="setup_toggle_companion_shizuku_subtitle">Társított autóknál a Shizuku válaszol az Android \"csatlakozás az eszközhöz\" kérdésére, így az nem jelenik meg újra. Az autó hálózata az DashGrid sajátja marad, soha nem a telefon internetkapcsolata. Igényli, hogy a Shizuku fusson, és engedélyezze az DashGrid-t.</string>
 
     <string name="setup_toggle_auto_pair_title">Az autó Bluetooth-jának automatikus párosítása</string>
-    <string name="setup_toggle_auto_pair_subtitle">Hívásokhoz: amikor egy autó, amellyel a telefon nincs párosítva, párosítást kér Android Autón keresztül, az AARE a Shizukun keresztül párosodik azzal az autóval az Android párbeszédpanelje helyett, ha a kód megegyezik az autó által küldöttel. Soha semmilyen más eszközzel. Igényli, hogy a Shizuku fusson, és engedélyezze az AARE-t.</string>
+    <string name="setup_toggle_auto_pair_subtitle">Hívásokhoz: amikor egy autó, amellyel a telefon nincs párosítva, párosítást kér Android Autón keresztül, az DashGrid a Shizukun keresztül párosodik azzal az autóval az Android párbeszédpanelje helyett, ha a kód megegyezik az autó által küldöttel. Soha semmilyen más eszközzel. Igényli, hogy a Shizuku fusson, és engedélyezze az DashGrid-t.</string>
 
     <string name="calibration_title">Érintőképernyő kalibrálása</string>
     <string name="calibration_intro">Ha az érintések rossz helyre kerülnek az autó képernyőjén, mérd be ennek az autónak az érintőképernyőjét: a telefonon beállítod a látható területet, majd megérintesz 4 célpontot az autó képernyőjén. Álló helyzetben csináld.</string>
@@ -889,7 +889,7 @@
     <string name="calibration_start">Kalibrálás indítása</string>
     <string name="calibration_reset">Az autó értékeinek visszaállítása</string>
     <string name="calibration_forget">Elfelejtés</string>
-    <string name="calibration_area_help">1/3. lépés. Az autó képernyőjén egy sárga L jelöli annak a területnek minden sarkát, ahová az AARE rajzol. Mozgasd az egyes széleket, amíg az L pontosan a képernyő szélére kerül, teljesen láthatóan.</string>
+    <string name="calibration_area_help">1/3. lépés. Az autó képernyőjén egy sárga L jelöli annak a területnek minden sarkát, ahová az DashGrid rajzol. Mozgasd az egyes széleket, amíg az L pontosan a képernyő szélére kerül, teljesen láthatóan.</string>
     <string name="calibration_area_value">%1$s: %2$d px</string>
     <string name="calibration_edge_left">Bal</string>
     <string name="calibration_edge_top">Felső</string>

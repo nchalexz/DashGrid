@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AARE</string>
-    <string name="mirror_touch_description">让你在车机上操作手机屏幕：AARE 会将车机屏幕上的点击重放到手机上，并检测当前最前台的应用，因此行驶时手机屏幕会保持暂停，除非显示的是导航应用。AARE 不会读取其他任何内容。</string>
+    <string name="app_name">DashGrid</string>
+    <string name="mirror_touch_description">让你在车机上操作手机屏幕：DashGrid 会将车机屏幕上的点击重放到手机上，并检测当前最前台的应用，因此行驶时手机屏幕会保持暂停，除非显示的是导航应用。DashGrid 不会读取其他任何内容。</string>
     <string name="mirror_locked_placeholder">手机锁屏时屏幕镜像会暂停。解锁手机即可显示。</string>
-    <string name="mirror_driving_no_accessibility">行驶中手机屏幕会暂停。若要在行驶中显示导航应用，请在手机的无障碍设置中开启 AARE：它会告诉 AARE 当前打开的是哪个应用。</string>
+    <string name="mirror_driving_no_accessibility">行驶中手机屏幕会暂停。若要在行驶中显示导航应用，请在手机的无障碍设置中开启 DashGrid：它会告诉 DashGrid 当前打开的是哪个应用。</string>
     <string name="mirror_driving_nav_only">行驶中手机屏幕会暂停，仅显示导航应用。</string>
-    <string name="mirror_need_screen_capture">手机屏幕需要 Android 的屏幕录制权限。请在手机上打开 AARE 的车载音频设置，点按“屏幕录制权限”，然后选择“整个屏幕”。</string>
-    <string name="mirror_capture_failed">Android 拒绝共享手机屏幕。请在手机上的 AARE 车载音频设置中再次点按“屏幕录制权限”，然后选择“整个屏幕”。</string>
-    <string name="mirror_need_accessibility">要在车机上操作手机，请在手机的无障碍设置中开启 AARE。</string>
+    <string name="mirror_need_screen_capture">手机屏幕需要 Android 的屏幕录制权限。请在手机上打开 DashGrid 的车载音频设置，点按“屏幕录制权限”，然后选择“整个屏幕”。</string>
+    <string name="mirror_capture_failed">Android 拒绝共享手机屏幕。请在手机上的 DashGrid 车载音频设置中再次点按“屏幕录制权限”，然后选择“整个屏幕”。</string>
+    <string name="mirror_need_accessibility">要在车机上操作手机，请在手机的无障碍设置中开启 DashGrid。</string>
 
     <string name="common_back">返回</string>
     <string name="common_up">向上</string>
@@ -30,7 +30,7 @@
     <string name="setup_page_connection_subtitle">无线连接、视频质量、你的车辆</string>
     <string name="setup_page_advanced_title">高级</string>
     <string name="setup_page_advanced_subtitle">车机服务器、证书、日志</string>
-    <string name="setup_tagline">开源车载投屏</string>
+    <string name="setup_tagline">Swipe. Arrange. Drive.</string>
     <string name="setup_status_certificate">证书：%1$s</string>
     <string name="setup_status_disconnected_hint">将手机插入车辆的 Android Auto USB 端口，或与已配对的车辆进行无线连接。</string>
     <string name="setup_status_last_error">上次错误：%1$s</string>
@@ -47,7 +47,7 @@
     <string name="setup_check_audio_subtitle">让手机的声音传到车机</string>
     <string name="setup_action_set_up">设置</string>
     <string name="setup_old_android_title">运行在较旧版本的 Android 上</string>
-    <string name="setup_old_android_message">AARE 在 Android 6 和 7 上也能运行，但 Android 8 是支持更完善的基准版本。在 Android 6 和 7 上，连接通知无法放入专属通道，因此无法在系统设置中与 AARE 的其他通知分开静音。其余功能均照常工作，或自动回退到较旧的方式。</string>
+    <string name="setup_old_android_message">DashGrid 在 Android 6 和 7 上也能运行，但 Android 8 是支持更完善的基准版本。在 Android 6 和 7 上，连接通知无法放入专属通道，因此无法在系统设置中与 DashGrid 的其他通知分开静音。其余功能均照常工作，或自动回退到较旧的方式。</string>
     <string name="setup_old_android_dont_show_again">不再显示</string>
     <string name="setup_section_connecting">连接</string>
     <string name="setup_toggle_wireless_title">无线连接</string>
@@ -66,10 +66,10 @@
     <string name="setup_section_location">位置</string>
     <string name="setup_toggle_car_gps_title">使用车辆的 GPS</string>
     <string name="setup_toggle_car_gps_subtitle">连接期间，手机上的应用会获取车辆的位置而非手机自身的位置，避免导航应用混淆两者</string>
-    <string name="setup_check_mock_location_title">允许 AARE 设置位置</string>
-    <string name="setup_check_mock_location_subtitle">开发者选项 &gt; 选择模拟位置信息应用 &gt; AARE</string>
+    <string name="setup_check_mock_location_title">允许 DashGrid 设置位置</string>
+    <string name="setup_check_mock_location_subtitle">开发者选项 &gt; 选择模拟位置信息应用 &gt; DashGrid</string>
     <string name="setup_check_background_location_title">手机锁屏时的导航</string>
-    <string name="setup_check_background_location_subtitle">可选。当 AARE 自行启动时（通过车辆的蓝牙），导航应用会在手机锁屏状态下保留位置信息。权限 &gt; 位置 &gt; 始终允许</string>
+    <string name="setup_check_background_location_subtitle">可选。当 DashGrid 自行启动时（通过车辆的蓝牙），导航应用会在手机锁屏状态下保留位置信息。权限 &gt; 位置 &gt; 始终允许</string>
     <string name="setup_section_video">视频</string>
     <string name="setup_toggle_60fps_title">优先使用 60 fps</string>
     <string name="setup_toggle_60fps_subtitle">车机支持时画面更流畅</string>
@@ -155,9 +155,9 @@
     <string name="setup_app_kind_media">音乐、播客、广播</string>
     <string name="setup_app_group_messaging">消息</string>
     <string name="setup_app_kind_messaging">来自其通知的消息</string>
-    <string name="setup_app_group_aare">AARE</string>
-    <string name="setup_app_builtin_subtitle">AARE 内置。隐藏后仅从应用网格中移除：通话和通知铃铛仍可使用。</string>
-    <string name="setup_section_unsupported_apps">AARE 无法显示的 Android Auto 应用</string>
+    <string name="setup_app_group_aare">DashGrid</string>
+    <string name="setup_app_builtin_subtitle">DashGrid 内置。隐藏后仅从应用网格中移除：通话和通知铃铛仍可使用。</string>
+    <string name="setup_section_unsupported_apps">DashGrid 无法显示的 Android Auto 应用</string>
     <string name="setup_hint_allowlist">使用较新版本 Google 车载库构建的应用，仅接受其允许列表中的宿主；详见 README。</string>
     <string name="setup_app_entry_phone">电话</string>
     <string name="setup_app_entry_settings">设置</string>
@@ -170,7 +170,7 @@
     <string name="setup_toggle_compact_rail_subtitle">更窄的状态栏，图标更小、间距更紧凑</string>
     <string name="setup_section_connection_log">连接日志</string>
     <string name="setup_section_car_buttons">车辆按键</string>
-    <string name="setup_car_buttons_hint">AARE 从这辆车收到过的按键。为每个按键选择功能；保留为“默认”的按键维持其原有功能。</string>
+    <string name="setup_car_buttons_hint">DashGrid 从这辆车收到过的按键。为每个按键选择功能；保留为“默认”的按键维持其原有功能。</string>
     <string name="setup_car_buttons_empty">尚未检测到任何按键。连接车辆后按下任一按键。</string>
     <string name="setup_car_button_default">默认</string>
     <string name="setup_car_action_home">主页</string>
@@ -183,7 +183,7 @@
     <string name="setup_car_action_open_media">打开媒体应用</string>
     <string name="setup_car_action_open_phone">打开电话应用</string>
     <string name="setup_car_action_nothing">无操作</string>
-    <string name="setup_about_text">AARE %1$s · GPL-3.0-or-later · 与 Google 无关联。Android Auto 是 Google LLC 的商标。</string>
+    <string name="setup_about_text">DashGrid %1$s · GPL-3.0-or-later · 与 Google 无关联。Android Auto 是 Google LLC 的商标。</string>
     <string name="setup_choice_style">样式</string>
     <string name="setup_choice_theme">主题</string>
     <string name="setup_choice_layout">布局</string>
@@ -209,16 +209,16 @@
     <string name="setup_switch_audio_next_connection">车内手机音频（下次连接生效）</string>
 
     <string name="cert_section_title">手机证书</string>
-    <string name="cert_hint">车机会校验手机的证书。开源车机接受自动生成的证书；使用 Google 车机软件的车辆只接受 Google 签发的证书，AARE 无法内置该证书。你可以导入自己有权使用的证书（PEM 证书 + PKCS#8 密钥，或 PKCS#12）。你也可以下载从最新版 Android Auto 应用中提取的证书（github.com/iscle/android-auto-certificates）。</string>
+    <string name="cert_hint">车机会校验手机的证书。开源车机接受自动生成的证书；使用 Google 车机软件的车辆只接受 Google 签发的证书，DashGrid 无法内置该证书。你可以导入自己有权使用的证书（PEM 证书 + PKCS#8 密钥，或 PKCS#12）。你也可以下载从最新版 Android Auto 应用中提取的证书（github.com/iscle/android-auto-certificates）。</string>
     <string name="cert_entry_subtitle">%1$s · 有效期至 %2$s</string>
     <string name="cert_action_remove">移除</string>
     <string name="cert_action_import">导入证书…</string>
     <string name="cert_action_download">下载证书</string>
     <string name="cert_auto_update_title">自动更新已下载的证书</string>
-    <string name="cert_auto_update_subtitle">AARE 每天一次（绝不会在连接期间）向同一个仓库查询是否有更新的证书并使用它。无论如何，AARE 都会在 Google 的证书到期前两周发出警告。</string>
+    <string name="cert_auto_update_subtitle">DashGrid 每天一次（绝不会在连接期间）向同一个仓库查询是否有更新的证书并使用它。无论如何，DashGrid 都会在 Google 的证书到期前两周发出警告。</string>
     <string name="cert_expiring_banner_title">Google 的证书将于 %1$s 到期</string>
     <string name="cert_expired_banner_title">Google 的证书已于 %1$s 到期</string>
-    <string name="cert_expiry_banner_subtitle">只接受该证书的车辆将拒绝 AARE。点按以下载更新的证书。</string>
+    <string name="cert_expiry_banner_subtitle">只接受该证书的车辆将拒绝 DashGrid。点按以下载更新的证书。</string>
     <string name="cert_action_downloading">正在下载…</string>
     <string name="cert_download_unavailable">证书仓库已不存在（已删除或被下架）：%1$s。请改为从 Android Auto 应用中提取证书（参见 README）。</string>
     <string name="cert_download_network">无法下载证书：%1$s。请检查网络连接后重试。</string>
@@ -251,7 +251,7 @@
     <string name="msg_section_while_driving">行驶时</string>
     <string name="msg_toggle_dnd_title">请勿打扰</string>
     <string name="msg_toggle_dnd_subtitle">连接期间手机静音；来电和重要对话仍会提醒</string>
-    <string name="msg_check_dnd_access_title">允许 AARE 开启请勿打扰</string>
+    <string name="msg_check_dnd_access_title">允许 DashGrid 开启请勿打扰</string>
     <string name="msg_check_dnd_access_subtitle">Android 仅会询问一次</string>
     <string name="msg_toggle_autoreply_title">自动回复</string>
     <string name="msg_toggle_autoreply_subtitle">自动回复发来消息的人，每次行程中每个对话仅回复一次（不包括群组）</string>
@@ -270,28 +270,28 @@
     <string name="audio_method_shizuku">Shizuku 或 root</string>
     <string name="audio_method_root_policy">Root，音乐与导航分开</string>
     <string name="audio_method_playback_capture">屏幕录制权限</string>
-    <string name="audio_policy_not_ready">效果类似 Android Auto：音乐与导航语音分开，手机扬声器关闭。需要已获取 root 权限的手机：通过 Magisk 模块将 AARE 安装为系统应用（详见 README）。</string>
+    <string name="audio_policy_not_ready">效果类似 Android Auto：音乐与导航语音分开，手机扬声器关闭。需要已获取 root 权限的手机：通过 Magisk 模块将 DashGrid 安装为系统应用（详见 README）。</string>
     <string name="audio_shizuku_ready">已就绪。手机播放的所有声音（包括导航语音）都会传到车机，手机保持静音。</string>
     <string name="audio_shizuku_needs_android12">需要 Android 12 或更高版本。</string>
-    <string name="audio_shizuku_tap_allow">Shizuku 正在运行：点按以允许 AARE。</string>
+    <string name="audio_shizuku_tap_allow">Shizuku 正在运行：点按以允许 DashGrid。</string>
     <string name="audio_shizuku_install_hint">无需 root。安装并启动 Shizuku（通过无线调试，每次重启后需重新启动一次），然后返回此处。</string>
     <string name="audio_playback_ready">已就绪。仅支持媒体音频：没有导航语音，部分应用可能不支持，且手机本身也会继续播放。</string>
     <string name="audio_playback_not_ready">适用于所有设备，但有限制：仅支持媒体音频，没有导航语音。Android 会请求屏幕录制权限：请选择“整个屏幕”（手机屏幕镜像也会使用此权限）。</string>
-    <string name="audio_notice_setup_hint">在手机上打开 AARE 并设置车载音频，以便在车机中听到手机声音</string>
+    <string name="audio_notice_setup_hint">在手机上打开 DashGrid 并设置车载音频，以便在车机中听到手机声音</string>
     <string name="audio_section_car_mic">车机麦克风</string>
     <string name="audio_toggle_car_mic_title">手机应用使用车机麦克风</string>
     <string name="audio_toggle_car_mic_subtitle">连接到带麦克风的车辆时，手机上的语音输入、录音应用和语音消息会改用车机麦克风而不是手机麦克风。通话仍使用各自的麦克风。需要 Shizuku。</string>
     <string name="audio_car_mic_ready">已就绪：开启或关闭立即生效，连接期间也是如此。</string>
     <string name="audio_car_mic_needs_android10">需要 Android 10 或更高版本。</string>
-    <string name="audio_car_mic_needs_shizuku">需要运行 Shizuku 并允许 AARE 使用（见上方的 Shizuku 方式）。</string>
+    <string name="audio_car_mic_needs_shizuku">需要运行 Shizuku 并允许 DashGrid 使用（见上方的 Shizuku 方式）。</string>
 
     <string name="phone_section_title">手机屏幕</string>
     <string name="phone_toggle_enable_title">车内手机屏幕镜像</string>
-    <string name="phone_toggle_enable_subtitle">手机自身的屏幕，用于 AARE 无法承载的应用（如 Google Maps、Waze）。手机锁屏时会暂停，行驶中除非有导航应用正在引导也会暂停。除非在车机服务器中启用，否则该服务器不提供此功能</string>
+    <string name="phone_toggle_enable_subtitle">手机自身的屏幕，用于 DashGrid 无法承载的应用（如 Google Maps、Waze）。手机锁屏时会暂停，行驶中除非有导航应用正在引导也会暂停。除非在车机服务器中启用，否则该服务器不提供此功能</string>
     <string name="phone_check_touch_title">手机屏幕触控</string>
-    <string name="phone_check_touch_subtitle">在无障碍设置中开启 AARE。通过非官方渠道安装的应用可能需要先在 AARE 的应用信息中开启“允许限制设置”</string>
+    <string name="phone_check_touch_subtitle">在无障碍设置中开启 DashGrid。通过非官方渠道安装的应用可能需要先在 DashGrid 的应用信息中开启“允许限制设置”</string>
     <string name="phone_hint_touch_capture">画面使用屏幕录制权限（在车载音频页面选择“整个屏幕”）。</string>
-    <string name="phone_app_row_subtitle">手机自身的屏幕，用于 AARE 无法承载的应用</string>
+    <string name="phone_app_row_subtitle">手机自身的屏幕，用于 DashGrid 无法承载的应用</string>
 
     <string name="assistant_settings_title">语音助手</string>
     <string name="assistant_page_subtitle">语音按钮打开的内容</string>
@@ -311,12 +311,12 @@
     <string name="notif_action_navigate">导航</string>
     <string name="notif_action_open">打开</string>
     <string name="notif_cert_updated_title">证书已更新</string>
-    <string name="notif_cert_updated_message">AARE 已下载更新的 Android Auto 证书，有效期至 %1$s。</string>
+    <string name="notif_cert_updated_message">DashGrid 已下载更新的 Android Auto 证书，有效期至 %1$s。</string>
     <string name="notif_cert_expiring_title">证书即将到期</string>
-    <string name="notif_cert_expiring_text">%1$s 将于 %2$s 到期。此后，只接受 Google 证书的车辆将拒绝 AARE：请下载更新的证书。</string>
+    <string name="notif_cert_expiring_text">%1$s 将于 %2$s 到期。此后，只接受 Google 证书的车辆将拒绝 DashGrid：请下载更新的证书。</string>
     <string name="notif_cert_expired_title">证书已过期</string>
-    <string name="notif_cert_expired_text">%1$s 已于 %2$s 到期。现在，只接受 Google 证书的车辆会拒绝 AARE：请下载更新的证书。</string>
-    <string name="notif_cert_download_title">车机拒绝了 AARE 的证书</string>
+    <string name="notif_cert_expired_text">%1$s 已于 %2$s 到期。现在，只接受 Google 证书的车辆会拒绝 DashGrid：请下载更新的证书。</string>
+    <string name="notif_cert_download_title">车机拒绝了 DashGrid 的证书</string>
     <string name="notif_cert_download_message">此车机只接受 Google 签发的证书。请从最新版 Android Auto 应用下载该证书，然后重新连接。</string>
     <string name="notif_cert_download_progress">正在下载 Android Auto 的证书…</string>
     <string name="notif_cert_download_ready_title">证书已就绪</string>
@@ -332,11 +332,11 @@
     <string name="notif_trust_warning">请只信任当前正在连接的车机</string>
     <string name="notif_untrusted_message">SHA-256 %1$s... %2$s，然后重新连接。</string>
     <string name="notif_trust_reconnect_suffix">%1$s，然后重新连接。</string>
-    <string name="notif_cert_changed_message">车机证书已更改：仅在其软件已更新的情况下，在通知或 AARE 中点按“信任”，然后重新连接</string>
-    <string name="notif_cert_untrusted_message">车机证书尚未被信任：在通知或 AARE 中点按“信任”，然后重新连接</string>
+    <string name="notif_cert_changed_message">车机证书已更改：仅在其软件已更新的情况下，在通知或 DashGrid 中点按“信任”，然后重新连接</string>
+    <string name="notif_cert_untrusted_message">车机证书尚未被信任：在通知或 DashGrid 中点按“信任”，然后重新连接</string>
     <string name="notif_cert_dates_title">检查车辆的日期和时间</string>
-    <string name="notif_cert_not_yet_valid_message">车机提示 AARE 的证书尚未生效：它的时钟可能慢了。请设置车辆的日期和时间，然后重新连接</string>
-    <string name="notif_cert_expired_message">车机提示 AARE 的证书已过期：如果并非如此，说明车辆的时钟偏快。请设置车辆的日期和时间，或在「高级」中获取更新的证书，然后重新连接</string>
+    <string name="notif_cert_not_yet_valid_message">车机提示 DashGrid 的证书尚未生效：它的时钟可能慢了。请设置车辆的日期和时间，然后重新连接</string>
+    <string name="notif_cert_expired_message">车机提示 DashGrid 的证书已过期：如果并非如此，说明车辆的时钟偏快。请设置车辆的日期和时间，或在「高级」中获取更新的证书，然后重新连接</string>
     <string name="notif_car_nearby_title">附近有车辆</string>
     <string name="notif_car_nearby_text">点按以无线连接</string>
     <string name="notif_status_connecting_to">正在连接到 %1$s</string>
@@ -356,9 +356,9 @@
     <string name="notif_navigation_title">导航</string>
     <string name="notif_navigation_no_app_text">车机中没有导航应用</string>
     <string name="notif_assistant_title">语音助手</string>
-    <string name="notif_assistant_choose_text">在手机上的 AARE 设置中选择语音助手</string>
+    <string name="notif_assistant_choose_text">在手机上的 DashGrid 设置中选择语音助手</string>
     <string name="notif_assistant_no_car_screen">%1$s 没有车机界面：已在手机上打开</string>
-    <string name="notif_assistant_cant_open">无法打开 %1$s。请在 AARE 设置中选择其他语音助手</string>
+    <string name="notif_assistant_cant_open">无法打开 %1$s。请在 DashGrid 设置中选择其他语音助手</string>
     <string name="notif_parked_only_title">行驶中不可用</string>
     <string name="notif_parked_only_text">请停车后使用</string>
     <string name="notif_empty">没有通知</string>
@@ -402,7 +402,7 @@
     <string name="media_action_play">播放</string>
     <string name="media_queue_empty">队列为空</string>
 
-    <string name="msg_no_access">请在手机上为 AARE 授予通知访问权限，以便在此处查看消息</string>
+    <string name="msg_no_access">请在手机上为 DashGrid 授予通知访问权限，以便在此处查看消息</string>
     <string name="msg_listener_not_ready">这里暂时还没有内容</string>
     <string name="msg_reply_sent">回复已发送</string>
     <string name="msg_reply_rejected">%1$s 未接受此回复</string>
@@ -421,7 +421,7 @@
     <string name="phone_tab_recents">最近通话</string>
     <string name="phone_tab_contacts">联系人</string>
     <string name="phone_tab_keypad">拨号键盘</string>
-    <string name="phone_permissions_placeholder">请在手机上的 AARE 中允许通话、通话记录和联系人权限（完成设置）。</string>
+    <string name="phone_permissions_placeholder">请在手机上的 DashGrid 中允许通话、通话记录和联系人权限（完成设置）。</string>
     <string name="phone_notice_calling_title">正在通话</string>
     <string name="phone_no_recent_calls">没有最近通话记录</string>
     <string name="phone_no_contacts">没有带电话号码的联系人</string>
@@ -452,7 +452,7 @@
 
     <!-- standalone: launching ordinary phone apps on the car screen (root/Shizuku, parked only) -->
     <string name="standalone_section_title">车载屏幕上的应用（高级）</string>
-    <string name="standalone_section_warning">这些不是 Android Auto 应用：AARE 显示的是它们在手机上的普通界面，默认仅在停车时可用，且需要 root 或 Shizuku。使用风险自负。</string>
+    <string name="standalone_section_warning">这些不是 Android Auto 应用：DashGrid 显示的是它们在手机上的普通界面，默认仅在停车时可用，且需要 root 或 Shizuku。使用风险自负。</string>
     <string name="standalone_toggle_title">在车载屏幕上启动手机应用</string>
     <string name="standalone_toggle_subtitle">在下方选择应用，并为每个应用选择行驶时允许做什么。</string>
     <string name="standalone_keep_awake_title">独立应用的常亮模式</string>
@@ -485,12 +485,12 @@
     <string name="assistant_stop_style_voice_button">语音按钮会变为停止</string>
     <string name="assistant_stop_style_red_restart">红色停止按钮，语音按钮会再次询问</string>
     <string name="assistant_stop_style_red_stop">红色停止按钮，语音按钮也会停止</string>
-    <string name="assistant_links_subtitle">允许所选助手回复中的 aare:// 链接控制音乐，或在车机屏幕上提议导航、打开应用或拨打电话。来自其他应用和网页的链接会被忽略。</string>
+    <string name="assistant_links_subtitle">允许所选助手回复中的 dashgrid:// 链接控制音乐，或在车机屏幕上提议导航、打开应用或拨打电话。来自其他应用和网页的链接会被忽略。</string>
     <!-- setup_page: car data entry -->
     <string name="setup_page_car_data_title">车辆数据</string>
     <string name="setup_page_car_data_subtitle">车辆的实时速度、挡位和传感器数据</string>
     <string name="setup_page_about_title">关于</string>
-    <string name="setup_page_about_subtitle">AARE 是什么、项目链接，以及是谁帮助开发了它</string>
+    <string name="setup_page_about_subtitle">DashGrid 是什么、项目链接，以及是谁帮助开发了它</string>
 
     <!-- car_data: the read-only car sensor viewer -->
     <string name="car_data_not_connected">连接到车辆以查看其数据。</string>
@@ -548,8 +548,8 @@
     <string name="car_data_show_in_car_subtitle">在车机中添加一个诊断应用来显示这些实时数据</string>
 
     <!-- about: the About page -->
-    <string name="about_section_what_title">AARE 是什么</string>
-    <string name="about_text">AARE 是 Android Auto 手机端的开源重新实现：它直接通过 Android Auto 投屏协议与车辆车机通信，自行绘制车机画面，并运行导航、媒体和消息应用，而无需 Google Play 服务。</string>
+    <string name="about_section_what_title">DashGrid 是什么</string>
+    <string name="about_text">DashGrid 是 Android Auto 手机端的开源重新实现：它直接通过 Android Auto 投屏协议与车辆车机通信，自行绘制车机画面，并运行导航、媒体和消息应用，而无需 Google Play 服务。</string>
     <string name="about_section_links_title">项目</string>
     <string name="about_link_repository">仓库</string>
     <string name="about_link_issues">议题</string>
@@ -565,7 +565,7 @@
     <string name="about_oss_protocol_title">协议定义</string>
 
     <string name="obd_adapter_title">读取 OBD2 适配器</string>
-    <string name="obd_adapter_subtitle">通过蓝牙配对的 ELM327 适配器，在汽车连接时读取：汽车不会发送给 AARE 的发动机数据。只读：AARE 从不向汽车写入任何内容。</string>
+    <string name="obd_adapter_subtitle">通过蓝牙配对的 ELM327 适配器，在汽车连接时读取：汽车不会发送给 DashGrid 的发动机数据。只读：DashGrid 从不向汽车写入任何内容。</string>
     <string name="obd_simulated_title">模拟 OBD2 适配器（调试）</string>
     <string name="obd_simulated_subtitle">用模拟汽车代替真实适配器，以试用此页面</string>
     <string name="obd_section">OBD2 适配器</string>
@@ -590,7 +590,7 @@
     <string name="vehicles_import">导入文件…</string>
     <string name="vehicles_template">写入模板</string>
     <string name="vehicles_builtin_fixes_title">内置车辆修复</string>
-    <string name="vehicles_builtin_fixes_subtitle">AARE 为特定车机提供的修复：在无线连接失败的车机上不用无线、视频尺寸、导航语音、电动车、屏幕像素形状、退出项的名称。关闭时：每辆车的表现与之前相同。vehicles.json 规则可为单辆车开启（builtInFixes）。</string>
+    <string name="vehicles_builtin_fixes_subtitle">DashGrid 为特定车机提供的修复：在无线连接失败的车机上不用无线、视频尺寸、导航语音、电动车、屏幕像素形状、退出项的名称。关闭时：每辆车的表现与之前相同。vehicles.json 规则可为单辆车开启（builtInFixes）。</string>
     <string name="quirks_section_title">车辆特性</string>
     <string name="quirks_subtitle">这，就是特性列表。</string>
     <string name="quirks_hint">覆盖 vehicles.json 中一辆车的特性：最后连接的车机。自动会保留内置车辆修复和您的 vehicles.json 为该车设定的内容。其他车辆不受影响。</string>
@@ -606,9 +606,9 @@
     <string name="quirks_single_channel_capture_title">导航语音单通道</string>
     <string name="quirks_single_channel_capture_subtitle">开：通过音乐通道发送导航语音，不使用引导通道。关：正常使用引导通道。</string>
     <string name="quirks_wifi_media_silence_title">Wi-Fi 音乐启动静音</string>
-    <string name="quirks_wifi_media_silence_subtitle">开：在通过 Wi-Fi 开始音乐流之前，发送 vehicles.json 中的静音消息（或 AARE 的默认消息）。关：不发送。</string>
+    <string name="quirks_wifi_media_silence_subtitle">开：在通过 Wi-Fi 开始音乐流之前，发送 vehicles.json 中的静音消息（或 DashGrid 的默认消息）。关：不发送。</string>
     <string name="quirks_wifi_guidance_silence_title">Wi-Fi 导航启动静音</string>
-    <string name="quirks_wifi_guidance_silence_subtitle">开：在通过 Wi-Fi 开始导航语音流之前，发送 vehicles.json 中的静音消息（或 AARE 的默认消息）。关：不发送。</string>
+    <string name="quirks_wifi_guidance_silence_subtitle">开：在通过 Wi-Fi 开始导航语音流之前，发送 vehicles.json 中的静音消息（或 DashGrid 的默认消息）。关：不发送。</string>
     <string name="quirks_media_on_gain_transient_title">导航提示期间播放音乐</string>
     <string name="quirks_media_on_gain_transient_subtitle">开：当车辆以 GAIN_TRANSIENT 回应导航提示的请求时，音乐继续播放。关：此时仅播放导航语音。回应音乐自身请求的 GAIN_TRANSIENT，或车辆主动发出的 GAIN_TRANSIENT，始终允许音乐播放。</string>
     <string name="quirks_pause_on_guidance_only_title">仅限引导时暂停音乐</string>
@@ -628,7 +628,7 @@
     <string name="setup_toggle_force_h264_title">强制使用 H.264 视频</string>
     <string name="setup_toggle_constant_bitrate_title">恒定码率视频</string>
     <string name="setup_toggle_constant_bitrate_subtitle">使每帧画面的大小大致保持一致。如果车辆在整幅画面变化时（例如显示手机屏幕或播放视频）断开连接，请开启此选项。细节较多的画面会略微变柔和。将在下次连接时生效。</string>
-    <string name="setup_toggle_force_h264_subtitle">AARE 默认使用车机和手机都支持的最佳编解码器（H.265…）。如果车机画面出现花屏，请开启此选项。</string>
+    <string name="setup_toggle_force_h264_subtitle">DashGrid 默认使用车机和手机都支持的最佳编解码器（H.265…）。如果车机画面出现花屏，请开启此选项。</string>
     <string name="common_ok">OK</string>
     <string name="common_try_again">重试</string>
     <string name="common_something_went_wrong">出现错误</string>
@@ -638,14 +638,14 @@
     <string name="update_check_now">立即检查</string>
     <string name="update_checking">正在检查…</string>
     <string name="update_check_latest">你已是最新版本（%1$s）。</string>
-    <string name="update_check_available">AARE %1$s 已推出：请查看主屏幕。</string>
+    <string name="update_check_available">DashGrid %1$s 已推出：请查看主屏幕。</string>
     <string name="update_check_failed">无法连接 GitHub，请稍后再试。</string>
     <string name="update_available_title">有可用更新 — %1$s</string>
     <string name="update_available_subtitle">当前版本为 %1$s。点按查看该版本。</string>
     <string name="setup_log_save">保存</string>
     <string name="setup_section_developer_log">开发者日志</string>
     <string name="setup_toggle_dev_log_title">开发者模式</string>
-    <string name="setup_toggle_dev_log_subtitle">将 AARE 记录的所有内容写入 %1$s 中的文本文件（最多 50 MB）。关闭后这些文件会被删除：请先保存。</string>
+    <string name="setup_toggle_dev_log_subtitle">将 DashGrid 记录的所有内容写入 %1$s 中的文本文件（最多 50 MB）。关闭后这些文件会被删除：请先保存。</string>
     <string name="setup_toggle_dev_log_privacy_title">隐藏个人数据</string>
     <string name="setup_toggle_dev_log_privacy_subtitle">遮盖其识别出的地址、网络和设备名称以及其他个人数据。分享前请先查看该文件。</string>
     <string name="setup_dev_log_save">保存开发者日志</string>
@@ -653,7 +653,7 @@
     <string name="setup_toggle_verbose_log_title">详细协议日志</string>
     <string name="setup_toggle_verbose_log_subtitle">在此日志中记录完整的车机协议跟踪，用于附加到错误报告。会产生大量日志；平时请保持关闭。</string>
     <string name="setup_section_backup">设置备份</string>
-    <string name="setup_backup_hint">将设置保存到文件，或从文件载入。已信任的车机、证书、本机专属状态，以及会让 AARE 对网络开放或跳过安全检查的选项（车机服务器、乘客模式、root 音频…）不包含在内：请在每部手机上手动设置。</string>
+    <string name="setup_backup_hint">将设置保存到文件，或从文件载入。已信任的车机、证书、本机专属状态，以及会让 DashGrid 对网络开放或跳过安全检查的选项（车机服务器、乘客模式、root 音频…）不包含在内：请在每部手机上手动设置。</string>
     <string name="setup_backup_export">导出…</string>
     <string name="setup_backup_import">导入…</string>
     <string name="setup_backup_import_confirm_title">替换你的设置？</string>
@@ -662,7 +662,7 @@
     <string name="setup_backup_import_done">设置已导入。</string>
     <string name="setup_backup_import_done_skipped">设置已导入。因未知、被阻止或无效而跳过：%1$d</string>
     <string name="setup_backup_import_blocked">出于安全原因未导入（请在本机上手动开启这些设置）：%1$s</string>
-    <string name="setup_backup_import_failed">无法导入此文件：它不是 AARE 设置文件，或文件过大。</string>
+    <string name="setup_backup_import_failed">无法导入此文件：它不是 DashGrid 设置文件，或文件过大。</string>
     <string name="setup_backup_export_failed">无法保存设置文件。</string>
     <string name="setup_nothing_to_open">此手机没有可打开此内容的应用</string>
     <string name="setup_wallpaper_failed">无法将这张照片设为壁纸</string>
@@ -690,7 +690,7 @@
     <string name="media_error_skip_limit">已达到跳过次数上限</string>
     <string name="media_error_setup">请在手机上完成 %1$s 的设置</string>
     <string name="media_error_end_of_playlist">播放列表已结束</string>
-    <string name="media_error_permission">%1$s 不允许 AARE 浏览</string>
+    <string name="media_error_permission">%1$s 不允许 DashGrid 浏览</string>
     <string name="media_error_io">网络或存储出现问题</string>
     <string name="media_error_not_supported">%1$s 不支持</string>
     <string name="media_error_disconnected">%1$s 已断开连接</string>
@@ -705,7 +705,7 @@
     <string name="carapp_error_no_answer">%1$s 没有响应。它可能只接受 Google 的 Android Auto（参见手机上的应用列表）。</string>
     <string name="carapp_error_api_level">%1$s 需要车载 API 级别 %2$d；此宿主支持 %3$d</string>
     <string name="carapp_error_stopped">%1$s 已停止</string>
-    <string name="carapp_error_google_only">%1$s 只接受 Google 的 Android Auto。需要允许 AARE（参见手机上的应用列表）。</string>
+    <string name="carapp_error_google_only">%1$s 只接受 Google 的 Android Auto。需要允许 DashGrid（参见手机上的应用列表）。</string>
     <string name="carapp_error_cant_start">%1$s 无法启动：%2$s</string>
 
     <string name="dash_card_home">家庭</string>
@@ -715,7 +715,7 @@
     <string name="home_page_title">家庭操作</string>
     <string name="home_page_subtitle">通过 MQTT 或 HTTP，在车内使用智能家居按钮和数值</string>
     <string name="home_toggle_title">在车内显示家庭操作</string>
-    <string name="home_toggle_subtitle">一个“家庭”应用和一个仪表盘卡片。AARE 仅在车机屏幕开启时连接你的服务器。</string>
+    <string name="home_toggle_subtitle">一个“家庭”应用和一个仪表盘卡片。DashGrid 仅在车机屏幕开启时连接你的服务器。</string>
     <string name="home_intro">操作是发布 MQTT 消息或发送 HTTP 请求的按钮（打开车库门、开灯）。磁贴显示来自 MQTT 主题或 HTTP 回复的数值。Home Assistant 可通过其 REST API、webhook 或 MQTT 工作。</string>
     <string name="home_section_connections">连接</string>
     <string name="home_broker_title">MQTT 代理</string>
@@ -815,7 +815,7 @@
     <string name="home_preset_http_webhook_subtitle">向某个地址发送 POST 请求</string>
     <string name="home_preset_http_json">HTTP JSON 值</string>
     <string name="home_preset_http_json_subtitle">从 JSON 回复中轮询获取一个值的磁贴</string>
-    <string name="home_car_empty">请在手机上设置家庭操作：AARE &gt; 家庭操作。</string>
+    <string name="home_car_empty">请在手机上设置家庭操作：DashGrid &gt; 家庭操作。</string>
     <string name="home_confirm_question">现在%1$s？</string>
     <string name="home_confirm_run">运行</string>
     <string name="home_action_done">完成</string>
@@ -830,37 +830,37 @@
     <string name="home_error_http_lan_off">普通 http:// 已关闭：请为该 HTTP 服务器开启\"在我的家庭网络中允许使用普通 http\"</string>
     <string name="home_error_tls">服务器证书不受信任</string>
     <string name="home_error_generic">出了点问题</string>
-    <string name="shizuku_setup_title">通过 Shizuku 授予 AARE 权限</string>
+    <string name="shizuku_setup_title">通过 Shizuku 授予 DashGrid 权限</string>
     <string name="shizuku_setup_subtitle">一次点按即可授予仍缺失的权限，无需逐个弹窗确认：麦克风、位置、联系人、通话记录、日历、电话通话、附近设备（蓝牙、Wi-Fi）、本地网络、通知以及通知访问权限</string>
     <string name="shizuku_setup_working">正在授予…</string>
     <string name="shizuku_setup_result_title">已通过 Shizuku 授予</string>
     <string name="shizuku_setup_nothing_to_grant">所有权限均已授予。</string>
     <string name="shizuku_setup_not_granted">未授予：%1$s</string>
     <string name="shizuku_setup_notification_access">通知访问权限</string>
-    <string name="shizuku_setup_helper_failed">Shizuku 的辅助程序未能启动。请检查 Shizuku 是否在运行并允许 AARE。</string>
+    <string name="shizuku_setup_helper_failed">Shizuku 的辅助程序未能启动。请检查 Shizuku 是否在运行并允许 DashGrid。</string>
     <string name="aa_section_title">Google 的 Android Auto</string>
-    <string name="aa_state_enabled">已安装并已启用：车辆连接时，Android 可能会把它交给 Android Auto 而不是 AARE，或询问要使用哪个应用。</string>
+    <string name="aa_state_enabled">已安装并已启用：车辆连接时，Android 可能会把它交给 Android Auto 而不是 DashGrid，或询问要使用哪个应用。</string>
     <string name="aa_state_disabled">已停用：Android Auto 不会接管车辆。其数据会被保留。</string>
     <string name="aa_action_disable">阻止 Android Auto 接管车辆</string>
     <string name="aa_action_enable">重新启用 Android Auto</string>
     <string name="aa_working">正在处理…</string>
-    <string name="aa_needs_shizuku">通过 Shizuku（正在运行并允许 AARE），或在 Android Auto 的应用信息中手动操作。</string>
+    <string name="aa_needs_shizuku">通过 Shizuku（正在运行并允许 DashGrid），或在 Android Auto 的应用信息中手动操作。</string>
     <string name="aa_app_info">Android Auto 的应用信息</string>
     <string name="aa_failed">未能成功：%1$s</string>
     <string name="aa_confirm_title">停用 Android Auto？</string>
-    <string name="aa_confirm_text">AARE 会通过 Shizuku（pm disable-user）为此用户停用 Google 的 Android Auto。该应用将停止运行，从应用列表中消失，车辆连接时也不再响应，这样车辆会始终交给 AARE。\n\n不会卸载任何内容，其数据会被保留。需要 Google 的 Android Auto 的车辆、应用或功能将无法使用，直到你在此用按钮重新启用它。</string>
+    <string name="aa_confirm_text">DashGrid 会通过 Shizuku（pm disable-user）为此用户停用 Google 的 Android Auto。该应用将停止运行，从应用列表中消失，车辆连接时也不再响应，这样车辆会始终交给 DashGrid。\n\n不会卸载任何内容，其数据会被保留。需要 Google 的 Android Auto 的车辆、应用或功能将无法使用，直到你在此用按钮重新启用它。</string>
     <string name="aa_confirm_action">停用</string>
 
     <string name="setup_section_companion">一键无线连接</string>
-    <string name="setup_companion_hint">关联一辆你已经无线连接过的车辆：此后当该车辆的蓝牙连接时，Android 会启动 AARE，即使手机放在口袋里也一样。Android 会针对每辆车请求一次确认。</string>
+    <string name="setup_companion_hint">关联一辆你已经无线连接过的车辆：此后当该车辆的蓝牙连接时，Android 会启动 DashGrid，即使手机放在口袋里也一样。Android 会针对每辆车请求一次确认。</string>
     <string name="setup_companion_empty">先无线连接一次车辆，然后回到此处将其关联。</string>
     <string name="setup_companion_failed">Android 未能关联该车辆：%1$s</string>
     <string name="setup_action_associate">关联</string>
     <string name="setup_toggle_companion_shizuku_title">通过 Shizuku 批准车辆的 Wi-Fi</string>
-    <string name="setup_toggle_companion_shizuku_subtitle">对于已关联的车辆，Shizuku 会代为回答 Android 的“连接到设备”询问，因此不会再次询问。车辆的网络始终只属于 AARE，绝不会成为手机的互联网连接。需要 Shizuku 正在运行并允许 AARE。</string>
+    <string name="setup_toggle_companion_shizuku_subtitle">对于已关联的车辆，Shizuku 会代为回答 Android 的“连接到设备”询问，因此不会再次询问。车辆的网络始终只属于 DashGrid，绝不会成为手机的互联网连接。需要 Shizuku 正在运行并允许 DashGrid。</string>
 
     <string name="setup_toggle_auto_pair_title">自动配对车辆的蓝牙</string>
-    <string name="setup_toggle_auto_pair_subtitle">用于通话：当手机尚未配对的车辆通过 Android Auto 请求配对时，若配对码与车辆发送的一致，AARE 会通过 Shizuku 与该车辆配对，而不弹出 Android 的配对对话框。绝不会用于其他任何设备。需要 Shizuku 正在运行并允许 AARE。</string>
+    <string name="setup_toggle_auto_pair_subtitle">用于通话：当手机尚未配对的车辆通过 Android Auto 请求配对时，若配对码与车辆发送的一致，DashGrid 会通过 Shizuku 与该车辆配对，而不弹出 Android 的配对对话框。绝不会用于其他任何设备。需要 Shizuku 正在运行并允许 DashGrid。</string>
 
     <string name="calibration_title">触摸屏校准</string>
     <string name="calibration_intro">如果在车机屏幕上的触摸落在错误的位置，请测量这辆车的触摸屏：先在手机上设置可见区域，再触摸车机屏幕上的 4 个目标。请在停车时操作。</string>
@@ -871,7 +871,7 @@
     <string name="calibration_start">开始校准</string>
     <string name="calibration_reset">恢复为车辆的值</string>
     <string name="calibration_forget">删除</string>
-    <string name="calibration_area_help">第 1 步，共 3 步。车机屏幕上的黄色 L 标出 AARE 绘制区域的每个角。移动每条边，直到其 L 正好位于屏幕边缘且完全可见。</string>
+    <string name="calibration_area_help">第 1 步，共 3 步。车机屏幕上的黄色 L 标出 DashGrid 绘制区域的每个角。移动每条边，直到其 L 正好位于屏幕边缘且完全可见。</string>
     <string name="calibration_area_value">%1$s：%2$d 像素</string>
     <string name="calibration_edge_left">左</string>
     <string name="calibration_edge_top">上</string>

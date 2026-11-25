@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AARE</string>
-    <string name="mirror_touch_description">Antaa käyttää puhelimen näyttöä autosta: AARE toistaa puhelimessa auton näytöllä tehdyt kosketukset ja tarkistaa, mikä sovellus on edessä, jotta puhelimen näyttö pysyy keskeytettynä ajon aikana, ellei se näytä navigointisovellusta. AARE ei lue mitään muuta.</string>
+    <string name="app_name">DashGrid</string>
+    <string name="mirror_touch_description">Antaa käyttää puhelimen näyttöä autosta: DashGrid toistaa puhelimessa auton näytöllä tehdyt kosketukset ja tarkistaa, mikä sovellus on edessä, jotta puhelimen näyttö pysyy keskeytettynä ajon aikana, ellei se näytä navigointisovellusta. DashGrid ei lue mitään muuta.</string>
     <string name="mirror_locked_placeholder">Puhelimen näyttö on keskeytetty, kun puhelin on lukittu. Avaa puhelimen lukitus näyttääksesi sen.</string>
-    <string name="mirror_driving_no_accessibility">Puhelimen näyttö on keskeytetty ajon aikana. Jos haluat näyttää navigointisovelluksia ajon aikana, ota AARE käyttöön puhelimen esteettömyysasetuksissa: se kertoo AARElle, mikä sovellus on avoinna.</string>
+    <string name="mirror_driving_no_accessibility">Puhelimen näyttö on keskeytetty ajon aikana. Jos haluat näyttää navigointisovelluksia ajon aikana, ota DashGrid käyttöön puhelimen esteettömyysasetuksissa: se kertoo DashGridlle, mikä sovellus on avoinna.</string>
     <string name="mirror_driving_nav_only">Puhelimen näyttö on keskeytetty ajon aikana. Se näyttää vain navigointisovelluksia.</string>
-    <string name="mirror_need_screen_capture">Puhelimen näyttö tarvitsee Androidin näytön kaappausluvan. Avaa puhelimessa AARE:n Auton äänet -asetukset, napauta Näytön kaappauslupa ja valitse Koko näyttö.</string>
-    <string name="mirror_capture_failed">Android kieltäytyi jakamasta puhelimen näyttöä. Napauta puhelimessa uudelleen Näytön kaappauslupa AARE:n Auton äänet -asetuksissa ja valitse Koko näyttö.</string>
-    <string name="mirror_need_accessibility">Jos haluat käyttää puhelinta autosta, ota AARE käyttöön puhelimen esteettömyysasetuksissa.</string>
+    <string name="mirror_need_screen_capture">Puhelimen näyttö tarvitsee Androidin näytön kaappausluvan. Avaa puhelimessa DashGrid:n Auton äänet -asetukset, napauta Näytön kaappauslupa ja valitse Koko näyttö.</string>
+    <string name="mirror_capture_failed">Android kieltäytyi jakamasta puhelimen näyttöä. Napauta puhelimessa uudelleen Näytön kaappauslupa DashGrid:n Auton äänet -asetuksissa ja valitse Koko näyttö.</string>
+    <string name="mirror_need_accessibility">Jos haluat käyttää puhelinta autosta, ota DashGrid käyttöön puhelimen esteettömyysasetuksissa.</string>
 
     <!-- common: shared across screens -->
     <string name="common_back">Takaisin</string>
@@ -32,7 +32,7 @@
     <string name="setup_page_connection_subtitle">Langaton yhteys, videon laatu, autosi</string>
     <string name="setup_page_advanced_title">Lisäasetukset</string>
     <string name="setup_page_advanced_subtitle">Soittolaitteen palvelin, varmenteet, loki</string>
-    <string name="setup_tagline">Avoimen lähdekoodin auton projisointi</string>
+    <string name="setup_tagline">Swipe. Arrange. Drive.</string>
     <string name="setup_status_certificate">varmenne: %1$s</string>
     <string name="setup_status_disconnected_hint">Liitä puhelin auton Android Auto -USB-porttiin tai yhdistä langattomasti laitepariksi liitettyyn autoon.</string>
     <string name="setup_status_last_error">Viimeisin virhe: %1$s</string>
@@ -49,7 +49,7 @@
     <string name="setup_check_audio_subtitle">Anna puhelimen äänen kuulua autossa</string>
     <string name="setup_action_set_up">Ota käyttöön</string>
     <string name="setup_old_android_title">Käytössä vanhempi Android</string>
-    <string name="setup_old_android_message">AARE toimii myös Android 6:lla ja 7:llä, mutta Android 8 on paremmin tuettu perusta. Android 6:lla ja 7:llä yhteysilmoituksia ei voida sijoittaa omaan kanavaansa, jolloin niitä ei voi mykistää erikseen AAREn muista ilmoituksista järjestelmän asetuksissa. Kaikki muu toimii samalla tavalla, tai palautuu automaattisesti vanhempaan menetelmään.</string>
+    <string name="setup_old_android_message">DashGrid toimii myös Android 6:lla ja 7:llä, mutta Android 8 on paremmin tuettu perusta. Android 6:lla ja 7:llä yhteysilmoituksia ei voida sijoittaa omaan kanavaansa, jolloin niitä ei voi mykistää erikseen DashGridn muista ilmoituksista järjestelmän asetuksissa. Kaikki muu toimii samalla tavalla, tai palautuu automaattisesti vanhempaan menetelmään.</string>
     <string name="setup_old_android_dont_show_again">Älä näytä uudelleen</string>
     <string name="setup_section_connecting">Yhdistäminen</string>
     <string name="setup_toggle_wireless_title">Langaton</string>
@@ -68,10 +68,10 @@
     <string name="setup_section_location">Sijainti</string>
     <string name="setup_toggle_car_gps_title">Käytä auton GPS:ää</string>
     <string name="setup_toggle_car_gps_subtitle">Yhteyden aikana puhelimen sovellukset näkevät auton sijainnin puhelimen oman sijainnin sijaan, jotta navigointisovellukset eivät sekoita niitä</string>
-    <string name="setup_check_mock_location_title">Anna AARElle lupa asettaa sijainti</string>
-    <string name="setup_check_mock_location_subtitle">Kehittäjäasetukset &gt; Valitse simuloitu sijaintisovellus &gt; AARE</string>
+    <string name="setup_check_mock_location_title">Anna DashGridlle lupa asettaa sijainti</string>
+    <string name="setup_check_mock_location_subtitle">Kehittäjäasetukset &gt; Valitse simuloitu sijaintisovellus &gt; DashGrid</string>
     <string name="setup_check_background_location_title">Navigointi puhelimen ollessa lukittuna</string>
-    <string name="setup_check_background_location_subtitle">Valinnainen. Kun AARE käynnistyy itsestään (auton Bluetooth), navigointisovellukset säilyttävät sijainnin puhelimen ollessa lukittuna. Käyttöoikeudet &gt; Sijainti &gt; Salli aina</string>
+    <string name="setup_check_background_location_subtitle">Valinnainen. Kun DashGrid käynnistyy itsestään (auton Bluetooth), navigointisovellukset säilyttävät sijainnin puhelimen ollessa lukittuna. Käyttöoikeudet &gt; Sijainti &gt; Salli aina</string>
     <string name="setup_section_video">Video</string>
     <string name="setup_toggle_60fps_title">Suosi 60 kuvaa/s</string>
     <string name="setup_toggle_60fps_subtitle">Sujuvampaa, jos auto tukee sitä</string>
@@ -157,9 +157,9 @@
     <string name="setup_app_kind_media">Musiikki, podcastit, radio</string>
     <string name="setup_app_group_messaging">Viestit</string>
     <string name="setup_app_kind_messaging">Viestit sen ilmoituksista</string>
-    <string name="setup_app_group_aare">AARE</string>
-    <string name="setup_app_builtin_subtitle">Sisäänrakennettu AAREen. Piilotettuna se poistuu vain sovellusruudukosta: puhelut ja kello toimivat yhä.</string>
-    <string name="setup_section_unsupported_apps">Android Auto -sovellukset, joita AARE ei voi näyttää</string>
+    <string name="setup_app_group_aare">DashGrid</string>
+    <string name="setup_app_builtin_subtitle">Sisäänrakennettu DashGriden. Piilotettuna se poistuu vain sovellusruudukosta: puhelut ja kello toimivat yhä.</string>
+    <string name="setup_section_unsupported_apps">Android Auto -sovellukset, joita DashGrid ei voi näyttää</string>
     <string name="setup_hint_allowlist">Googlen auto-kirjaston uusimmilla versioilla rakennetut sovellukset hyväksyvät vain sallittujen isäntien luettelossa olevia; katso README.</string>
     <string name="setup_app_entry_phone">Puhelin</string>
     <string name="setup_app_entry_settings">Asetukset</string>
@@ -172,7 +172,7 @@
     <string name="setup_toggle_compact_rail_subtitle">Kapeampi lista, pienemmät kuvakkeet ja tiiviimmät välit</string>
     <string name="setup_section_connection_log">Yhteysloki</string>
     <string name="setup_section_car_buttons">Auton painikkeet</string>
-    <string name="setup_car_buttons_hint">Painikkeet, jotka AARE on nähnyt tästä autosta. Valitse, mitä kukin tekee; ”Oletus”-asetukseen jätetty painike toimii tavalliseen tapaan.</string>
+    <string name="setup_car_buttons_hint">Painikkeet, jotka DashGrid on nähnyt tästä autosta. Valitse, mitä kukin tekee; ”Oletus”-asetukseen jätetty painike toimii tavalliseen tapaan.</string>
     <string name="setup_car_buttons_empty">Painikkeita ei ole vielä nähty. Yhdistä autoon ja paina jotakin.</string>
     <string name="setup_car_button_default">Oletus</string>
     <string name="setup_car_action_home">Koti</string>
@@ -185,7 +185,7 @@
     <string name="setup_car_action_open_media">Avaa mediasovellus</string>
     <string name="setup_car_action_open_phone">Avaa puhelinsovellus</string>
     <string name="setup_car_action_nothing">Ei mitään</string>
-    <string name="setup_about_text">AARE %1$s · GPL-3.0-or-later · Ei liity Googleen. Android Auto on Google LLC:n tavaramerkki.</string>
+    <string name="setup_about_text">DashGrid %1$s · GPL-3.0-or-later · Ei liity Googleen. Android Auto on Google LLC:n tavaramerkki.</string>
     <string name="setup_choice_style">Tyyli</string>
     <string name="setup_choice_theme">Teema</string>
     <string name="setup_choice_layout">Asettelu</string>
@@ -212,16 +212,16 @@
 
     <!-- cert: certificate management -->
     <string name="cert_section_title">Puhelimen varmenteet</string>
-    <string name="cert_hint">Soittolaitteet tarkistavat puhelimen varmenteen. Avoimen lähdekoodin soittolaitteet hyväksyvät luodun varmenteen; Googlen soittolaiteohjelmistoa käyttävät autot hyväksyvät vain Googlen myöntämän varmenteen, jota AARE ei voi sisällyttää. Voit tuoda sellaisen, jonka käyttöön sinulla on oikeus (PEM-varmenne + PKCS#8-avain, tai PKCS#12). Voit myös ladata uusimman Android Auto -sovelluksen varmenteen (github.com/iscle/android-auto-certificates).</string>
+    <string name="cert_hint">Soittolaitteet tarkistavat puhelimen varmenteen. Avoimen lähdekoodin soittolaitteet hyväksyvät luodun varmenteen; Googlen soittolaiteohjelmistoa käyttävät autot hyväksyvät vain Googlen myöntämän varmenteen, jota DashGrid ei voi sisällyttää. Voit tuoda sellaisen, jonka käyttöön sinulla on oikeus (PEM-varmenne + PKCS#8-avain, tai PKCS#12). Voit myös ladata uusimman Android Auto -sovelluksen varmenteen (github.com/iscle/android-auto-certificates).</string>
     <string name="cert_entry_subtitle">%1$s · asti %2$s</string>
     <string name="cert_action_remove">Poista</string>
     <string name="cert_action_import">Tuo varmenne…</string>
     <string name="cert_action_download">Lataa varmenne</string>
     <string name="cert_auto_update_title">Päivitä ladattu varmenne automaattisesti</string>
-    <string name="cert_auto_update_subtitle">Kerran päivässä, ei koskaan yhteyden aikana, AARE kysyy samalta varastolta uudempaa varmennetta ja käyttää sitä. Joka tapauksessa AARE varoittaa kaksi viikkoa ennen kuin Googlen varmenne vanhenee.</string>
+    <string name="cert_auto_update_subtitle">Kerran päivässä, ei koskaan yhteyden aikana, DashGrid kysyy samalta varastolta uudempaa varmennetta ja käyttää sitä. Joka tapauksessa DashGrid varoittaa kaksi viikkoa ennen kuin Googlen varmenne vanhenee.</string>
     <string name="cert_expiring_banner_title">Googlen varmenne vanhenee %1$s</string>
     <string name="cert_expired_banner_title">Googlen varmenne vanheni %1$s</string>
-    <string name="cert_expiry_banner_subtitle">Autot, jotka hyväksyvät vain sen, hylkäävät AARE:n. Napauta latataksesi uudemman.</string>
+    <string name="cert_expiry_banner_subtitle">Autot, jotka hyväksyvät vain sen, hylkäävät DashGrid:n. Napauta latataksesi uudemman.</string>
     <string name="cert_action_downloading">Ladataan…</string>
     <string name="cert_download_unavailable">Varmennevarastoa ei enää ole (poistettu tai estetty): %1$s. Pura varmenne sen sijaan Android Auto -sovelluksesta (katso README).</string>
     <string name="cert_download_network">Varmenteen lataus epäonnistui: %1$s. Tarkista yhteys ja yritä uudelleen.</string>
@@ -256,7 +256,7 @@
     <string name="msg_section_while_driving">Ajon aikana</string>
     <string name="msg_toggle_dnd_title">Älä häiritse</string>
     <string name="msg_toggle_dnd_subtitle">Mykistä puhelin yhteyden aikana; puhelut ja tärkeät keskustelut kuuluvat silti läpi</string>
-    <string name="msg_check_dnd_access_title">Salli AARElle Älä häiritse -tilan käyttöönotto</string>
+    <string name="msg_check_dnd_access_title">Salli DashGridlle Älä häiritse -tilan käyttöönotto</string>
     <string name="msg_check_dnd_access_subtitle">Android kysyy kerran</string>
     <string name="msg_toggle_autoreply_title">Automaattinen vastaus</string>
     <string name="msg_toggle_autoreply_subtitle">Vastaa kirjoittaville kerran keskustelua kohden ajomatkalla (ei ryhmille)</string>
@@ -276,29 +276,29 @@
     <string name="audio_method_shizuku">Shizuku tai root</string>
     <string name="audio_method_root_policy">Root, musiikki ja navigointi erikseen</string>
     <string name="audio_method_playback_capture">Näytön kaappauslupa</string>
-    <string name="audio_policy_not_ready">Kuten Android Auto: musiikki ja navigoinnin ääniohjaus erikseen, puhelimen kaiutin pois päältä. Vaatii juuritetun puhelimen: asenna AARE järjestelmäsovelluksena Magisk-moduulilla (katso README).</string>
+    <string name="audio_policy_not_ready">Kuten Android Auto: musiikki ja navigoinnin ääniohjaus erikseen, puhelimen kaiutin pois päältä. Vaatii juuritetun puhelimen: asenna DashGrid järjestelmäsovelluksena Magisk-moduulilla (katso README).</string>
     <string name="audio_shizuku_ready">Valmis. Kaikki, mitä puhelin toistaa, kulkee autoon, navigoinnin ääniohjaus mukaan lukien; puhelin pysyy hiljaisena.</string>
     <string name="audio_shizuku_needs_android12">Vaatii Android 12:n tai uudemman.</string>
-    <string name="audio_shizuku_tap_allow">Shizuku on käynnissä: napauta sallimaan AARE.</string>
+    <string name="audio_shizuku_tap_allow">Shizuku on käynnissä: napauta sallimaan DashGrid.</string>
     <string name="audio_shizuku_install_hint">Juurioikeuksia ei tarvita. Asenna Shizuku, käynnistä se (langaton virheenkorjaus, kerran uudelleenkäynnistyksen jälkeen), ja palaa tähän.</string>
     <string name="audio_playback_ready">Valmis. Vain media: ei navigoinnin ääniohjausta, jotkin sovellukset kieltäytyvät, ja puhelin jatkaa toistoa myös itse.</string>
     <string name="audio_playback_not_ready">Toimii kaikkialla, rajoituksin: vain media, ei navigoinnin ääniohjausta. Android pyytää näytön kaappausta: valitse Koko näyttö (sama kuin puhelimen näytössä).</string>
-    <string name="audio_notice_setup_hint">Avaa AARE puhelimella ja ota auton äänet käyttöön kuullaksesi puhelimen autossa</string>
+    <string name="audio_notice_setup_hint">Avaa DashGrid puhelimella ja ota auton äänet käyttöön kuullaksesi puhelimen autossa</string>
     <string name="audio_section_car_mic">Auton mikrofoni</string>
     <string name="audio_toggle_car_mic_title">Auton mikrofoni puhelimen sovelluksille</string>
     <string name="audio_toggle_car_mic_subtitle">Kun puhelin on yhdistetty mikrofonilliseen autoon, puhelimen puhekirjoitus, äänitallentimet ja ääniviestit kuulevat auton puhelimen sijaan. Puhelut käyttävät omaa mikrofoniaan. Vaatii Shizukun.</string>
     <string name="audio_car_mic_ready">Valmis: päälle tai pois kytkeminen tulee voimaan heti, myös yhteyden aikana.</string>
     <string name="audio_car_mic_needs_android10">Vaatii Android 10:n tai uudemman.</string>
-    <string name="audio_car_mic_needs_shizuku">Vaatii Shizukun käynnissä ja AARElle sallittuna (katso Shizuku-menetelmä yllä).</string>
+    <string name="audio_car_mic_needs_shizuku">Vaatii Shizukun käynnissä ja DashGridlle sallittuna (katso Shizuku-menetelmä yllä).</string>
 
     <!-- phone: phone screen feature -->
     <string name="phone_section_title">Puhelimen näyttö</string>
     <string name="phone_toggle_enable_title">Puhelimen näyttö autossa</string>
-    <string name="phone_toggle_enable_subtitle">Puhelimen oma näyttö, sovelluksille, joita AARE ei voi isännöidä (Google Maps, Waze). Keskeytetty, kun puhelin on lukittu, ja ajon aikana, ellei navigointisovellus ohjaa. Ei tarjolla soittolaitteen palvelimella, ellei sitä ole otettu käyttöön siellä</string>
+    <string name="phone_toggle_enable_subtitle">Puhelimen oma näyttö, sovelluksille, joita DashGrid ei voi isännöidä (Google Maps, Waze). Keskeytetty, kun puhelin on lukittu, ja ajon aikana, ellei navigointisovellus ohjaa. Ei tarjolla soittolaitteen palvelimella, ellei sitä ole otettu käyttöön siellä</string>
     <string name="phone_check_touch_title">Kosketus puhelimen näytöllä</string>
-    <string name="phone_check_touch_subtitle">Ota AARE käyttöön Esteettömyydessä. Sovelluksille, joita ei ole asennettu kaupasta, voidaan ensin tarvita "Salli rajoitetut asetukset" AARE:n sovellustiedoissa</string>
+    <string name="phone_check_touch_subtitle">Ota DashGrid käyttöön Esteettömyydessä. Sovelluksille, joita ei ole asennettu kaupasta, voidaan ensin tarvita "Salli rajoitetut asetukset" DashGrid:n sovellustiedoissa</string>
     <string name="phone_hint_touch_capture">Kuva käyttää näytön kaappauslupaa (Auton äänet -sivu, valitse Koko näyttö).</string>
-    <string name="phone_app_row_subtitle">Puhelimen oma näyttö, sovelluksille, joita AARE ei voi isännöidä</string>
+    <string name="phone_app_row_subtitle">Puhelimen oma näyttö, sovelluksille, joita DashGrid ei voi isännöidä</string>
 
     <!-- assistant: voice assistant settings and bar -->
     <string name="assistant_settings_title">Ääniavustaja</string>
@@ -320,12 +320,12 @@
     <string name="notif_action_navigate">Navigoi</string>
     <string name="notif_action_open">Avaa</string>
     <string name="notif_cert_updated_title">Varmenne päivitetty</string>
-    <string name="notif_cert_updated_message">AARE latasi uudemman Android Auto -varmenteen, voimassa %1$s asti.</string>
+    <string name="notif_cert_updated_message">DashGrid latasi uudemman Android Auto -varmenteen, voimassa %1$s asti.</string>
     <string name="notif_cert_expiring_title">Varmenne vanhenee pian</string>
-    <string name="notif_cert_expiring_text">%1$s vanhenee %2$s. Autot, jotka hyväksyvät vain Googlen varmenteen, hylkäävät AARE:n sen jälkeen: lataa uudempi.</string>
+    <string name="notif_cert_expiring_text">%1$s vanhenee %2$s. Autot, jotka hyväksyvät vain Googlen varmenteen, hylkäävät DashGrid:n sen jälkeen: lataa uudempi.</string>
     <string name="notif_cert_expired_title">Varmenne vanhentunut</string>
-    <string name="notif_cert_expired_text">%1$s vanheni %2$s. Autot, jotka hyväksyvät vain Googlen varmenteen, hylkäävät AARE:n nyt: lataa uudempi.</string>
-    <string name="notif_cert_download_title">Soittolaite hylkäsi AARE:n varmenteen</string>
+    <string name="notif_cert_expired_text">%1$s vanheni %2$s. Autot, jotka hyväksyvät vain Googlen varmenteen, hylkäävät DashGrid:n nyt: lataa uudempi.</string>
+    <string name="notif_cert_download_title">Soittolaite hylkäsi DashGrid:n varmenteen</string>
     <string name="notif_cert_download_message">Tämä soittolaite hyväksyy vain Googlen varmenteen. Lataa se uusimmasta Android Auto -sovelluksesta ja yhdistä sitten uudelleen.</string>
     <string name="notif_cert_download_progress">Ladataan Android Auton varmennetta…</string>
     <string name="notif_cert_download_ready_title">Varmenne valmis</string>
@@ -341,11 +341,11 @@
     <string name="notif_trust_warning">Luota vain soittolaitteeseen, johon olet yhteydessä juuri nyt</string>
     <string name="notif_untrusted_message">SHA-256 %1$s... %2$s, yhdistä sitten uudelleen.</string>
     <string name="notif_trust_reconnect_suffix">%1$s, yhdistä sitten uudelleen.</string>
-    <string name="notif_cert_changed_message">soittolaitteen varmenne vaihtui: napauta Luota ilmoituksessa tai AARE:ssa vain, jos sen ohjelmisto on päivitetty, yhdistä sitten uudelleen</string>
-    <string name="notif_cert_untrusted_message">soittolaitteen varmenteeseen ei vielä luoteta: napauta Luota ilmoituksessa tai AARE:ssa, yhdistä sitten uudelleen</string>
+    <string name="notif_cert_changed_message">soittolaitteen varmenne vaihtui: napauta Luota ilmoituksessa tai DashGrid:ssa vain, jos sen ohjelmisto on päivitetty, yhdistä sitten uudelleen</string>
+    <string name="notif_cert_untrusted_message">soittolaitteen varmenteeseen ei vielä luoteta: napauta Luota ilmoituksessa tai DashGrid:ssa, yhdistä sitten uudelleen</string>
     <string name="notif_cert_dates_title">Tarkista auton päivämäärä ja aika</string>
-    <string name="notif_cert_not_yet_valid_message">soittolaite sanoo, että AAREn varmenne ei ole vielä voimassa: sen kello on todennäköisesti jäljessä. Aseta auton päivämäärä ja aika, yhdistä sitten uudelleen</string>
-    <string name="notif_cert_expired_message">soittolaite sanoo, että AAREn varmenne on vanhentunut: jos ei ole, auton kello on edellä. Aseta auton päivämäärä ja aika, tai hanki uudempi varmenne kohdasta Lisäasetukset, yhdistä sitten uudelleen</string>
+    <string name="notif_cert_not_yet_valid_message">soittolaite sanoo, että DashGridn varmenne ei ole vielä voimassa: sen kello on todennäköisesti jäljessä. Aseta auton päivämäärä ja aika, yhdistä sitten uudelleen</string>
+    <string name="notif_cert_expired_message">soittolaite sanoo, että DashGridn varmenne on vanhentunut: jos ei ole, auton kello on edellä. Aseta auton päivämäärä ja aika, tai hanki uudempi varmenne kohdasta Lisäasetukset, yhdistä sitten uudelleen</string>
     <string name="notif_car_nearby_title">Auto lähellä</string>
     <string name="notif_car_nearby_text">Napauta yhdistääksesi langattomasti</string>
     <string name="notif_status_connecting_to">Yhdistetään %1$s</string>
@@ -365,9 +365,9 @@
     <string name="notif_navigation_title">Navigointi</string>
     <string name="notif_navigation_no_app_text">Autossa ei ole navigointisovellusta</string>
     <string name="notif_assistant_title">Avustaja</string>
-    <string name="notif_assistant_choose_text">Valitse ääniavustaja AARE:n asetuksista puhelimessa</string>
+    <string name="notif_assistant_choose_text">Valitse ääniavustaja DashGrid:n asetuksista puhelimessa</string>
     <string name="notif_assistant_no_car_screen">%1$s ei ole auton näyttöä: se avautui puhelimessa</string>
-    <string name="notif_assistant_cant_open">%1$s ei voi avata. Valitse toinen avustaja AARE:n asetuksista</string>
+    <string name="notif_assistant_cant_open">%1$s ei voi avata. Valitse toinen avustaja DashGrid:n asetuksista</string>
     <string name="notif_parked_only_title">Ei käytettävissä ajon aikana</string>
     <string name="notif_parked_only_text">Pysäköi käyttääksesi tätä</string>
     <string name="notif_empty">Ei ilmoituksia</string>
@@ -415,7 +415,7 @@
     <string name="media_queue_empty">Jono on tyhjä</string>
 
     <!-- msg: messaging screen (notifications-based conversations) -->
-    <string name="msg_no_access">Anna AARElle ilmoitusten käyttöoikeus puhelimessa, jotta näet viestit tässä</string>
+    <string name="msg_no_access">Anna DashGridlle ilmoitusten käyttöoikeus puhelimessa, jotta näet viestit tässä</string>
     <string name="msg_listener_not_ready">Ei vielä mitään näytettävää</string>
     <string name="msg_reply_sent">Vastaus lähetetty</string>
     <string name="msg_reply_rejected">%1$s ei hyväksynyt vastausta</string>
@@ -435,7 +435,7 @@
     <string name="phone_tab_recents">Viimeisimmät</string>
     <string name="phone_tab_contacts">Yhteystiedot</string>
     <string name="phone_tab_keypad">Näppäimistö</string>
-    <string name="phone_permissions_placeholder">Salli puhelut, puheluhistoria ja yhteystiedot AARE:ssa puhelimella (Viimeistele käyttöönotto).</string>
+    <string name="phone_permissions_placeholder">Salli puhelut, puheluhistoria ja yhteystiedot DashGrid:ssa puhelimella (Viimeistele käyttöönotto).</string>
     <string name="phone_notice_calling_title">Soitetaan</string>
     <string name="phone_no_recent_calls">Ei viimeaikaisia puheluita</string>
     <string name="phone_no_contacts">Ei yhteystietoja, joilla on puhelinnumero</string>
@@ -468,7 +468,7 @@
 
     <!-- standalone: launching ordinary phone apps on the car screen (root/Shizuku, parked only) -->
     <string name="standalone_section_title">Sovellukset auton näytöllä (lisäasetukset)</string>
-    <string name="standalone_section_warning">Nämä eivät ole Android Auto -sovelluksia: AARE näyttää niiden tavallisen puhelinnäytön, oletuksena vain pysäköitynä, ja vaatii root- tai Shizuku-oikeudet. Käytä omalla vastuullasi.</string>
+    <string name="standalone_section_warning">Nämä eivät ole Android Auto -sovelluksia: DashGrid näyttää niiden tavallisen puhelinnäytön, oletuksena vain pysäköitynä, ja vaatii root- tai Shizuku-oikeudet. Käytä omalla vastuullasi.</string>
     <string name="standalone_toggle_title">Käynnistä puhelinsovelluksia auton näytöllä</string>
     <string name="standalone_toggle_subtitle">Valitse sovellukset alta ja kullekin, mitä se saa tehdä ajon aikana.</string>
     <string name="standalone_keep_awake_title">Ei-unitila itsenäisille sovelluksille</string>
@@ -501,12 +501,12 @@
     <string name="assistant_stop_style_voice_button">Äänipainikkeesta tulee Pysäytä</string>
     <string name="assistant_stop_style_red_restart">Punainen pysäytyspainike, äänipainike kysyy uudelleen</string>
     <string name="assistant_stop_style_red_stop">Punainen pysäytyspainike, äänipainike pysäyttää myös</string>
-    <string name="assistant_links_subtitle">Anna valitun avustajan vastauksissa olevien aare://-linkkien ohjata musiikkia tai tarjota auton näytöllä navigointia, sovelluksen avaamista tai soittoa. Muiden sovellusten ja verkkosivujen linkit ohitetaan.</string>
+    <string name="assistant_links_subtitle">Anna valitun avustajan vastauksissa olevien dashgrid://-linkkien ohjata musiikkia tai tarjota auton näytöllä navigointia, sovelluksen avaamista tai soittoa. Muiden sovellusten ja verkkosivujen linkit ohitetaan.</string>
     <!-- setup_page: car data entry -->
     <string name="setup_page_car_data_title">Auton tiedot</string>
     <string name="setup_page_car_data_subtitle">Nopeus, vaihde ja anturit suoraan autosta</string>
     <string name="setup_page_about_title">Tietoja</string>
-    <string name="setup_page_about_subtitle">Mitä AARE on, projektin linkit ja ketkä auttoivat sen rakentamisessa</string>
+    <string name="setup_page_about_subtitle">Mitä DashGrid on, projektin linkit ja ketkä auttoivat sen rakentamisessa</string>
 
     <!-- car_data: the read-only car sensor viewer -->
     <string name="car_data_not_connected">Yhdistä autoon nähdäksesi sen tiedot.</string>
@@ -564,8 +564,8 @@
     <string name="car_data_show_in_car_subtitle">Lisää autoon diagnostiikkasovellus näitä reaaliaikaisia tietoja varten</string>
 
     <!-- about: Tietoja-sivu -->
-    <string name="about_section_what_title">Mitä AARE on</string>
-    <string name="about_text">AARE on avoimen lähdekoodin uudelleentoteutus Android Auton puhelinpuolesta: se puhuu Android Auton projisointiprotokollaa suoraan auton soittolaitteen kanssa, piirtää auton näytön itse ja suorittaa navigointi-, media- ja viestisovelluksia tarvitsematta Google Play -palveluita.</string>
+    <string name="about_section_what_title">Mitä DashGrid on</string>
+    <string name="about_text">DashGrid on avoimen lähdekoodin uudelleentoteutus Android Auton puhelinpuolesta: se puhuu Android Auton projisointiprotokollaa suoraan auton soittolaitteen kanssa, piirtää auton näytön itse ja suorittaa navigointi-, media- ja viestisovelluksia tarvitsematta Google Play -palveluita.</string>
     <string name="about_section_links_title">Projekti</string>
     <string name="about_link_repository">Koodivarasto</string>
     <string name="about_link_issues">Ongelmat</string>
@@ -581,7 +581,7 @@
     <string name="about_oss_protocol_title">Protokollamääritykset</string>
 
     <string name="obd_adapter_title">Lue OBD2-sovitinta</string>
-    <string name="obd_adapter_subtitle">Bluetoothilla yhdistetty ELM327-sovitin, jota luetaan auton ollessa yhdistettynä: moottoritietoja, joita auto ei lähetä AARElle. Vain luku: AARE ei koskaan kirjoita autoon.</string>
+    <string name="obd_adapter_subtitle">Bluetoothilla yhdistetty ELM327-sovitin, jota luetaan auton ollessa yhdistettynä: moottoritietoja, joita auto ei lähetä DashGridlle. Vain luku: DashGrid ei koskaan kirjoita autoon.</string>
     <string name="obd_simulated_title">Simuloitu OBD2-sovitin (vianetsintä)</string>
     <string name="obd_simulated_subtitle">Simuloitu auto oikean sovittimen sijaan tämän sivun kokeilemiseen</string>
     <string name="obd_section">OBD2-sovitin</string>
@@ -606,7 +606,7 @@
     <string name="vehicles_import">Tuo tiedosto…</string>
     <string name="vehicles_template">Kirjoita malli</string>
     <string name="vehicles_builtin_fixes_title">Sisäänrakennetut autokorjaukset</string>
-    <string name="vehicles_builtin_fixes_subtitle">AAREn mukana tulevat korjaukset tietyille keskusyksiköille: ei langatonta yhteyttä, jos se ei toimi, videon koko, navigoinnin ääni, sähköautot, näytön pikselien muoto, Poistu-kohdan nimi. Pois: jokainen auto toimii kuten ennen. vehicles.json-sääntö voi ottaa ne käyttöön yhdelle autolle (builtInFixes).</string>
+    <string name="vehicles_builtin_fixes_subtitle">DashGridn mukana tulevat korjaukset tietyille keskusyksiköille: ei langatonta yhteyttä, jos se ei toimi, videon koko, navigoinnin ääni, sähköautot, näytön pikselien muoto, Poistu-kohdan nimi. Pois: jokainen auto toimii kuten ennen. vehicles.json-sääntö voi ottaa ne käyttöön yhdelle autolle (builtInFixes).</string>
     <string name="quirks_section_title">Auton kummallisuudet</string>
     <string name="quirks_subtitle">Tämä, on kummallisuuksien lista.</string>
     <string name="quirks_hint">Korvaa vehicles.jsonin kummallisuudet yhdelle autolle: viimeksi yhdistetylle keskusyksikölle. Automaattinen säilyttää sen, mitä sisäänrakennetut autokorjaukset ja vehicles.json-tiedostosi siitä sanovat. Muut autot eivät vaikutu.</string>
@@ -622,9 +622,9 @@
     <string name="quirks_single_channel_capture_title">Navigoinnin ääni yhdellä kanavalla</string>
     <string name="quirks_single_channel_capture_subtitle">Päällä: lähettää navigoinnin äänen musiikkikanavalla ja jättää opastuskanavan käyttämättä. Pois: käyttää opastuskanavaa normaalisti.</string>
     <string name="quirks_wifi_media_silence_title">Hiljaisuus musiikin alussa Wi-Fissä</string>
-    <string name="quirks_wifi_media_silence_subtitle">Päällä: lähettää vehicles.jsonin hiljaiset viestit (tai AAREn oletuksen) ennen musiikkivirran alkamista Wi-Fin kautta. Pois: ei lähetä yhtäkään.</string>
+    <string name="quirks_wifi_media_silence_subtitle">Päällä: lähettää vehicles.jsonin hiljaiset viestit (tai DashGridn oletuksen) ennen musiikkivirran alkamista Wi-Fin kautta. Pois: ei lähetä yhtäkään.</string>
     <string name="quirks_wifi_guidance_silence_title">Hiljaisuus opastuksen alussa Wi-Fissä</string>
-    <string name="quirks_wifi_guidance_silence_subtitle">Päällä: lähettää vehicles.jsonin hiljaiset viestit (tai AAREn oletuksen) ennen navigoinnin äänivirran alkamista Wi-Fin kautta. Pois: ei lähetä yhtäkään.</string>
+    <string name="quirks_wifi_guidance_silence_subtitle">Päällä: lähettää vehicles.jsonin hiljaiset viestit (tai DashGridn oletuksen) ennen navigoinnin äänivirran alkamista Wi-Fin kautta. Pois: ei lähetä yhtäkään.</string>
     <string name="quirks_media_on_gain_transient_title">Musiikki navigointi-ilmoitusten aikana</string>
     <string name="quirks_media_on_gain_transient_subtitle">Päällä: musiikki jatkuu, kun auto vastaa navigointi-ilmoituksen pyyntöön GAIN_TRANSIENTilla. Pois: silloin soi vain navigoinnin ääni. GAIN_TRANSIENT, joka vastaa musiikin omaan pyyntöön, tai jonka auto lähettää omasta aloitteestaan, antaa musiikin soida aina.</string>
     <string name="quirks_pause_on_guidance_only_title">Taukoa musiikkiin vain opastuksella</string>
@@ -644,7 +644,7 @@
     <string name="setup_toggle_force_h264_title">Pakota H.264-video</string>
     <string name="setup_toggle_constant_bitrate_title">Vakiobittinopeuksinen video</string>
     <string name="setup_toggle_constant_bitrate_subtitle">Pitää kunkin kuvan likimain samankokoisena. Ota käyttöön, jos auto katkaisee yhteyden koko kuvan vaihtuessa, kuten puhelimen näytön tai videon kanssa. Vilkkaat kuvat pehmenevät hieman. Astuu voimaan seuraavasta yhteydestä alkaen.</string>
-    <string name="setup_toggle_force_h264_subtitle">AARE käyttää oletusarvoisesti parasta koodekkia, jonka auto ja puhelin jakavat (H.265…). Ota käyttöön, jos auton kuva on häiriöinen.</string>
+    <string name="setup_toggle_force_h264_subtitle">DashGrid käyttää oletusarvoisesti parasta koodekkia, jonka auto ja puhelin jakavat (H.265…). Ota käyttöön, jos auton kuva on häiriöinen.</string>
     <string name="common_ok">OK</string>
     <string name="common_try_again">Yritä uudelleen</string>
     <string name="common_something_went_wrong">Jokin meni pieleen</string>
@@ -654,14 +654,14 @@
     <string name="update_check_now">Tarkista nyt</string>
     <string name="update_checking">Tarkistetaan…</string>
     <string name="update_check_latest">Sinulla on uusin versio (%1$s).</string>
-    <string name="update_check_available">AARE %1$s on saatavilla: katso aloitusnäyttö.</string>
+    <string name="update_check_available">DashGrid %1$s on saatavilla: katso aloitusnäyttö.</string>
     <string name="update_check_failed">GitHubiin ei saatu yhteyttä. Yritä myöhemmin uudelleen.</string>
     <string name="update_available_title">Päivitys saatavilla — %1$s</string>
     <string name="update_available_subtitle">Käytössäsi on %1$s. Napauta nähdäksesi julkaisun.</string>
     <string name="setup_log_save">Tallenna</string>
     <string name="setup_section_developer_log">Kehittäjäloki</string>
     <string name="setup_toggle_dev_log_title">Kehittäjätila</string>
-    <string name="setup_toggle_dev_log_subtitle">Kirjoittaa kaiken, mitä AARE kirjaa, tekstitiedostoihin polussa %1$s (enintään 50 MB). Kun poistat tilan käytöstä, tiedostot poistetaan: tallenna ne ensin.</string>
+    <string name="setup_toggle_dev_log_subtitle">Kirjoittaa kaiken, mitä DashGrid kirjaa, tekstitiedostoihin polussa %1$s (enintään 50 MB). Kun poistat tilan käytöstä, tiedostot poistetaan: tallenna ne ensin.</string>
     <string name="setup_toggle_dev_log_privacy_title">Piilota henkilötiedot</string>
     <string name="setup_toggle_dev_log_privacy_subtitle">Peittää osoitteet, verkkojen ja laitteiden nimet sekä muut tunnistamansa henkilötiedot. Lue tiedosto ennen sen jakamista.</string>
     <string name="setup_dev_log_save">Tallenna kehittäjäloki</string>
@@ -669,7 +669,7 @@
     <string name="setup_toggle_verbose_log_title">Yksityiskohtainen protokollaloki</string>
     <string name="setup_toggle_verbose_log_subtitle">Tallentaa koko soittolaitteen protokollajäljen tähän lokiin, liitettäväksi vikailmoitukseen. Kirjaa paljon; jätä muuten pois päältä.</string>
     <string name="setup_section_backup">Asetusten varmuuskopio</string>
-    <string name="setup_backup_hint">Tallenna asetukset tiedostoon tai lataa ne takaisin. Luotetut soittolaitteet, varmenteet, puhelinkohtaiset tiedot ja valinnat, jotka avaavat AAREn verkkoon tai ohittavat turvatarkistuksen (soittolaitteen palvelin, matkustajatila, root-ääni…), jätetään pois: aseta ne käsin jokaisessa puhelimessa.</string>
+    <string name="setup_backup_hint">Tallenna asetukset tiedostoon tai lataa ne takaisin. Luotetut soittolaitteet, varmenteet, puhelinkohtaiset tiedot ja valinnat, jotka avaavat DashGridn verkkoon tai ohittavat turvatarkistuksen (soittolaitteen palvelin, matkustajatila, root-ääni…), jätetään pois: aseta ne käsin jokaisessa puhelimessa.</string>
     <string name="setup_backup_export">Vie…</string>
     <string name="setup_backup_import">Tuo…</string>
     <string name="setup_backup_import_confirm_title">Korvataanko asetukset?</string>
@@ -678,7 +678,7 @@
     <string name="setup_backup_import_done">Asetukset tuotu.</string>
     <string name="setup_backup_import_done_skipped">Asetukset tuotu. Ohitettu tuntemattomina, estettyinä tai virheellisinä: %1$d</string>
     <string name="setup_backup_import_blocked">Ei tuotu, turvallisuuden vuoksi (ota nämä käyttöön käsin tässä puhelimessa): %1$s</string>
-    <string name="setup_backup_import_failed">Tiedostoa ei voi tuoda: se ei ole AAREn asetustiedosto tai se on liian suuri.</string>
+    <string name="setup_backup_import_failed">Tiedostoa ei voi tuoda: se ei ole DashGridn asetustiedosto tai se on liian suuri.</string>
     <string name="setup_backup_export_failed">Asetustiedostoa ei voitu tallentaa.</string>
     <string name="setup_nothing_to_open">Puhelimessa ei ole sovellusta, joka voisi avata tämän</string>
     <string name="setup_wallpaper_failed">Tätä kuvaa ei voitu käyttää taustakuvana</string>
@@ -706,7 +706,7 @@
     <string name="media_error_skip_limit">Ohitusraja saavutettu</string>
     <string name="media_error_setup">Viimeistele %1$s:n käyttöönotto puhelimessasi</string>
     <string name="media_error_end_of_playlist">Soittolistan loppu</string>
-    <string name="media_error_permission">%1$s ei salli AAREn selata sitä</string>
+    <string name="media_error_permission">%1$s ei salli DashGridn selata sitä</string>
     <string name="media_error_io">Verkko- tai tallennustilaongelma</string>
     <string name="media_error_not_supported">%1$s ei tue tätä</string>
     <string name="media_error_disconnected">%1$s katkaisi yhteyden</string>
@@ -721,7 +721,7 @@
     <string name="carapp_error_no_answer">%1$s ei vastannut. Se saattaa hyväksyä vain Googlen Android Auton (katso sovellusluettelo puhelimesta).</string>
     <string name="carapp_error_api_level">%1$s vaatii auton API-tason %2$d; tämä laite tukee tasoa %3$d</string>
     <string name="carapp_error_stopped">%1$s pysähtyi</string>
-    <string name="carapp_error_google_only">%1$s hyväksyy vain Googlen Android Auton. Sen täytyy sallia AARE (katso sovellusluettelo puhelimesta).</string>
+    <string name="carapp_error_google_only">%1$s hyväksyy vain Googlen Android Auton. Sen täytyy sallia DashGrid (katso sovellusluettelo puhelimesta).</string>
     <string name="carapp_error_cant_start">%1$s ei voinut käynnistyä: %2$s</string>
     <string name="dash_card_home">Koti</string>
 
@@ -730,7 +730,7 @@
     <string name="home_page_title">Kotitoiminnot</string>
     <string name="home_page_subtitle">Älykodin painikkeet ja arvot autossa, MQTT:n tai HTTP:n yli</string>
     <string name="home_toggle_title">Näytä kotitoiminnot autossa</string>
-    <string name="home_toggle_subtitle">Koti-sovellus ja kojelaudan kortti. AARE yhdistää palvelimiisi vain, kun auton näyttö on päällä.</string>
+    <string name="home_toggle_subtitle">Koti-sovellus ja kojelaudan kortti. DashGrid yhdistää palvelimiisi vain, kun auton näyttö on päällä.</string>
     <string name="home_intro">Toiminnot ovat painikkeita, jotka julkaisevat MQTT-viestin tai lähettävät HTTP-pyynnön (avaavat autotallin, sytyttävät valot). Laatat näyttävät arvon MQTT-aiheesta tai HTTP-vastauksesta. Home Assistant toimii REST-rajapintansa, webhookin tai MQTT:n kautta.</string>
     <string name="home_section_connections">Yhteydet</string>
     <string name="home_broker_title">MQTT-välittäjä</string>
@@ -831,7 +831,7 @@
     <string name="home_preset_http_webhook_subtitle">Lähettää POST-pyynnön osoitteeseen</string>
     <string name="home_preset_http_json">HTTP JSON -arvo</string>
     <string name="home_preset_http_json_subtitle">Laatta, jossa yksi arvo JSON-vastauksesta, kyselty säännöllisesti</string>
-    <string name="home_car_empty">Määritä kotitoiminnot puhelimella: AARE &gt; Kotitoiminnot.</string>
+    <string name="home_car_empty">Määritä kotitoiminnot puhelimella: DashGrid &gt; Kotitoiminnot.</string>
     <string name="home_confirm_question">%1$s nyt?</string>
     <string name="home_confirm_run">Suorita</string>
     <string name="home_action_done">Valmis</string>
@@ -846,37 +846,37 @@
     <string name="home_error_http_lan_off">pelkkä http:// on pois päältä: ota käyttöön \"Salli pelkkä http kotiverkossani\" HTTP-palvelimelle</string>
     <string name="home_error_tls">palvelimen varmenteeseen ei luoteta</string>
     <string name="home_error_generic">jokin meni pieleen</string>
-    <string name="shizuku_setup_title">Myönnä AAREn käyttöoikeudet Shizukulla</string>
+    <string name="shizuku_setup_title">Myönnä DashGridn käyttöoikeudet Shizukulla</string>
     <string name="shizuku_setup_subtitle">Yksi napautus myöntää sen, mikä puuttuu vielä, ilman kunkin käyttöoikeuden omaa valintaikkunaa: mikrofoni, sijainti, yhteystiedot, puhelulokit, kalenteri, puhelut, lähellä olevat laitteet (Bluetooth, Wi-Fi), paikallinen verkko, ilmoitukset ja ilmoitusten käyttöoikeus</string>
     <string name="shizuku_setup_working">Myönnetään…</string>
     <string name="shizuku_setup_result_title">Myönnetty Shizukulla</string>
     <string name="shizuku_setup_nothing_to_grant">Kaikki oli jo myönnetty.</string>
     <string name="shizuku_setup_not_granted">Ei myönnetty: %1$s</string>
     <string name="shizuku_setup_notification_access">Ilmoitusten käyttöoikeus</string>
-    <string name="shizuku_setup_helper_failed">Shizukun apuohjelma ei käynnistynyt. Tarkista, että Shizuku on käynnissä ja sallii AAREn.</string>
+    <string name="shizuku_setup_helper_failed">Shizukun apuohjelma ei käynnistynyt. Tarkista, että Shizuku on käynnissä ja sallii DashGridn.</string>
     <string name="aa_section_title">Googlen Android Auto</string>
-    <string name="aa_state_enabled">Asennettu ja käytössä: kun auto yhdistetään, Android voi antaa sen Android Autolle AAREn sijaan tai kysyä, mitä sovellusta käytetään.</string>
+    <string name="aa_state_enabled">Asennettu ja käytössä: kun auto yhdistetään, Android voi antaa sen Android Autolle DashGridn sijaan tai kysyä, mitä sovellusta käytetään.</string>
     <string name="aa_state_disabled">Pois käytöstä: Android Auto ei ota autoa. Sen tiedot säilyvät.</string>
     <string name="aa_action_disable">Estä Android Autoa ottamasta autoa</string>
     <string name="aa_action_enable">Ota Android Auto käyttöön uudelleen</string>
     <string name="aa_working">Käsitellään…</string>
-    <string name="aa_needs_shizuku">Shizukun kautta (käynnissä ja sallii AAREn), tai käsin Android Auton sovellustiedoissa.</string>
+    <string name="aa_needs_shizuku">Shizukun kautta (käynnissä ja sallii DashGridn), tai käsin Android Auton sovellustiedoissa.</string>
     <string name="aa_app_info">Android Auton sovellustiedot</string>
     <string name="aa_failed">Ei onnistunut: %1$s</string>
     <string name="aa_confirm_title">Poistetaanko Android Auto käytöstä?</string>
-    <string name="aa_confirm_text">AARE poistaa Googlen Android Auton käytöstä tälle käyttäjälle Shizukun kautta (pm disable-user). Se lakkaa toimimasta, katoaa sovellusluettelosta eikä vastaa enää, kun auto yhdistetään, niin auto tulee aina AARElle.\n\nMitään ei poisteta, ja sen tiedot säilyvät. Autot, sovellukset tai ominaisuudet, jotka tarvitsevat Googlen Android Autoa, eivät toimi, ennen kuin otat sen käyttöön uudelleen tästä painikkeesta.</string>
+    <string name="aa_confirm_text">DashGrid poistaa Googlen Android Auton käytöstä tälle käyttäjälle Shizukun kautta (pm disable-user). Se lakkaa toimimasta, katoaa sovellusluettelosta eikä vastaa enää, kun auto yhdistetään, niin auto tulee aina DashGridlle.\n\nMitään ei poisteta, ja sen tiedot säilyvät. Autot, sovellukset tai ominaisuudet, jotka tarvitsevat Googlen Android Autoa, eivät toimi, ennen kuin otat sen käyttöön uudelleen tästä painikkeesta.</string>
     <string name="aa_confirm_action">Poista käytöstä</string>
 
     <string name="setup_section_companion">Langaton yhdellä napautuksella</string>
-    <string name="setup_companion_hint">Yhdistä laitepariksi auto, johon olet jo yhdistänyt langattomasti: Android käynnistää tämän jälkeen AAREn, kun kyseisen auton Bluetooth yhdistää, vaikka puhelin olisi taskussa. Android pyytää vahvistuksen kerran per auto.</string>
+    <string name="setup_companion_hint">Yhdistä laitepariksi auto, johon olet jo yhdistänyt langattomasti: Android käynnistää tämän jälkeen DashGridn, kun kyseisen auton Bluetooth yhdistää, vaikka puhelin olisi taskussa. Android pyytää vahvistuksen kerran per auto.</string>
     <string name="setup_companion_empty">Yhdistä autoon langattomasti kerran, ja palaa sitten tähän yhdistääksesi sen laitepariksi.</string>
     <string name="setup_companion_failed">Android ei yhdistänyt autoa laitepariksi: %1$s</string>
     <string name="setup_action_associate">Yhdistä laitepariksi</string>
     <string name="setup_toggle_companion_shizuku_title">Hyväksy auton Wi-Fi Shizukulla</string>
-    <string name="setup_toggle_companion_shizuku_subtitle">Laiteparina yhdistetyille autoille Shizuku vastaa Androidin \"yhdistä laitteeseen\" -kysymykseen, jotta sitä ei kysytä uudelleen. Auton verkko pysyy AAREn omana, ei koskaan puhelimen internetyhteytenä. Vaatii, että Shizuku on käynnissä ja sallii AAREn.</string>
+    <string name="setup_toggle_companion_shizuku_subtitle">Laiteparina yhdistetyille autoille Shizuku vastaa Androidin \"yhdistä laitteeseen\" -kysymykseen, jotta sitä ei kysytä uudelleen. Auton verkko pysyy DashGridn omana, ei koskaan puhelimen internetyhteytenä. Vaatii, että Shizuku on käynnissä ja sallii DashGridn.</string>
 
     <string name="setup_toggle_auto_pair_title">Yhdistä auton Bluetooth laiteparina automaattisesti</string>
-    <string name="setup_toggle_auto_pair_subtitle">Puheluita varten: kun auto, jonka kanssa puhelinta ei ole liitetty laitepariksi, pyytää laiteparin muodostamista Android Auton kautta, AARE muodostaa laiteparin sen auton kanssa Shizukun kautta Androidin valintaikkunan sijaan, jos koodi vastaa auton lähettämää. Ei koskaan minkään muun laitteen kanssa. Vaatii, että Shizuku on käynnissä ja sallii AAREn.</string>
+    <string name="setup_toggle_auto_pair_subtitle">Puheluita varten: kun auto, jonka kanssa puhelinta ei ole liitetty laitepariksi, pyytää laiteparin muodostamista Android Auton kautta, DashGrid muodostaa laiteparin sen auton kanssa Shizukun kautta Androidin valintaikkunan sijaan, jos koodi vastaa auton lähettämää. Ei koskaan minkään muun laitteen kanssa. Vaatii, että Shizuku on käynnissä ja sallii DashGridn.</string>
 
     <string name="calibration_title">Kosketusnäytön kalibrointi</string>
     <string name="calibration_intro">Jos kosketukset osuvat auton näytöllä väärään kohtaan, mittaa tämän auton kosketusnäyttö: asetat näkyvän alueen puhelimessa ja kosketat sitten 4 kohdetta auton näytöllä. Tee se auton seistessä.</string>
@@ -887,7 +887,7 @@
     <string name="calibration_start">Aloita kalibrointi</string>
     <string name="calibration_reset">Palauta auton arvot</string>
     <string name="calibration_forget">Unohda</string>
-    <string name="calibration_area_help">Vaihe 1/3. Auton näytöllä keltainen L merkitsee jokaista sen alueen kulmaa, johon AARE piirtää. Siirrä kutakin reunaa, kunnes sen L on aivan näytön reunassa ja näkyy kokonaan.</string>
+    <string name="calibration_area_help">Vaihe 1/3. Auton näytöllä keltainen L merkitsee jokaista sen alueen kulmaa, johon DashGrid piirtää. Siirrä kutakin reunaa, kunnes sen L on aivan näytön reunassa ja näkyy kokonaan.</string>
     <string name="calibration_area_value">%1$s: %2$d px</string>
     <string name="calibration_edge_left">Vasen</string>
     <string name="calibration_edge_top">Ylä</string>

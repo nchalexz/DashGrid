@@ -3,7 +3,7 @@ package net.prototux.aare.host
 import java.net.URI
 import java.net.URLDecoder
 
-/** An `aare://` link an assistant's reply can trigger, once [AssistantLinks.parse] has allowed it. */
+/** An `dashgrid://` link an assistant's reply can trigger, once [AssistantLinks.parse] has allowed it. */
 internal sealed interface AssistantLink {
     data class Navigate(val query: String) : AssistantLink
     data class Play(val action: String) : AssistantLink
@@ -12,7 +12,7 @@ internal sealed interface AssistantLink {
 }
 
 /**
- * Parses an `aare://` deep link (see docs/assistant-links.md) into one of the allowed
+ * Parses an `dashgrid://` deep link (see docs/assistant-links.md) into one of the allowed
  * [AssistantLink]s, or null for anything else: a different scheme, an unknown host, or a
  * missing/malformed parameter. This is the allowlist itself, so it accepts nothing beyond the
  * four actions below, whatever the link asks for.
@@ -26,7 +26,7 @@ internal object AssistantLinks {
 
     fun parse(link: String): AssistantLink? {
         val uri = runCatching { URI(link) }.getOrNull() ?: return null
-        if (!uri.scheme.equals("aare", ignoreCase = true)) return null
+        if (!uri.scheme.equals("dashgrid", ignoreCase = true)) return null
         val params = queryParams(uri.rawQuery)
         return when (uri.host?.lowercase()) {
             "navigate" -> text(params, "q")?.let(AssistantLink::Navigate)

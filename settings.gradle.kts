@@ -18,7 +18,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AARE"
+rootProject.name = "DashGrid"
 include(":aap")
 include(":app")
 include(":headunit")

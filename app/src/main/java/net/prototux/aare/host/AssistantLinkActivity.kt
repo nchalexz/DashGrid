@@ -10,7 +10,7 @@ import net.prototux.aare.car.Calls
 import org.json.JSONObject
 
 /**
- * Entry point for `aare://` links in an assistant's reply (a notification action, a link it
+ * Entry point for `dashgrid://` links in an assistant's reply (a notification action, a link it
  * opens…): maps a handful of safe actions to the car tools already offered to an in-car
  * assistant (see [CarTools], [CarControlProvider]). The format is documented in
  * docs/assistant-links.md.

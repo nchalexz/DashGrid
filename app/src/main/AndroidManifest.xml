@@ -147,10 +147,10 @@
         <!-- Car tools for the voice assistant (CarControlProvider checks the caller). -->
         <provider
             android:name=".host.CarControlProvider"
-            android:authorities="net.prototux.aare.car"
+            android:authorities="io.dashgrid.app.car"
             android:exported="true" />
 
-        <!-- aare:// links in an assistant's reply (a notification action, a link in its app): see
+        <!-- dashgrid:// links in an assistant's reply (a notification action, a link in its app): see
              docs/assistant-links.md. Exported so the assistant can start it, but not BROWSABLE: no
              web page (AARE's own browser included) can open it. The activity also refuses any
              caller but the chosen assistant. -->
@@ -164,7 +164,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="aare" />
+                <data android:scheme="dashgrid" />
             </intent-filter>
         </activity>
 

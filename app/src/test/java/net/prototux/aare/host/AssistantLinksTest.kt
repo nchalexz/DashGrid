@@ -9,56 +9,56 @@ import org.junit.Test
 class AssistantLinksTest {
     @Test
     fun navigateTakesTheQueryParameter() {
-        assertEquals(AssistantLink.Navigate("132 rue de Rivoli"), AssistantLinks.parse("aare://navigate?q=132%20rue%20de%20Rivoli"))
-        assertEquals(AssistantLink.Navigate("the airport"), AssistantLinks.parse("aare://navigate?q=the+airport"))
+        assertEquals(AssistantLink.Navigate("132 rue de Rivoli"), AssistantLinks.parse("dashgrid://navigate?q=132%20rue%20de%20Rivoli"))
+        assertEquals(AssistantLink.Navigate("the airport"), AssistantLinks.parse("dashgrid://navigate?q=the+airport"))
     }
 
     @Test
     fun navigateWithoutOrWithABlankDestinationIsRejected() {
-        assertNull(AssistantLinks.parse("aare://navigate"))
-        assertNull(AssistantLinks.parse("aare://navigate?q="))
-        assertNull(AssistantLinks.parse("aare://navigate?q=%20"))
+        assertNull(AssistantLinks.parse("dashgrid://navigate"))
+        assertNull(AssistantLinks.parse("dashgrid://navigate?q="))
+        assertNull(AssistantLinks.parse("dashgrid://navigate?q=%20"))
     }
 
     @Test
     fun playDefaultsToPlayAndAcceptsTheFourTransportActions() {
-        assertEquals(AssistantLink.Play("play"), AssistantLinks.parse("aare://play"))
-        assertEquals(AssistantLink.Play("pause"), AssistantLinks.parse("aare://play?action=pause"))
-        assertEquals(AssistantLink.Play("next"), AssistantLinks.parse("aare://play?action=NEXT"))
-        assertEquals(AssistantLink.Play("previous"), AssistantLinks.parse("aare://play?q=previous"))
+        assertEquals(AssistantLink.Play("play"), AssistantLinks.parse("dashgrid://play"))
+        assertEquals(AssistantLink.Play("pause"), AssistantLinks.parse("dashgrid://play?action=pause"))
+        assertEquals(AssistantLink.Play("next"), AssistantLinks.parse("dashgrid://play?action=NEXT"))
+        assertEquals(AssistantLink.Play("previous"), AssistantLinks.parse("dashgrid://play?q=previous"))
     }
 
     @Test
     fun playRejectsAnythingNotOnTheTransportAllowlist() {
-        assertNull(AssistantLinks.parse("aare://play?action=shuffle"))
-        assertNull(AssistantLinks.parse("aare://play?action=rm%20-rf"))
+        assertNull(AssistantLinks.parse("dashgrid://play?action=shuffle"))
+        assertNull(AssistantLinks.parse("dashgrid://play?action=rm%20-rf"))
     }
 
     @Test
     fun openTakesTheAppOrQParameter() {
-        assertEquals(AssistantLink.Open("CoMaps"), AssistantLinks.parse("aare://open?app=CoMaps"))
-        assertEquals(AssistantLink.Open("Spotify"), AssistantLinks.parse("aare://open?q=Spotify"))
-        assertNull(AssistantLinks.parse("aare://open"))
+        assertEquals(AssistantLink.Open("CoMaps"), AssistantLinks.parse("dashgrid://open?app=CoMaps"))
+        assertEquals(AssistantLink.Open("Spotify"), AssistantLinks.parse("dashgrid://open?q=Spotify"))
+        assertNull(AssistantLinks.parse("dashgrid://open"))
     }
 
     @Test
     fun callKeepsOnlyDigitsAndALeadingPlus() {
-        assertEquals(AssistantLink.Call("+15551234567"), AssistantLinks.parse("aare://call?n=%2B1%20(555)%20123-4567"))
-        assertEquals(AssistantLink.Call("112"), AssistantLinks.parse("aare://call?n=112"))
+        assertEquals(AssistantLink.Call("+15551234567"), AssistantLinks.parse("dashgrid://call?n=%2B1%20(555)%20123-4567"))
+        assertEquals(AssistantLink.Call("112"), AssistantLinks.parse("dashgrid://call?n=112"))
     }
 
     @Test
     fun callWithNoDigitsOrACodeIsRejected() {
-        assertNull(AssistantLinks.parse("aare://call?n=%23"))
-        assertNull(AssistantLinks.parse("aare://call?n="))
-        assertNull(AssistantLinks.parse("aare://call"))
+        assertNull(AssistantLinks.parse("dashgrid://call?n=%23"))
+        assertNull(AssistantLinks.parse("dashgrid://call?n="))
+        assertNull(AssistantLinks.parse("dashgrid://call"))
     }
 
     @Test
     fun onlyTheFourKnownHostsAreAllowed() {
-        assertNull(AssistantLinks.parse("aare://settings"))
-        assertNull(AssistantLinks.parse("aare://run?cmd=rm"))
-        assertNull(AssistantLinks.parse("aare://"))
+        assertNull(AssistantLinks.parse("dashgrid://settings"))
+        assertNull(AssistantLinks.parse("dashgrid://run?cmd=rm"))
+        assertNull(AssistantLinks.parse("dashgrid://"))
     }
 
     @Test
@@ -99,7 +99,7 @@ class AssistantLinksTest {
 
     @Test
     fun aareItselfNeverCountsAsTheAssistant() {
-        // Its browser would otherwise relay a web page's aare:// link.
+        // Its browser would otherwise relay a web page's dashgrid:// link.
         assertFalse(AssistantLinks.callerAllowed(OWN, OWN, OWN))
         assertFalse(AssistantLinks.callerAllowed(OWN, "app.lapin", OWN))
     }

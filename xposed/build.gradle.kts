@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "net.prototux.aare.xposed"
+        applicationId = "io.dashgrid.app.xposed"
         minSdk = 26
         targetSdk = 37
         versionCode = 1

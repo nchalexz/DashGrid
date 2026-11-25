@@ -1,12 +1,24 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+}
+
+// DashGrid's own release key (keystore.properties is not committed to any public repository):
+// the same key signs every update, so an installed DashGrid can be updated in place.
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) keystorePropsFile.inputStream().use { input -> load(input) }
 }
 
 // Car screen mockups for the README (tools/mockups.sh): Paparazzi draws them on the JVM. Only with
 // -Pmockups, so ordinary builds and CI don't carry it; it doesn't support the configuration cache here.
 val mockups = providers.gradleProperty("mockups").isPresent
 if (mockups) apply(plugin = libs.plugins.paparazzi.get().pluginId)
+
+// The fork's released version: raised here, and used for the APK file name below.
+val dashgridVersionName = "1.0.0"
 
 android {
     namespace = "net.prototux.aare"
@@ -15,7 +27,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "net.prototux.aare"
+        applicationId = "io.dashgrid.app"
         // Android 6. Newer features need newer Android: notification channels and foreground-
         // service start (8), car audio by screen capture and the modern Wi-Fi join (10), Shizuku
         // capture (12); older phones fall back or go without. A one-time notice on Android 6 and 7
@@ -25,25 +37,32 @@ android {
         // The released version, raised in the release commit (the release workflow checks that the
         // tag matches): F-Droid builds the tag and reads it from here. versionCode is
         // major * 10000 + minor * 100 + patch. -PversionName / -PversionCode still override it.
-        versionCode = 10600
-        versionName = "1.6.0"
+        versionCode = 10000
+        versionName = dashgridVersionName
         providers.gradleProperty("versionCode").orNull?.let { versionCode = it.toInt() }
         providers.gradleProperty("versionName").orNull?.let { versionName = it }
-        // The check for a newer release on GitHub (UpdateChecker): off with -Paare.updateCheck=false,
-        // for stores that update the app themselves (F-Droid).
-        buildConfigField("boolean", "UPDATE_CHECK", (providers.gradleProperty("aare.updateCheck").orNull != "false").toString())
+        // The update check points at the upstream AARE repository, so it is off unless a DashGrid
+        // release repository is configured: -Pdashgrid.updateCheck=true turns it back on.
+        buildConfigField("boolean", "UPDATE_CHECK", (providers.gradleProperty("dashgrid.updateCheck").orNull == "true").toString())
     }
 
     signingConfigs {
-        // Release key from the environment (the release workflow's secrets). Without it the
-        // release APK is unsigned: use the debug one locally.
-        val keystore = providers.environmentVariable("AARE_KEYSTORE").orNull
-        if (keystore != null) {
+        // DashGrid's own key: keystore.properties (kept out of public repositories) or the
+        // DASHGRID_KEYSTORE* environment variables. Without it the release APK is unsigned.
+        if (keystorePropsFile.exists()) {
             create("release") {
+                storeFile = rootProject.file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
+        } else {
+            val keystore = providers.environmentVariable("DASHGRID_KEYSTORE").orNull
+            if (keystore != null) create("release") {
                 storeFile = file(keystore)
-                storePassword = providers.environmentVariable("AARE_KEYSTORE_PASSWORD").orNull
-                keyAlias = providers.environmentVariable("AARE_KEY_ALIAS").orNull
-                keyPassword = providers.environmentVariable("AARE_KEY_PASSWORD").orNull
+                storePassword = providers.environmentVariable("DASHGRID_KEYSTORE_PASSWORD").orNull
+                keyAlias = providers.environmentVariable("DASHGRID_KEY_ALIAS").orNull
+                keyPassword = providers.environmentVariable("DASHGRID_KEY_PASSWORD").orNull
             }
         }
     }
@@ -77,6 +96,20 @@ android {
         disable += setOf("ProtectedPermissions", "QueryAllPackagesPermission")
         disable += setOf("GradleDependency", "NewerVersionAvailable", "AndroidGradlePluginVersion")
     }
+}
+
+/**
+ * The release APK under the name the project publishes: DashGrid-v<version>.apk.
+ * `./gradlew dashgridApk` signs, builds and renames it.
+ */
+val dashgridVersion = providers.gradleProperty("versionName").orNull ?: dashgridVersionName
+tasks.register<Copy>("dashgridApk") {
+    group = "build"
+    description = "Builds the signed release APK as DashGrid-v$dashgridVersion.apk"
+    dependsOn("assembleRelease")
+    from(layout.buildDirectory.file("outputs/apk/release/app-release.apk"))
+    into(layout.buildDirectory.dir("outputs/dashgrid"))
+    rename("app-release\\.apk", "DashGrid-v$dashgridVersion.apk")
 }
 
 dependencies {

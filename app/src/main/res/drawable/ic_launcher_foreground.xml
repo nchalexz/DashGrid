@@ -2,11 +2,27 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp"
     android:viewportWidth="108" android:viewportHeight="108">
-    <!-- screen -->
-    <path android:fillColor="#00000000" android:strokeColor="#FFFFFF" android:strokeWidth="5"
-        android:pathData="M34,38h40a6,6 0 0 1 6,6v20a6,6 0 0 1 -6,6h-40a6,6 0 0 1 -6,-6v-20a6,6 0 0 1 6,-6z" />
-    <!-- river wave -->
-    <path android:fillColor="#00000000" android:strokeColor="#3DDBC6" android:strokeWidth="5"
-        android:strokeLineCap="round"
-        android:pathData="M37,58c5,-7 9,-7 14,0s9,7 14,0 9,-7 8,-2" />
+    <!-- The workspaces either side, only partly in view: the carousel's neighbours. -->
+    <path android:fillColor="#252E36"
+        android:pathData="M-2,41a5,5 0 0 1 5,-5h16a5,5 0 0 1 5,5v26a5,5 0 0 1 -5,5h-16a5,5 0 0 1 -5,-5z" />
+    <path android:fillColor="#252E36"
+        android:pathData="M84,41a5,5 0 0 1 5,-5h16a5,5 0 0 1 5,5v26a5,5 0 0 1 -5,5h-16a5,5 0 0 1 -5,-5z" />
+    <!-- The active workspace: one screen divided into cells of different sizes. -->
+    <path android:fillColor="#1B2229"
+        android:pathData="M33,28h42a6,6 0 0 1 6,6v36a6,6 0 0 1 -6,6h-42a6,6 0 0 1 -6,-6v-36a6,6 0 0 1 6,-6z" />
+    <path android:fillColor="#36D6C3"
+        android:pathData="M34,32h16a3,3 0 0 1 3,3v22a3,3 0 0 1 -3,3h-16a3,3 0 0 1 -3,-3v-22a3,3 0 0 1 3,-3z" />
+    <path android:fillColor="#33414D"
+        android:pathData="M57,32h17a3,3 0 0 1 3,3v7a3,3 0 0 1 -3,3h-17a3,3 0 0 1 -3,-3v-7a3,3 0 0 1 3,-3z" />
+    <path android:fillColor="#33414D"
+        android:pathData="M57,49h17a3,3 0 0 1 3,3v8a3,3 0 0 1 -3,3h-17a3,3 0 0 1 -3,-3v-8a3,3 0 0 1 3,-3z" />
+    <path android:fillColor="#33414D"
+        android:pathData="M34,64h40a3,3 0 0 1 3,3v5a3,3 0 0 1 -3,3h-40a3,3 0 0 1 -3,-3v-5a3,3 0 0 1 3,-3z" />
+    <!-- Paging: three workspaces, the middle one active. -->
+    <path android:fillColor="#94A3B8" android:fillAlpha="0.75"
+        android:pathData="M46,84m-2.2,0a2.2,2.2 0 1,1 4.4,0a2.2,2.2 0 1,1 -4.4,0" />
+    <path android:fillColor="#36D6C3"
+        android:pathData="M54,84m-2.6,0a2.6,2.6 0 1,1 5.2,0a2.6,2.6 0 1,1 -5.2,0" />
+    <path android:fillColor="#94A3B8" android:fillAlpha="0.75"
+        android:pathData="M62,84m-2.2,0a2.2,2.2 0 1,1 4.4,0a2.2,2.2 0 1,1 -4.4,0" />
 </vector>

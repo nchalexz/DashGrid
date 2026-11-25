@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AARE</string>
-    <string name="mirror_touch_description">Umožňuje používat obrazovku telefonu z auta: AARE na telefonu přehrává dotyky provedené na obrazovce auta a zjišťuje, která aplikace je v popředí, takže obrazovka telefonu zůstává při jízdě pozastavena, pokud nezobrazuje navigační aplikaci. AARE nečte nic jiného.</string>
+    <string name="app_name">DashGrid</string>
+    <string name="mirror_touch_description">Umožňuje používat obrazovku telefonu z auta: DashGrid na telefonu přehrává dotyky provedené na obrazovce auta a zjišťuje, která aplikace je v popředí, takže obrazovka telefonu zůstává při jízdě pozastavena, pokud nezobrazuje navigační aplikaci. DashGrid nečte nic jiného.</string>
     <string name="mirror_locked_placeholder">Obrazovka telefonu je pozastavena, když je telefon uzamčen. Odemkněte telefon, aby se zobrazila.</string>
-    <string name="mirror_driving_no_accessibility">Obrazovka telefonu je při jízdě pozastavena. Chcete-li zobrazovat navigační aplikace při jízdě, zapněte AARE v nastavení přístupnosti telefonu: řekne AARE, která aplikace je otevřená.</string>
+    <string name="mirror_driving_no_accessibility">Obrazovka telefonu je při jízdě pozastavena. Chcete-li zobrazovat navigační aplikace při jízdě, zapněte DashGrid v nastavení přístupnosti telefonu: řekne DashGrid, která aplikace je otevřená.</string>
     <string name="mirror_driving_nav_only">Obrazovka telefonu je při jízdě pozastavena. Zobrazuje pouze navigační aplikace.</string>
-    <string name="mirror_need_screen_capture">Obrazovka telefonu potřebuje oprávnění Androidu ke snímání obrazovky. V telefonu otevřete nastavení Zvuk v autě v AARE, klepněte na Oprávnění ke snímání obrazovky a zvolte Celou obrazovku.</string>
-    <string name="mirror_capture_failed">Android odmítl sdílet obrazovku telefonu. V telefonu znovu klepněte na Oprávnění ke snímání obrazovky v nastavení Zvuk v autě v AARE a zvolte Celou obrazovku.</string>
-    <string name="mirror_need_accessibility">Chcete-li používat telefon z auta, zapněte AARE v nastavení přístupnosti telefonu.</string>
+    <string name="mirror_need_screen_capture">Obrazovka telefonu potřebuje oprávnění Androidu ke snímání obrazovky. V telefonu otevřete nastavení Zvuk v autě v DashGrid, klepněte na Oprávnění ke snímání obrazovky a zvolte Celou obrazovku.</string>
+    <string name="mirror_capture_failed">Android odmítl sdílet obrazovku telefonu. V telefonu znovu klepněte na Oprávnění ke snímání obrazovky v nastavení Zvuk v autě v DashGrid a zvolte Celou obrazovku.</string>
+    <string name="mirror_need_accessibility">Chcete-li používat telefon z auta, zapněte DashGrid v nastavení přístupnosti telefonu.</string>
 
     <!-- common: shared across screens -->
     <string name="common_back">Zpět</string>
@@ -32,7 +32,7 @@
     <string name="setup_page_connection_subtitle">Bezdrátové připojení, kvalita videa, vaše auta</string>
     <string name="setup_page_advanced_title">Pokročilé</string>
     <string name="setup_page_advanced_subtitle">Server hlavní jednotky, certifikáty, protokol</string>
-    <string name="setup_tagline">Open-source projekce do auta</string>
+    <string name="setup_tagline">Swipe. Arrange. Drive.</string>
     <string name="setup_status_certificate">certifikát: %1$s</string>
     <string name="setup_status_disconnected_hint">Připojte telefon k portu USB Android Auto v autě, nebo se bezdrátově připojte k párovanému autu.</string>
     <string name="setup_status_last_error">Poslední chyba: %1$s</string>
@@ -49,7 +49,7 @@
     <string name="setup_check_audio_subtitle">Umožnit, aby zvuk telefonu doputoval do auta</string>
     <string name="setup_action_set_up">Nastavit</string>
     <string name="setup_old_android_title">Běží na starším Androidu</string>
-    <string name="setup_old_android_message">AARE běží také na Androidu 6 a 7, ale Android 8 je lépe podporovaným základem. Na Androidu 6 a 7 nelze oznámení o připojení umístit do vlastního kanálu, takže je nelze ztlumit samostatně od ostatních oznámení AARE v nastavení systému. Všechno ostatní funguje stejně, nebo se automaticky vrátí ke starší metodě.</string>
+    <string name="setup_old_android_message">DashGrid běží také na Androidu 6 a 7, ale Android 8 je lépe podporovaným základem. Na Androidu 6 a 7 nelze oznámení o připojení umístit do vlastního kanálu, takže je nelze ztlumit samostatně od ostatních oznámení DashGrid v nastavení systému. Všechno ostatní funguje stejně, nebo se automaticky vrátí ke starší metodě.</string>
     <string name="setup_old_android_dont_show_again">Už nezobrazovat</string>
     <string name="setup_section_connecting">Připojování</string>
     <string name="setup_toggle_wireless_title">Bezdrátově</string>
@@ -68,10 +68,10 @@
     <string name="setup_section_location">Poloha</string>
     <string name="setup_toggle_car_gps_title">Použít GPS auta</string>
     <string name="setup_toggle_car_gps_subtitle">Při připojení aplikace v telefonu vidí polohu auta místo polohy telefonu, takže navigační aplikace obě polohy nemíchají</string>
-    <string name="setup_check_mock_location_title">Povolit AARE nastavovat polohu</string>
-    <string name="setup_check_mock_location_subtitle">Možnosti pro vývojáře &gt; Vybrat aplikaci pro simulovanou polohu &gt; AARE</string>
+    <string name="setup_check_mock_location_title">Povolit DashGrid nastavovat polohu</string>
+    <string name="setup_check_mock_location_subtitle">Možnosti pro vývojáře &gt; Vybrat aplikaci pro simulovanou polohu &gt; DashGrid</string>
     <string name="setup_check_background_location_title">Navigace se zablokovaným telefonem</string>
-    <string name="setup_check_background_location_subtitle">Volitelné. Když se AARE spustí sám (Bluetooth auta), navigační aplikace udržují polohu i se zablokovaným telefonem. Oprávnění &gt; Poloha &gt; Povolit po celou dobu</string>
+    <string name="setup_check_background_location_subtitle">Volitelné. Když se DashGrid spustí sám (Bluetooth auta), navigační aplikace udržují polohu i se zablokovaným telefonem. Oprávnění &gt; Poloha &gt; Povolit po celou dobu</string>
     <string name="setup_section_video">Video</string>
     <string name="setup_toggle_60fps_title">Preferovat 60 fps</string>
     <string name="setup_toggle_60fps_subtitle">Plynnější, pokud to auto podporuje</string>
@@ -157,9 +157,9 @@
     <string name="setup_app_kind_media">Hudba, podcasty, rádio</string>
     <string name="setup_app_group_messaging">Zprávy</string>
     <string name="setup_app_kind_messaging">Zprávy z jejích oznámení</string>
-    <string name="setup_app_group_aare">AARE</string>
-    <string name="setup_app_builtin_subtitle">Součást AARE. Skrytá zmizí jen z mřížky aplikací: hovory a zvonek dál fungují.</string>
-    <string name="setup_section_unsupported_apps">Aplikace Android Auto, které AARE nemůže zobrazit</string>
+    <string name="setup_app_group_aare">DashGrid</string>
+    <string name="setup_app_builtin_subtitle">Součást DashGrid. Skrytá zmizí jen z mřížky aplikací: hovory a zvonek dál fungují.</string>
+    <string name="setup_section_unsupported_apps">Aplikace Android Auto, které DashGrid nemůže zobrazit</string>
     <string name="setup_hint_allowlist">Aplikace vytvořené s novějšími verzemi knihovny Google pro auta akceptují jen hostitele na seznamu povolených; viz README.</string>
     <string name="setup_app_entry_phone">Telefon</string>
     <string name="setup_app_entry_settings">Nastavení</string>
@@ -172,7 +172,7 @@
     <string name="setup_toggle_compact_rail_subtitle">Užší lišta s menšími ikonami a těsnějšími mezerami</string>
     <string name="setup_section_connection_log">Protokol připojení</string>
     <string name="setup_section_car_buttons">Tlačítka v autě</string>
-    <string name="setup_car_buttons_hint">Tlačítka, která AARE z tohoto auta zaznamenal. Vyberte, co má každé dělat; tlačítko ponechané na „Výchozí“ se chová jako obvykle.</string>
+    <string name="setup_car_buttons_hint">Tlačítka, která DashGrid z tohoto auta zaznamenal. Vyberte, co má každé dělat; tlačítko ponechané na „Výchozí“ se chová jako obvykle.</string>
     <string name="setup_car_buttons_empty">Zatím nebylo zaznamenáno žádné tlačítko. Připojte se k autu a nějaké stiskněte.</string>
     <string name="setup_car_button_default">Výchozí</string>
     <string name="setup_car_action_home">Domů</string>
@@ -185,7 +185,7 @@
     <string name="setup_car_action_open_media">Otevřít mediální aplikaci</string>
     <string name="setup_car_action_open_phone">Otevřít aplikaci Telefon</string>
     <string name="setup_car_action_nothing">Nic</string>
-    <string name="setup_about_text">AARE %1$s · GPL-3.0-or-later · Nesouvisí s Google. Android Auto je ochranná známka společnosti Google LLC.</string>
+    <string name="setup_about_text">DashGrid %1$s · GPL-3.0-or-later · Nesouvisí s Google. Android Auto je ochranná známka společnosti Google LLC.</string>
     <string name="setup_choice_style">Styl</string>
     <string name="setup_choice_theme">Motiv</string>
     <string name="setup_choice_layout">Rozložení</string>
@@ -212,16 +212,16 @@
 
     <!-- cert: certificate management -->
     <string name="cert_section_title">Certifikáty telefonu</string>
-    <string name="cert_hint">Hlavní jednotky kontrolují certifikát telefonu. Open-source hlavní jednotky přijímají vygenerovaný certifikát; auta se softwarem hlavní jednotky Google přijímají pouze certifikát vydaný Google, který AARE nemůže zahrnout. Můžete importovat certifikát, ke kterému máte právo použití (certifikát PEM + klíč PKCS#8, nebo PKCS#12). Můžete také stáhnout certifikát z nejnovější aplikace Android Auto (github.com/iscle/android-auto-certificates).</string>
+    <string name="cert_hint">Hlavní jednotky kontrolují certifikát telefonu. Open-source hlavní jednotky přijímají vygenerovaný certifikát; auta se softwarem hlavní jednotky Google přijímají pouze certifikát vydaný Google, který DashGrid nemůže zahrnout. Můžete importovat certifikát, ke kterému máte právo použití (certifikát PEM + klíč PKCS#8, nebo PKCS#12). Můžete také stáhnout certifikát z nejnovější aplikace Android Auto (github.com/iscle/android-auto-certificates).</string>
     <string name="cert_entry_subtitle">%1$s · do %2$s</string>
     <string name="cert_action_remove">Odstranit</string>
     <string name="cert_action_import">Importovat certifikát…</string>
     <string name="cert_action_download">Stáhnout certifikát</string>
     <string name="cert_auto_update_title">Automaticky aktualizovat stažený certifikát</string>
-    <string name="cert_auto_update_subtitle">Jednou denně, nikdy během připojení, se AARE zeptá stejného repozitáře na novější certifikát a použije ho. V každém případě AARE upozorní dva týdny před vypršením platnosti certifikátu Google.</string>
+    <string name="cert_auto_update_subtitle">Jednou denně, nikdy během připojení, se DashGrid zeptá stejného repozitáře na novější certifikát a použije ho. V každém případě DashGrid upozorní dva týdny před vypršením platnosti certifikátu Google.</string>
     <string name="cert_expiring_banner_title">Certifikát Google vyprší %1$s</string>
     <string name="cert_expired_banner_title">Certifikát Google vypršel %1$s</string>
-    <string name="cert_expiry_banner_subtitle">Auta, která přijímají pouze ji, odmítnou AARE. Klepnutím stáhnete novější.</string>
+    <string name="cert_expiry_banner_subtitle">Auta, která přijímají pouze ji, odmítnou DashGrid. Klepnutím stáhnete novější.</string>
     <string name="cert_action_downloading">Stahování…</string>
     <string name="cert_download_unavailable">Repozitář s certifikáty už neexistuje (byl smazán nebo stažen): %1$s. Místo toho extrahujte certifikát z aplikace Android Auto (viz README).</string>
     <string name="cert_download_network">Certifikát se nepodařilo stáhnout: %1$s. Zkontrolujte připojení a zkuste to znovu.</string>
@@ -256,7 +256,7 @@
     <string name="msg_section_while_driving">Za jízdy</string>
     <string name="msg_toggle_dnd_title">Nerušit</string>
     <string name="msg_toggle_dnd_subtitle">Při připojení ztlumit telefon; hovory a prioritní konverzace stále procházejí</string>
-    <string name="msg_check_dnd_access_title">Povolit AARE zapínat Nerušit</string>
+    <string name="msg_check_dnd_access_title">Povolit DashGrid zapínat Nerušit</string>
     <string name="msg_check_dnd_access_subtitle">Android se zeptá jednou</string>
     <string name="msg_toggle_autoreply_title">Automatická odpověď</string>
     <string name="msg_toggle_autoreply_subtitle">Odpovídá lidem, kteří píšou, jednou na konverzaci za jízdu (ne skupinám)</string>
@@ -276,29 +276,29 @@
     <string name="audio_method_shizuku">Shizuku nebo root</string>
     <string name="audio_method_root_policy">Root, hudba a navigace oddělené</string>
     <string name="audio_method_playback_capture">Oprávnění ke snímání obrazovky</string>
-    <string name="audio_policy_not_ready">Jako Android Auto: hudba a hlas navigace samostatně, reproduktor telefonu vypnutý. Vyžaduje telefon s rootem: nainstalujte AARE jako systémovou aplikaci pomocí modulu Magisk (viz README).</string>
+    <string name="audio_policy_not_ready">Jako Android Auto: hudba a hlas navigace samostatně, reproduktor telefonu vypnutý. Vyžaduje telefon s rootem: nainstalujte DashGrid jako systémovou aplikaci pomocí modulu Magisk (viz README).</string>
     <string name="audio_shizuku_ready">Připraveno. Vše, co telefon přehrává, jde do auta, včetně hlasu navigace; telefon zůstává tichý.</string>
     <string name="audio_shizuku_needs_android12">Vyžaduje Android 12 nebo novější.</string>
-    <string name="audio_shizuku_tap_allow">Shizuku běží: klepnutím povolte AARE.</string>
+    <string name="audio_shizuku_tap_allow">Shizuku běží: klepnutím povolte DashGrid.</string>
     <string name="audio_shizuku_install_hint">Root není potřeba. Nainstalujte Shizuku, spusťte ho (bezdrátové ladění, jednou po restartu), a pak se vraťte sem.</string>
     <string name="audio_playback_ready">Připraveno. Pouze média: bez hlasu navigace, některé aplikace se odhlásí, a telefon přehrává i nadále.</string>
     <string name="audio_playback_not_ready">Funguje všude, s omezeními: pouze média, bez hlasu navigace. Android požádá o snímání obrazovky: zvolte Celou obrazovku (používá i obrazovka telefonu).</string>
-    <string name="audio_notice_setup_hint">Otevřete AARE na telefonu a nastavte zvuk v autě, abyste slyšeli telefon v autě</string>
+    <string name="audio_notice_setup_hint">Otevřete DashGrid na telefonu a nastavte zvuk v autě, abyste slyšeli telefon v autě</string>
     <string name="audio_section_car_mic">Mikrofon auta</string>
     <string name="audio_toggle_car_mic_title">Mikrofon auta pro aplikace v telefonu</string>
     <string name="audio_toggle_car_mic_subtitle">Při připojení k autu s mikrofonem slyší hlasové psaní, záznamníky hlasu a hlasové zprávy v telefonu auto místo telefonu. Hovory si ponechají svůj mikrofon. Vyžaduje Shizuku.</string>
     <string name="audio_car_mic_ready">Připraveno: zapnutí či vypnutí platí hned, i během připojení.</string>
     <string name="audio_car_mic_needs_android10">Vyžaduje Android 10 nebo novější.</string>
-    <string name="audio_car_mic_needs_shizuku">Vyžaduje spuštěné Shizuku povolené pro AARE (viz metodu Shizuku výše).</string>
+    <string name="audio_car_mic_needs_shizuku">Vyžaduje spuštěné Shizuku povolené pro DashGrid (viz metodu Shizuku výše).</string>
 
     <!-- phone: phone screen feature -->
     <string name="phone_section_title">Obrazovka telefonu</string>
     <string name="phone_toggle_enable_title">Obrazovka telefonu v autě</string>
-    <string name="phone_toggle_enable_subtitle">Vlastní obrazovka telefonu, pro aplikace, které AARE nemůže hostovat (Google Maps, Waze). Pozastavena, když je telefon uzamčen, a za jízdy, pokud nenavádí navigační aplikace. Nenabízena na serveru hlavní jednotky, pokud tam není povolena</string>
+    <string name="phone_toggle_enable_subtitle">Vlastní obrazovka telefonu, pro aplikace, které DashGrid nemůže hostovat (Google Maps, Waze). Pozastavena, když je telefon uzamčen, a za jízdy, pokud nenavádí navigační aplikace. Nenabízena na serveru hlavní jednotky, pokud tam není povolena</string>
     <string name="phone_check_touch_title">Dotyk na obrazovce telefonu</string>
-    <string name="phone_check_touch_subtitle">Zapněte AARE v Přístupnosti. Nahrané aplikace mohou nejprve potřebovat "Povolit omezená nastavení" v informacích o aplikaci AARE</string>
+    <string name="phone_check_touch_subtitle">Zapněte DashGrid v Přístupnosti. Nahrané aplikace mohou nejprve potřebovat "Povolit omezená nastavení" v informacích o aplikaci DashGrid</string>
     <string name="phone_hint_touch_capture">Obraz používá oprávnění ke snímání obrazovky (stránka Zvuk v autě, zvolte Celou obrazovku).</string>
-    <string name="phone_app_row_subtitle">Vlastní obrazovka telefonu, pro aplikace, které AARE nemůže hostovat</string>
+    <string name="phone_app_row_subtitle">Vlastní obrazovka telefonu, pro aplikace, které DashGrid nemůže hostovat</string>
 
     <!-- assistant: voice assistant settings and bar -->
     <string name="assistant_settings_title">Hlasový asistent</string>
@@ -320,12 +320,12 @@
     <string name="notif_action_navigate">Navigovat</string>
     <string name="notif_action_open">Otevřít</string>
     <string name="notif_cert_updated_title">Certifikát aktualizován</string>
-    <string name="notif_cert_updated_message">AARE stáhlo novější certifikát Android Auto, platný do %1$s.</string>
+    <string name="notif_cert_updated_message">DashGrid stáhlo novější certifikát Android Auto, platný do %1$s.</string>
     <string name="notif_cert_expiring_title">Certifikát brzy vyprší</string>
-    <string name="notif_cert_expiring_text">%1$s vyprší %2$s. Auta, která přijímají pouze certifikát Google, pak odmítnou AARE: stáhněte novější.</string>
+    <string name="notif_cert_expiring_text">%1$s vyprší %2$s. Auta, která přijímají pouze certifikát Google, pak odmítnou DashGrid: stáhněte novější.</string>
     <string name="notif_cert_expired_title">Certifikát vypršel</string>
-    <string name="notif_cert_expired_text">%1$s vypršel %2$s. Auta, která přijímají pouze certifikát Google, nyní odmítají AARE: stáhněte novější.</string>
-    <string name="notif_cert_download_title">Hlavní jednotka odmítla certifikát AARE</string>
+    <string name="notif_cert_expired_text">%1$s vypršel %2$s. Auta, která přijímají pouze certifikát Google, nyní odmítají DashGrid: stáhněte novější.</string>
+    <string name="notif_cert_download_title">Hlavní jednotka odmítla certifikát DashGrid</string>
     <string name="notif_cert_download_message">Tato hlavní jednotka přijímá pouze certifikát Google. Stáhněte certifikát z nejnovější aplikace Android Auto a pak se znovu připojte.</string>
     <string name="notif_cert_download_progress">Stahuje se certifikát Android Auto…</string>
     <string name="notif_cert_download_ready_title">Certifikát je připraven</string>
@@ -341,11 +341,11 @@
     <string name="notif_trust_warning">Důvěřujte pouze hlavní jednotce, ke které jste právě připojeni</string>
     <string name="notif_untrusted_message">SHA-256 %1$s... %2$s, pak se znovu připojte.</string>
     <string name="notif_trust_reconnect_suffix">%1$s, pak se znovu připojte.</string>
-    <string name="notif_cert_changed_message">certifikát hlavní jednotky se změnil: klepněte na Důvěřovat v oznámení nebo v AARE pouze pokud byl její software aktualizován, pak se znovu připojte</string>
-    <string name="notif_cert_untrusted_message">certifikát hlavní jednotky ještě není důvěryhodný: klepněte na Důvěřovat v oznámení nebo v AARE, pak se znovu připojte</string>
+    <string name="notif_cert_changed_message">certifikát hlavní jednotky se změnil: klepněte na Důvěřovat v oznámení nebo v DashGrid pouze pokud byl její software aktualizován, pak se znovu připojte</string>
+    <string name="notif_cert_untrusted_message">certifikát hlavní jednotky ještě není důvěryhodný: klepněte na Důvěřovat v oznámení nebo v DashGrid, pak se znovu připojte</string>
     <string name="notif_cert_dates_title">Zkontrolujte datum a čas v autě</string>
-    <string name="notif_cert_not_yet_valid_message">hlavní jednotka říká, že certifikát AARE ještě není platný: její hodiny jsou pravděpodobně pozadu. Nastavte datum a čas auta, pak se znovu připojte</string>
-    <string name="notif_cert_expired_message">hlavní jednotka říká, že certifikát AARE vypršel: pokud nevypršel, hodiny auta jdou napřed. Nastavte datum a čas auta, nebo získejte novější certifikát v Pokročilé, pak se znovu připojte</string>
+    <string name="notif_cert_not_yet_valid_message">hlavní jednotka říká, že certifikát DashGrid ještě není platný: její hodiny jsou pravděpodobně pozadu. Nastavte datum a čas auta, pak se znovu připojte</string>
+    <string name="notif_cert_expired_message">hlavní jednotka říká, že certifikát DashGrid vypršel: pokud nevypršel, hodiny auta jdou napřed. Nastavte datum a čas auta, nebo získejte novější certifikát v Pokročilé, pak se znovu připojte</string>
     <string name="notif_car_nearby_title">Auto v okolí</string>
     <string name="notif_car_nearby_text">Klepnutím se bezdrátově připojíte</string>
     <string name="notif_status_connecting_to">Připojování k %1$s</string>
@@ -365,9 +365,9 @@
     <string name="notif_navigation_title">Navigace</string>
     <string name="notif_navigation_no_app_text">V autě není navigační aplikace</string>
     <string name="notif_assistant_title">Asistent</string>
-    <string name="notif_assistant_choose_text">Vyberte hlasového asistenta v nastavení AARE na telefonu</string>
+    <string name="notif_assistant_choose_text">Vyberte hlasového asistenta v nastavení DashGrid na telefonu</string>
     <string name="notif_assistant_no_car_screen">%1$s nemá obrazovku pro auto: otevřel se na telefonu</string>
-    <string name="notif_assistant_cant_open">%1$s nelze otevřít. Vyberte jiného asistenta v nastavení AARE</string>
+    <string name="notif_assistant_cant_open">%1$s nelze otevřít. Vyberte jiného asistenta v nastavení DashGrid</string>
     <string name="notif_parked_only_title">Nedostupné za jízdy</string>
     <string name="notif_parked_only_text">Zaparkujte, abyste to mohli použít</string>
     <string name="notif_empty">Žádná oznámení</string>
@@ -415,7 +415,7 @@
     <string name="media_queue_empty">Fronta je prázdná</string>
 
     <!-- msg: messaging screen (notifications-based conversations) -->
-    <string name="msg_no_access">Udělte AARE přístup k oznámením v telefonu, abyste zde viděli zprávy</string>
+    <string name="msg_no_access">Udělte DashGrid přístup k oznámením v telefonu, abyste zde viděli zprávy</string>
     <string name="msg_listener_not_ready">Zatím tu nic není</string>
     <string name="msg_reply_sent">Odpověď odeslána</string>
     <string name="msg_reply_rejected">%1$s odpověď nepřijal</string>
@@ -435,7 +435,7 @@
     <string name="phone_tab_recents">Poslední</string>
     <string name="phone_tab_contacts">Kontakty</string>
     <string name="phone_tab_keypad">Klávesnice</string>
-    <string name="phone_permissions_placeholder">Povolte hovory, historii hovorů a kontakty v AARE na telefonu (Dokončit nastavení).</string>
+    <string name="phone_permissions_placeholder">Povolte hovory, historii hovorů a kontakty v DashGrid na telefonu (Dokončit nastavení).</string>
     <string name="phone_notice_calling_title">Volání</string>
     <string name="phone_no_recent_calls">Žádné nedávné hovory</string>
     <string name="phone_no_contacts">Žádné kontakty s telefonním číslem</string>
@@ -468,7 +468,7 @@
 
     <!-- standalone: launching ordinary phone apps on the car screen (root/Shizuku, parked only) -->
     <string name="standalone_section_title">Aplikace na obrazovce auta (pokročilé)</string>
-    <string name="standalone_section_warning">Toto nejsou aplikace Android Auto: AARE zobrazuje jejich běžnou obrazovku telefonu, ve výchozím nastavení jen při zaparkování, a vyžaduje root nebo Shizuku. Používáte na vlastní riziko.</string>
+    <string name="standalone_section_warning">Toto nejsou aplikace Android Auto: DashGrid zobrazuje jejich běžnou obrazovku telefonu, ve výchozím nastavení jen při zaparkování, a vyžaduje root nebo Shizuku. Používáte na vlastní riziko.</string>
     <string name="standalone_toggle_title">Spouštět aplikace telefonu na obrazovce auta</string>
     <string name="standalone_toggle_subtitle">Vyberte aplikace níže a u každé, co smí dělat během jízdy.</string>
     <string name="standalone_keep_awake_title">Režim bez spánku pro samostatné aplikace</string>
@@ -501,12 +501,12 @@
     <string name="assistant_stop_style_voice_button">Tlačítko hlasu se změní na Zastavit</string>
     <string name="assistant_stop_style_red_restart">Červené tlačítko stop, tlačítko hlasu se znovu zeptá</string>
     <string name="assistant_stop_style_red_stop">Červené tlačítko stop, tlačítko hlasu také zastaví</string>
-    <string name="assistant_links_subtitle">Umožní odkazům aare:// v odpovědích zvoleného asistenta ovládat hudbu nebo na obrazovce auta nabídnout navigaci, otevření aplikace či hovor. Odkazy z jiných aplikací a z webových stránek se ignorují.</string>
+    <string name="assistant_links_subtitle">Umožní odkazům dashgrid:// v odpovědích zvoleného asistenta ovládat hudbu nebo na obrazovce auta nabídnout navigaci, otevření aplikace či hovor. Odkazy z jiných aplikací a z webových stránek se ignorují.</string>
     <!-- setup_page: car data entry -->
     <string name="setup_page_car_data_title">Data vozu</string>
     <string name="setup_page_car_data_subtitle">Rychlost, rychlostní stupeň a senzory z vozu naživo</string>
     <string name="setup_page_about_title">O aplikaci</string>
-    <string name="setup_page_about_subtitle">Co je AARE, odkazy na projekt a kdo pomohl s jeho vývojem</string>
+    <string name="setup_page_about_subtitle">Co je DashGrid, odkazy na projekt a kdo pomohl s jeho vývojem</string>
 
     <!-- car_data: the read-only car sensor viewer -->
     <string name="car_data_not_connected">Připojte se k autu pro zobrazení jeho dat.</string>
@@ -564,8 +564,8 @@
     <string name="car_data_show_in_car_subtitle">Pro tato živá data přidejte v autě diagnostickou aplikaci</string>
 
     <!-- about: stránka O aplikaci -->
-    <string name="about_section_what_title">Co je AARE</string>
-    <string name="about_text">AARE je open-source reimplementace telefonní strany Android Auto: hovoří s hlavní jednotkou auta přímo pomocí projekčního protokolu Android Auto, sama vykresluje obrazovku auta a spouští navigační, mediální a zprávové aplikace bez potřeby Služeb Google Play.</string>
+    <string name="about_section_what_title">Co je DashGrid</string>
+    <string name="about_text">DashGrid je open-source reimplementace telefonní strany Android Auto: hovoří s hlavní jednotkou auta přímo pomocí projekčního protokolu Android Auto, sama vykresluje obrazovku auta a spouští navigační, mediální a zprávové aplikace bez potřeby Služeb Google Play.</string>
     <string name="about_section_links_title">Projekt</string>
     <string name="about_link_repository">Repozitář</string>
     <string name="about_link_issues">Problémy</string>
@@ -581,7 +581,7 @@
     <string name="about_oss_protocol_title">Definice protokolu</string>
 
     <string name="obd_adapter_title">Číst adaptér OBD2</string>
-    <string name="obd_adapter_subtitle">Adaptér ELM327 spárovaný přes Bluetooth, čtený, když je auto připojené: data motoru, která auto AARE neposílá. Jen čtení: AARE do auta nikdy nic nezapisuje.</string>
+    <string name="obd_adapter_subtitle">Adaptér ELM327 spárovaný přes Bluetooth, čtený, když je auto připojené: data motoru, která auto DashGrid neposílá. Jen čtení: DashGrid do auta nikdy nic nezapisuje.</string>
     <string name="obd_simulated_title">Simulovaný adaptér OBD2 (ladění)</string>
     <string name="obd_simulated_subtitle">Simulované auto místo skutečného adaptéru, pro vyzkoušení této stránky</string>
     <string name="obd_section">Adaptér OBD2</string>
@@ -606,7 +606,7 @@
     <string name="vehicles_import">Importovat soubor…</string>
     <string name="vehicles_template">Napsat šablonu</string>
     <string name="vehicles_builtin_fixes_title">Vestavěné opravy pro auta</string>
-    <string name="vehicles_builtin_fixes_subtitle">Opravy, které AARE dodává pro konkrétní jednotky: bez bezdrátového připojení tam, kde selhává, velikost videa, hlas navigace, elektromobily, tvar pixelů obrazovky, název položky Ukončit. Vypnuto: každé auto funguje jako dřív. Pravidlo ve vehicles.json je může zapnout pro jedno auto (builtInFixes).</string>
+    <string name="vehicles_builtin_fixes_subtitle">Opravy, které DashGrid dodává pro konkrétní jednotky: bez bezdrátového připojení tam, kde selhává, velikost videa, hlas navigace, elektromobily, tvar pixelů obrazovky, název položky Ukončit. Vypnuto: každé auto funguje jako dřív. Pravidlo ve vehicles.json je může zapnout pro jedno auto (builtInFixes).</string>
     <string name="quirks_section_title">Zvláštnosti auta</string>
     <string name="quirks_subtitle">Toto, je seznam zvláštností.</string>
     <string name="quirks_hint">Přepíše zvláštnosti ze souboru vehicles.json pro jedno auto: jednotku připojenou jako poslední. Automaticky zachová to, co o něm říkají vestavěné opravy pro auta a váš vehicles.json. Ostatní auta nejsou ovlivněna.</string>
@@ -622,9 +622,9 @@
     <string name="quirks_single_channel_capture_title">Hlas navigace na jednom kanálu</string>
     <string name="quirks_single_channel_capture_subtitle">Zapnuto: odešle hlas navigace na hudebním kanálu a kanál navádění nechá nevyužitý. Vypnuto: kanál navádění se používá normálně.</string>
     <string name="quirks_wifi_media_silence_title">Ticho před spuštěním hudby přes Wi-Fi</string>
-    <string name="quirks_wifi_media_silence_subtitle">Zapnuto: před spuštěním hudebního proudu přes Wi-Fi odešle tiché zprávy ze souboru vehicles.json (nebo výchozí z AARE). Vypnuto: neodešle žádné.</string>
+    <string name="quirks_wifi_media_silence_subtitle">Zapnuto: před spuštěním hudebního proudu přes Wi-Fi odešle tiché zprávy ze souboru vehicles.json (nebo výchozí z DashGrid). Vypnuto: neodešle žádné.</string>
     <string name="quirks_wifi_guidance_silence_title">Ticho před spuštěním navádění přes Wi-Fi</string>
-    <string name="quirks_wifi_guidance_silence_subtitle">Zapnuto: před spuštěním proudu hlasu navigace přes Wi-Fi odešle tiché zprávy ze souboru vehicles.json (nebo výchozí z AARE). Vypnuto: neodešle žádné.</string>
+    <string name="quirks_wifi_guidance_silence_subtitle">Zapnuto: před spuštěním proudu hlasu navigace přes Wi-Fi odešle tiché zprávy ze souboru vehicles.json (nebo výchozí z DashGrid). Vypnuto: neodešle žádné.</string>
     <string name="quirks_media_on_gain_transient_title">Hudba během hlášení navigace</string>
     <string name="quirks_media_on_gain_transient_subtitle">Zapnuto: hudba hraje dál, když auto odpoví na žádost hlášení navigace pomocí GAIN_TRANSIENT. Vypnuto: v tu chvíli hraje jen hlas navigace. GAIN_TRANSIENT jako odpověď na vlastní žádost hudby, nebo odeslaný autem samovolně, hudbě hrát vždy dovolí.</string>
     <string name="quirks_pause_on_guidance_only_title">Pauza hudby jen při navádění</string>
@@ -644,7 +644,7 @@
     <string name="setup_toggle_force_h264_title">Vynutit video H.264</string>
     <string name="setup_toggle_constant_bitrate_title">Video s konstantním datovým tokem</string>
     <string name="setup_toggle_constant_bitrate_subtitle">Udržuje přibližně stejnou velikost každého snímku. Zapněte, pokud auto přeruší připojení, když se změní celý obraz, například u obrazovky telefonu nebo videa. Náročné obrazy budou o něco měkčí. Platí od příštího připojení.</string>
-    <string name="setup_toggle_force_h264_subtitle">Ve výchozím nastavení AARE používá nejlepší kodek sdílený autem a telefonem (H.265…). Zapněte, pokud obraz v autě trhá nebo je poškozený.</string>
+    <string name="setup_toggle_force_h264_subtitle">Ve výchozím nastavení DashGrid používá nejlepší kodek sdílený autem a telefonem (H.265…). Zapněte, pokud obraz v autě trhá nebo je poškozený.</string>
     <string name="common_ok">OK</string>
     <string name="common_try_again">Zkusit znovu</string>
     <string name="common_something_went_wrong">Něco se pokazilo</string>
@@ -654,14 +654,14 @@
     <string name="update_check_now">Zkontrolovat teď</string>
     <string name="update_checking">Kontroluji…</string>
     <string name="update_check_latest">Máte nejnovější verzi (%1$s).</string>
-    <string name="update_check_available">Je dostupné AARE %1$s: viz domovskou obrazovku.</string>
+    <string name="update_check_available">Je dostupné DashGrid %1$s: viz domovskou obrazovku.</string>
     <string name="update_check_failed">GitHub není dostupný. Zkuste to později.</string>
     <string name="update_available_title">Dostupná aktualizace — %1$s</string>
     <string name="update_available_subtitle">Máte %1$s. Klepnutím zobrazíte verzi.</string>
     <string name="setup_log_save">Uložit</string>
     <string name="setup_section_developer_log">Vývojářský protokol</string>
     <string name="setup_toggle_dev_log_title">Vývojářský režim</string>
-    <string name="setup_toggle_dev_log_subtitle">Zapisuje vše, co AARE zaznamenává, do textových souborů v %1$s (až 50 MB). Vypnutím se smažou: nejdřív je uložte.</string>
+    <string name="setup_toggle_dev_log_subtitle">Zapisuje vše, co DashGrid zaznamenává, do textových souborů v %1$s (až 50 MB). Vypnutím se smažou: nejdřív je uložte.</string>
     <string name="setup_toggle_dev_log_privacy_title">Skrýt osobní údaje</string>
     <string name="setup_toggle_dev_log_privacy_subtitle">Zamaskuje adresy, názvy sítí a zařízení a další osobní údaje, které rozpozná. Před sdílením si soubor přečtěte.</string>
     <string name="setup_dev_log_save">Uložit vývojářský protokol</string>
@@ -669,7 +669,7 @@
     <string name="setup_toggle_verbose_log_title">Podrobný protokol komunikace</string>
     <string name="setup_toggle_verbose_log_subtitle">Zaznamenat do tohoto protokolu úplný průběh komunikace s hlavní jednotkou, pro přiložení k hlášení chyby. Zaznamenává se hodně; jinak ho nechte vypnutý.</string>
     <string name="setup_section_backup">Záloha nastavení</string>
-    <string name="setup_backup_hint">Uložte nastavení do souboru nebo je z něj načtěte zpět. Důvěryhodné hlavní jednotky, certifikáty, stav vázaný na telefon a volby, které otevírají AARE do sítě nebo obcházejí bezpečnostní kontrolu (server hlavní jednotky, režim spolujezdce, zvuk přes root…), se nepřenášejí: nastavte je ručně na každém telefonu.</string>
+    <string name="setup_backup_hint">Uložte nastavení do souboru nebo je z něj načtěte zpět. Důvěryhodné hlavní jednotky, certifikáty, stav vázaný na telefon a volby, které otevírají DashGrid do sítě nebo obcházejí bezpečnostní kontrolu (server hlavní jednotky, režim spolujezdce, zvuk přes root…), se nepřenášejí: nastavte je ručně na každém telefonu.</string>
     <string name="setup_backup_export">Exportovat…</string>
     <string name="setup_backup_import">Importovat…</string>
     <string name="setup_backup_import_confirm_title">Nahradit nastavení?</string>
@@ -678,7 +678,7 @@
     <string name="setup_backup_import_done">Nastavení importováno.</string>
     <string name="setup_backup_import_done_skipped">Nastavení importováno. Vynecháno (neznámé, blokované nebo neplatné): %1$d</string>
     <string name="setup_backup_import_blocked">Nenaimportováno z bezpečnostních důvodů (zapněte je ručně na tomto telefonu): %1$s</string>
-    <string name="setup_backup_import_failed">Tento soubor nelze importovat: není to soubor nastavení AARE, nebo je příliš velký.</string>
+    <string name="setup_backup_import_failed">Tento soubor nelze importovat: není to soubor nastavení DashGrid, nebo je příliš velký.</string>
     <string name="setup_backup_export_failed">Soubor s nastavením se nepodařilo uložit.</string>
     <string name="setup_nothing_to_open">Tento telefon nemá aplikaci, která by to mohla otevřít</string>
     <string name="setup_wallpaper_failed">Tuto fotku se nepodařilo použít jako tapetu</string>
@@ -706,7 +706,7 @@
     <string name="media_error_skip_limit">Dosažen limit přeskočení</string>
     <string name="media_error_setup">Dokončete nastavení %1$s na telefonu</string>
     <string name="media_error_end_of_playlist">Konec playlistu</string>
-    <string name="media_error_permission">%1$s neumožňuje AARE jej procházet</string>
+    <string name="media_error_permission">%1$s neumožňuje DashGrid jej procházet</string>
     <string name="media_error_io">Problém se sítí nebo úložištěm</string>
     <string name="media_error_not_supported">%1$s to nepodporuje</string>
     <string name="media_error_disconnected">%1$s se odpojilo</string>
@@ -721,7 +721,7 @@
     <string name="carapp_error_no_answer">%1$s neodpověděl. Možná akceptuje pouze Android Auto od Googlu (viz seznam aplikací na telefonu).</string>
     <string name="carapp_error_api_level">%1$s vyžaduje úroveň car API %2$d; tato hlavní jednotka podporuje %3$d</string>
     <string name="carapp_error_stopped">%1$s se zastavilo</string>
-    <string name="carapp_error_google_only">%1$s akceptuje pouze Android Auto od Googlu. Musí povolit AARE (viz seznam aplikací na telefonu).</string>
+    <string name="carapp_error_google_only">%1$s akceptuje pouze Android Auto od Googlu. Musí povolit DashGrid (viz seznam aplikací na telefonu).</string>
     <string name="carapp_error_cant_start">%1$s se nepodařilo spustit: %2$s</string>
     <string name="dash_card_home">Domov</string>
 
@@ -730,7 +730,7 @@
     <string name="home_page_title">Akce domova</string>
     <string name="home_page_subtitle">Tlačítka a hodnoty chytré domácnosti v autě, přes MQTT nebo HTTP</string>
     <string name="home_toggle_title">Zobrazit akce domova v autě</string>
-    <string name="home_toggle_subtitle">Aplikace Domov a karta na nástěnce. AARE se připojuje k vašim serverům jen když je obrazovka auta zapnutá.</string>
+    <string name="home_toggle_subtitle">Aplikace Domov a karta na nástěnce. DashGrid se připojuje k vašim serverům jen když je obrazovka auta zapnutá.</string>
     <string name="home_intro">Akce jsou tlačítka, která publikují zprávu MQTT nebo odešlou požadavek HTTP (otevřít garáž, zapnout světla). Dlaždice zobrazují hodnotu z tématu MQTT nebo odpovědi HTTP. Home Assistant funguje přes své REST API, webhook nebo MQTT.</string>
     <string name="home_section_connections">Připojení</string>
     <string name="home_broker_title">MQTT broker</string>
@@ -833,7 +833,7 @@
     <string name="home_preset_http_webhook_subtitle">Odešle POST na adresu</string>
     <string name="home_preset_http_json">Hodnota JSON z HTTP</string>
     <string name="home_preset_http_json_subtitle">Dlaždice s jednou hodnotou z odpovědi JSON, pravidelně dotazovaná</string>
-    <string name="home_car_empty">Nastavte akce domova v telefonu: AARE &gt; Akce domova.</string>
+    <string name="home_car_empty">Nastavte akce domova v telefonu: DashGrid &gt; Akce domova.</string>
     <string name="home_confirm_question">%1$s teď?</string>
     <string name="home_confirm_run">Spustit</string>
     <string name="home_action_done">Hotovo</string>
@@ -848,37 +848,37 @@
     <string name="home_error_http_lan_off">prosté http:// je vypnuté: zapněte \"Povolit prosté http v mé domácí síti\" pro HTTP server</string>
     <string name="home_error_tls">certifikátu serveru se nedůvěřuje</string>
     <string name="home_error_generic">něco se nezdařilo</string>
-    <string name="shizuku_setup_title">Udělit oprávnění AARE přes Shizuku</string>
+    <string name="shizuku_setup_title">Udělit oprávnění DashGrid přes Shizuku</string>
     <string name="shizuku_setup_subtitle">Jedno klepnutí udělí vše, co ještě chybí, bez vlastního dialogu pro každé oprávnění: mikrofon, poloha, kontakty, seznam hovorů, kalendář, telefonní hovory, zařízení v okolí (Bluetooth, Wi-Fi), místní síť, oznámení a přístup k oznámením</string>
     <string name="shizuku_setup_working">Uděluje se…</string>
     <string name="shizuku_setup_result_title">Uděleno přes Shizuku</string>
     <string name="shizuku_setup_nothing_to_grant">Vše už bylo uděleno.</string>
     <string name="shizuku_setup_not_granted">Neuděleno: %1$s</string>
     <string name="shizuku_setup_notification_access">Přístup k oznámením</string>
-    <string name="shizuku_setup_helper_failed">Pomocník Shizuku se nespustil. Zkontrolujte, že Shizuku běží a povoluje AARE.</string>
+    <string name="shizuku_setup_helper_failed">Pomocník Shizuku se nespustil. Zkontrolujte, že Shizuku běží a povoluje DashGrid.</string>
     <string name="aa_section_title">Google Android Auto</string>
-    <string name="aa_state_enabled">Nainstalováno a povoleno: když se připojí auto, Android ho může předat Android Auto místo AARE, nebo se zeptá, kterou aplikaci použít.</string>
+    <string name="aa_state_enabled">Nainstalováno a povoleno: když se připojí auto, Android ho může předat Android Auto místo DashGrid, nebo se zeptá, kterou aplikaci použít.</string>
     <string name="aa_state_disabled">Zakázáno: Android Auto si auto nepřevezme. Jeho data zůstávají zachována.</string>
     <string name="aa_action_disable">Zabránit Android Auto převzít auto</string>
     <string name="aa_action_enable">Znovu povolit Android Auto</string>
     <string name="aa_working">Pracuje se…</string>
-    <string name="aa_needs_shizuku">Přes Shizuku (běžící a povolující AARE), nebo ručně v informacích o aplikaci Android Auto.</string>
+    <string name="aa_needs_shizuku">Přes Shizuku (běžící a povolující DashGrid), nebo ručně v informacích o aplikaci Android Auto.</string>
     <string name="aa_app_info">Informace o aplikaci Android Auto</string>
     <string name="aa_failed">Nepodařilo se: %1$s</string>
     <string name="aa_confirm_title">Zakázat Android Auto?</string>
-    <string name="aa_confirm_text">AARE zakáže Google Android Auto pro tohoto uživatele přes Shizuku (pm disable-user). Aplikace se zastaví, zmizí ze seznamu aplikací a při připojení auta už nereaguje, takže auto si vždy vezme AARE.\n\nNic se neodinstaluje a data zůstávají zachována. Auta, aplikace nebo funkce, které potřebují Google Android Auto, nebudou fungovat, dokud ho zde tlačítkem znovu nepovolíte.</string>
+    <string name="aa_confirm_text">DashGrid zakáže Google Android Auto pro tohoto uživatele přes Shizuku (pm disable-user). Aplikace se zastaví, zmizí ze seznamu aplikací a při připojení auta už nereaguje, takže auto si vždy vezme DashGrid.\n\nNic se neodinstaluje a data zůstávají zachována. Auta, aplikace nebo funkce, které potřebují Google Android Auto, nebudou fungovat, dokud ho zde tlačítkem znovu nepovolíte.</string>
     <string name="aa_confirm_action">Zakázat</string>
 
     <string name="setup_section_companion">Bezdrátově na jedno klepnutí</string>
-    <string name="setup_companion_hint">Přiřadit auto, ke kterému jste se už bezdrátově připojili: Android pak spustí AARE, jakmile se připojí Bluetooth tohoto auta, i když je telefon v kapse. Android se u každého auta jednou zeptá na potvrzení.</string>
+    <string name="setup_companion_hint">Přiřadit auto, ke kterému jste se už bezdrátově připojili: Android pak spustí DashGrid, jakmile se připojí Bluetooth tohoto auta, i když je telefon v kapse. Android se u každého auta jednou zeptá na potvrzení.</string>
     <string name="setup_companion_empty">Jednou se bezdrátově připojte k autu a pak se sem vraťte a přiřaďte ho.</string>
     <string name="setup_companion_failed">Android auto nepřiřadil: %1$s</string>
     <string name="setup_action_associate">Přiřadit</string>
     <string name="setup_toggle_companion_shizuku_title">Schvalovat Wi-Fi auta přes Shizuku</string>
-    <string name="setup_toggle_companion_shizuku_subtitle">U přiřazených aut odpovídá na otázku Androidu „připojit se k zařízení“ Shizuku, takže se už znovu neobjeví. Síť auta zůstává vlastní sítí AARE, nikdy internetovým připojením telefonu. Vyžaduje běžící Shizuku a povolené AARE v něm.</string>
+    <string name="setup_toggle_companion_shizuku_subtitle">U přiřazených aut odpovídá na otázku Androidu „připojit se k zařízení“ Shizuku, takže se už znovu neobjeví. Síť auta zůstává vlastní sítí DashGrid, nikdy internetovým připojením telefonu. Vyžaduje běžící Shizuku a povolené DashGrid v něm.</string>
 
     <string name="setup_toggle_auto_pair_title">Automaticky párovat Bluetooth auta</string>
-    <string name="setup_toggle_auto_pair_subtitle">Pro hovory: když se auto, se kterým telefon není párováno, pokusí párovat přes Android Auto, AARE se s ním spáruje přes Shizuku místo dialogu Androidu, pokud se kód shoduje s tím, který auto odeslalo. Nikdy s žádným jiným zařízením. Vyžaduje běžící Shizuku a povolené AARE v něm.</string>
+    <string name="setup_toggle_auto_pair_subtitle">Pro hovory: když se auto, se kterým telefon není párováno, pokusí párovat přes Android Auto, DashGrid se s ním spáruje přes Shizuku místo dialogu Androidu, pokud se kód shoduje s tím, který auto odeslalo. Nikdy s žádným jiným zařízením. Vyžaduje běžící Shizuku a povolené DashGrid v něm.</string>
 
     <string name="calibration_title">Kalibrace dotykové obrazovky</string>
     <string name="calibration_intro">Pokud se dotyky na obrazovce auta projevují na špatném místě, změřte dotykovou obrazovku tohoto auta: v telefonu nastavíte viditelnou oblast a pak se dotknete 4 terčů na obrazovce auta. Dělejte to při stání.</string>
@@ -889,7 +889,7 @@
     <string name="calibration_start">Spustit kalibraci</string>
     <string name="calibration_reset">Obnovit hodnoty auta</string>
     <string name="calibration_forget">Zapomenout</string>
-    <string name="calibration_area_help">Krok 1 ze 3. Na obrazovce auta označuje žluté L každý roh oblasti, do které AARE kreslí. Posuňte každý okraj tak, aby jeho L leželo přesně u okraje obrazovky a bylo celé vidět.</string>
+    <string name="calibration_area_help">Krok 1 ze 3. Na obrazovce auta označuje žluté L každý roh oblasti, do které DashGrid kreslí. Posuňte každý okraj tak, aby jeho L leželo přesně u okraje obrazovky a bylo celé vidět.</string>
     <string name="calibration_area_value">%1$s: %2$d px</string>
     <string name="calibration_edge_left">Vlevo</string>
     <string name="calibration_edge_top">Nahoře</string>

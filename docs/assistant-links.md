@@ -1,8 +1,8 @@
-# Assistant links: `aare://`
+# Assistant links: `dashgrid://`
 
 An assistant that isn't wired into AARE as a car app — one that answers in a notification, or
 whose reply contains a link — can still trigger a handful of AARE's car tools, by putting an
-`aare://` link in that reply. Tapping it (a notification action, a link in a chat bubble…) opens
+`dashgrid://` link in that reply. Tapping it (a notification action, a link in a chat bubble…) opens
 AARE's `AssistantLinkActivity`, which maps the link to one of the actions below.
 
 This is separate from `CarControlProvider`, which lets an assistant *running on the car screen*
@@ -17,10 +17,10 @@ see [Who may open a link](#who-may-open-a-link).
 ## Format
 
 ```
-aare://navigate?q=<destination>
-aare://play[?action=play|pause|next|previous]
-aare://open?app=<app name>
-aare://call?n=<phone number>
+dashgrid://navigate?q=<destination>
+dashgrid://play[?action=play|pause|next|previous]
+dashgrid://open?app=<app name>
+dashgrid://call?n=<phone number>
 ```
 
 | Link | Parameter | Does |
@@ -48,7 +48,7 @@ whatever the link asks for.
 ## Who may open a link
 
 The activity is exported, since another app has to start it, but it is not `BROWSABLE`: no web
-page can open an `aare://` link, AARE's own browser included.
+page can open an `dashgrid://` link, AARE's own browser included.
 
 It then acts only when the app that started it is the assistant `CarControlProvider` already
 trusts (`Assistants.authorized`: the one chosen in AARE, else the phone's default digital

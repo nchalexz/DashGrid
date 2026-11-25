@@ -235,11 +235,11 @@ the standalone apps' switch. The app's screen sits above AARE's controls, or fil
 art. Parking again hands the display a new surface rather than relaunching the app, because a
 relaunch would end the video.
 
-## `aare://` links for assistants without a code path into AARE
+## `dashgrid://` links for assistants without a code path into AARE
 
 `CarControlProvider` lets an assistant running on the car screen call car tools directly, but an
 assistant that only answers in a notification or a chat link had no way to act on the car. Added
-`AssistantLinkActivity`, an exported activity for `aare://navigate|play|open|call` links, backed
+`AssistantLinkActivity`, an exported activity for `dashgrid://navigate|play|open|call` links, backed
 by a pure parser (`AssistantLinks.parse`, unit-tested) that doubles as the whole allowlist.
 
 - `java.net.URI` + manual query decoding instead of `android.net.Uri`: this module's unit tests

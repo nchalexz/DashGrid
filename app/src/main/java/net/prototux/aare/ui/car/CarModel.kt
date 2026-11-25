@@ -133,6 +133,8 @@ class CarUiState {
     var assistantStandalonePkg by mutableStateOf<String?>(null)
     /** How the assistant is stopped (Settings.ASSISTANT_STOP_*). */
     var assistantStopStyle by mutableStateOf(Settings.ASSISTANT_STOP_VOICE_BUTTON)
+    /** The voice assistant's button is drawn in the bar (a setting; the steering wheel still works). */
+    var assistantButtonVisible by mutableStateOf(true)
     /** The voice button is a stop button now: the assistant is on, and that's the chosen way to stop it. */
     val voiceButtonIsStop: Boolean
         get() = assistantStopStyle == Settings.ASSISTANT_STOP_VOICE_BUTTON &&

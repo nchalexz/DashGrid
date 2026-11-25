@@ -311,6 +311,8 @@
     <string name="assistant_hint">Голосовая кнопка на руле и микрофон на панели открывают этого ассистента. Лучше всего работают ассистенты с автомобильным приложением, например Lapin.</string>
     <string name="assistant_car_screen_toggle_title">Открывать ассистентов без автомобильного приложения на экране автомобиля</string>
     <string name="assistant_car_screen_toggle_subtitle">На парковке показывает голосовой интерфейс ассистента на экране автомобиля вместо телефона. Во время движения он открывается на телефоне, если не включён режим пассажира. Требует root или Shizuku.</string>
+    <string name="assistant_button_toggle_title">Показывать кнопку ассистента</string>
+    <string name="assistant_button_toggle_subtitle">Кнопка микрофона на панели экрана автомобиля, во всех раскладках. Если выключить, панель её больше не показывает; кнопка на руле по-прежнему открывает ассистента, а на его панели остаётся кнопка остановки.</string>
 
     <!-- notif: notifications and in-car notices -->
     <string name="notif_channel_connection">Соединение с автомобилем</string>

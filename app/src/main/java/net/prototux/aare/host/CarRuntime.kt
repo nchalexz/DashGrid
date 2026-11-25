@@ -131,6 +131,12 @@ class CarRuntime(
     private val connections = mutableStateMapOf<String, CarAppConnection>()
     /** Apps that finished themselves: only an explicit open ([connection]) starts them again, not the composition. */
     private val finished = HashSet<String>()
+    /**
+     * The workspace Home shows after leaving an app: set when the app was opened from the app grid,
+     * which belongs to no workspace, so Home goes to the default ("main") one instead of whichever
+     * workspace happened to be showing before. Null keeps the old behaviour (the last workspace).
+     */
+    private var homeWorkspaceId: String? = null
     private val carApps = HashMap<String, CarAppInfo>()
     private val visibleCount = HashMap<CarAppConnection, Int>()
 
@@ -285,6 +291,7 @@ class CarRuntime(
         val id = idOf(app) ?: return
         if (shows(id)) {
             ui.screen = leftAlone(id, (ui.screen as? CarScreen.App)?.appId, ui.secondaryAppId)?.let { CarScreen.App(it) } ?: CarScreen.Dashboard
+            if (ui.screen == CarScreen.Dashboard) homeWorkspaceId = null
             actions.closeSplit()
         }
         if (ui.assistantAppId == id) ui.assistantAppId = null
@@ -411,6 +418,7 @@ class CarRuntime(
     private fun applyScreenSettings() {
         updateLightSensor()
         ui.assistantStopStyle = settings.assistantStopStyle
+        ui.assistantButtonVisible = settings.assistantButton
         val night = when (settings.carTheme) {
             Settings.THEME_DARK -> true
             Settings.THEME_LIGHT -> false
@@ -490,7 +498,7 @@ class CarRuntime(
     private val settingsListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         when (key) {
             "car_theme", "rail_position", "style_theme", "style_layout", "style_accent", "dark_bar", "dashboard_cards", "dashboard_map_big", "show_weather", "car_chrome", "ignore_driving",
-            "car_text_size", "car_control_size", "night_source", "assistant_stop", "rail_apps", "compact_rail", "rail_spacing", "rail_widgets", "split_screen" -> main.post { applyScreenSettings() }
+            "car_text_size", "car_control_size", "night_source", "assistant_stop", "assistant_button", "rail_apps", "compact_rail", "rail_spacing", "rail_widgets", "split_screen" -> main.post { applyScreenSettings() }
             "wallpaper" -> main.post { ui.wallpaper = ""; applyScreenSettings() }
             "workspaces" -> main.post { reloadWorkspaces() }
             // Apps shown or hidden from the phone: update the car's app list now.
@@ -963,6 +971,14 @@ class CarRuntime(
         override fun openApp(app: CarAppEntry) {
             // No screen of its own and not a recent app: the projection stays as it is until the car takes focus.
             if (app.kind == CarAppKind.EXIT) { exitToCar?.invoke(); return }
+            // The app grid belongs to no workspace: Home from an app started here goes to the main
+            // (default) workspace, while an app started from a workspace returns to that workspace.
+            // Kept when moving from one app to another; cleared whenever a workspace is chosen.
+            when (ui.screen) {
+                CarScreen.Launcher -> homeWorkspaceId = ui.workspaceConfig.defaultWorkspace()?.id
+                CarScreen.Dashboard -> homeWorkspaceId = null
+                else -> Unit
+            }
             start(app)
             showApp(app.id)
             ui.recentAppIds.remove(app.id)
@@ -970,10 +986,22 @@ class CarRuntime(
             while (ui.recentAppIds.size > 6) ui.recentAppIds.removeAt(ui.recentAppIds.lastIndex)
         }
 
-        override fun goHome() { ui.secondaryAppId = null; ui.screen = CarScreen.Dashboard }
+        override fun goHome() {
+            val target = homeWorkspaceId
+            homeWorkspaceId = null
+            ui.secondaryAppId = null
+            // Already home (the hardware Home key on a workspace): stay on the workspace shown.
+            if (ui.screen == CarScreen.Dashboard) return
+            if (target != null && target != ui.activeWorkspaceId) this@CarRuntime.selectWorkspace(target)
+            ui.screen = CarScreen.Dashboard
+        }
         override fun selectWorkspace(id: String) { this@CarRuntime.selectWorkspace(id) }
         override fun cycleWorkspace(step: Int) { this@CarRuntime.cycleWorkspace(step) }
-        override fun openLauncher() { ui.secondaryAppId = null; ui.screen = CarScreen.Launcher }
+        override fun openLauncher() {
+            homeWorkspaceId = null
+            ui.secondaryAppId = null
+            ui.screen = CarScreen.Launcher
+        }
         override fun assistant() { this@CarRuntime.assistant() }
         override fun mediaPlayPause() = media.playPause()
         override fun mediaNext() = media.next()
@@ -1135,6 +1163,7 @@ class CarRuntime(
      */
     fun selectWorkspace(id: String) {
         if (ui.workspaceConfig.workspace(id) == null) return
+        homeWorkspaceId = null
         if (ui.activeWorkspaceId == id) return
         val previous = ui.activeWorkspace
         ui.activeWorkspaceId = id
@@ -1193,9 +1222,9 @@ class CarRuntime(
                 val conn = connections[s.appId]
                 // An app still connecting or that failed has no screen to go back in: leave it.
                 if (conn != null && conn.status == CarAppConnection.Status.READY) conn.back()
-                else { ui.screen = CarScreen.Dashboard; ui.secondaryAppId = null }
+                else { homeWorkspaceId = null; ui.screen = CarScreen.Dashboard; ui.secondaryAppId = null }
             }
-            CarScreen.Launcher -> { ui.screen = CarScreen.Dashboard; ui.secondaryAppId = null }
+            CarScreen.Launcher -> { homeWorkspaceId = null; ui.screen = CarScreen.Dashboard; ui.secondaryAppId = null }
             CarScreen.Dashboard -> Unit
         }
     }

@@ -1,0 +1,1 @@
+Home from apps opened in the app grid goes to the main workspace; the assistant button can be hidden.

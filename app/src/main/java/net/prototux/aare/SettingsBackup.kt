@@ -58,6 +58,7 @@ object SettingsBackup {
         "car_audio_full_volume" to Type.BOOLEAN,
         "assistant_pkg" to Type.STRING,
         "assistant_stop" to Type.STRING,
+        "assistant_button" to Type.BOOLEAN,
         "phone_screen" to Type.BOOLEAN,
         "standalone_keep_screen_awake" to Type.BOOLEAN,
         "standalone_app_pkgs" to Type.STRING_SET,

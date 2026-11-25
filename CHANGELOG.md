@@ -4,6 +4,23 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.0.6 — Home from the app grid and an optional assistant button
+
+### Added
+
+- Settings → Voice assistant → **Show the assistant button**. Turned off, the car screen's bar
+  hides its microphone button in all three layouts (taskbar, dock and classic). The steering
+  wheel's voice key, voice commands and the assistant's own stop control keep working, so the
+  assistant can always be stopped.
+- The setting is exported and imported with the other DashGrid settings.
+
+### Changed
+
+- **Home** from an app opened in the app grid now opens the **main (default) workspace**, whichever
+  workspace was showing when the app was opened. The app grid belongs to no workspace, so "home"
+  there means the main one. An app opened from a workspace card or live pane still returns to
+  that workspace (1.0.3's behaviour); Back and an app that closes itself are unchanged.
+
 ## 1.0.5 — 60/40 layout and tap-to-open live apps
 
 ### Added

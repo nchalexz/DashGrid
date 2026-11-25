@@ -427,6 +427,15 @@ class Settings(context: Context) {
         get() = prefs.getString("assistant_stop", ASSISTANT_STOP_VOICE_BUTTON) ?: ASSISTANT_STOP_VOICE_BUTTON
         set(v) = prefs.edit { putString("assistant_stop", v) }
 
+    /**
+     * Show the voice assistant's microphone button in the car screen's bar (all three layouts). Off
+     * hides it; the steering wheel's voice key, voice commands and the assistant bar's own stop
+     * control still work, so the assistant can't be left running without a way to stop it.
+     */
+    var assistantButton: Boolean
+        get() = prefs.getBoolean("assistant_button", true)
+        set(v) = prefs.edit { putBoolean("assistant_button", v) }
+
     /** Offer "Phone screen" in the car: the phone's own screen, for apps AARE can't host (Google Maps, Waze). */
     var phoneScreen: Boolean
         get() = prefs.getBoolean("phone_screen", false)

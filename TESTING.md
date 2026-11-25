@@ -38,17 +38,17 @@ That is AARE's whole unit-test suite plus 30 new workspace tests
 Published artifact:
 
 ```
-app/build/outputs/dashgrid/DashGrid-standalone-v1.0.5.apk
-19,432,678 bytes
-SHA-256 4ea4e7ea2c6654984090f24f12b308b46a92b9c11189918a3a109f6969997220
+app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
+19,434,205 bytes
+SHA-256 61df33afdb4ce8e2730798b613dfdde86da32f82736ef4f55b2385a09c46974d
 ```
 
 Verified from the APK itself:
 
 ```sh
-apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.0.5.apk
-aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.0.5.apk
-aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-standalone-v1.0.5.apk
+apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
+aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
+aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
 ```
 
 - `package: io.dashgrid.app`, `versionCode 10005`, `versionName 1.0.5`;
@@ -69,7 +69,7 @@ aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGri
 
 ```sh
 adb uninstall net.prototux.aare   # required for the standalone APK
-adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.5.apk
+adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
 
 # Preview without a car
 # DashGrid → Settings → Workspaces → Preview car screen
@@ -77,6 +77,13 @@ adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.5.apk
 # With the car
 # Connect USB, accept the DashGrid accessory prompt, trust the car's certificate when asked,
 # then build workspaces in Settings → Workspaces.
+
+# 1.0.6 checks
+# Settings → Voice assistant → turn "Show the assistant button" off: the microphone disappears
+# from the bar in taskbar, dock and classic, and the steering wheel's voice key still opens the
+# assistant; Back or the assistant bar's stop button stops it.
+# Open an app from the app grid, press Home: the main (default) workspace opens, not the one that
+# was showing before. Open an app from a workspace card and press Home: that workspace comes back.
 ```
 
 For an update, rebuild with a higher `versionCode` and the same keystore, then `adb install -r`.

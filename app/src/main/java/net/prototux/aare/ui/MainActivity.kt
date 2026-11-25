@@ -1635,6 +1635,13 @@ private fun AssistantCard(settings: Settings) {
         Spacer(Modifier.height(8.dp))
         Text(stringResource(R.string.assistant_hint),
             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        var assistantButton by remember { mutableStateOf(settings.assistantButton) }
+        Spacer(Modifier.height(8.dp))
+        Toggle(
+            stringResource(R.string.assistant_button_toggle_title),
+            stringResource(R.string.assistant_button_toggle_subtitle),
+            assistantButton,
+        ) { assistantButton = it; settings.assistantButton = it }
         if (launcherAvailable) {
             Spacer(Modifier.height(8.dp))
             Toggle(

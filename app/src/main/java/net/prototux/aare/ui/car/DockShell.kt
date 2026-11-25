@@ -102,12 +102,14 @@ private fun Dock(state: CarUiState, actions: CarActions, horizontal: Boolean = f
     val media = state.app(state.activeMediaAppId) ?: state.apps.firstOrNull { it.kind == CarAppKind.MEDIA }
     val phone = state.apps.firstOrNull { it.kind == CarAppKind.PHONE }
     val voice: @Composable () -> Unit = {
-        val scheme = MaterialTheme.colorScheme
-        val stop = state.voiceButtonIsStop
-        Box(Modifier.size(52.dp).clip(CircleShape).background(when { stop -> scheme.error; state.listening -> scheme.primary; else -> scheme.secondaryContainer })
-            .carClickable(CircleShape) { actions.assistant() }, contentAlignment = Alignment.Center) {
-            if (stop) Icon(Icons.Rounded.Stop, stringResource(R.string.assistant_stop), tint = scheme.onError)
-            else Icon(Icons.Rounded.Mic, "Voice", tint = if (state.listening) scheme.onPrimary else scheme.onSecondaryContainer)
+        if (state.assistantButtonVisible) {
+            val scheme = MaterialTheme.colorScheme
+            val stop = state.voiceButtonIsStop
+            Box(Modifier.size(52.dp).clip(CircleShape).background(when { stop -> scheme.error; state.listening -> scheme.primary; else -> scheme.secondaryContainer })
+                .carClickable(CircleShape) { actions.assistant() }, contentAlignment = Alignment.Center) {
+                if (stop) Icon(Icons.Rounded.Stop, stringResource(R.string.assistant_stop), tint = scheme.onError)
+                else Icon(Icons.Rounded.Mic, "Voice", tint = if (state.listening) scheme.onPrimary else scheme.onSecondaryContainer)
+            }
         }
     }
     // The home button: on a workspace it opens the app grid; anywhere else it returns to the

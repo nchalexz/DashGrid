@@ -32,3 +32,14 @@ jobs:
           else
             gh release create "$GITHUB_REF_NAME" "$apk" "$standalone" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
           fi
+      - name: Hide older releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Older versions stay in the repository as drafts: hidden from the public release page,
+          # not deleted. The current tag is skipped.
+          gh api "repos/${GITHUB_REPOSITORY}/releases?per_page=100"             --jq '.[] | select(.draft == false) | .tag_name' |
+          while read -r tag; do
+            [ "$tag" = "$GITHUB_REF_NAME" ] && continue
+            gh release edit "$tag" --draft
+          done

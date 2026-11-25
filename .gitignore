@@ -6,6 +6,9 @@ build/
 # Local configuration file (sdk path, etc)
 local.properties
 
+# A local Android SDK restored inside the project for builds
+android-sdk/
+
 # Log/OS Files
 *.log
 
@@ -16,6 +19,9 @@ captures/
 *.aab
 *.apk
 output-metadata.json
+
+# ...except the signed release APKs committed in dist/ for the release workflow
+!dist/*.apk
 
 # IntelliJ
 *.iml

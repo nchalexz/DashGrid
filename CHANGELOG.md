@@ -4,6 +4,17 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.0.5 — 60/40 layout and tap-to-open live apps
+
+### Added
+
+- **60 / 40** workspace layout, next to 50/50, 70/30 and 30/70. Side by side it is exactly 6+4
+  cells; top and bottom rounds to 4+2 rows on the 6-row grid, as 70/30 already does.
+- Per-workspace **Tap a live app to open it** option. A tap on the free space of a live pane opens
+  that app full screen, as tapping a widget card does; the pane's own buttons, lists and map keep
+  working. Off by default, so existing workspaces behave as before.
+- The option is stored in the workspace JSON and has a unit test for the round trip.
+
 ## 1.0.4 — close apps when a workspace is hidden
 
 ### Added

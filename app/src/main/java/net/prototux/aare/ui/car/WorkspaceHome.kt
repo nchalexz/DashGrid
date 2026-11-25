@@ -287,9 +287,16 @@ private fun WorkspaceItemContent(
                 // Only the page on screen draws a live app: two pages must not own the same
                 // connection's surface, and inactive pages must not run a second session.
                 !active -> WidgetPlaceholder(Icons.Rounded.Apps, app.label, stringResource(R.string.workspace_pane_inactive))
-                else -> androidx.compose.foundation.layout.Box(
-                    Modifier.fillMaxSize().clip(RoundedCornerShape(LocalCarDimens.current.cardRadius)),
-                ) { appContent(app, Modifier.fillMaxSize()) }
+                else -> {
+                    // Tapping the pane's free space opens the app full screen, as a widget card
+                    // does. The pane's own controls consume their taps first, so they still work;
+                    // carClickable keeps the pane reachable with a knob or D-pad too.
+                    val shape = RoundedCornerShape(LocalCarDimens.current.cardRadius)
+                    val open: (() -> Unit)? = if (workspace.openPaneOnTap) ({ actions.openApp(app) }) else null
+                    androidx.compose.foundation.layout.Box(
+                        Modifier.fillMaxSize().clip(shape).carClickable(shape, onClick = open),
+                    ) { appContent(app, Modifier.fillMaxSize()) }
+                }
             }
         }
         WorkspaceItemKind.WIDGET -> WorkspaceWidget(item, state, actions, navMap, active)

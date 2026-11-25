@@ -12,15 +12,15 @@
 </p>
 
 <p align="center">
-  <img alt="version 1.0.4" src="https://img.shields.io/badge/version-1.0.4-36D6C3?style=flat-square&labelColor=101418">
+  <img alt="version 1.0.5" src="https://img.shields.io/badge/version-1.0.5-36D6C3?style=flat-square&labelColor=101418">
   <img alt="Android 6+" src="https://img.shields.io/badge/Android-6%2B-36D6C3?style=flat-square&labelColor=101418">
   <img alt="GPL-3.0" src="https://img.shields.io/badge/licence-GPL--3.0-94A3B8?style=flat-square&labelColor=101418">
   <img alt="fork of AARE" src="https://img.shields.io/badge/fork-AARE-94A3B8?style=flat-square&labelColor=101418">
 </p>
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.4/DashGrid-standalone-v1.0.4.apk">
-    <img alt="Download DashGrid v1.0.4" src="https://img.shields.io/badge/Download-DashGrid--v1.0.4-36D6C3?style=for-the-badge&labelColor=101418">
+  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.5/DashGrid-standalone-v1.0.5.apk">
+    <img alt="Download DashGrid v1.0.5" src="https://img.shields.io/badge/Download-DashGrid--v1.0.5-36D6C3?style=for-the-badge&labelColor=101418">
   </a>
 </p>
 
@@ -50,7 +50,7 @@ three layouts (taskbar, dock, classic).
 
 **Arrange once, then leave it alone.** Put a map and music side by side for the city, a weather
 card and the next calendar event for a longer drive, or one big app for the car. Presets cover
-100 %, 50/50, 70/30, 30/70, three widgets, four widgets and a free 10 × 6 grid.
+100 %, 50/50, 60/40, 70/30, 30/70, three widgets, four widgets and a free 10 × 6 grid.
 
 **Resize by dragging.** Long-press an item on the phone, move it, change its width and height, and
 let it merge cells. Map and music widgets can be pinned to a particular app per workspace, so each
@@ -58,7 +58,9 @@ page keeps its own player instead of following whatever opened last.
 
 **Let an app draw itself.** A live pane is an app's own screen inside its cells — a Car App
 template, a map, a media screen, a launched phone app — with the same rounded corners as the
-widgets around it. Shortcuts are still there when you just want an icon that opens full screen.
+widgets around it. A per-workspace option can open a live app full screen when you tap its free
+space, as tapping a widget card does; the app's own controls keep working. Shortcuts are still
+there when you just want an icon that opens full screen.
 
 **Edit on the phone. Drive on the car.** The editor needs a keyboard, precision touch and room for
 a layout preview. The car screen stays a viewer, with no setup panels in the way.
@@ -90,12 +92,12 @@ it first; that also removes AARE's settings.
 
 ```sh
 adb uninstall net.prototux.aare
-adb install -r DashGrid-standalone-v1.0.4.apk
+adb install -r DashGrid-standalone-v1.0.5.apk
 ```
 
-- Download: [DashGrid-standalone-v1.0.4.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.4/DashGrid-standalone-v1.0.4.apk)
-- Package: `io.dashgrid.app`, version 1.0.4 (10004)
-- SHA-256: `8cf8887082c804106eeeaef3e88e5def383df12bf7c4ebd95e0b72563889f417`
+- Download: [DashGrid-standalone-v1.0.5.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.5/DashGrid-standalone-v1.0.5.apk)
+- Package: `io.dashgrid.app`, version 1.0.5 (10005)
+- SHA-256: `4ea4e7ea2c6654984090f24f12b308b46a92b9c11189918a3a109f6969997220`
 - Signed with DashGrid's own key (`CN=DashGrid`); future updates must use the same key.
 
 Prefer to keep AARE installed? The side-by-side variant is still buildable locally with
@@ -118,11 +120,11 @@ sdk.dir=/path/to/android-sdk
 
 # Published standalone release APK
 ./gradlew dashgridStandaloneApk
-# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.4.apk
+# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.5.apk
 
 # Side-by-side variant for installing next to AARE (local use)
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.4.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.0.5.apk
 ```
 
 Signing reads `keystore.properties`, which is not committed. See
@@ -160,7 +162,7 @@ DashGrid.
 - Сетка 10 × 6: перетаскивание, изменение размера, объединение ячеек.
 - Живые панели приложений и виджеты; карту и музыку можно закрепить за приложением.
 - Музыка не прерывается при переключении страниц; для каждого стола можно включить закрытие приложений при скрытии.
-- Установка: [DashGrid-standalone-v1.0.4.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.4/DashGrid-standalone-v1.0.4.apk).
+- Установка: [DashGrid-standalone-v1.0.5.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.5/DashGrid-standalone-v1.0.5.apk).
   AARE нужно удалить: standalone-сборка не ставится рядом с ним.
 
 ## Licence

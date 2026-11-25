@@ -1,0 +1,1 @@
+60/40 workspace layout; tap a live app's free space to open it full screen.

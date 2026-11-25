@@ -459,6 +459,11 @@ private fun WorkspaceEditor(
             stringResource(R.string.workspaces_close_hidden_subtitle),
             workspace.closeAppsWhenHidden,
         ) { close -> onChange(workspace.copy(closeAppsWhenHidden = close)) }
+        Toggle(
+            stringResource(R.string.workspaces_pane_tap_title),
+            stringResource(R.string.workspaces_pane_tap_subtitle),
+            workspace.openPaneOnTap,
+        ) { open -> onChange(workspace.copy(openPaneOnTap = open)) }
 
         SelectionSummary(workspace, selected, appLabels)
         WorkspaceGrid(
@@ -703,7 +708,8 @@ private fun ChoiceRow(icon: ImageVector?, label: String, bitmapId: android.graph
 }
 
 private val splitLayouts = setOf(
-    WorkspaceLayout.SPLIT_50, WorkspaceLayout.SPLIT_70_30, WorkspaceLayout.SPLIT_30_70,
+    WorkspaceLayout.SPLIT_50, WorkspaceLayout.SPLIT_60_40, WorkspaceLayout.SPLIT_70_30,
+    WorkspaceLayout.SPLIT_30_70,
 )
 
 /** The dashboard widgets a workspace can hold. */
@@ -734,6 +740,7 @@ private fun widgetIcon(id: String): ImageVector = when (id) {
 private fun layoutLabel(layout: WorkspaceLayout): Int = when (layout) {
     WorkspaceLayout.FULL -> R.string.workspaces_layout_full
     WorkspaceLayout.SPLIT_50 -> R.string.workspaces_layout_split50
+    WorkspaceLayout.SPLIT_60_40 -> R.string.workspaces_layout_split60_40
     WorkspaceLayout.SPLIT_70_30 -> R.string.workspaces_layout_split70_30
     WorkspaceLayout.SPLIT_30_70 -> R.string.workspaces_layout_split30_70
     WorkspaceLayout.THREE -> R.string.workspaces_layout_three

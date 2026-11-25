@@ -84,8 +84,8 @@ class WorkspaceModelTest {
 
     @Test
     fun everyPresetFillsTheGridWithoutOverlaps() {
-        for (layout in listOf(WorkspaceLayout.FULL, WorkspaceLayout.SPLIT_50, WorkspaceLayout.SPLIT_70_30,
-            WorkspaceLayout.SPLIT_30_70, WorkspaceLayout.THREE, WorkspaceLayout.FOUR)) {
+        for (layout in listOf(WorkspaceLayout.FULL, WorkspaceLayout.SPLIT_50, WorkspaceLayout.SPLIT_60_40,
+            WorkspaceLayout.SPLIT_70_30, WorkspaceLayout.SPLIT_30_70, WorkspaceLayout.THREE, WorkspaceLayout.FOUR)) {
             for (axis in WorkspaceAxis.entries) {
                 val rects = layout.slots(axis)
                 assertEquals("$layout/$axis", layout.slots(axis).size, layout.slots(axis).distinct().size)
@@ -100,6 +100,15 @@ class WorkspaceModelTest {
                 assertEquals("$layout/$axis fills the grid", WORKSPACE_COLUMNS * WORKSPACE_ROWS, area)
             }
         }
+    }
+
+    @Test
+    fun sixtyFortyIsReallySixtyPercentWide() {
+        val (big, small) = WorkspaceLayout.SPLIT_60_40.slots(WorkspaceAxis.HORIZONTAL)
+        assertEquals(6, big.colSpan)
+        assertEquals(4, small.colSpan)
+        assertEquals(6, big.rowSpan)
+        assertEquals(6, small.rowSpan)
     }
 
     @Test
@@ -283,6 +292,13 @@ class WorkspaceModelTest {
         val ws = Workspace.create("Leaving").copy(closeAppsWhenHidden = true)
         val decoded = WorkspaceJson.decode(WorkspaceJson.encode(WorkspaceConfig(listOf(ws))))!!
         assertTrue(decoded.workspaces.single().closeAppsWhenHidden)
+    }
+
+    @Test
+    fun openPaneOnTapRoundTrips() {
+        val ws = Workspace.create("Panes").copy(openPaneOnTap = true)
+        val decoded = WorkspaceJson.decode(WorkspaceJson.encode(WorkspaceConfig(listOf(ws))))!!
+        assertTrue(decoded.workspaces.single().openPaneOnTap)
     }
 
     @Test

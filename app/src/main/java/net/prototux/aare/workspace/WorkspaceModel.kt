@@ -26,6 +26,9 @@ enum class WorkspaceLayout(val id: String) {
     /** Two items, 50/50. */
     SPLIT_50("split50"),
 
+    /** Two items, the first one 60%, the second 40%. */
+    SPLIT_60_40("split60_40"),
+
     /** Two items, the first one 70%, the second 30%. */
     SPLIT_70_30("split70_30"),
 
@@ -144,6 +147,8 @@ data class Workspace(
     val items: List<WorkspaceItem> = emptyList(),
     /** When switching away, release this workspace's car app sessions and surfaces. */
     val closeAppsWhenHidden: Boolean = false,
+    /** A tap on a live app's free space opens that app full screen, as tapping a widget card does. */
+    val openPaneOnTap: Boolean = false,
 ) {
     /** A new, empty workspace: a fresh id and a preset wide enough for its first items. */
     companion object {
@@ -367,6 +372,9 @@ fun WorkspaceLayout.slots(axis: WorkspaceAxis): List<WorkspaceRect> = when (this
     WorkspaceLayout.SPLIT_50 -> if (axis == WorkspaceAxis.HORIZONTAL)
         listOf(WorkspaceRect(0, 0, 5, 6), WorkspaceRect(5, 0, 5, 6))
     else listOf(WorkspaceRect(0, 0, 10, 3), WorkspaceRect(0, 3, 10, 3))
+    WorkspaceLayout.SPLIT_60_40 -> if (axis == WorkspaceAxis.HORIZONTAL)
+        listOf(WorkspaceRect(0, 0, 6, 6), WorkspaceRect(6, 0, 4, 6))
+    else listOf(WorkspaceRect(0, 0, 10, 4), WorkspaceRect(0, 4, 10, 2))
     WorkspaceLayout.SPLIT_70_30 -> if (axis == WorkspaceAxis.HORIZONTAL)
         listOf(WorkspaceRect(0, 0, 7, 6), WorkspaceRect(7, 0, 3, 6))
     else listOf(WorkspaceRect(0, 0, 10, 4), WorkspaceRect(0, 4, 10, 2))
@@ -452,6 +460,7 @@ object WorkspaceJson {
                     put("layout", ws.layout.id)
                     put("axis", ws.axis.id)
                     put("closeAppsWhenHidden", ws.closeAppsWhenHidden)
+                    put("openPaneOnTap", ws.openPaneOnTap)
                     put("items", JSONArray().apply {
                         ws.items.forEach { item ->
                             put(JSONObject().apply {
@@ -506,12 +515,14 @@ object WorkspaceJson {
         val layout = WorkspaceLayout.byId(json.optString("layout"))
         val axis = WorkspaceAxis.byId(json.optString("axis"))
         val closeAppsWhenHidden = json.optBoolean("closeAppsWhenHidden", false)
+        val openPaneOnTap = json.optBoolean("openPaneOnTap", false)
         val itemsJson = json.optJSONArray("items")
         val items = ArrayList<WorkspaceItem>(itemsJson?.length() ?: 0)
         if (itemsJson != null) for (i in 0 until itemsJson.length()) {
             decodeItem(itemsJson.optJSONObject(i))?.let(items::add)
         }
-        return Workspace(id = id, name = name, layout = layout, axis = axis, items = items, closeAppsWhenHidden = closeAppsWhenHidden)
+        return Workspace(id = id, name = name, layout = layout, axis = axis, items = items,
+            closeAppsWhenHidden = closeAppsWhenHidden, openPaneOnTap = openPaneOnTap)
     }
 
     private fun decodeItem(json: JSONObject?): WorkspaceItem? {

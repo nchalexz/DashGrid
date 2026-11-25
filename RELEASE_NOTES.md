@@ -1,35 +1,36 @@
 **Swipe. Arrange. Drive.**
 
-DashGrid 1.0.4 is a small update of the independent fork of
+DashGrid 1.0.5 is a small update of the independent fork of
 [AARE](https://github.com/prototux/AARE), published as the **standalone build only**.
 
 ## New
 
-- **Close apps when hidden** — a per-workspace option in *Settings → Workspaces*. When the page is
-  left, DashGrid releases that workspace's car app sessions and surfaces and pauses its music.
-  Off by default: routes, playback and app state stay alive across page switches.
-- The audio and navigation apps of a workspace that another workspace also uses are not closed.
-  Android may keep the phone app's process alive; DashGrid stops the car-side session and audio it
-  owns.
+- **60 / 40 layout** — a fourth workspace split beside 100 %, 50/50, 70/30 and 30/70. Side by side
+  it is exactly 60/40 (6+4 cells); top and bottom rounds to 4+2 rows on the 6-row grid, as 70/30
+  already does.
+- **Tap a live app to open it** — a per-workspace option in *Settings → Workspaces*. A tap on the
+  free space of a live pane opens that app full screen, as tapping a widget card does. The pane's
+  own buttons, lists and map keep working. Off by default, so existing workspaces behave as before.
+- Both settings are stored in the workspace JSON and covered by unit tests.
 
-## Also in 1.0.4
+## Also in 1.0.5
 
-- Live app panes, per-widget app pinning, dot-only pager with optional name.
+- Workspaces, live app panes, per-widget app pinning, dot-only pager with optional name.
 - Music widget with session-only players, artwork, progress, seek, play/pause and skip.
 - Full Russian UI; short Russian summary in the README.
 
 ## Install
 
-This release attaches **only** `DashGrid-standalone-v1.0.4.apk`. It defines
+This release attaches **only** `DashGrid-standalone-v1.0.5.apk`. It defines
 `android.car.permission.TEMPLATE_RENDERER`, so AARE must be uninstalled first.
 
 ```sh
 adb uninstall net.prototux.aare
-adb install -r DashGrid-standalone-v1.0.4.apk
+adb install -r DashGrid-standalone-v1.0.5.apk
 ```
 
-- Package: `io.dashgrid.app`, version 1.0.4 (10004)
-- SHA-256: `8cf8887082c804106eeeaef3e88e5def383df12bf7c4ebd95e0b72563889f417`
+- Package: `io.dashgrid.app`, version 1.0.5 (10005)
+- SHA-256: `4ea4e7ea2c6654984090f24f12b308b46a92b9c11189918a3a109f6969997220`
 - Signed with DashGrid's own key (`CN=DashGrid`); updates must use the same key.
 
 ## Documentation

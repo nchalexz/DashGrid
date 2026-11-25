@@ -125,6 +125,7 @@ The logical grid is **10 columns × 6 rows** in landscape. Presets:
 |---|---|
 | `full` | 10×6 |
 | `split50` | 5+5 columns, or 3+3 rows |
+| `split60_40` | 6+4 columns, or 4+2 rows |
 | `split70_30` | 7+3 columns, or 4+2 rows |
 | `split30_70` | 3+7 columns, or 2+4 rows |
 | `three` | 4+3+3 columns |
@@ -162,7 +163,10 @@ wallpaper once, then a pager:
 Items are ordinary Compose: an app shortcut is a card with the app's icon and label; a `pane` runs
 the existing full-screen `appContent` composable (Car App template, map, media, launched app) inside
 its cells, but only while its page is current — inactive pages show a placeholder so no second app
-session is started. Widgets are the existing dashboard composables (`NavCard`, `MediaCard`, `CalendarAgendaCard`, `WeatherCard`,
+session is started. With the per-workspace **Tap a live app to open it** option (`openPaneOnTap`),
+a tap on the pane's free space calls `CarActions.openApp` for that app, as tapping a widget card
+does; the app's own controls consume their taps first and keep working. Widgets are the existing
+dashboard composables (`NavCard`, `MediaCard`, `CalendarAgendaCard`, `WeatherCard`,
 `HomeCard`, `LatestNotification`, `ObdDashCard`) inside the same `Card`. Empty widgets show a calm
 placeholder rather than collapsing the grid, so positions stay stable.
 

@@ -97,8 +97,11 @@ class CarUiState {
     val apps = mutableStateListOf<CarAppEntry>()
     /** Ids of built-in apps (CarRuntime.HIDEABLE_BUILTIN_IDS) the user hid from the app grid only. */
     var launcherHidden by mutableStateOf<Set<String>>(emptySet())
-    /** What the app grid and launcher list show: [apps] without the ones in [launcherHidden]. */
-    val launcherApps: List<CarAppEntry> get() = apps.withoutLauncherHidden(launcherHidden)
+    /** Android Auto app ids left out of the app grid because the phone version is enabled there (a setting). */
+    var launcherReplaced by mutableStateOf<Set<String>>(emptySet())
+    /** What the app grid and launcher list show: [apps] without the hidden and replaced entries. */
+    val launcherApps: List<CarAppEntry>
+        get() = apps.withoutLauncherHidden(launcherHidden).filter { it.id !in launcherReplaced }
     var nowPlaying by mutableStateOf<NowPlaying?>(null)
     /** The navigation app whose map is shown on the dashboard. */
     var activeNavAppId by mutableStateOf<String?>(null)
@@ -219,6 +222,18 @@ data class HomeTileUi(val id: String, val label: String, val value: String?, val
 /** These apps without the [hidden] ones, for the app grid: everything else still reaches them. */
 internal fun List<CarAppEntry>.withoutLauncherHidden(hidden: Set<String>): List<CarAppEntry> =
     if (hidden.isEmpty()) this else filter { it.id !in hidden }
+
+/**
+ * The app-grid ids left out because their phone version ([CarAppKind.STANDALONE]) is enabled on the
+ * car screen: one launcher entry instead of two. Empty when the setting is off or nothing matches.
+ * Only the grid changes: workspace shortcuts and the phone's own lists keep both entries.
+ */
+internal fun replacedByStandalone(entries: List<CarAppEntry>, hide: Boolean): Set<String> {
+    if (!hide) return emptySet()
+    val phone = entries.filter { it.kind == CarAppKind.STANDALONE }.mapTo(HashSet()) { it.packageName }
+    if (phone.isEmpty()) return emptySet()
+    return entries.filter { it.kind != CarAppKind.STANDALONE && it.packageName in phone }.mapTo(HashSet()) { it.id }
+}
 
 /** A phone call, ringing or on, for the car's call card. */
 @Stable

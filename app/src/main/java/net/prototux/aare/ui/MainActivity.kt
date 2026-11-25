@@ -1502,6 +1502,12 @@ private fun StandaloneAppsSection(settings: Settings, ctx: android.content.Conte
             Toggle(stringResource(R.string.standalone_media_video_title), stringResource(R.string.standalone_media_video_subtitle), mediaVideo) {
                 mediaVideo = it; settings.mediaVideo = it
             }
+            var hideAa by remember { mutableStateOf(settings.hideCarAppForStandalone) }
+            Toggle(
+                stringResource(R.string.standalone_hide_aa_title),
+                stringResource(R.string.standalone_hide_aa_subtitle),
+                hideAa,
+            ) { hideAa = it; settings.hideCarAppForStandalone = it }
             val apps by produceState<List<LaunchableApp>?>(null) {
                 value = withContext(Dispatchers.IO) { launchableApps(ctx) }
             }

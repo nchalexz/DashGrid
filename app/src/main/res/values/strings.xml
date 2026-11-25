@@ -625,6 +625,8 @@
     <string name="standalone_rule_navigation_note">Shown while driving, and used as the car\'s navigation app: it takes the map slot and opens the destinations you ask for.</string>
     <string name="standalone_media_video_title">Video from media apps</string>
     <string name="standalone_media_video_subtitle">Adds "Show video" to the car\'s media screen: the media app opens on the car screen, for its video. Parked only; the cover art comes back when you drive.</string>
+    <string name="standalone_hide_aa_title">Hide the Android Auto version of an enabled phone app</string>
+    <string name="standalone_hide_aa_subtitle">When a phone app turned on below also appears in the car\'s app grid as an Android Auto app, only the phone app is listed there. Shortcuts already placed on a workspace keep working.</string>
     <!-- browser: the in-car WebView browser -->
     <string name="browser_app_label">Browser</string>
     <string name="browser_app_row_subtitle">A web browser on the car screen, for when you\'re parked</string>

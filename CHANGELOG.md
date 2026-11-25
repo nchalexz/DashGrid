@@ -4,6 +4,19 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.0.7 — hide the Android Auto version of an enabled phone app
+
+### Added
+
+- **Hide the Android Auto version of an enabled phone app**, in *Settings → Apps* under
+  **Apps on the car screen (advanced)**, right above the list of phone apps. When a phone app
+  enabled there also appears in the car's app grid as an Android Auto app, the grid lists only the
+  phone version. Off by default, so existing installations don't change.
+- Only the app grid changes: shortcuts already placed on a workspace keep working, the rail's
+  recents can still open the Android Auto app, and the phone's app list still shows both.
+- The option is exported and imported with the other DashGrid settings, and is covered by a unit
+  test.
+
 ## 1.0.6 — Home from the app grid and an optional assistant button
 
 ### Added

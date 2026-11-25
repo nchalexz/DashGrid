@@ -1,42 +1,39 @@
 **Swipe. Arrange. Drive.**
 
-DashGrid 1.0.6 is a small update of the independent fork of
+DashGrid 1.0.7 is a small update of the independent fork of
 [AARE](https://github.com/prototux/AARE), published as the **standalone build only**.
 
 ## New
 
-- **Show the assistant button** — a switch in *Settings → Voice assistant*. Turned off, the car
-  screen's bar hides its microphone in all three layouts (taskbar, dock and classic). The
-  steering wheel's voice key, voice commands and the assistant bar's own stop button keep
-  working, so the assistant can always be stopped.
-- The choice is exported and imported with the other DashGrid settings.
+- **Hide the Android Auto version of an enabled phone app** — in *Settings → Apps*, under
+  **Apps on the car screen (advanced)**, right above the phone apps. When an app enabled there
+  also appears in the car's app grid as an Android Auto app, the grid lists only the phone
+  version. Off by default, so existing installations don't change.
+- Only the app grid changes: shortcuts already placed on a workspace keep working, the rail's
+  recents can still open the Android Auto app, and the phone's own app list still shows both.
+- The option is exported and imported with the other settings, and has a unit test.
 
-## Changed
+## Also in 1.0.7
 
-- **Home from the app grid** now opens the **main (default) workspace**. The grid belongs to no
-  workspace, so an app started there returns to the main one rather than to whichever workspace
-  happened to be showing before. An app opened from a workspace still returns to that workspace.
-  Back and an app that closes itself are unchanged.
-
-## Also in 1.0.6
-
-- Workspaces, live app panes, per-widget app pinning, dot-only pager with optional name.
-- 60/40 split and tap-to-open live apps (1.0.5).
-- Music widget with session-only players, artwork, progress, seek, play/pause and skip.
-- Full Russian UI; short Russian summary in the README.
+- **Home from the app grid** opens the main (default) workspace; apps started from a workspace
+  return to it (1.0.6).
+- The bar's **assistant button** can be hidden in *Settings → Voice assistant*; the steering
+  wheel's voice key and the assistant's own stop button keep working (1.0.6).
+- Workspaces, live app panes, per-widget app pinning, dot-only pager, 60/40 split and
+  tap-to-open live apps, the session-only Music widget, and the full Russian UI.
 
 ## Install
 
-This release attaches **only** `DashGrid-standalone-v1.0.6.apk`. It defines
+This release attaches **only** `DashGrid-standalone-v1.0.7.apk`. It defines
 `android.car.permission.TEMPLATE_RENDERER`, so AARE must be uninstalled first.
 
 ```sh
 adb uninstall net.prototux.aare
-adb install -r DashGrid-standalone-v1.0.6.apk
+adb install -r DashGrid-standalone-v1.0.7.apk
 ```
 
-- Package: `io.dashgrid.app`, version 1.0.6 (10006)
-- SHA-256: `61df33afdb4ce8e2730798b613dfdde86da32f82736ef4f55b2385a09c46974d`
+- Package: `io.dashgrid.app`, version 1.0.7 (10007)
+- SHA-256: `cd92208248335aeff8ab3da243b2cdc982c8450e79837fc6512e3d0640226731`
 - Signed with DashGrid's own key (`CN=DashGrid`); updates must use the same key.
 
 ## Documentation

@@ -578,6 +578,8 @@
     <string name="standalone_rule_navigation_note">Отображается во время движения и используется как навигационное приложение автомобиля: занимает место карты и открывает запрошенные вами пункты назначения.</string>
     <string name="standalone_media_video_title">Видео из медиаприложений</string>
     <string name="standalone_media_video_subtitle">Добавляет «Показать видео» на экран медиа в машине: медиаприложение открывается на экране машины для своего видео. Только на стоянке; во время движения возвращается обложка.</string>
+    <string name="standalone_hide_aa_title">Скрывать АА-версию включённого приложения телефона</string>
+    <string name="standalone_hide_aa_subtitle">Если у включённого ниже приложения телефона есть версия для Android Auto, в списке приложений автомобиля останется только версия телефона. Ярлыки, уже добавленные на рабочий стол, продолжают работать.</string>
     <!-- browser: the in-car WebView browser -->
     <string name="browser_app_label">Браузер</string>
     <string name="browser_app_row_subtitle">Веб-браузер на экране автомобиля — для случаев, когда вы припаркованы</string>

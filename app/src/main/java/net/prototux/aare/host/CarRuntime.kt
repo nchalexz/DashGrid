@@ -93,6 +93,7 @@ import net.prototux.aare.ui.car.canOpenBeside
 import net.prototux.aare.ui.car.leftAlone
 import net.prototux.aare.ui.car.messageApp
 import net.prototux.aare.ui.car.openInPanes
+import net.prototux.aare.ui.car.replacedByStandalone
 import net.prototux.aare.ui.car.snapSplitRatio
 import net.prototux.aare.ui.theme.CarControlSize
 import net.prototux.aare.ui.theme.CarTextSize
@@ -503,6 +504,7 @@ class CarRuntime(
             "workspaces" -> main.post { reloadWorkspaces() }
             // Apps shown or hidden from the phone: update the car's app list now.
             "hidden_apps", "phone_screen", "assistant_pkg", "app_order", "standalone_driving_rules",
+            "hide_car_app_for_standalone",
             "standalone_apps", "standalone_app_pkgs", "browser", "car_data_app" -> main.post { refreshApps() }
         }
     }
@@ -704,6 +706,9 @@ class CarRuntime(
         // A launched app whose rule is no longer "navigation" gives up the navigation slot.
         if (ui.app(ui.activeNavAppId)?.isNavigation == false) ui.activeNavAppId = null
         ui.launcherHidden = launcherHiddenIds(hidden)
+        // One entry in the app grid when the phone version of an app is enabled there too (a setting):
+        // the Android Auto one steps aside; workspaces and the car's own shortcuts keep both.
+        ui.launcherReplaced = replacedByStandalone(entries, settings.hideCarAppForStandalone)
         // Restore the last navigation and media apps, so the dashboard isn't empty. Not a navigation app that
         // finished itself: its map card would stay blank instead of offering the picker.
         if (ui.activeNavAppId == null) {

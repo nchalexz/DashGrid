@@ -470,6 +470,15 @@ class Settings(context: Context) {
         set(v) = prefs.edit { putStringSet("standalone_app_pkgs", HashSet(v)) }
 
     /**
+     * Leave the Android Auto version out of the car's app grid when the same app's phone version is
+     * enabled there ([standaloneAppPackages]): one launcher entry instead of two. Off by default;
+     * only the grid changes, workspace shortcuts keep working.
+     */
+    var hideCarAppForStandalone: Boolean
+        get() = prefs.getBoolean("hide_car_app_for_standalone", false)
+        set(v) = prefs.edit { putBoolean("hide_car_app_for_standalone", v) }
+
+    /**
      * What each launched app may do while driving, by package: parked only (also for a package with
      * no rule), audio only, or, for navigation apps only, navigation.
      */

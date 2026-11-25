@@ -9,7 +9,7 @@
 Result for this build:
 
 ```
-872 tests, 0 failures, 0 errors, 0 skipped
+877 tests, 0 failures, 0 errors, 0 skipped
 BUILD SUCCESSFUL
 ```
 
@@ -38,17 +38,17 @@ That is AARE's whole unit-test suite plus 30 new workspace tests
 Published artifact:
 
 ```
-app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
-19,434,205 bytes
-SHA-256 61df33afdb4ce8e2730798b613dfdde86da32f82736ef4f55b2385a09c46974d
+app/build/outputs/dashgrid/DashGrid-standalone-v1.0.7.apk
+19,435,747 bytes
+SHA-256 cd92208248335aeff8ab3da243b2cdc982c8450e79837fc6512e3d0640226731
 ```
 
 Verified from the APK itself:
 
 ```sh
-apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
-aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
-aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
+apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.0.7.apk
+aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.0.7.apk
+aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-standalone-v1.0.7.apk
 ```
 
 - `package: io.dashgrid.app`, `versionCode 10005`, `versionName 1.0.5`;
@@ -69,7 +69,7 @@ aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGri
 
 ```sh
 adb uninstall net.prototux.aare   # required for the standalone APK
-adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
+adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.7.apk
 
 # Preview without a car
 # DashGrid → Settings → Workspaces → Preview car screen
@@ -78,6 +78,11 @@ adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
 # Connect USB, accept the DashGrid accessory prompt, trust the car's certificate when asked,
 # then build workspaces in Settings → Workspaces.
 
+# 1.0.7 checks
+# Settings → Apps → Apps on the car screen (advanced) → turn on the phone-app list, enable an app
+# that also has an Android Auto entry, then turn on "Hide the Android Auto version": the car's app
+# grid shows only the phone version; a workspace shortcut to the Android Auto app still opens it.
+#
 # 1.0.6 checks
 # Settings → Voice assistant → turn "Show the assistant button" off: the microphone disappears
 # from the bar in taskbar, dock and classic, and the steering wheel's voice key still opens the

@@ -12,15 +12,15 @@
 </p>
 
 <p align="center">
-  <img alt="version 1.0.6" src="https://img.shields.io/badge/version-1.0.6-36D6C3?style=flat-square&labelColor=101418">
+  <img alt="version 1.0.7" src="https://img.shields.io/badge/version-1.0.7-36D6C3?style=flat-square&labelColor=101418">
   <img alt="Android 6+" src="https://img.shields.io/badge/Android-6%2B-36D6C3?style=flat-square&labelColor=101418">
   <img alt="GPL-3.0" src="https://img.shields.io/badge/licence-GPL--3.0-94A3B8?style=flat-square&labelColor=101418">
   <img alt="fork of AARE" src="https://img.shields.io/badge/fork-AARE-94A3B8?style=flat-square&labelColor=101418">
 </p>
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.6/DashGrid-standalone-v1.0.6.apk">
-    <img alt="Download DashGrid v1.0.6" src="https://img.shields.io/badge/Download-DashGrid--v1.0.6-36D6C3?style=for-the-badge&labelColor=101418">
+  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.7/DashGrid-standalone-v1.0.7.apk">
+    <img alt="Download DashGrid v1.0.7" src="https://img.shields.io/badge/Download-DashGrid--v1.0.7-36D6C3?style=for-the-badge&labelColor=101418">
   </a>
 </p>
 
@@ -92,12 +92,12 @@ it first; that also removes AARE's settings.
 
 ```sh
 adb uninstall net.prototux.aare
-adb install -r DashGrid-standalone-v1.0.6.apk
+adb install -r DashGrid-standalone-v1.0.7.apk
 ```
 
-- Download: [DashGrid-standalone-v1.0.6.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.6/DashGrid-standalone-v1.0.6.apk)
-- Package: `io.dashgrid.app`, version 1.0.6 (10006)
-- SHA-256: `61df33afdb4ce8e2730798b613dfdde86da32f82736ef4f55b2385a09c46974d`
+- Download: [DashGrid-standalone-v1.0.7.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.7/DashGrid-standalone-v1.0.7.apk)
+- Package: `io.dashgrid.app`, version 1.0.7 (10007)
+- SHA-256: `cd92208248335aeff8ab3da243b2cdc982c8450e79837fc6512e3d0640226731`
 - Signed with DashGrid's own key (`CN=DashGrid`); future updates must use the same key.
 
 Prefer to keep AARE installed? The side-by-side variant is still buildable locally with
@@ -120,11 +120,11 @@ sdk.dir=/path/to/android-sdk
 
 # Published standalone release APK
 ./gradlew dashgridStandaloneApk
-# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.6.apk
+# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.7.apk
 
 # Side-by-side variant for installing next to AARE (local use)
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.6.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.0.7.apk
 ```
 
 Signing reads `keystore.properties`, which is not committed. See
@@ -145,6 +145,9 @@ DashGrid.
   Home, since the grid belongs to no workspace. Apps opened from a workspace return to it.
 - **Assistant button:** the bar's microphone can be hidden in *Settings → Voice assistant*; the
   steering wheel's voice key and the assistant's own stop button keep working.
+- **One entry per app:** when a phone app enabled on the car screen also has an Android Auto
+  version, *Settings → Apps* → **Hide the Android Auto version of an enabled phone app** leaves only
+  the phone version in the app grid. Off by default; workspace shortcuts keep working.
 - **Head units:** USB and wireless Android Auto, plus the certificate flow, are unchanged from AARE.
 
 ## Documentation
@@ -166,7 +169,7 @@ DashGrid.
 - Сетка 10 × 6: перетаскивание, изменение размера, объединение ячеек.
 - Живые панели приложений и виджеты; карту и музыку можно закрепить за приложением.
 - Музыка не прерывается при переключении страниц; для каждого стола можно включить закрытие приложений при скрытии.
-- Установка: [DashGrid-standalone-v1.0.6.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.6/DashGrid-standalone-v1.0.6.apk).
+- Установка: [DashGrid-standalone-v1.0.7.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.7/DashGrid-standalone-v1.0.7.apk).
   AARE нужно удалить: standalone-сборка не ставится рядом с ним.
 
 ## Licence

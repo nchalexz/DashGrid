@@ -1,0 +1,1 @@
+Hide the Android Auto version of apps whose phone version is enabled on the car screen.

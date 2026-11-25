@@ -20,8 +20,6 @@ import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.android.resources.Density
 import com.android.resources.ScreenOrientation
-import net.prototux.aare.media.MediaActionInfo
-import net.prototux.aare.media.MediaSessionApp
 import net.prototux.aare.ui.theme.CarTheme
 import net.prototux.aare.ui.theme.DashGridTheme
 import net.prototux.aare.workspace.Workspace
@@ -79,48 +77,6 @@ class DashGridRussianMockups {
                 defaultId = "city", lastId = "city", showBar = true,
             )
             activeWorkspaceId = "city"
-        }
-        paparazzi.snapshot {
-            CarTheme(night = true, theme = DashGridTheme) {
-                CarShell(state, RussianActions, appContent = { app, m -> RussianAppPane(app.label, m) }, navMap = { _, m -> RussianMap(m) })
-            }
-        }
-    }
-
-    /** The Universal Media Bridge: a session-only player (as Yandex Music may be), in Russian. */
-    @Test
-    fun mediaBridgeRussian() {
-        val state = russianState().apply {
-            nowPlaying = NowPlaying(
-                appId = "media:ru.yandex.music",
-                title = "Полночь",
-                subtitle = "Молчат дома",
-                art = null,
-                playing = true,
-                positionMs = 83_000,
-                durationMs = 214_000,
-                updatedAtMs = System.currentTimeMillis(),
-                packageName = "ru.yandex.music",
-                appLabel = "Яндекс Музыка",
-                canSeek = true,
-                canPrevious = true,
-                canNext = true,
-                actions = listOf(MediaActionInfo("like", "Нравится"), MediaActionInfo("radio", "Моя волна")),
-            )
-            mediaSessions = listOf(
-                MediaSessionApp("ru.yandex.music", "Яндекс Музыка", true),
-                MediaSessionApp("com.spotify.music", "Spotify", false),
-            )
-            workspaceConfig = WorkspaceConfig(
-                workspaces = listOf(
-                    Workspace(
-                        id = "music", name = "Музыка", layout = WorkspaceLayout.FULL,
-                        items = listOf(WorkspaceItem("bridge", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "media_bridge")),
-                    ),
-                ),
-                defaultId = "music", lastId = "music",
-            )
-            activeWorkspaceId = "music"
         }
         paparazzi.snapshot {
             CarTheme(night = true, theme = DashGridTheme) {

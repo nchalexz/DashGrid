@@ -133,7 +133,7 @@ internal class SessionSource(
     override val key = "session:$packageName:${token.hashCode()}"
     override val isConnection = false
 
-    override val label = runCatching {
+    private val label = runCatching {
         val pm = context.packageManager
         pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString()
     }.getOrDefault(packageName)
@@ -190,10 +190,6 @@ internal class SessionSource(
                 // PlaybackState samples its position at lastPositionUpdateTime (elapsedRealtime)
                 sampledAtMs = ps?.lastPositionUpdateTime?.takeIf { t -> t > 0 } ?: SystemClock.elapsedRealtime(),
                 canSeek = actions and PlaybackState.ACTION_SEEK_TO != 0L,
-                canPrevious = actions and PlaybackState.ACTION_SKIP_TO_PREVIOUS != 0L,
-                canNext = actions and PlaybackState.ACTION_SKIP_TO_NEXT != 0L,
-                actions = ps?.customActions.orEmpty().take(MAX_ACTIONS).map { MediaActionInfo(it.action, it.name.toString()) },
-                label = label,
             )
         }
         // STATE_ERROR is fatal. Non-fatal errors ("sign in to see your library") keep the state and

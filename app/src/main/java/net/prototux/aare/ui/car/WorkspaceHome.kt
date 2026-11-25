@@ -22,8 +22,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.CalendarMonth
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.Cloud
 import androidx.compose.material.icons.rounded.DirectionsCar
 import androidx.compose.material.icons.rounded.Home
@@ -195,8 +193,7 @@ private fun WorkspacePager(
                 activeIndex = realIndexFor(pager.currentPage, count),
                 activeName = workspaces[realIndexFor(pager.currentPage, count)].name,
                 names = workspaces.map { it.name },
-                onPrevious = { step(-1) },
-                onNext = { step(1) },
+                showName = state.workspaceConfig.showBarName,
                 onSelect = ::goTo,
                 onSwipe = ::step,
                 modifier = Modifier.align(Alignment.BottomCenter),
@@ -290,7 +287,9 @@ private fun WorkspaceItemContent(
                 // Only the page on screen draws a live app: two pages must not own the same
                 // connection's surface, and inactive pages must not run a second session.
                 !active -> WidgetPlaceholder(Icons.Rounded.Apps, app.label, stringResource(R.string.workspace_pane_inactive))
-                else -> appContent(app, Modifier.fillMaxSize())
+                else -> androidx.compose.foundation.layout.Box(
+                    Modifier.fillMaxSize().clip(RoundedCornerShape(LocalCarDimens.current.cardRadius)),
+                ) { appContent(app, Modifier.fillMaxSize()) }
             }
         }
         WorkspaceItemKind.WIDGET -> WorkspaceWidget(item, state, actions, navMap, active)
@@ -319,9 +318,6 @@ private fun WorkspaceWidget(
         "media" -> BoxWithConstraints(Modifier.fillMaxSize()) {
             MediaCard(state, actions, compact = maxHeight < 220.dp, modifier = Modifier.fillMaxSize(),
                 mediaAppId = state.workspaceApp(item.appId)?.id)
-        }
-        "media_bridge" -> BoxWithConstraints(Modifier.fillMaxSize()) {
-            MediaBridgeWidget(state, actions, Modifier.fillMaxSize(), compact = maxHeight < 220.dp)
         }
         "calendar" -> {
             val events: List<NextEvent> = state.nextEvents
@@ -455,8 +451,7 @@ private fun WorkspaceBar(
     activeIndex: Int,
     activeName: String,
     names: List<String>,
-    onPrevious: () -> Unit,
-    onNext: () -> Unit,
+    showName: Boolean,
     onSelect: (Int) -> Unit,
     onSwipe: (Int) -> Unit,
     modifier: Modifier,
@@ -481,17 +476,17 @@ private fun WorkspaceBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        BarButton(Icons.Rounded.ChevronLeft, stringResource(R.string.workspace_previous), onPrevious)
-        Spacer(Modifier.size(8.dp))
-        Text(
-            activeName,
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.widthIn(max = 180.dp),
-        )
-        Spacer(Modifier.size(12.dp))
+        if (showName) {
+            Text(
+                activeName,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.widthIn(max = 180.dp),
+            )
+            Spacer(Modifier.size(12.dp))
+        }
         if (count <= 8) {
             Row(horizontalArrangement = Arrangement.spacedBy(2.dp), verticalAlignment = Alignment.CenterVertically) {
                 repeat(count) { i ->
@@ -530,17 +525,5 @@ private fun WorkspaceBar(
                 }
             }
         }
-        Spacer(Modifier.size(12.dp))
-        BarButton(Icons.Rounded.ChevronRight, stringResource(R.string.workspace_next), onNext)
-    }
-}
-
-@Composable
-private fun BarButton(icon: ImageVector, label: String, onClick: () -> Unit) {
-    Box(
-        Modifier.size(48.dp).clip(CircleShape).carClickable(CircleShape, onClick = onClick),
-        contentAlignment = Alignment.Center,
-    ) {
-        Icon(icon, label, tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(28.dp))
     }
 }

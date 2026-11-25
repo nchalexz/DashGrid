@@ -324,14 +324,6 @@
     <string name="dash_map_big_subtitle">Wherever it is in the order, the map gets the most room</string>
     <string name="dash_card_map">Map</string>
     <string name="dash_card_media">Music</string>
-    <string name="dash_card_media_bridge">Universal media</string>
-    <string name="media_bridge_none">No active player</string>
-    <string name="media_bridge_source">Player</string>
-    <string name="media_bridge_auto">Automatic</string>
-    <string name="media_bridge_open">Open app</string>
-    <string name="media_bridge_seek">Seek</string>
-    <string name="media_bridge_actions">Player actions</string>
-    <string name="media_bridge_installed">Installed players</string>
     <string name="dash_card_calendar">Next calendar event</string>
     <string name="dash_card_notification">Latest notification</string>
     <string name="dash_card_weather">Weather</string>
@@ -810,7 +802,9 @@
     <string name="workspaces_swipe_anywhere_title">Swipe anywhere</string>
     <string name="workspaces_swipe_anywhere_subtitle">Switch workspaces by swiping anywhere on them. Off: swipe on the pager bar and on empty space, so a map keeps its own gestures.</string>
     <string name="workspaces_show_bar_title">Pager bar</string>
-    <string name="workspaces_show_bar_subtitle">Show the workspace’s name, arrows and page dots on the car screen.</string>
+    <string name="workspaces_show_bar_subtitle">Show page dots on the car screen.</string>
+    <string name="workspaces_show_name_title">Workspace name</string>
+    <string name="workspaces_show_name_subtitle">Show the workspace’s name next to the dots.</string>
     <string name="workspaces_preview">Preview car screen</string>
     <string name="workspaces_preview_hint">Opens the car screen on this phone with the workspaces exactly as saved.</string>
     <string name="dash_menu_apps">Apps</string>

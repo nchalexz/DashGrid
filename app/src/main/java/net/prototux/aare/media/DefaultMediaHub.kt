@@ -1,10 +1,6 @@
 package net.prototux.aare.media
 
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +19,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
@@ -53,14 +48,6 @@ class DefaultMediaHub(context: Context, scope: CoroutineScope) : MediaHub {
 
     private val _current = MutableStateFlow<PlaybackSource?>(null)
     private val _playback = MutableStateFlow<PlaybackInfo?>(null)
-    private val _sessions = MutableStateFlow<List<MediaSessionApp>>(emptyList())
-    private val _preferred = MutableStateFlow<String?>(null)
-
-    /** Active sessions, for the universal bridge's source picker (also includes our connection). */
-    override val sessions: StateFlow<List<MediaSessionApp>> = _sessions.asStateFlow()
-
-    private val _musicApps = MutableStateFlow<List<MediaSessionApp>>(emptyList())
-    override val musicApps: StateFlow<List<MediaSessionApp>> = _musicApps.asStateFlow()
 
     override val apps: StateFlow<List<MediaApp>> = discovery.apps
 
@@ -76,37 +63,6 @@ class DefaultMediaHub(context: Context, scope: CoroutineScope) : MediaHub {
         discovery.start()
         tracker.start()
         scope.launch { followSources() }
-        scope.launch {
-            _musicApps.value = withContext(Dispatchers.IO) { installedMusicApps() }
-        }
-    }
-
-    /**
-     * Installed players the bridge can offer to start, even before they publish a session. Media
-     * Browser services are added by [MediaDiscovery]; the launcher category catches session-only
-     * apps (Yandex Music on builds with no exported library service).
-     */
-    private fun installedMusicApps(): List<MediaSessionApp> {
-        val pm = context.packageManager
-        val intent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_APP_MUSIC)
-        val flags = PackageManager.MATCH_DEFAULT_ONLY
-        val found = runCatching {
-            if (Build.VERSION.SDK_INT >= 33) pm.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(0))
-            else @Suppress("DEPRECATION") pm.queryIntentActivities(intent, 0)
-        }.getOrDefault(emptyList())
-        val packages = LinkedHashSet<String>()
-        found.forEach { ri -> ri.activityInfo?.packageName?.let(packages::add) }
-        // Players that are media3/legacy browser apps but don't declare the music launcher category.
-        packages.addAll(discovery.apps.value.map { it.packageName })
-        // Yandex Music's own package, even when its launcher category is missing on a build.
-        packages.add(YANDEX_MUSIC)
-        return packages.filter { it != context.packageName }
-            .mapNotNull { pkg ->
-                val info = runCatching { pm.getApplicationInfo(pkg, 0) }.getOrNull() ?: return@mapNotNull null
-                MediaSessionApp(pkg, pm.getApplicationLabel(info).toString(), false)
-            }
-            .distinctBy { it.packageName }
-            .sortedBy { it.label.lowercase() }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -116,17 +72,8 @@ class DefaultMediaHub(context: Context, scope: CoroutineScope) : MediaHub {
             if (list.isEmpty()) flowOf(emptyList())
             else combine(list.map { s -> s.state.map { s as PlaybackSource to it } }) { it.toList() }
         }
-        combine(ours, others, _preferred) { a, b, p -> Triple(a, b, p) }.collect { (a, b, preferredPackage) ->
-            val all = a + b
-            _sessions.value = all.map { (source, st) ->
-                MediaSessionApp(source.packageName, source.label, st.info?.playing == true)
-            }.distinctBy { it.packageName }
-            val candidates = all.map { (s, st) -> st.candidate(s) }
-            val preferred = preferredPackage
-            val preferredKey = preferred?.let { pkg ->
-                all.firstOrNull { (s, st) -> s.packageName == pkg && st.info != null }?.first?.key
-            }
-            val key = preferredKey ?: pickSource(candidates, _current.value?.key)
+        combine(ours, others) { a, b -> a + b }.collect { all ->
+            val key = pickSource(all.map { (s, st) -> st.candidate(s) }, _current.value?.key)
             val pick = all.firstOrNull { it.first.key == key }
             _current.value = pick?.first
             _playback.value = pick?.second?.info
@@ -134,7 +81,6 @@ class DefaultMediaHub(context: Context, scope: CoroutineScope) : MediaHub {
     }
 
     override fun select(app: MediaApp) {
-        _preferred.value = app.packageName
         val c = _connection.value
         if (c != null && c.app.service == app.service) {
             c.connect()
@@ -172,23 +118,8 @@ class DefaultMediaHub(context: Context, scope: CoroutineScope) : MediaHub {
         target()?.pause()
     }
 
-    override fun selectSessionPackage(packageName: String?) {
-        _preferred.value = packageName
-    }
-
     override fun seekTo(positionMs: Long) {
         target()?.seekTo(positionMs)
-    }
-
-    override fun runAction(actionId: String) {
-        target()?.state?.value?.actions?.firstOrNull { it.id == actionId }?.run()
-    }
-
-    override fun launchApp(packageName: String) {
-        val intent = context.packageManager.getLaunchIntentForPackage(packageName) ?: return
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        runCatching { context.startActivity(intent) }
-            .onFailure { Log.w(TAG, "can't launch $packageName: $it") }
     }
 
     @Composable
@@ -203,13 +134,7 @@ class DefaultMediaHub(context: Context, scope: CoroutineScope) : MediaHub {
         ui = null
         _current.value = null
         _playback.value = null
-        _sessions.value = emptyList()
         scope.cancel()
-    }
-
-    private companion object {
-        const val TAG = "AareMediaBridge"
-        const val YANDEX_MUSIC = "ru.yandex.music"
     }
 }
 

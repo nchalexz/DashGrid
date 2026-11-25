@@ -1,9 +1,9 @@
-# Media compatibility: Yandex Music and the Universal Media Bridge
+# Media compatibility: Yandex Music
 
 This page records what DashGrid can and cannot do with the official **Yandex Music** app on a
-Huawei/EMUI phone without root, and what the fallback widget does. It is based on the code in this
-repository and on a static inspection of a Yandex Music APK; **no Huawei phone or car was available
-for this build**, so the last section is a test plan, not a claim that a physical run happened.
+Huawei/EMUI phone without root. It is based on the code in this repository and on a static
+inspection of a Yandex Music APK; **no Huawei phone or car was available for this build**, so the
+last section is a test plan, not a claim that a physical run happened.
 
 ## What AARE already had
 
@@ -14,10 +14,13 @@ for this build**, so the last section is a test plan, not a claim that a physica
   `MediaBrowser` for Android Auto hints) to one of those apps and gives the full library UI:
   root/tabs, lists and grids, search, now playing, queue and custom transport actions.
 - `media/SessionTracker` follows **all active platform `MediaSession`s** through
-  `MediaSessionManager` when AARE holds notification access. It gives metadata, artwork, progress,
-  play/pause, skip, seek, queue and custom actions even for an app AARE never connected to.
+  `MediaSessionManager` when DashGrid holds notification access. It gives metadata, artwork,
+  progress, play/pause, skip and seek for an app DashGrid never connected to.
 - `media/DefaultMediaHub` chooses what "now playing" and the steering-wheel/media keys follow
   (`pickSource`): a playing source wins, then the previous pick, then the system's order.
+- The regular **Music** widget (`DashCard.MEDIA`) shows that playback: artwork, title, artist,
+  progress (seekable when the session allows it), play/pause, previous/next. It is not tied to a
+  workspace lifetime and never stops playback.
 
 ## What the Yandex Music APK actually declares
 
@@ -35,12 +38,6 @@ Inspected APK: `ru.yandex.music`, versionName `2020.11.1 #3608`, versionCode `23
     <intent-filter>
         <action android:name="yandex.auto.media.action.YANDEXRADIO" />
         <action android:name="yandex.auto.media.action.MUSIC" />
-    </intent-filter>
-    <intent-filter>
-        <action android:name="yandex.auto.media.action.MEDIA_PLAY_FROM_URI" />
-        <data android:scheme="https" android:host="music.yandex.ru" />
-        <data android:scheme="http" android:host="radio.yandex.ru" />
-        <data android:scheme="yandexmusicauto" android:host="play" />
     </intent-filter>
 </service>
 
@@ -76,26 +73,21 @@ A Yandex Music **Android AppWidget** (`ru.yandex.music.ui.widget.WidgetProvider`
 Hosting Android AppWidgets is a separate platform API (`AppWidgetHost`), not implemented in this
 release; it is the only way to show a true app-provided widget rather than a live app pane.
 
-## Implemented fallback: Universal Media Bridge
+## Fallback: the regular Music widget
 
-A new dashboard/workspace widget, `media_bridge` (Settings → Workspaces → Add widget → *Universal
-media* / *Универсальный плеер*):
+DashGrid deliberately does **not** ship a separate "media bridge" widget. The existing Music
+widget already follows session-only players through `SessionTracker`:
 
-- uses `MediaSessionManager` + `MediaController` through the existing `SessionTracker`
-  (notification access required, no GMS, no root);
-- shows artwork, title, artist/album, progress and playing state;
-- play/pause, previous/next, **seek** (slider; touch, and the car UI's focusable controls);
-- up to three **custom actions** the session exposes (e.g. like/radio), with their own labels;
-- a **player picker**: every active session plus installed music apps (including
-  `ru.yandex.music`), “Automatic”, and “Open app” to start Yandex Music when it has no session yet;
-- keeps working across workspace switches: the media session lives outside the workspace, and the
-  widget never creates a second player or disconnects the app;
-- does not change audio routing: the sound continues through AARE's existing car-audio path.
+- artwork, title and artist/album;
+- progress bar with seeking when the session supports `ACTION_SEEK_TO`;
+- play/pause, previous/next;
+- automatic active-player detection; if Yandex Music is playing, the Music widget follows it;
+- it does not create a second player or disconnect the app, so switching workspaces does not
+  interrupt playback.
 
-It is deliberately **not** a library browser. If Yandex Music's `MusicBrowserService` is disabled
-(see above), My Wave, playlists, favourites, search, albums/artists and queue **cannot** be read by
-any third-party host under the stated constraints. AARE's generic media browser remains available
-for apps that do export an enabled service; Yandex Music falls back to session control.
+What it does **not** do without a MediaBrowser connection: browse My Wave/playlists/favourites,
+search, albums/artists or the queue; launch an app that is not running; offer a source picker. Those
+need either a working `MusicBrowserService` or a separate UI that this release does not include.
 
 ## Diagnostic procedure (on the phone)
 
@@ -107,8 +99,8 @@ for apps that do export an enabled service; Yandex Music falls back to session c
    adb shell dumpsys media_session | grep -i -A 20 yandex
    ```
 
-   A `MediaSession` for `ru.yandex.music` with `state=PlaybackState {state=3 ...}` means the bridge
-   can control it.
+   A `MediaSession` for `ru.yandex.music` with `state=PlaybackState {state=3 ...}` means the Music
+   widget can control it.
 4. Check the MediaBrowser component state:
 
    ```sh
@@ -117,34 +109,33 @@ for apps that do export an enabled service; Yandex Music falls back to session c
 
    `enabled=false` (or the component missing from `queryIntentServices`) explains why the library
    is not listed. `pm enable` needs shell/root; DashGrid does not do it.
-5. In DashGrid open **Settings → Workspaces**, add **Universal media**, pick “Яндекс Музыка” or
-   *Automatic*, and verify the widget shows the track and controls.
+5. In DashGrid add the **Music** widget, play Yandex Music, and verify track/artist/artwork,
+   play/pause, next/previous and the seek bar.
 6. EMUI: exclude DashGrid and Yandex Music from battery optimisation; both must be allowed to run
-   in the background. Without notification access the bridge cannot see sessions at all.
+   in the background. Without notification access DashGrid cannot see sessions at all.
 
 ## Acceptance matrix for this build
 
 | Criterion | Status |
 |---|---|
-| Yandex Music sound through the car's audio system | Depends on AARE's existing audio path (screen capture / Shizuku / root / Bluetooth); not changed by this widget. **Not physically tested here.** |
-| Widget shows current track, artist, artwork, progress | Implemented via `MediaSession`; JVM-rendered mockup in `docs/screenshots/dashgrid-media-bridge.png`, **not device-tested** |
+| Yandex Music sound through the car's audio system | Depends on AARE's existing audio path (screen capture / Shizuku / root / Bluetooth); not changed by the widget. **Not physically tested here.** |
+| Music widget shows current track, artist, artwork, progress | Implemented via `MediaSession`; JVM-rendered mockups only, **not device-tested** |
 | Play/pause, next/previous, seek from the car | Implemented (`MediaController`); steering-wheel media keys keep using `MediaHub`'s target |
-| Workspace switching does not interrupt music | The session is independent of the workspace and is never disconnected by this widget |
-| Steering-wheel buttons | Existing AARE key handling; bridge selects the source the keys control |
+| Workspace switching does not interrupt music | The session is independent of the workspace and is never disconnected by the widget |
+| Steering-wheel buttons | Existing AARE key handling; the widget follows the active session |
 | No mandatory root/GMS | Uses framework `MediaSessionManager`; root not required, GMS not required |
 | Full library (My Wave, playlists, favourites, search, albums/artists, queue) | **Not possible** when `MusicBrowserService` is disabled; would require enabling it via root/Shizuku or modifying the app, which this project does not do |
-| Other music apps | Bridge works with any app publishing a compatible media session; browser-capable apps keep AARE's full library UI |
+| Other music apps | Works with any app publishing a compatible media session; browser-capable apps keep AARE's full library UI |
 
 ## Known limitations and follow-ups
 
 - Current Yandex Music versions may enable the browser service conditionally (e.g. when Android
   Auto is installed). If it is enabled on a given phone, AARE's existing library UI can connect;
-  if not, only the session bridge is possible. The APK inspected here is from 2020, so this must be
+  if not, only session control is possible. The APK inspected here is from 2020, so this must be
   re-checked on the exact Yandex version installed on the Huawei.
-- The bridge does not display the session queue; the full player does for a connected app. It
-  shows custom action buttons instead.
-- Seek uses a Material slider, which the car reachability test allowlists; rotary stepping of the
-  slider is a follow-up (same limitation as AARE's full player seek bar).
+- The Music widget does not show the session queue; the full player does for a connected app.
+- The seek bar is a Material slider, allowlisted by the car reachability test; rotary stepping of
+  the slider is a follow-up (same limitation as AARE's full player seek bar).
 - An `AppWidgetHost` for Yandex Music's real Android widget is possible but not implemented; it
   needs a host ID, user binding and RemoteViews interaction on the car screen.
 - No physical Huawei/EMUI/VW test was performed. Do not treat the matrix as a device pass.

@@ -559,14 +559,6 @@ class CarRuntime(
                 onPhoneGuidance?.invoke(shown)
             }
         }
-        ui.mediaBridgePackage = settings.mediaBridgePackage
-        media.selectSessionPackage(settings.mediaBridgePackage)
-        scope.launch {
-            media.sessions.collectLatest { ui.mediaSessions = it }
-        }
-        scope.launch {
-            media.musicApps.collectLatest { ui.musicApps = it }
-        }
         scope.launch {
             media.playback.collectLatest { p ->
                 ui.nowPlaying = p?.let {
@@ -574,9 +566,7 @@ class CarRuntime(
                         mediaId(it.packageName), it.title,
                         listOf(it.artist, it.album).filter { s -> s.isNotBlank() }.joinToString(" · "),
                         it.art, it.playing, it.positionMs, it.durationMs, it.sampledAtMs,
-                        packageName = it.packageName, appLabel = it.label,
-                        canSeek = it.canSeek, canPrevious = it.canPrevious, canNext = it.canNext,
-                        actions = it.actions,
+                        canSeek = it.canSeek,
                     )
                 }
                 if (p != null && ui.activeMediaAppId == null) ui.activeMediaAppId = mediaId(p.packageName)
@@ -1026,13 +1016,6 @@ class CarRuntime(
         }
 
         override fun seekMedia(positionMs: Long) = media.seekTo(positionMs)
-        override fun runMediaAction(actionId: String) = media.runAction(actionId)
-        override fun selectMediaSource(packageName: String?) {
-            settings.mediaBridgePackage = packageName
-            ui.mediaBridgePackage = packageName
-            media.selectSessionPackage(packageName)
-        }
-        override fun openMediaApp(packageName: String) = media.launchApp(packageName)
     }
 
     /** The chosen assistant's package, or the phone's default assistant. */

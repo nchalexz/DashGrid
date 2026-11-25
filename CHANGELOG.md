@@ -4,6 +4,28 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.0.2 — pager simplification, pane corners and Music seek
+
+### Changed
+
+- Removed the separate `media_bridge` widget: it duplicated the normal **Music** widget, which
+  already follows session-only apps through `SessionTracker`. Playback continuity never depended on
+  the widget; the media session and `MediaHub` are independent of the workspace.
+- The Music widget now shows a **seek bar** when the active media session supports seeking.
+- Pager arrows removed: switch with a swipe or by tapping the dots. The workspace name on the bar
+  is optional (*Settings → Workspaces → Switching → Workspace name*).
+- Live app panes are clipped to the same card corner radius as the built-in widgets.
+
+### Removed
+
+- `media_bridge` widget, its editor entry, source picker/launch UI and the bridge-specific
+  `MediaHub` API. The underlying AARE session tracking remains and feeds the Music widget.
+
+### Kept
+
+- Live app panes, per-widget app pinning, Russian translations, two-APK packaging and the AARE
+  coexistence fix.
+
 ## 1.0.1 — live app panes, media bridge and full Russian coverage
 
 ### Added

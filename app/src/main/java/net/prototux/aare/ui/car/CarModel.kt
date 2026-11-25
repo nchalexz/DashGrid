@@ -12,8 +12,6 @@ import androidx.compose.runtime.setValue
 import net.prototux.aare.car.CarChrome
 import net.prototux.aare.car.NextEvent
 import net.prototux.aare.car.Weather
-import net.prototux.aare.media.MediaActionInfo
-import net.prototux.aare.media.MediaSessionApp
 import net.prototux.aare.notify.PhoneGuidance
 import net.prototux.aare.ui.theme.AareTheme
 import net.prototux.aare.workspace.Workspace
@@ -50,12 +48,7 @@ class NowPlaying(
     val positionMs: Long,
     val durationMs: Long,
     val updatedAtMs: Long,
-    val packageName: String = appId.substringAfter(':'),
-    val appLabel: String? = null,
     val canSeek: Boolean = false,
-    val canPrevious: Boolean = false,
-    val canNext: Boolean = false,
-    val actions: List<MediaActionInfo> = emptyList(),
 )
 
 /** The car UI's navigation: the dashboard, the app grid, or one app full screen. */
@@ -107,12 +100,6 @@ class CarUiState {
     /** What the app grid and launcher list show: [apps] without the ones in [launcherHidden]. */
     val launcherApps: List<CarAppEntry> get() = apps.withoutLauncherHidden(launcherHidden)
     var nowPlaying by mutableStateOf<NowPlaying?>(null)
-    /** Media apps with an active session, for the universal bridge's source picker. */
-    var mediaSessions by mutableStateOf<List<MediaSessionApp>>(emptyList())
-    /** Installed music players, including ones with no session yet (to start from the bridge). */
-    var musicApps by mutableStateOf<List<MediaSessionApp>>(emptyList())
-    /** The package the bridge is pinned to (null: follow the active player). */
-    var mediaBridgePackage by mutableStateOf<String?>(null)
     /** The navigation app whose map is shown on the dashboard. */
     var activeNavAppId by mutableStateOf<String?>(null)
     /** The media app the dashboard's media card controls. */
@@ -266,15 +253,6 @@ interface CarActions {
 
     /** Seek the current media source (universal bridge). */
     fun seekMedia(positionMs: Long) {}
-
-    /** Run a transport action the current media session exposes. */
-    fun runMediaAction(actionId: String) {}
-
-    /** Pin the universal bridge to [packageName], or null to follow the active player. */
-    fun selectMediaSource(packageName: String?) {}
-
-    /** Start an installed music app on the phone (session-only apps have no in-car browser). */
-    fun openMediaApp(packageName: String) {}
 
     /** Send a home action (its confirmation, if it has one, was already asked). */
     fun runHomeAction(id: String)

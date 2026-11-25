@@ -20,14 +20,14 @@ a set of switchable workspaces with a configurable grid of apps and widgets.
 настраиваемые сетки приложений и виджетов, редактор на телефоне. Свой application ID, иконка, тема и
 ключ подписи, поэтому AARE и DashGrid можно установить рядом.
 
-- Рабочие столы переключаются по кругу свайпом, стрелками или точками.
+- Рабочие столы переключаются по кругу свайпом или точками.
 - Раскладки: 100 %, 50/50, 70/30, 30/70, три виджета, четыре виджета и своя сетка 10 × 6 с
   перетаскиванием, изменением размера и объединением ячеек.
 - Виджеты: карта, музыка, календарь, уведомления, погода, умный дом, OBD. Карту и музыку можно
   привязать к конкретному приложению.
 - Переключение не перезапускает приложения: маршрут, музыка и сессии сохраняются.
-- Установка: [рядом с AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.1/DashGrid-v1.0.1.apk)
-  или [без AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.1/DashGrid-standalone-v1.0.1.apk)
+- Установка: [рядом с AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.2/DashGrid-v1.0.2.apk)
+  или [без AARE](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.2/DashGrid-standalone-v1.0.2.apk)
   (Android 6+, без обязательного root и GMS).
 - На реальном автомобиле и на Huawei/EMUI пока не проверялось — только сборка, 869 тестов и
   JVM-макеты UI. Подробнее — [TESTING.md](TESTING.md).
@@ -55,17 +55,19 @@ provider's drawing.*
 
 - **Workspaces** — any number of independent home screens. Each has its own name, order,
   layout, app shortcuts and widgets.
-- **Cyclic switching** — swipe the pager bar (or anywhere, if you allow it), use the arrows, or
-  tap a dot. Past the last workspace comes the first one; back from the first goes to the last.
+- **Cyclic switching** — swipe the pager bar (or anywhere, if you allow it), or tap a dot. Past the
+  last workspace comes the first one; back from the first goes to the last. The workspace name on
+  the bar is optional.
 - **Grid layouts** — 100 %, 50/50, 70/30, 30/70, three widgets and four widgets, plus a custom
   10 × 6 grid where items can be dragged, resized and merged into larger cells.
 - **Widgets** — map, music, next calendar event, latest notification, weather, smart-home actions
   and live OBD data, placed per workspace. A map or music widget can follow a specific app.
 - **Live app panes** — render an app's own screen into its cells: Car App templates, a map, a
-  media screen, a launched phone app. Shortcuts stay available as a separate, lighter tile.
-- **Universal Media Bridge** — a widget for apps whose MediaBrowser is closed to third parties
-  (Yandex Music on some builds): artwork, metadata, progress/seek, transport, custom session
-  actions, player picker and app launch, through the system media session. No root/GMS.
+  media screen, a launched phone app, with the same rounded corners as the widgets. Shortcuts stay
+  available as a separate, lighter tile.
+- **Session-only players in the Music widget** — Yandex Music and other apps whose MediaBrowser is
+  closed to third parties still appear through the system media session: artwork, track, progress
+  and seek, play/pause, previous/next. No separate bridge widget, no root/GMS.
 - **App shortcuts** — Car App Library apps, media apps, and DashGrid's built-in screens (phone,
   notifications, browser, car data, Home, OBD, phone screen).
 - **Phone editor** — *Settings → Workspaces*: create, rename, duplicate, reorder and delete
@@ -94,19 +96,19 @@ they replace each other, they can't be installed together:
 
 | Your phone | APK | Why |
 |---|---|---|
-| **AARE is installed** (side by side) | `DashGrid-v1.0.1.apk` | It only *uses* `android.car.permission.TEMPLATE_RENDERER`, never defines it. Android rejects a second definition owned by another certificate (`INSTALL_FAILED_DUPLICATE_PERMISSION`). AARE supplies the permission. |
-| **AARE is not installed** | `DashGrid-standalone-v1.0.1.apk` | It defines that legacy permission itself, so older Car App Library apps trust DashGrid as a host. **Do not install it beside AARE** — that is the conflict above. |
+| **AARE is installed** (side by side) | `DashGrid-v1.0.2.apk` | It only *uses* `android.car.permission.TEMPLATE_RENDERER`, never defines it. Android rejects a second definition owned by another certificate (`INSTALL_FAILED_DUPLICATE_PERMISSION`). AARE supplies the permission. |
+| **AARE is not installed** | `DashGrid-standalone-v1.0.2.apk` | It defines that legacy permission itself, so older Car App Library apps trust DashGrid as a host. **Do not install it beside AARE** — that is the conflict above. |
 
-Both are attached to the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.1)
+Both are attached to the [release](https://github.com/nchalexz/DashGrid/releases/tag/dashgrid-v1.0.2)
 (or build them, below):
 
 ```sh
-adb install -r DashGrid-v1.0.1.apk                 # with AARE
-adb install -r DashGrid-standalone-v1.0.1.apk      # without AARE
+adb install -r DashGrid-v1.0.2.apk                 # with AARE
+adb install -r DashGrid-standalone-v1.0.2.apk      # without AARE
 ```
 
-- Side-by-side SHA-256: `7f87b613cb1082a43a976652c949c82959fc8fdbe4b5e33155ed0fd2a67d48a8`
-- Standalone SHA-256: `9d327be358c5354486de242150decf0e1e524eb6863078b70faa676a4352dd7a`
+- Side-by-side SHA-256: `8c43f142f47dd8a8d7ffa74bf39dd53c8576c6e0254cd8ec58db230d071fc806`
+- Standalone SHA-256: `c02aca5bd7495b133e8607c6778f1e028bc4d7b8c055e48bed111ba2cf1a2c67`
 
 DashGrid is signed with its own key (`SHA-256` of the certificate is printed by
 `apksigner verify --print-certs`). AARE and DashGrid are different packages, so the side-by-side
@@ -134,7 +136,7 @@ sdk.dir=/path/to/android-sdk
 
 # Signed release APK, renamed to DashGrid-v<version>.apk
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.0.2.apk
 ```
 
 Signing reads `keystore.properties` (ignored by git; see
@@ -166,8 +168,9 @@ indexing, layouts, the cell grid and editing operations. The results and the sce
 ## Using the car screen
 
 - The rail, themes, day/night colours and all AARE screens are unchanged.
-- With more than one workspace, a compact pager bar sits along the bottom: name, dots, arrows.
-  A horizontal drag on the bar switches workspaces; so does a drag on empty space between items.
+- With more than one workspace, a compact pager bar sits along the bottom: optional name and
+  dots. A horizontal drag on the bar switches workspaces; so does a drag on empty space between
+  items.
   Turn on *Swipe anywhere* to make the whole page the pager's gesture area — at the cost of the
   map's own horizontal gestures.
 - The app grid (rail's menu button) still lists every app; workspaces are shortcuts, not a
@@ -215,7 +218,7 @@ That keeps merges from AARE practical.
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — how workspaces fit into AARE, lifecycle and surfaces
 - [DESIGN.md](DESIGN.md) — colours, icon, type and car-UI rules
-- [docs/MEDIA_COMPATIBILITY.md](docs/MEDIA_COMPATIBILITY.md) — Yandex Music, media sessions and the Universal Media Bridge
+- [docs/MEDIA_COMPATIBILITY.md](docs/MEDIA_COMPATIBILITY.md) — Yandex Music, media sessions and the Music-widget fallback
 - [CHANGELOG.md](CHANGELOG.md) — what changed relative to AARE 1.6.0
 - [TESTING.md](TESTING.md) — tests run and the manual checklist
 - [UPSTREAM.md](UPSTREAM.md) — upstream base, how to merge updates, what must not change

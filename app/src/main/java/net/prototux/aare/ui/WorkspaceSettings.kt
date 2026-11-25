@@ -221,6 +221,12 @@ internal fun WorkspacesSettings(
                 stringResource(R.string.workspaces_show_bar_subtitle),
                 config.showBar,
             ) { shown -> commit(config.copy(showBar = shown)) }
+            Spacer(Modifier.height(8.dp))
+            Toggle(
+                stringResource(R.string.workspaces_show_name_title),
+                stringResource(R.string.workspaces_show_name_subtitle),
+                config.showBarName,
+            ) { shown -> commit(config.copy(showBarName = shown)) }
             Spacer(Modifier.height(12.dp))
             OutlinedButton(onClick = { ctx.startActivity(android.content.Intent(ctx, CarPreviewActivity::class.java)) }) {
                 Icon(Icons.Rounded.Visibility, null)
@@ -696,12 +702,11 @@ private val splitLayouts = setOf(
 )
 
 /** The dashboard widgets a workspace can hold. */
-private val widgetIds = listOf("map", "media", "media_bridge", "calendar", "notification", "weather", "home", "car")
+private val widgetIds = listOf("map", "media", "calendar", "notification", "weather", "home", "car")
 
 private fun widgetLabel(id: String): Int = when (id) {
     "map" -> R.string.dash_card_map
     "media" -> R.string.dash_card_media
-    "media_bridge" -> R.string.dash_card_media_bridge
     "calendar" -> R.string.dash_card_calendar
     "notification" -> R.string.dash_card_notification
     "weather" -> R.string.dash_card_weather
@@ -713,7 +718,6 @@ private fun widgetLabel(id: String): Int = when (id) {
 private fun widgetIcon(id: String): ImageVector = when (id) {
     "map" -> Icons.Rounded.Map
     "media" -> Icons.Rounded.MusicNote
-    "media_bridge" -> Icons.Rounded.OpenInNew
     "calendar" -> Icons.Rounded.CalendarMonth
     "notification" -> Icons.Rounded.Notifications
     "weather" -> Icons.Rounded.Cloud

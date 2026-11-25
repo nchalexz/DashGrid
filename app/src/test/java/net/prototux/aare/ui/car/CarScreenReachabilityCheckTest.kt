@@ -95,15 +95,14 @@ class CarScreenReachabilityCheckTest {
             "the row around it is carClickable and already knob-focusable and highlighted, same as CarSettingsScreen's SwitchRow.",
         ),
         Allowed(
+            "src/main/java/net/prototux/aare/ui/car/CarShell.kt",
+            "Slider(",
+            "the Music widget's seek bar; the full player's seek bar has the same knob-stepping follow-up.",
+        ),
+        Allowed(
             "src/main/java/net/prototux/aare/media/NowPlayingView.kt",
             "Slider(",
             "the playback seek bar; stepping it by knob needs carAdjustable, not yet built (issue #320 item 3).",
-        ),
-        Allowed(
-            "src/main/java/net/prototux/aare/ui/car/MediaBridgeWidget.kt",
-            "Slider(",
-            "the Universal Media Bridge seek bar; touch and rotary focus come from the car UI, knob stepping " +
-                "of the slider is a follow-up (same limitation as the full player's seek bar).",
         ),
         Allowed(
             "src/main/java/net/prototux/aare/ui/car/CallCard.kt",

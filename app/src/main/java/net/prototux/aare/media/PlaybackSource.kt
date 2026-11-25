@@ -12,7 +12,6 @@ internal interface PlaybackSource {
     /** Stable identity, for [pickSource]. */
     val key: String
     val packageName: String
-    val label: String
     val isConnection: Boolean
     val state: StateFlow<SourceState>
 

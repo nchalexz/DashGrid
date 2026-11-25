@@ -69,7 +69,6 @@ private val DashCard.label: Int
     get() = when (this) {
         DashCard.MAP -> R.string.dash_card_map
         DashCard.MEDIA -> R.string.dash_card_media
-        DashCard.MEDIA_BRIDGE -> R.string.dash_card_media_bridge
         DashCard.CALENDAR -> R.string.dash_card_calendar
         DashCard.NOTIFICATION -> R.string.dash_card_notification
         DashCard.WEATHER -> R.string.dash_card_weather

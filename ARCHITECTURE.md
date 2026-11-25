@@ -54,7 +54,7 @@ upstream merges stay simple.
 
 ```
 ui/car/WorkspaceHome.kt        WorkspaceHome → WorkspacePager → WorkspacePage → widget/app items
-        │                                      └─ WorkspaceBar (name, dots, arrows, swipe zone)
+        │                                      └─ WorkspaceBar (optional name, dots, swipe zone)
         ▼
 ui/car/CarUiState               workspaceConfig, activeWorkspaceId, workspaceGeneration
         ▼
@@ -102,7 +102,7 @@ The phone editor (`ui/WorkspaceSettings.kt`) uses the same `WorkspaceStore` and
   so reordering can never leave two workspaces with the same number.
 - `WorkspaceItem.kind` is `app` (a shortcut; `app` holds an entry id such as `phone`, or a package
   name for a Car App Library app), `pane` (the app's own UI rendered into the cells) or `widget`
-  (`widget` is a `DashCard` id: `map`, `media`, `media_bridge`, `calendar`, `notification`,
+  (`widget` is a `DashCard` id: `map`, `media`, `calendar`, `notification`,
   `weather`, `home`, `car`).
 - `WorkspaceItem.appId` on a `map` or `media` widget is optional: it pins that widget to an app;
   without it the widget follows the car's active navigation/media app.
@@ -149,14 +149,14 @@ wallpaper once, then a pager:
 - With more, `HorizontalPager` uses a **virtual** page number: page count 2 000 000, start at
   1 000 000, and `real = virtual mod count`. Swiping right past the last page lands on page
   `virtual+1`, which maps to workspace 0, so the ring is seamless in both directions and no
-  recentering jump is ever visible. The arrows animate exactly one virtual page; a dot animates to
-  the nearest virtual page with the wanted modulo (`nearestVirtualPage`).
+  recentering jump is ever visible. A dot animates to the nearest virtual page with the wanted
+  modulo (`nearestVirtualPage`).
 - The pager's own gestures are **off** by default. A horizontal drag on the bottom bar, or on empty
   workspace space (a background layer under the items), posts `cycleWorkspace(±1)`. That keeps the
   map's pan gestures working. `swipeAnywhere` turns the pager's gestures on instead.
-- The bar is `WorkspaceBar`: workspace name, one dot per workspace (up to eight, then “3/5”), and
-  arrows. Dots and arrows use `carClickable`, so rotary/D-pad focus can reach them. It is hidden
-  when `showBar` is off or there is one workspace. Pages get bottom padding for it, so it never
+- The bar is `WorkspaceBar`: optional workspace name, one dot per workspace (up to eight, then
+  “3/5”). Dots use `carClickable`, so rotary/D-pad focus can reach them. The name is controlled by
+  `showBarName`; the bar is hidden when `showBar` is off or there is one workspace. Pages get bottom padding for it, so it never
   covers content.
 
 Items are ordinary Compose: an app shortcut is a card with the app's icon and label; a `pane` runs
@@ -292,8 +292,7 @@ car while the phone page was open isn't overwritten.
 | `workspace/WorkspaceStore.kt` | Load/save/migrate through `Settings` |
 | `workspace/WorkspaceCatalog.kt` | Apps the phone editor can add |
 | `ui/car/WorkspaceHome.kt` | Pager, bar, page grid, live app panes, widgets, placeholders |
-| `ui/car/MediaBridgeWidget.kt` | Universal Media Bridge (system media session) |
-| `media/SessionTracker.kt` | Active MediaSession tracking behind the bridge |
+| `media/SessionTracker.kt` | Active MediaSession tracking behind the Music widget |
 | `ui/WorkspaceSettings.kt` | Phone editor and pickers |
 | `ui/car/CarModel.kt` | Workspace fields in `CarUiState`, `selectWorkspace`/`cycleWorkspace` actions, `workspaceApp` resolver |
 | `host/CarRuntime.kt` | Loading, listener, selection, pinned navigation app |
@@ -302,17 +301,13 @@ car while the phone page was open isn't overwritten.
 | `ui/theme/CarThemes.kt` | `DashGridTheme` and the brand tokens |
 | `app/build.gradle.kts` | Application ID, version, signing, `dashgridApk` |
 
-## 8. Universal Media Bridge and Yandex Music
+## 8. Session-only players and Yandex Music
 
-The `media_bridge` widget deliberately does not use a MediaBrowser connection. It reads the system
-`MediaSession` through `media/SessionTracker` (`MediaSessionManager`, notification access) and
-controls it with `MediaController`: art, metadata, progress/seek, transport, custom actions, source
-selection and launching a session-only app. `DefaultMediaHub` exposes the active sessions and
-installed players and lets the bridge pin a package; AARE's existing audio path and steering-wheel
-keys are unchanged.
-
-Yandex Music's exported `MusicBrowserService` is declared `android:enabled="false"` in the inspected
-APK, so the full library cannot be opened by a third-party host without enabling the component
-(root/Shizuku) or changing the app. The session bridge is the supported fallback. Full evidence,
-diagnostic commands and the acceptance matrix are in
+The regular Music widget follows both the connected MediaBrowser app and every active platform
+`MediaSession` through `media/SessionTracker` (`MediaSessionManager`, notification access): art,
+metadata, progress/seek, transport. Playback lives in the media app/session and `MediaHub`, not in
+the widget, so switching workspaces never stops it. Yandex Music's exported `MusicBrowserService`
+is declared `android:enabled="false"` in the inspected APK, so its full library cannot be opened by
+a third-party host without enabling the component (root/Shizuku) or changing the app; the session
+path is the supported fallback. Full evidence and the test plan are in
 [docs/MEDIA_COMPATIBILITY.md](docs/MEDIA_COMPATIBILITY.md).

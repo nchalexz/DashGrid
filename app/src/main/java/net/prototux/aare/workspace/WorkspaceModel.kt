@@ -231,8 +231,10 @@ data class WorkspaceConfig(
     val lastId: String? = null,
     /** Swipe anywhere on the workspace, not just on the pager bar. Off: a map keeps its own gestures. */
     val swipeAnywhere: Boolean = false,
-    /** Show the pager bar (arrows, dots and the workspace's name) when there is more than one. */
+    /** Show the pager bar (dots and, optionally, the workspace's name) when there is more than one. */
     val showBar: Boolean = true,
+    /** Show the workspace's name on the pager bar (dots stay). */
+    val showBarName: Boolean = true,
     val version: Int = VERSION,
 ) {
     val isEmpty: Boolean get() = workspaces.isEmpty()
@@ -439,6 +441,7 @@ object WorkspaceJson {
         config.lastId?.let { put("last", it) }
         put("swipeAnywhere", config.swipeAnywhere)
         put("showBar", config.showBar)
+        put("showName", config.showBarName)
         put("workspaces", JSONArray().apply {
             config.workspaces.forEach { ws ->
                 put(JSONObject().apply {
@@ -488,6 +491,7 @@ object WorkspaceJson {
             lastId = last,
             swipeAnywhere = root.optBoolean("swipeAnywhere", false),
             showBar = root.optBoolean("showBar", true),
+            showBarName = root.optBoolean("showName", true),
             version = version,
         )
     }

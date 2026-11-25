@@ -121,14 +121,6 @@
     <string name="dash_map_big_subtitle">Где бы карта ни стояла в списке, она получает больше всего места</string>
     <string name="dash_card_map">Карта</string>
     <string name="dash_card_media">Музыка</string>
-    <string name="dash_card_media_bridge">Универсальный плеер</string>
-    <string name="media_bridge_none">Нет активного плеера</string>
-    <string name="media_bridge_source">Плеер</string>
-    <string name="media_bridge_auto">Автоматически</string>
-    <string name="media_bridge_open">Открыть приложение</string>
-    <string name="media_bridge_seek">Перемотка</string>
-    <string name="media_bridge_actions">Действия плеера</string>
-    <string name="media_bridge_installed">Установленные плееры</string>
     <string name="dash_card_calendar">Следующее событие календаря</string>
     <string name="dash_card_notification">Последнее уведомление</string>
     <string name="dash_card_weather">Погода</string>
@@ -466,7 +458,9 @@
     <string name="workspaces_swipe_anywhere_title">Свайп в любом месте</string>
     <string name="workspaces_swipe_anywhere_subtitle">Переключать рабочие столы свайпом по всей площади. Выкл.: свайп по панели и пустому месту, чтобы карта сохраняла свои жесты.</string>
     <string name="workspaces_show_bar_title">Панель переключения</string>
-    <string name="workspaces_show_bar_subtitle">Показывать на экране автомобиля название рабочего стола, стрелки и точки.</string>
+    <string name="workspaces_show_bar_subtitle">Показывать на экране автомобиля точки страниц.</string>
+    <string name="workspaces_show_name_title">Название рабочего стола</string>
+    <string name="workspaces_show_name_subtitle">Показывать название рабочего стола рядом с точками.</string>
     <string name="workspaces_preview">Предпросмотр экрана автомобиля</string>
     <string name="workspaces_preview_hint">Открывает экран автомобиля на телефоне с сохранёнными рабочими столами.</string>
     <string name="dash_menu_apps">Приложения</string>

@@ -16,7 +16,7 @@ needs a head unit, a phone, EMUI, a physical touch screen or a real drive is mar
 | Build tools | 36.0.0 |
 | SDK platform | `android-37.0` |
 | minSdk | 23 |
-| Product | `io.dashgrid.app`, DashGrid 1.0.1 (10001) |
+| Product | `io.dashgrid.app`, DashGrid 1.0.2 (10002) |
 
 ## Automated tests
 
@@ -56,8 +56,8 @@ translations/ids fail the build (they did during development and were fixed).
 ```
 
 Paparazzi rendered the car screen from the real Compose tree at 1280 × 720, including the Russian
-workspace render, the Russian phone editor, and the Universal Media Bridge with a session-only
-player. The images are in [docs/screenshots/](docs/screenshots/).
+workspace render (optional name, dots without arrows) and the Russian phone editor. The images are
+in [docs/screenshots/](docs/screenshots/).
 This proves the workspace composables lay out and draw on the JVM; it does **not** exercise touch,
 surfaces, a head unit or EMUI.
 
@@ -71,11 +71,11 @@ surfaces, a head unit or EMUI.
 Release artifacts:
 
 ```
-app/build/outputs/dashgrid/DashGrid-v1.0.1.apk                 19,448,370 bytes
-SHA-256 7f87b613cb1082a43a976652c949c82959fc8fdbe4b5e33155ed0fd2a67d48a8
+app/build/outputs/dashgrid/DashGrid-v1.0.2.apk                 19,429,297 bytes
+SHA-256 8c43f142f47dd8a8d7ffa74bf39dd53c8576c6e0254cd8ec58db230d071fc806
 
-app/build/outputs/dashgrid/DashGrid-standalone-v1.0.1.apk      19,448,371 bytes
-SHA-256 9d327be358c5354486de242150decf0e1e524eb6863078b70faa676a4352dd7a
+app/build/outputs/dashgrid/DashGrid-standalone-v1.0.2.apk      19,429,308 bytes
+SHA-256 c02aca5bd7495b133e8607c6778f1e028bc4d7b8c055e48bed111ba2cf1a2c67
 ```
 
 The side-by-side APK must **not** contain a `<permission>` element for
@@ -87,12 +87,12 @@ certificate.
 Verified from the APK itself:
 
 ```sh
-apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
-aapt2 dump badging app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
-aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
+apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-v1.0.2.apk
+aapt2 dump badging app/build/outputs/dashgrid/DashGrid-v1.0.2.apk
+aapt2 dump xmltree --file AndroidManifest.xml app/build/outputs/dashgrid/DashGrid-v1.0.2.apk
 ```
 
-- `package: io.dashgrid.app`, `versionCode 10001`, `versionName 1.0.1`;
+- `package: io.dashgrid.app`, `versionCode 10002`, `versionName 1.0.2`;
 - `application-label: DashGrid` (all locales);
 - signature: v1 (JAR) **true**, v2 **true**, one signer,
   `CN=DashGrid`, SHA-256 `4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5`;
@@ -119,7 +119,7 @@ is possible or intended.
 | 1 | Install AARE and DashGrid on the same phone | **Not run** | Both install; two launcher icons; separate settings; no `INSTALL_FAILED_CONFLICTING_PROVIDER` |
 | 2 | Launch each independently | **Not run** | Each starts with its own data; DashGrid's name/icon |
 | 3 | 1, 3 and 5 workspaces | **Not run** (model tested) | Creation, dots, `1 → 2 → 3 → 1`, `1 → 5 → 4 → 1` |
-| 4 | Cyclic switching both ways | **Not run** (math tested) | Bar swipe, arrows, dots, no jump at the wrap |
+| 4 | Cyclic switching both ways | **Not run** (math tested) | Bar swipe, dots, no jump at the wrap |
 | 5 | Layouts 100/50-50/70-30/30-70/3/4/custom | **Not run** (model tested) | Widgets fill, no gaps/overlaps, axis switch |
 | 6 | Reorder workspaces | **Not run** | Active workspace keeps its contents; order persists |
 | 7 | Delete the active workspace | **Not run** (model tested) | Neighbour becomes active; last one can't be deleted |
@@ -140,7 +140,7 @@ is possible or intended.
 ```sh
 # Build and install
 ./gradlew dashgridApk
-adb install -r app/build/outputs/dashgrid/DashGrid-v1.0.1.apk
+adb install -r app/build/outputs/dashgrid/DashGrid-v1.0.2.apk
 
 # Preview without a car
 # DashGrid → Settings → Workspaces → Preview car screen

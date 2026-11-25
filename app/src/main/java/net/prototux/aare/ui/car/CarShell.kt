@@ -54,6 +54,7 @@ import androidx.compose.material.icons.rounded.Smartphone
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -539,7 +540,7 @@ internal fun Dashboard(
     // The map and the music always have something to show (a "where to?", "nothing playing").
     val shown: (DashCard) -> Boolean = { card ->
         when (card) {
-            DashCard.MAP, DashCard.MEDIA, DashCard.MEDIA_BRIDGE -> true
+            DashCard.MAP, DashCard.MEDIA -> true
             DashCard.CALENDAR -> state.nextEvents.isNotEmpty()
             DashCard.NOTIFICATION -> state.history.isNotEmpty()
             DashCard.WEATHER -> state.weather != null
@@ -614,7 +615,6 @@ private fun DashSlot(
     when (card) {
         DashCard.MAP -> NavCard(state, actions, navMap, modifier)
         DashCard.MEDIA -> MediaCard(state, actions, compact = compact, modifier = modifier)
-        DashCard.MEDIA_BRIDGE -> MediaBridgeWidget(state, actions, modifier, compact)
         DashCard.CALENDAR -> state.nextEvents.takeIf { it.isNotEmpty() }?.let { events -> Card(modifier) { CalendarAgendaCard(events, actions::navigateTo, Modifier.fillMaxSize()) } }
         DashCard.NOTIFICATION -> state.history.firstOrNull()?.let { latest ->
             Card(modifier, onClick = { state.apps.firstOrNull { it.kind == CarAppKind.NOTIFICATIONS }?.let(actions::openApp) }) {
@@ -822,23 +822,44 @@ internal fun MediaCard(
                 content()
                 Spacer(Modifier.height(12.dp))
                 if (np != null && np.durationMs > 0) {
-                    var now by remember { mutableLongStateOf(android.os.SystemClock.elapsedRealtime()) }
-                    LaunchedEffect(np.playing, np.updatedAtMs) {
-                        now = android.os.SystemClock.elapsedRealtime()
-                        while (np.playing) {
-                            delay(500)
-                            now = android.os.SystemClock.elapsedRealtime()
-                        }
-                    }
-                    LinearProgressIndicator(
-                        progress = { mediaProgress(np.positionMs, np.durationMs, np.playing, np.updatedAtMs, now) },
-                        modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
-                    )
+                    MediaSeek(np, actions)
                     Spacer(Modifier.height(12.dp))
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) { MediaButtons(np, actions) }
             }
         }
+    }
+}
+
+/** Progress, with a seek slider when the source supports it (session-only players included). */
+@Composable
+private fun MediaSeek(np: NowPlaying, actions: CarActions) {
+    var now by remember { mutableLongStateOf(android.os.SystemClock.elapsedRealtime()) }
+    LaunchedEffect(np.playing, np.updatedAtMs) {
+        now = android.os.SystemClock.elapsedRealtime()
+        while (np.playing) {
+            delay(500)
+            now = android.os.SystemClock.elapsedRealtime()
+        }
+    }
+    val progress = mediaProgress(np.positionMs, np.durationMs, np.playing, np.updatedAtMs, now)
+    if (np.canSeek) {
+        var drag by remember(np.appId, np.updatedAtMs) { mutableStateOf<Float?>(null) }
+        Slider(
+            value = drag ?: progress,
+            onValueChange = { drag = it },
+            onValueChangeFinished = {
+                drag?.let { actions.seekMedia((it * np.durationMs).toLong()) }
+                drag = null
+            },
+            valueRange = 0f..1f,
+            modifier = Modifier.fillMaxWidth().height(28.dp),
+        )
+    } else {
+        LinearProgressIndicator(
+            progress = { progress },
+            modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)),
+        )
     }
 }
 

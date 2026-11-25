@@ -1,0 +1,1 @@
+Removed the separate media bridge widget (Music widget handles session-only players and now seeks), no pager arrows, optional workspace name, rounded live app panes.

@@ -1,0 +1,29 @@
+# Creates the GitHub release for a DashGrid version tag and attaches the signed APK that is
+# committed in dist/. Uses the token GitHub gives the workflow (contents: write), so no signing
+# key or personal token lives in the repository. The APK itself is built locally with
+# `./gradlew dashgridApk` and committed, because the release key must never be uploaded to CI.
+name: DashGrid release
+
+on:
+  push:
+    tags: ["dashgrid-v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Publish the APK from dist/
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#dashgrid-v}"
+          apk="dist/DashGrid-v${version}.apk"
+          test -f "$apk" || { echo "missing $apk" >&2; exit 1; }
+          gh release create "$GITHUB_REF_NAME" "$apk" \
+            --title "DashGrid ${version}" \
+            --generate-notes

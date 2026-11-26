@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/screenshots/social-preview.png" width="100%" alt="DashGrid — Swipe. Arrange. Drive. A workspace home screen for Android Auto.">
+  <img src="docs/screenshots/social-preview.png" width="100%" alt="DashGrid — Swipe. Arrange. Drive. The VPM cockpit on an Android Auto screen.">
 </p>
 
 <p align="center">
@@ -13,13 +13,14 @@
 
 <p align="center">
   <strong>A workspace home screen for Android Auto.</strong><br>
-  As many screens as you want, a 10 × 6 grid, live apps in their panes and any Android app widget.
-  No root, no GMS, no account.
+  As many screens as you want, a 10 × 6 grid, live apps in their panes, any Android app widget —
+  and the VPM cockpit. No root, no GMS, no account.
 </p>
 
 <p align="center">
   <a href="#interface">Interface</a> ·
   <a href="#android-auto">Android Auto</a> ·
+  <a href="#cockpit">Cockpit</a> ·
   <a href="#install">Install</a> ·
   <a href="#what-already-works">Features</a> ·
   <a href="#what-is-tested-what-is-not">Status</a> ·
@@ -40,11 +41,12 @@
 
 DashGrid is a standalone Android app that gives an Android Auto head unit a set of home screens you
 arrange yourself. It runs on the phone and draws into the car's virtual display: workspaces, live
-app panes, widgets, a dock and a pager. No Google Mobile Services, no account, no root required.
+app panes, widgets, the VPM cockpit, a dock and a pager. No Google Mobile Services, no account, no
+root required.
 
 It began as an independent fork of **AARE 1.6.0**. The Android Auto connection, transport, audio and
 app hosting are AARE's work; the workspace home screen, the phone editor, the monochrome dock, the
-fixed navigation buttons and the Cockpit are DashGrid's.
+fixed navigation buttons and the VPM cockpit are DashGrid's.
 
 DashGrid has its own application ID, signing key, icon and theme. The published APK is standalone: it
 defines the car template permission itself, so AARE must be removed before installing it. A
@@ -100,6 +102,41 @@ the same app hosting. The head unit sees a normal Android Auto phone; the car sc
 
 More: [ARCHITECTURE.md](ARCHITECTURE.md) and [TESTING.md](TESTING.md).
 
+## Cockpit
+
+<p align="center">
+  <img src="docs/screenshots/vpm-cockpit-main-1920x720.png" width="100%" alt="The Car workspace at 1920 × 720: coolant, boost and oil gauges over speed, revs, gear, fuel use and fuel tiles, with VPM's DEMO values">
+</p>
+<p align="center"><sub>The Car workspace at 1920 × 720: coolant, boost and oil over speed, revs, gear, fuel use and fuel. VPM's demo values from an Android 15 emulator — not a car or a head unit.</sub></p>
+
+The Cockpit is DashGrid's native VAG dashboard, and it **works with VAG Performance Monitor (VPM)**.
+A preinstalled **Car** workspace fills the screen with three gauges, five tiles and a category grid.
+DashGrid draws them itself; VPM supplies the values.
+
+- **VPM 0.5.0+ owns the connection.** VPM (`io.github.nchalexz.aaperfmon`) keeps the only ELM327
+  and VAG UDS connection. DashGrid reads its read-only `ContentProvider` snapshot and opens no OBD
+  connection, starts no VPM service and polls no PID. No root and no Shizuku.
+- **What is on screen.** Coolant, boost and oil as three gauges; speed, revs, gear, fuel use and fuel
+  as five tiles; Engine, Temperatures, Fuel, Gearbox, Turbo and Diagnostics as six tabs. Tapping a
+  gauge opens its category.
+- **DEMO or LIVE, never a guess.** VPM's DEMO pill stays while VPM is in demo; stale values show “—”
+  and the needle fades. With VPM 0.4.1 the Car workspace offers **Update VPM** / **Open on the
+  phone**; without VPM it offers **Install**.
+- **Two screen sizes.** 1920 × 720 and 1280 × 480; both rows of the category grid stay readable.
+- **Requirement.** VPM 0.5.0+ installed on the same phone. Android grants the normal
+  `READ_TELEMETRY` permission when DashGrid is installed after VPM; an earlier DashGrid must be
+  updated or reinstalled once.
+
+<p align="center">
+  <img src="docs/screenshots/vpm-cockpit-categories-1920x720.png" width="100%" alt="The VPM cockpit category grid at 1920 × 720: six tabs and two fully visible rows of values">
+</p>
+<p align="center"><sub>The category grid at 1920 × 720: the same gauges smaller, six tabs and an adaptive two-row grid. A gauge tap opens its tab.</sub></p>
+
+The 1280 × 480 layout and the no-bridge, missing-VPM and stale states are in
+[docs/VPM.md](docs/VPM.md) and [RELEASE_NOTES.md](RELEASE_NOTES.md). The cockpit was verified on an
+Android 15 emulator with VPM 0.5.0's read-only provider and demo values; no real car, ELM327 adapter
+or head unit was available. See [What is tested](#what-is-tested-what-is-not).
+
 ## One setup, three surfaces
 
 | Surface | What it shows | Editable |
@@ -120,9 +157,9 @@ second surface never opens a second app session or a second widget view.
 - Cyclic paging by swipe, dots, arrows or the jump menu; the bar name can be hidden.
 - A per-workspace **Close apps when hidden** option releases that page's car sessions and surfaces
   and pauses its music. Off, routes and playback stay alive.
-- A preinstalled **Car** workspace shows **VAG Performance Monitor**'s cockpit — three gauges, five
-  tiles and the category grid — drawn by DashGrid from VPM's read-only snapshot. VPM keeps the only
-  ELM327 connection; DashGrid opens none and needs no root ([docs/VPM.md](docs/VPM.md)).
+- A preinstalled **Car** workspace shows the [VPM cockpit](#cockpit) — three gauges, five tiles and
+  the category grid — from VPM's read-only snapshot. VPM keeps the only ELM327 connection; DashGrid
+  opens none and needs no root ([docs/VPM.md](docs/VPM.md)).
 - Settings backup exports and imports the workspaces with the other portable settings.
 
 **Layout and editor**
@@ -176,11 +213,11 @@ installed. The side-by-side variant is buildable locally but is not attached to 
 
 | Build | What is inside | Size |
 |---|---|---|
-| `standalone` | The published APK: workspaces, editor, Android app widgets, dock, Cockpit. | 19 MB |
+| `standalone` | The published APK: workspaces, editor, Android app widgets, dock, VPM cockpit. | 19 MB |
 | `side-by-side` | Local build only; installs next to AARE. | — |
 
 Requirements: Android 6.0 (API 23) or newer, USB or wireless Android Auto, no root, no Google Mobile
-Services.
+Services. The VPM cockpit needs **VPM 0.5.0+** on the same phone; everything else works without it.
 
 1. If AARE is installed, remove it first — see the note below.
 2. Download `DashGrid-standalone-v1.3.0.apk` from

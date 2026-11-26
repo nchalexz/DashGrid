@@ -4,6 +4,43 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.3.0 — live VPM telemetry (stable)
+
+### Cockpit
+
+- **The Car workspace now shows real VPM data.** The native cockpit reads the read-only snapshot of
+  VAG Performance Monitor **0.5.0+** over contract v1
+  (`content://io.github.nchalexz.aaperfmon.telemetry`), so the three gauges, five tiles and the
+  category grid draw VPM's own formatted values, display units, thresholds and category order. The
+  **DEMO** pill stays while VPM is in demo; **LIVE** is shown only on a connected link.
+- VPM missing, VPM without the bridge, no data yet, demo, live, a stale value and a refused read stay
+  distinct, unit-tested states. Neither is a drawn zero or a black square; the missing cases
+  offer **Install** or **Update VPM** / **Open on the phone**.
+- At **1280 × 480** the category grid used to clip the second row: on short screens the grid now gets
+  the larger half and the tiles shrink their label, value and unit to fit. 1920 × 720 is unchanged.
+- VPM remains the only owner of the ELM327 adapter and the VAG UDS session. DashGrid opens no OBD
+  connection, polls no PID, starts no service, and needs no root or Shizuku; the existing OBD `car`
+  widget and the OBD app are untouched.
+
+### Compatibility
+
+- Verified with **VPM 0.5.0** on an Android 15 emulator at 1920 × 720 and 1280 × 480: `content call`
+  returns `version=1`, 128 signals and a changing `updatedAt`; `dumpsys package io.dashgrid.app`
+  reports `READ_TELEMETRY: granted=true`; no second ELM327/OBD attempt and no `SecurityException` in
+  `adb logcat`.
+- VPM 0.4.1 shows the **Update VPM** card; an uninstalled VPM shows **Install**. Removing and
+  reinstalling VPM requires updating DashGrid once so Android re-grants the normal permission.
+- RU and EN, day and night tokens, and both cockpit screens were exercised. There was no ELM327
+  adapter, car, phone in a car or real head unit: the values are VPM's demo values, so live sensor
+  readings and the adapter path remain unverified.
+
+### Documentation
+
+- [RELEASE_NOTES.md](RELEASE_NOTES.md) is rewritten for the stable 1.3.0 release;
+  [docs/VPM.md](docs/VPM.md), README, TESTING and the limitation lists describe the bridge as
+  shipped and keep the unverified points explicit.
+- [docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md) remains the VPM-side contract v1.
+
 ## 1.2.0 — the VPM cockpit (test release)
 
 ### Workspaces

@@ -124,7 +124,7 @@ nothing when it is not. A bridge problem is logged once, not five times a second
 | Situation | What the user sees |
 |---|---|
 | VPM not installed | **VAG Performance Monitor is not installed** and **Install** (the releases page) |
-| VPM installed, no bridge (VPM 0.4.1 today) | **VPM is installed, but this version doesn't share telemetry with DashGrid** and **Update VPM** / **Open on the phone** |
+| VPM installed, no bridge (VPM 0.4.1) | **VPM is installed, but this version doesn't share telemetry with DashGrid** and **Update VPM** / **Open on the phone** |
 | Bridge present, VPM has not run yet | the cockpit with dashes and a **NO LINK** pill, never a drawn zero |
 | VPM in demo | VPM's demo values with the **DEMO** pill |
 | Live link | values, the **LIVE** pill and VPM's status line |
@@ -136,9 +136,9 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
 
 ## Requirements
 
-- VPM installed on the same phone.
-- A VPM release that exports the provider above. VPM 0.4.1 does not: this is the one VPM-side change
-  that is still needed, and it is described in [VPM_BRIDGE_PROMPT.md](VPM_BRIDGE_PROMPT.md).
+- VPM **0.5.0 or newer** installed on the same phone: it exports the provider above. VPM 0.4.1
+  does not, and the cockpit then shows the **Update VPM** card. The contract is in
+  [VPM_BRIDGE_PROMPT.md](VPM_BRIDGE_PROMPT.md).
 - If DashGrid was installed before VPM defined this permission, update DashGrid once after installing
   VPM's bridge (reinstall the same build): Android grants a normal permission when the app that
   requests it is installed or updated, not retroactively when another app defines it.
@@ -146,24 +146,28 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
 
 ## What was checked
 
-On a `sdk_gphone64_arm64` Android 15 emulator at 1920 × 720 and 1280 × 480, with VPM 0.4.1
-installed and no bridge:
+On a `sdk_gphone64_arm64` Android 15 emulator at 1920 × 720 and 1280 × 480, with a locally built
+VPM 0.5.0 that exports the bridge:
 
 - A fresh install has **Home** and **Car**; the Car workspace is 100 % and contains one `vpm` item.
-- The Car workspace draws the "VPM is installed, but this version doesn't share telemetry" card with
-  **Update VPM** and **Open on the phone**; nothing crashes.
-- The cockpit itself was run with VPM's mock values through a debug-only preview activity: both
-  screens at 1920 × 720 and 1280 × 480, the swipe between them, a tab tap, a gauge tap opening its
-  category, and the DEMO pill.
+- The Car workspace shows the DEMO pill and VPM's values in the gauges and tiles; both screens, the
+  swipe between them, a tab tap, a gauge tap opening its category, and leaving/returning to Car work.
+- `content call` on the provider returned `version=1`, 128 signals and a changing `updatedAt`;
+  `dumpsys package io.dashgrid.app` reported `READ_TELEMETRY: granted=true`.
+- With VPM 0.4.1 the Car workspace draws the "VPM is installed, but this version doesn't share
+  telemetry" card with **Update VPM** and **Open on the phone**; with VPM uninstalled it shows
+  **Install**. Neither crashes, and both recover once VPM 0.5.0 is back.
 - The unit tests cover the parser (bad JSON, missing fields, version mismatch, one entry per
   category), the readings (demo, live, disconnected, waiting, stale, warning/critical, the VAG oil
   alternative), the preset (added once, deleted stays deleted, JSON round-trip) and the state cards.
-- No OBD/ELM327 connection was opened by DashGrid: the cockpit has no OBD code, and the log shows a
-  single bridge "no provider" line, not an adapter attempt.
+- No OBD/ELM327 connection was opened by DashGrid: the cockpit has no OBD code, and the log showed
+  no adapter attempt and no `SecurityException`, only a single bridge note per distinct problem.
+- 1280 × 480 clipped the second grid row at first; the layout was fixed (the grid gets the larger
+  half on short screens and the tiles scale their text), and the final build keeps both rows whole.
 
-Not checked: a real VPM with the bridge (VPM 0.4.1 has none), a real ELM327 or car, a real head unit,
-the 1280 × 480 layout on hardware, and driving rules with a real vehicle-speed signal. Test renders
-and emulator captures are not proof of head-unit compatibility.
+Not checked: a real ELM327, a car, a real head unit and EMUI; the values are VPM's demo values, so
+live sensor readings and driving rules with a real vehicle-speed signal are unverified. Emulator
+captures are not proof of head-unit compatibility.
 
 ## Trying it without a car
 
@@ -179,9 +183,9 @@ The real car screen on the phone is the ordinary **Settings → Workspaces → P
 
 ## The cross-repository release session
 
-When VPM's bridge is ready, the session that verifies both apps, runs both test suites, checks
-compatibility and publishes VPM and DashGrid releases follows
-[VPM_COMPAT_PROMPT.md](VPM_COMPAT_PROMPT.md). This page remains the DashGrid-side description.
+The session that verifies both apps, runs both test suites, checks compatibility and publishes VPM
+and DashGrid releases follows [VPM_COMPAT_PROMPT.md](VPM_COMPAT_PROMPT.md). The VPM 0.5.0 and
+DashGrid 1.3.0 releases were produced by it; this page remains the DashGrid-side description.
 
 ## Files
 

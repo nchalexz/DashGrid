@@ -6,7 +6,7 @@
 ./gradlew :aap:test :app:testDebugUnitTest :headunit:test
 ```
 
-Result for this build (1.2.0, 2026-11-27):
+Result for this build (1.3.0, 2026-11-27):
 
 ```
 app       947 tests, 0 failures, 0 errors, 0 skipped
@@ -55,13 +55,21 @@ tests. What the new tests cover:
 
 - `:app:assembleDebug` and `:app:assembleStandalone` compile and pass `lintVital`.
 - **The VPM cockpit and the Car workspace were run on an emulator**: `sdk_gphone64_arm64`, Android
-  15 (API 35), 1920 × 720 and 1280 × 480, with VPM 0.4.1 installed and no telemetry bridge. A fresh
-  `pm clear` produced **Home + Car**; the Car workspace is 100 % and drew the calm “VPM is installed,
-  but this version doesn't share telemetry” card with **Update VPM** and **Open on the phone**, with
-  no crash. The cockpit itself was run through the debug-only `VpmPreviewActivity` with VPM's mock
-  values: both screens at both resolutions, a horizontal swipe from the main screen to categories, a
-  tab tap and a gauge tap opening its category. The log showed a single bridge “no provider” line
-  (not one per poll) and no OBD/ELM327 attempt.
+  15 (API 35), 1920 × 720 and 1280 × 480, with a locally built **VPM 0.5.0** that exports the
+  read-only provider. A fresh `pm clear` produced **Home + Car**; the Car workspace is 100 % and
+  drew the DEMO pill, VPM's values in the gauges and tiles, both cockpit screens, a horizontal swipe
+  from the main screen to categories, a tab tap and a gauge tap opening its category. Leaving and
+  returning to Car resumed the cockpit; the workspace swipe still worked.
+- **The VPM 0.4.1 and no-VPM states were walked too**: installing 0.4.1 showed the **Update VPM**
+  card, uninstalling VPM showed the **Install** card, and both recovered after VPM 0.5.0 was
+  installed again and DashGrid was reinstalled once so Android re-granted the normal permission.
+- **The log showed no second OBD connection**: no `ELM327`/`Obd` attempt and no `SecurityException`
+  while the cockpit polled; the only bridge lines were the expected “not installed” / “no provider”
+  notes, logged once rather than once per poll. The emulator ran without Shizuku, and DashGrid used
+  no root.
+- **1280 × 480 was fixed during this check**: the category grid used to clip its second row of
+  values. The grid now takes the larger half on short screens and the tiles scale their text; the
+  final screenshots are `docs/screenshots/vpm-cockpit-main-1280x480.png` and the 1920 × 720 pair.
 - The `vpm` widget is a new widget id: the built-in OBD `car` widget and the OBD app are untouched.
   The manifest adds one normal `uses-permission` (VPM's read-only telemetry) and a `<queries>` entry
   and **no** exported component.
@@ -75,9 +83,9 @@ tests. What the new tests cover:
 
 ## Not verified — needs a phone and a car
 
-The cockpit was run on the emulator described above, but **nothing below has been run on a real
-head unit, in a car, or on EMUI**, and no real VPM could feed it (VPM 0.4.1 has no bridge). It must
-not be reported as confirmed compatible until it has.
+The cockpit was run on the emulator described above against VPM 0.5.0's provider, but **nothing
+below has been run on a real head unit, in a car, or on EMUI**, and there was no ELM327 adapter, so
+the values are VPM's demo values. It must not be reported as confirmed compatible until it has.
 
 - App Widget hosting on the car screen: the AppWidgetHostView drawing on AARE's virtual display
   (Presentation), its density and cell sizes, RemoteViews updates, taps and `PendingIntent`s, the
@@ -96,7 +104,7 @@ not be reported as confirmed compatible until it has.
 
 ```sh
 adb uninstall net.prototux.aare   # required for the standalone APK
-adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.2.0.apk
+adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
 
 # Preview without a car
 # DashGrid → Settings → Workspaces → Preview car screen
@@ -146,20 +154,19 @@ adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.2.0.apk
 Published artifact (filled at release time):
 
 ```
-app/build/outputs/dashgrid/DashGrid-standalone-v1.2.0.apk
-19,707,760 bytes
-SHA-256 ee4e228afa6a94d2d4fbee1122237c8f359e221e0bdaed8208dfd4d34c939546
-SHA-256 f8ac4d91fe220fb0c2f01ac9cb810f5264086d2995e49c396636025c2310778a
+app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
+19,707,769 bytes
+SHA-256 7a05a80d8a5d0dd2e6ea0b4511d77a6aff5d1b017fb4cd09501481e2248cb456
 ```
 
 Verified from the APK itself:
 
 ```sh
-apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.2.0.apk
-aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.2.0.apk
+apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
+aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
 ```
 
-- `package: io.dashgrid.app`, `versionCode 10200`, `versionName 1.2.0`;
+- `package: io.dashgrid.app`, `versionCode 10300`, `versionName 1.3.0`;
 - `application-label: DashGrid`;
 - signature: DashGrid's own key (`CN=DashGrid`);
 - the standalone APK declares `android.car.permission.TEMPLATE_RENDERER`;
@@ -182,9 +189,10 @@ For an update, rebuild with a higher `versionCode` and the same keystore, then `
   placeholder for its map.
 - **One live AppWidgetHostView per bound id**: only the visible page hosts it; the phone preview
   shows a placeholder while a real car screen is connected.
-- **VPM cockpit needs VPM's bridge.** VPM 0.4.1 exports no telemetry snapshot; the cockpit shows
-  the “update VPM” card until a VPM release adds the read-only provider
-  ([docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md)). DashGrid needs no update then.
+- **VPM cockpit needs VPM 0.5.0 or newer.** 0.4.1 exports no telemetry snapshot, so the cockpit shows
+  the “update VPM” card. Android grants the normal `READ_TELEMETRY` permission when DashGrid is
+  installed after VPM 0.5.0; a DashGrid installed earlier must be updated or reinstalled once. The
+  contract is in [docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md).
 - **Standalone vs side-by-side**: the standalone APK cannot be installed while AARE is installed
   because both define `TEMPLATE_RENDERER` with different certificates.
 - **External themes**: investigated in [docs/EXTERNAL_THEMES.md](docs/EXTERNAL_THEMES.md); not

@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases"><img alt="Version 1.2.0" src="https://img.shields.io/badge/version-1.2.0-36D6C3?style=flat-square"></a>
+  <a href="https://github.com/nchalexz/DashGrid/releases"><img alt="Version 1.3.0" src="https://img.shields.io/badge/version-1.3.0-36D6C3?style=flat-square"></a>
   <a href="LICENSE"><img alt="License GPL-3.0-or-later" src="https://img.shields.io/badge/license-GPL--3.0--or--later-38BDF8?style=flat-square"></a>
   <a href="#install"><img alt="Android 6.0+" src="https://img.shields.io/badge/Android-6.0%2B-3DDC84?style=flat-square&logo=android&logoColor=white"></a>
   <a href="gradle/libs.versions.toml"><img alt="Kotlin 2.4" src="https://img.shields.io/badge/Kotlin-2.4-7F52FF?style=flat-square&logo=kotlin&logoColor=white"></a>
@@ -29,12 +29,11 @@
 </p>
 
 > [!WARNING]
-> **1.2.0 is a test release, not a verified one.**
-> It is marked as a GitHub pre-release: use it to try the cockpit and report what breaks, not as a
-> daily driver. It is built, unit-tested and lint-checked, and the new VPM cockpit was run on an
-> Android 15 emulator at 1920 × 720 and 1280 × 480. It has **not been run on a real head unit, a real phone or
-> EMUI**, and no real VPM can feed it yet: VPM 0.4.1 exports no telemetry bridge, so the Car
-> workspace shows an “update VPM” card instead of live gauges. The details are in
+> **1.3.0 is stable for the emulator, not verified on a car.**
+> It is built, unit-tested and lint-checked, and the VPM cockpit was run with VPM 0.5.0 on an Android
+> 15 emulator at 1920 × 720 and 1280 × 480. It has **not been run on a real head unit, a phone in a
+> car or EMUI**, and no ELM327 adapter or vehicle was available: the values shown are VPM's demo
+> values, not live sensor readings. The details are in
 > [What is tested](#what-is-tested-what-is-not).
 
 ## What this is
@@ -97,7 +96,7 @@ the same app hosting. The head unit sees a normal Android Auto phone; the car sc
 - Car App Library templates, maps, media apps and launched phone apps are hosted in workspaces.
   There is one live map surface per connection.
 - The car screen is a viewer: workspaces are arranged on the phone, not on the head unit.
-- **Not verified on a real head unit in 1.2.0.** See [What is tested](#what-is-tested-what-is-not).
+- **Not verified on a real head unit in 1.3.0.** See [What is tested](#what-is-tested-what-is-not).
 
 More: [ARCHITECTURE.md](ARCHITECTURE.md) and [TESTING.md](TESTING.md).
 
@@ -172,7 +171,7 @@ second surface never opens a second app session or a second widget view.
 
 ## Install
 
-DashGrid 1.2.0 (**test release**) publishes **one APK: the standalone build**. It cannot be installed while AARE is
+DashGrid 1.3.0 (**stable**) publishes **one APK: the standalone build**. It cannot be installed while AARE is
 installed. The side-by-side variant is buildable locally but is not attached to the release.
 
 | Build | What is inside | Size |
@@ -184,7 +183,7 @@ Requirements: Android 6.0 (API 23) or newer, USB or wireless Android Auto, no ro
 Services.
 
 1. If AARE is installed, remove it first — see the note below.
-2. Download `DashGrid-standalone-v1.2.0.apk` from
+2. Download `DashGrid-standalone-v1.3.0.apk` from
    [Releases](https://github.com/nchalexz/DashGrid/releases).
 3. Allow installs from unknown sources if Android asks, then open the file.
 
@@ -192,19 +191,19 @@ Through `adb`:
 
 ```sh
 adb uninstall net.prototux.aare   # only if AARE is installed
-adb install -r DashGrid-standalone-v1.2.0.apk
+adb install -r DashGrid-standalone-v1.3.0.apk
 ```
 
 <details>
 <summary>SHA-256 and signing certificate</summary>
 
 ```text
-ee4e228afa6a94d2d4fbee1122237c8f359e221e0bdaed8208dfd4d34c939546  DashGrid-standalone-v1.2.0.apk
+7a05a80d8a5d0dd2e6ea0b4511d77a6aff5d1b017fb4cd09501481e2248cb456  DashGrid-standalone-v1.3.0.apk
 certificate SHA-256: 4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5
 ```
 
 The APK is signed with `CN=DashGrid`. Check it with
-`apksigner verify --print-certs DashGrid-standalone-v1.2.0.apk`.
+`apksigner verify --print-certs DashGrid-standalone-v1.3.0.apk`.
 
 </details>
 
@@ -245,17 +244,19 @@ The APK is signed with `CN=DashGrid`. Check it with
 | Car-screen renders | Paparazzi on the JVM | **yes** |
 | CI | GitHub Actions on push and pull request | **yes** |
 | Phone preview and the Car workspace | Android 15 emulator, 1920 × 720 and 1280 × 480 | **yes** |
-| VPM cockpit with VPM's demo values | emulator, debug preview activity | **yes** |
-| VPM cockpit with a real VPM bridge | VPM with the read-only provider | **no** |
+| VPM cockpit with VPM's demo values | emulator, VPM 0.5.0 provider | **yes** |
+| VPM cockpit with VPM 0.5.0 bridge | emulator, `content call` + cockpit | **yes** |
+| VPM 0.4.1 / no VPM cards | emulator, install 0.4.1, uninstall VPM | **yes** |
+| Live values from an ELM327 or a car | real adapter and vehicle | **no** |
 | Android widget host on a car screen | real `Presentation` or head unit | **no** |
 | Real head unit, USB or wireless | — | **no** |
 | EMUI 14+ | — | **no** |
 | Third-party icons and dock tones | real icons on a real screen | **no** |
 
 Unit tests, Paparazzi renders and CI are **not** compatibility proof. The cockpit and the Car
-workspace were run on an emulator only; no real car, head unit or phone was available, and VPM 0.4.1
-has no telemetry bridge to feed live values. The exact checklist and the open points are in
-[TESTING.md](TESTING.md).
+workspace were run on an emulator with VPM 0.5.0's read-only provider; no real car, head unit or
+phone was available, and the provider had no ELM327 adapter, so the values are VPM's demo values.
+The exact checklist and the open points are in [TESTING.md](TESTING.md).
 
 ## Build
 
@@ -277,8 +278,8 @@ echo "sdk.dir=/path/to/android-sdk" > local.properties
 Outputs:
 
 ```text
-app/build/outputs/dashgrid/DashGrid-standalone-v1.2.0.apk
-app/build/outputs/dashgrid/DashGrid-v1.2.0.apk
+app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
+app/build/outputs/dashgrid/DashGrid-v1.3.0.apk
 ```
 
 Tests:
@@ -341,10 +342,9 @@ widget or Android widget — can occupy any slot.
 
 ## Limitations
 
-- **No hardware verification.** 1.2.0 has not been run on a head unit, a phone or EMUI; the widget
-  host, dock tones, third-party icons and the VPM cockpit are not confirmed on a real screen. The
-  cockpit was checked on an emulator only, with VPM's demo values and with VPM 0.4.1's missing
-  bridge.
+- **No hardware verification.** 1.3.0 has not been run on a head unit, a phone in a car or EMUI; the
+  widget host, dock tones, third-party icons and the VPM cockpit are not confirmed on a real screen.
+  The cockpit was checked on an emulator only, with VPM 0.5.0's demo values.
 - **AARE must go first.** The standalone APK cannot coexist with AARE, and the side-by-side build is
   not published.
 - **One live map surface per connection.** Inactive workspaces show a placeholder.
@@ -354,10 +354,11 @@ widget or Android widget — can occupy any slot.
   on the phone or be refused; broadcast and service actions are unaffected.
 - **Third-party dock icons.** Tones read differently from app to app because they follow each icon's
   own artwork.
-- **The VPM cockpit needs VPM with the bridge.** VPM 0.4.1 exports no telemetry snapshot, so the
+- **The VPM cockpit needs VPM 0.5.0 or newer.** 0.4.1 exports no telemetry snapshot, so the
   preinstalled Car workspace explains that and offers **Update VPM** / **Open on the phone** instead
-  of gauges. The read-only provider is a separate VPM change, specified in
-  [docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md); DashGrid needs no update when VPM ships it.
+  of gauges. Android grants the normal `READ_TELEMETRY` permission when DashGrid is installed after
+  VPM 0.5.0; a DashGrid installed earlier must be updated or reinstalled once. The contract is in
+  [docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md).
 - **No in-app update check.** New releases are installed by hand.
 - **Head-unit quirks remain AARE's.** `vehicles.json` still handles cars that need a different
   protocol; DashGrid does not change that layer.
@@ -384,13 +385,13 @@ in [Install](#install). AARE's TLS and certificate handling are unchanged.
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | Workspaces, panes, paging, widgets, dock and how they fit into AARE |
 | [`docs/ANDROID_WIDGETS.md`](docs/ANDROID_WIDGETS.md) | Android app widgets: architecture, adding one, limits, test status |
 | [`docs/VPM.md`](docs/VPM.md) | The preinstalled Car workspace, the native VPM cockpit, its read-only contract and its states |
-| [`docs/VPM_BRIDGE_PROMPT.md`](docs/VPM_BRIDGE_PROMPT.md) | The read-only provider VPM must add before live values appear (task for the VPM repository) |
+| [`docs/VPM_BRIDGE_PROMPT.md`](docs/VPM_BRIDGE_PROMPT.md) | The read-only provider VPM implements (contract v1, task for the VPM repository) |
 | [`docs/VPM_COMPAT_PROMPT.md`](docs/VPM_COMPAT_PROMPT.md) | The cross-repository session: VPM bridge, both test suites, the compatibility matrix and both releases |
 | [`docs/vehicles.md`](docs/vehicles.md) | Per-car overrides for head units that need a different protocol |
 | [`docs/home-actions.md`](docs/home-actions.md) | Home shortcuts and the actions DashGrid exports |
 | [`DESIGN.md`](DESIGN.md) | Palette, icon, typography and car-UI rules |
 | [`TESTING.md`](TESTING.md) | Automated tests, build checks and the open device checklist |
-| [`RELEASE_NOTES.md`](RELEASE_NOTES.md) | What shipped in 1.2.0, with install and limits |
+| [`RELEASE_NOTES.md`](RELEASE_NOTES.md) | What shipped in 1.3.0, with install and limits |
 | [`CHANGELOG.md`](CHANGELOG.md) | Every change relative to AARE 1.6.0 |
 | [`UPSTREAM.md`](UPSTREAM.md) | Base commit, merge process, identifiers that must not change |
 | [`docs/EXTERNAL_THEMES.md`](docs/EXTERNAL_THEMES.md) | Theme-file proposal (not implemented) |

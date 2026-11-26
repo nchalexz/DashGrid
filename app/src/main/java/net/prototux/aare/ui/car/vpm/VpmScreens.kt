@@ -104,6 +104,12 @@ fun VpmCategoriesScreen(
     BoxWithConstraints(modifier.fillMaxSize()) {
         val portrait = maxHeight > maxWidth
         val portraitPanelHeight = maxWidth * 0.44f
+        // On a short car screen (1280 × 480) a 50/50 split leaves the two-row
+        // grid less height than its labels, values and units need. Give the
+        // grid the larger half there; tall screens keep the mockup's 50/50.
+        val compact = !portrait && maxHeight < 560.dp
+        val gaugeWeight = if (compact) 0.38f else 0.50f
+        val gridWeight = if (compact) 0.62f else 0.50f
         Column(Modifier.fillMaxSize().padding(start = 10.dp, end = 10.dp, top = 4.dp, bottom = 6.dp)) {
             VpmGaugePanel(
                 snapshot = snapshot,
@@ -111,7 +117,7 @@ fun VpmCategoriesScreen(
                 modifier = if (portrait) {
                     Modifier.fillMaxWidth().height(portraitPanelHeight)
                 } else {
-                    Modifier.fillMaxWidth().weight(0.50f)
+                    Modifier.fillMaxWidth().weight(gaugeWeight)
                 },
             )
             Spacer(Modifier.height(4.dp))
@@ -123,7 +129,7 @@ fun VpmCategoriesScreen(
                 modifier = if (portrait) {
                     Modifier.fillMaxWidth().weight(1f)
                 } else {
-                    Modifier.fillMaxWidth().weight(0.50f)
+                    Modifier.fillMaxWidth().weight(gridWeight)
                 },
             )
         }
@@ -237,7 +243,10 @@ private fun VpmMetricGrid(
     val signals = snapshot?.signalsIn(category).orEmpty()
     BoxWithConstraints(modifier) {
         val columns = (maxWidth.value / 236f).toInt().coerceIn(2, 5)
-        val tileHeight = ((maxHeight - 8.dp) / 2f).coerceIn(88.dp, 220.dp)
+        // At 1280×480 the cockpit halves are short; a fixed 88 dp minimum
+        // pushed the second row of the grid under the page bar. Let it shrink
+        // so both rows stay whole instead of showing a clipped number.
+        val tileHeight = ((maxHeight - 8.dp) / 2f).coerceIn(64.dp, 220.dp)
         if (signals.isEmpty()) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
@@ -310,11 +319,11 @@ private fun VpmTile(
     ) {
         val w = maxWidth.value
         val h = maxHeight.value
-        val labelSize = (w * 0.036f).coerceIn(10f, 14f).sp
-        val unitSize = (w * 0.030f).coerceIn(10f, 13f).sp
-        val valueSize = minOf(w * 0.16f, h * 0.36f).coerceIn(18f, 58f).sp
+        val labelSize = (w * 0.032f).coerceIn(9f, 13f).sp
+        val unitSize = (w * 0.028f).coerceIn(8f, 12f).sp
+        val valueSize = minOf(w * 0.16f, h * 0.30f).coerceIn(16f, 58f).sp
         Column(
-            Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 8.dp),
+            Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 5.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -322,6 +331,7 @@ private fun VpmTile(
                 color = colors.dim,
                 fontFamily = VpmFont,
                 fontSize = labelSize,
+                lineHeight = labelSize,
                 letterSpacing = 1.1.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

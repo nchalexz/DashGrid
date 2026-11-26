@@ -43,9 +43,10 @@ them; AARE's themes remain selectable in the Style picker and are unchanged.
 
 ## Icon
 
-Concept: three workspaces side by side; the middle one is active and divided into cells of
-different sizes; three paging dots underneath. Graphite background, turquoise accent, flat
-geometry, no text, no car, no road, no gradients or glow.
+Concept: one workspace in a 70/30 layout — a tall turquoise pane on the left and two muted panes
+stacked on the right. Three shapes, no frame, no paging dots, no side pages. Graphite background,
+turquoise accent, flat geometry, no text, no car, no road, no gradients or glow. It stays readable
+at 48 px.
 
 | Asset | File |
 |---|---|
@@ -53,11 +54,13 @@ geometry, no text, no car, no road, no gradients or glow.
 | Monochrome | `app/src/main/res/drawable/ic_launcher_monochrome.xml` |
 | Adaptive background | `app/src/main/res/drawable/ic_launcher_background.xml` |
 | Adaptive icon | `app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml` |
-| Legacy PNGs | `app/src/main/res/mipmap-*/ic_launcher.png` (48–192 px) |
+| Legacy square PNGs | `app/src/main/res/mipmap-*/ic_launcher.png` (48–192 px) |
+| Legacy round PNGs | `app/src/main/res/mipmap-*/ic_launcher_round.png` (48–192 px) |
+| Store icon | `fastlane/metadata/android/en-US/images/icon.png` (512 px) |
 
-Safe zone: everything that must survive a round mask sits inside the central 66 dp of the 108 dp
-adaptive canvas; the side workspaces are intentionally clipped by the mask, which is what suggests
-“there is another one to the left/right”.
+Safe zone: the mark is 50 × 50 dp on the 108 dp adaptive canvas, and its rounded corners stay
+inside the central 66 dp circle, so a round launcher mask never clips it. The legacy PNGs use the
+same mark at 64 × 64 dp, where no adaptive mask applies.
 
 ## Dock appearance
 

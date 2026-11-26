@@ -13,7 +13,8 @@
 
 <p align="center">
   <strong>A workspace home screen for Android Auto.</strong><br>
-  One page for the city, one for the open road, one for the car. No root, no GMS, no account.
+  As many screens as you want, a 10 × 6 grid, live apps in their panes and any Android app widget.
+  No root, no GMS, no account.
 </p>
 
 <p align="center">

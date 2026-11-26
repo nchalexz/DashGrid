@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases"><img alt="Version 1.1.0" src="https://img.shields.io/badge/version-1.1.0-36D6C3?style=flat-square"></a>
+  <a href="https://github.com/nchalexz/DashGrid/releases"><img alt="Version 1.1.1" src="https://img.shields.io/badge/version-1.1.1-36D6C3?style=flat-square"></a>
   <a href="LICENSE"><img alt="License GPL-3.0-or-later" src="https://img.shields.io/badge/license-GPL--3.0--or--later-38BDF8?style=flat-square"></a>
   <a href="#install"><img alt="Android 6.0+" src="https://img.shields.io/badge/Android-6.0%2B-3DDC84?style=flat-square&logo=android&logoColor=white"></a>
   <a href="gradle/libs.versions.toml"><img alt="Kotlin 2.4" src="https://img.shields.io/badge/Kotlin-2.4-7F52FF?style=flat-square&logo=kotlin&logoColor=white"></a>
@@ -29,7 +29,7 @@
 </p>
 
 > [!WARNING]
-> **1.1.0 is a working release, not a verified one.**
+> **1.1.1 is a working release, not a verified one.**
 > It is built, unit-tested and lint-checked, but it has **not been run on a real head unit, a real
 > phone or EMUI**. The Android widget host, the dock tones, third-party icons and the phone preview
 > are implemented and compile; none of them is confirmed on hardware. The details are in
@@ -95,7 +95,7 @@ the same app hosting. The head unit sees a normal Android Auto phone; the car sc
 - Car App Library templates, maps, media apps and launched phone apps are hosted in workspaces.
   There is one live map surface per connection.
 - The car screen is a viewer: workspaces are arranged on the phone, not on the head unit.
-- **Not verified on a real head unit in 1.1.0.** See [What is tested](#what-is-tested-what-is-not).
+- **Not verified on a real head unit in 1.1.1.** See [What is tested](#what-is-tested-what-is-not).
 
 More: [ARCHITECTURE.md](ARCHITECTURE.md) and [TESTING.md](TESTING.md).
 
@@ -165,7 +165,7 @@ second surface never opens a second app session or a second widget view.
 
 ## Install
 
-DashGrid 1.1.0 publishes **one APK: the standalone build**. It cannot be installed while AARE is
+DashGrid 1.1.1 publishes **one APK: the standalone build**. It cannot be installed while AARE is
 installed. The side-by-side variant is buildable locally but is not attached to the release.
 
 | Build | What is inside | Size |
@@ -177,7 +177,7 @@ Requirements: Android 6.0 (API 23) or newer, USB or wireless Android Auto, no ro
 Services.
 
 1. If AARE is installed, remove it first — see the note below.
-2. Download `DashGrid-standalone-v1.1.0.apk` from
+2. Download `DashGrid-standalone-v1.1.1.apk` from
    [Releases](https://github.com/nchalexz/DashGrid/releases).
 3. Allow installs from unknown sources if Android asks, then open the file.
 
@@ -185,19 +185,19 @@ Through `adb`:
 
 ```sh
 adb uninstall net.prototux.aare   # only if AARE is installed
-adb install -r DashGrid-standalone-v1.1.0.apk
+adb install -r DashGrid-standalone-v1.1.1.apk
 ```
 
 <details>
 <summary>SHA-256 and signing certificate</summary>
 
 ```text
-f8ac4d91fe220fb0c2f01ac9cb810f5264086d2995e49c396636025c2310778a  DashGrid-standalone-v1.1.0.apk
+d9e5d2a09e0c2ab1b2c718af0b3588cad72fa1960ac1e8285b34304304eacd9d  DashGrid-standalone-v1.1.1.apk
 certificate SHA-256: 4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5
 ```
 
 The APK is signed with `CN=DashGrid`. Check it with
-`apksigner verify --print-certs DashGrid-standalone-v1.1.0.apk`.
+`apksigner verify --print-certs DashGrid-standalone-v1.1.1.apk`.
 
 </details>
 
@@ -266,8 +266,8 @@ echo "sdk.dir=/path/to/android-sdk" > local.properties
 Outputs:
 
 ```text
-app/build/outputs/dashgrid/DashGrid-standalone-v1.1.0.apk
-app/build/outputs/dashgrid/DashGrid-v1.1.0.apk
+app/build/outputs/dashgrid/DashGrid-standalone-v1.1.1.apk
+app/build/outputs/dashgrid/DashGrid-v1.1.1.apk
 ```
 
 Tests:
@@ -330,7 +330,7 @@ widget or Android widget — can occupy any slot.
 
 ## Limitations
 
-- **No hardware verification.** 1.1.0 has not been run on a head unit, a phone or EMUI; the widget
+- **No hardware verification.** 1.1.1 has not been run on a head unit, a phone or EMUI; the widget
   host, dock tones and third-party icons are not confirmed on a real screen.
 - **AARE must go first.** The standalone APK cannot coexist with AARE, and the side-by-side build is
   not published.
@@ -370,7 +370,7 @@ in [Install](#install). AARE's TLS and certificate handling are unchanged.
 | [`docs/home-actions.md`](docs/home-actions.md) | Home shortcuts and the actions DashGrid exports |
 | [`DESIGN.md`](DESIGN.md) | Palette, icon, typography and car-UI rules |
 | [`TESTING.md`](TESTING.md) | Automated tests, build checks and the open device checklist |
-| [`RELEASE_NOTES.md`](RELEASE_NOTES.md) | What shipped in 1.1.0, with install and limits |
+| [`RELEASE_NOTES.md`](RELEASE_NOTES.md) | What shipped in 1.1.1, with install and limits |
 | [`CHANGELOG.md`](CHANGELOG.md) | Every change relative to AARE 1.6.0 |
 | [`UPSTREAM.md`](UPSTREAM.md) | Base commit, merge process, identifiers that must not change |
 | [`docs/EXTERNAL_THEMES.md`](docs/EXTERNAL_THEMES.md) | Theme-file proposal (not implemented) |

@@ -1,7 +1,7 @@
 # Creates the GitHub release for a DashGrid version tag and attaches the signed APK that is
 # committed in dist/. Uses the token GitHub gives the workflow (contents: write), so no signing
 # key or personal token lives in the repository. The APK itself is built locally with
-# `./gradlew dashgridApk` and committed, because the release key must never be uploaded to CI.
+# `./gradlew dashgridStandaloneApk` and committed, because the release key must never be uploaded to CI.
 name: DashGrid release
 
 on:

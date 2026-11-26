@@ -1,0 +1,1 @@
+New minimalist launcher icon and a refreshed README. No functional changes.

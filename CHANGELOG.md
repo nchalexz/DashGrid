@@ -4,6 +4,23 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.1.1 — the minimalist icon
+
+### Design
+
+- **New launcher icon.** One workspace in a 70/30 layout: a tall turquoise pane and two muted
+  panes. Three shapes, no frame, no paging dots and no side pages; it stays readable at 48 px.
+- Updated the adaptive foreground and monochrome layers, every legacy square and round PNG
+  (48–192 px), the 512 px store icon, the social preview and [DESIGN.md](DESIGN.md).
+
+### Documentation
+
+- The README is rebuilt on the shared project standard. Its tagline now names the four core
+  features: any number of screens, the 10 × 6 grid, live apps in their panes and Android app
+  widgets.
+- No functional changes: workspaces, live panes, Android app widgets, the dock and the Cockpit are
+  the same as 1.1.0.
+
 ## 1.1.0 — Android App Widgets, a monochrome dock and the Cockpit
 
 ### Android App Widgets on workspaces

@@ -354,9 +354,10 @@ widget or Android widget — can occupy any slot.
   on the phone or be refused; broadcast and service actions are unaffected.
 - **Third-party dock icons.** Tones read differently from app to app because they follow each icon's
   own artwork.
-- **The VPM cockpit needs VPM 0.5.0 or newer.** 0.4.1 exports no telemetry snapshot, so the
-  preinstalled Car workspace explains that and offers **Update VPM** / **Open on the phone** instead
-  of gauges. Android grants the normal `READ_TELEMETRY` permission when DashGrid is installed after
+- **The VPM cockpit needs VPM 0.5.0 or newer.** This is the only part of DashGrid that needs VPM:
+  workspaces, the OBD widget, live panes and the dock work without it. 0.4.1 exports no telemetry
+  snapshot, so the preinstalled Car workspace explains that and offers **Update VPM** / **Open on
+  the phone** instead of gauges. Android grants the normal `READ_TELEMETRY` permission when DashGrid is installed after
   VPM 0.5.0; a DashGrid installed earlier must be updated or reinstalled once. The contract is in
   [docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md).
 - **No in-app update check.** New releases are installed by hand.

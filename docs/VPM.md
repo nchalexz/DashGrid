@@ -136,7 +136,9 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
 
 ## Requirements
 
-- VPM **0.5.0 or newer** installed on the same phone: it exports the provider above. VPM 0.4.1
+- VPM **0.5.0 or newer** installed on the same phone: it exports the provider above. This is the
+  only DashGrid feature that needs VPM; workspaces, the OBD widget, live panes and the dock work
+  without it. VPM 0.4.1
   does not, and the cockpit then shows the **Update VPM** card. The contract is in
   [VPM_BRIDGE_PROMPT.md](VPM_BRIDGE_PROMPT.md).
 - If DashGrid was installed before VPM defined this permission, update DashGrid once after installing

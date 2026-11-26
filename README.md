@@ -385,6 +385,7 @@ in [Install](#install). AARE's TLS and certificate handling are unchanged.
 | [`docs/ANDROID_WIDGETS.md`](docs/ANDROID_WIDGETS.md) | Android app widgets: architecture, adding one, limits, test status |
 | [`docs/VPM.md`](docs/VPM.md) | The preinstalled Car workspace, the native VPM cockpit, its read-only contract and its states |
 | [`docs/VPM_BRIDGE_PROMPT.md`](docs/VPM_BRIDGE_PROMPT.md) | The read-only provider VPM must add before live values appear (task for the VPM repository) |
+| [`docs/VPM_COMPAT_PROMPT.md`](docs/VPM_COMPAT_PROMPT.md) | The cross-repository session: VPM bridge, both test suites, the compatibility matrix and both releases |
 | [`docs/vehicles.md`](docs/vehicles.md) | Per-car overrides for head units that need a different protocol |
 | [`docs/home-actions.md`](docs/home-actions.md) | Home shortcuts and the actions DashGrid exports |
 | [`DESIGN.md`](DESIGN.md) | Palette, icon, typography and car-UI rules |

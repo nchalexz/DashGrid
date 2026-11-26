@@ -177,6 +177,12 @@ adb shell am start -n io.dashgrid.app/net.prototux.aare.vpm.VpmPreviewActivity -
 
 The real car screen on the phone is the ordinary **Settings → Workspaces → Preview car screen**.
 
+## The cross-repository release session
+
+When VPM's bridge is ready, the session that verifies both apps, runs both test suites, checks
+compatibility and publishes VPM and DashGrid releases follows
+[VPM_COMPAT_PROMPT.md](VPM_COMPAT_PROMPT.md). This page remains the DashGrid-side description.
+
 ## Files
 
 - [`VpmSnapshot.kt`](../app/src/main/java/net/prototux/aare/vpm/VpmSnapshot.kt) — the contract, the

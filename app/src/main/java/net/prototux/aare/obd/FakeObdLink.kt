@@ -13,9 +13,13 @@ class FakeObdLink(override val name: String = "Simulator", private val clock: ()
     override fun send(command: String, waitMs: Long): String {
         if (delayMs > 0) try { Thread.sleep(delayMs) } catch (_: InterruptedException) { return ObdLink.NO_ANSWER }
         if (command.startsWith("AT")) return if (command == "ATZ") "ELM327 v2.1" else "OK"
+        if (command.startsWith("22") && command.length >= 6) {
+            val did = command.substring(2, 6).toIntOrNull(16) ?: return "?"
+            return uds(did) ?: "NODATA"
+        }
         if (!command.startsWith("01") || command.length < 4) return "?"
         val pid = command.substring(2, 4).toInt(16)
-        if (pid == 0x00 || pid == 0x20 || pid == 0x40) return bitmap(pid)
+        if (pid == 0x00 || pid == 0x20 || pid == 0x40 || pid == 0x60) return bitmap(pid)
         if (pid !in has) return "NODATA"
         return "41%02X".format(pid) + data(pid)
     }
@@ -23,7 +27,7 @@ class FakeObdLink(override val name: String = "Simulator", private val clock: ()
     private fun bitmap(base: Int): String {
         var bits = 0L
         for (p in has) if (p > base && p <= base + 32) bits = bits or (1L shl (32 - (p - base)))
-        if (base < 0x40) bits = bits or 1L // the next block exists
+        if (base < 0x60) bits = bits or 1L // the next block exists
         return "41%02X%08X".format(base, bits)
     }
 
@@ -54,9 +58,24 @@ class FakeObdLink(override val name: String = "Simulator", private val clock: ()
             Elm327.MAF -> Math.round(manifold / 100f * rpm / 60f * 100f).let { "%02X%02X".format(it shr 8, it and 0xFF) }
             Elm327.THROTTLE, Elm327.PEDAL -> pct(load)
             Elm327.OIL -> "%02X".format(98 + 40)
+            Elm327.RAIL -> 3_500.let { "%02X%02X".format(it shr 8, it and 0xFF) } // 350 bar
+            Elm327.EGT1 -> 3_400.let { "%02X%02X".format(it shr 8, it and 0xFF) } // 300 °C
+            Elm327.EGT2 -> 3_250.let { "%02X%02X".format(it shr 8, it and 0xFF) } // 285 °C
             else -> "00"
         }
     }
 
     private fun pct(p: Float) = "%02X".format(Math.round(p * 255f / 100f))
+
+    /**
+     * The UDS answers of the pretend car for the identifiers the Cockpit's demo signals ask for:
+     * coolant on the engine, the DSG oil and one injector correction. The same shapes a real EDC17
+     * answers with, so the parse and the scaling are exercised too.
+     */
+    private fun uds(did: Int): String? = when (did) {
+        0x1100 -> "62%04X%02X".format(did, 92 + 40) // coolant, °C + 40
+        0x2104 -> "62%04X%02X".format(did, 84 + 40) // gearbox oil, °C + 40
+        0x11C4 -> "62%04X%04X".format(did, 960) // injector: 960 × 0.01 − 10 = −0.4 mg
+        else -> null
+    }
 }

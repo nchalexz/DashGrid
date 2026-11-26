@@ -103,6 +103,17 @@ class SettingsBackupTest {
     }
 
     @Test
+    fun theDockAndWidgetNavigationSettingsMove() {
+        val all = mapOf<String, Any?>(
+            "dock_monochrome" to true, "dock_tone_light" to "dark_grey", "dock_tone_dark" to "white",
+            "always_show_home" to true, "always_show_app_dash" to true,
+        )
+        val restored = SettingsBackup.import(JSONObject(SettingsBackup.export(all).toString()))
+        assertEquals(all, restored.values)
+        assertTrue(restored.skipped.isEmpty())
+    }
+
+    @Test
     fun theRailAndScreenSettingsMove() {
         val all = mapOf<String, Any?>("rail_apps" to "phone\nmaps", "compact_rail" to true, "split_screen" to true, "calendar_agenda_count" to 3,
             "car_key_map" to setOf("5=home"))

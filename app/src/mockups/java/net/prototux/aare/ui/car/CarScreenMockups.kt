@@ -7,12 +7,26 @@ import android.graphics.Paint
 import android.graphics.Shader
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
 import com.android.resources.Density
@@ -24,7 +38,12 @@ import net.prototux.aare.ui.theme.CarAccents
 import net.prototux.aare.ui.theme.CarTheme
 import net.prototux.aare.ui.theme.CarThemes
 import net.prototux.aare.ui.theme.DashGridTheme
+import net.prototux.aare.ui.theme.DockIconPreview
+import net.prototux.aare.ui.theme.DockIconTone
 import net.prototux.aare.ui.theme.withAccent
+import net.prototux.aare.R
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import net.prototux.aare.workspace.Workspace
 import net.prototux.aare.workspace.WorkspaceAxis
 import net.prototux.aare.workspace.WorkspaceConfig
@@ -119,6 +138,45 @@ class CarScreenMockups {
     /** The same configuration in day colours. */
     @Test fun dashgridDay() = workspaceShot(night = false, workspaces = cityWorkspaces(), active = "city")
 
+    /** Both fixed dock buttons on a workspace: Home and App Dash, next to the voice button. */
+    @Test fun dashgridPinnedButtons() = workspaceShot(
+        night = true,
+        workspaces = cityWorkspaces(),
+        active = "city",
+        modify = { state ->
+            state.alwaysShowHome = true
+            state.alwaysShowAppDash = true
+        },
+    )
+
+    /** The dock's monochrome icons in the light theme's default tone (dark grey). */
+    @Test fun dashgridMonochromeLight() = workspaceShot(
+        night = false,
+        workspaces = cityWorkspaces(),
+        active = "city",
+        modify = { state ->
+            state.dockMonochrome = true
+            state.dockToneLight = DockIconTone.DARK_GREY
+            state.dockToneDark = DockIconTone.WHITE
+        },
+    )
+
+    /** The dock's monochrome icons in the dark theme's default tone (white). */
+    @Test fun dashgridMonochromeDark() = workspaceShot(
+        night = true,
+        workspaces = cityWorkspaces(),
+        active = "city",
+        modify = { state ->
+            state.dockMonochrome = true
+            state.dockToneLight = DockIconTone.DARK_GREY
+            state.dockToneDark = DockIconTone.WHITE
+        },
+    )
+
+    /** Every tone on the built-in app icons: a documentation sheet for the dock's four settings. */
+    @Test fun dockTonesLight() = dockToneSheet(paparazzi, night = false)
+    @Test fun dockTonesDark() = dockToneSheet(paparazzi, night = true)
+
     private fun cityWorkspaces(): List<Workspace> = listOf(
         Workspace(
             id = "city", name = "City", layout = WorkspaceLayout.SPLIT_70_30,
@@ -140,7 +198,7 @@ class CarScreenMockups {
         ),
     )
 
-    private fun workspaceShot(night: Boolean, workspaces: List<Workspace>, active: String) {
+    private fun workspaceShot(night: Boolean, workspaces: List<Workspace>, active: String, modify: (CarUiState) -> Unit = {}) {
         val state = mockState(night, CarScreen.Dashboard).apply {
             theme = DashGridTheme
             workspaceConfig = WorkspaceConfig(
@@ -150,6 +208,7 @@ class CarScreenMockups {
                 showBar = true,
             )
             activeWorkspaceId = active
+            modify(this)
         }
         paparazzi.snapshot {
             CarTheme(night = night, theme = DashGridTheme) {
@@ -246,6 +305,52 @@ class CarScreenMockups {
         override fun runHomeAction(id: String) = Unit
     }
 }
+
+/**
+ * A documentation sheet: DashGrid's real app icons (its own vector drawables) in each of the four
+ * tones, on the theme's background. Not a settings page screenshot — the settings preview loads the
+ * phone's own installed icons, which a JVM mockup can't see.
+ */
+private fun dockToneSheet(paparazzi: Paparazzi, night: Boolean) {
+        val icons = listOf(
+            R.drawable.ic_car_phone, R.drawable.ic_car_obd, R.drawable.ic_car_settings,
+            R.drawable.ic_car_browser, R.drawable.ic_car_data, R.drawable.ic_car_notifications,
+        ).mapNotNull { res -> runCatching { ContextCompat.getDrawable(paparazzi.context, res)?.toBitmap(96, 96) }.getOrNull() }
+        paparazzi.snapshot {
+            CarTheme(night = night, theme = DashGridTheme) {
+                Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
+                    Column(Modifier.fillMaxSize().padding(40.dp)) {
+                        Text(
+                            if (night) "Dock icons — dark theme" else "Dock icons — light theme",
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Spacer(Modifier.height(6.dp))
+                        Text(
+                            "The same icons, one grayscale tone each. Shape, logo and detail stay; only the brightness range changes.",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Spacer(Modifier.height(28.dp))
+                        DockIconTone.entries.forEach { tone ->
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(18.dp)) {
+                                Text(
+                                    stringResource(tone.labelRes),
+                                    style = MaterialTheme.typography.titleMedium,
+                                    color = MaterialTheme.colorScheme.onBackground,
+                                    modifier = Modifier.size(width = 150.dp, height = 24.dp),
+                                )
+                                icons.forEach { icon ->
+                                    DockIconPreview(icon, tone, null, Modifier.size(64.dp))
+                                }
+                            }
+                            Spacer(Modifier.height(20.dp))
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 /** A drawn stand-in for a navigation app's map: streets, a route and the car's position. */
 @androidx.compose.runtime.Composable

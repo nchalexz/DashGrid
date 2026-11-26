@@ -51,6 +51,7 @@ import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.SkipNext
 import androidx.compose.material.icons.rounded.SkipPrevious
 import androidx.compose.material.icons.rounded.Smartphone
+import androidx.compose.material.icons.rounded.SpaceDashboard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -110,6 +111,9 @@ import net.prototux.aare.ui.theme.LocalCarDimens
 import net.prototux.aare.ui.theme.LocalCarTheme
 import net.prototux.aare.ui.theme.SegmentFont
 import net.prototux.aare.ui.theme.appIconFilter
+import net.prototux.aare.ui.theme.DockAppIcon
+import net.prototux.aare.ui.theme.DockIconStyle
+import net.prototux.aare.ui.theme.LocalDockIconStyle
 
 /**
  * Root of the car screen: a rail on the driver's side and the content area.
@@ -133,6 +137,7 @@ fun CarShell(
         CarLayout.CLASSIC -> { ClassicShell(state, actions, appContent, navMap, overlay, modifier); return }
         CarLayout.TASKBAR -> Unit
     }
+    CompositionLocalProvider(LocalDockIconStyle provides DockIconStyle(state.dockMonochrome, state.dockToneLight, state.dockToneDark)) {
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize().carBackdrop()) {
         BoxWithConstraints(Modifier.fillMaxSize().then(modifier)) {
             val portrait = maxHeight > maxWidth
@@ -154,6 +159,7 @@ fun CarShell(
             OverMap { NoticeOverlay(state, actions, Modifier.align(Alignment.TopCenter)) }
             CallOverlay(state, actions, Modifier.align(Alignment.TopCenter))
         }
+    }
     }
 }
 
@@ -369,9 +375,27 @@ private fun RailContent(state: CarUiState, actions: CarActions, horizontal: Bool
         phone?.takeIf { withPhone }?.let { RailApp(it, Icons.Rounded.Call, on(it), touch, iconSize, logoSize, onLongClick = beside(it)) { actions.openApp(it) } }
         settings?.takeIf { withSettings }?.let { RailApp(it, Icons.Rounded.Settings, on(it), touch, iconSize, logoSize, onLongClick = beside(it)) { actions.openApp(it) } }
     }
+    // AARE's single menu button switches between Apps (on a workspace) and Home (anywhere else).
+    // The two fixed buttons are independent: each one, when switched on, keeps its action at a
+    // fixed place on every screen; the switching button is then dropped only when it would repeat
+    // an action that is already fixed, so the dock never shows the same button twice.
+    val onWorkspace = state.screen == CarScreen.Dashboard
+    val combinedVisible = dockShowsCombinedButton(onWorkspace, state.alwaysShowHome, state.alwaysShowAppDash)
     val menu: @Composable () -> Unit = {
-        if (state.screen == CarScreen.Dashboard) RailButton(Icons.Rounded.Apps, stringResource(R.string.dash_menu_apps), false, touch, iconSize) { actions.openLauncher() }
-        else RailButton(Icons.Rounded.Home, stringResource(R.string.dash_menu_home), false, touch, iconSize) { actions.goHome() }
+        if (combinedVisible) {
+            if (onWorkspace) RailButton(Icons.Rounded.Apps, stringResource(R.string.dash_menu_apps), false, touch, iconSize) { actions.openLauncher() }
+            else RailButton(Icons.Rounded.Home, stringResource(R.string.dash_menu_home), false, touch, iconSize) { actions.goHome() }
+        }
+    }
+    val pinned: @Composable () -> Unit = {
+        if (state.alwaysShowHome) {
+            RailButton(Icons.Rounded.SpaceDashboard, stringResource(R.string.dock_home_action),
+                state.screen == CarScreen.Dashboard, touch, iconSize) { actions.goHome() }
+        }
+        if (state.alwaysShowAppDash) {
+            RailButton(Icons.Rounded.Apps, stringResource(R.string.dock_apps_action),
+                state.screen == CarScreen.Launcher, touch, iconSize) { actions.openLauncher() }
+        }
     }
     val mic: @Composable () -> Unit = {
         if (state.assistantButtonVisible) MicButton(state.listening, touch, iconSize, stop = state.voiceButtonIsStop) { actions.assistant() }
@@ -390,7 +414,9 @@ private fun RailContent(state: CarUiState, actions: CarActions, horizontal: Bool
             verticalAlignment = Alignment.CenterVertically,
         ) {
             val driverEnd: @Composable () -> Unit = { Row(horizontalArrangement = Arrangement.spacedBy(appSpacing), verticalAlignment = Alignment.CenterVertically) {
-                if (state.driverOnRight) { menu(); mic() } else { mic(); menu() }
+                // The system buttons sit at the driver's end, outside the scrolling app row: recent
+                // apps can never push them out or make them move.
+                if (state.driverOnRight) { pinned(); menu(); mic() } else { mic(); menu(); pinned() }
             } }
             // On a tight bar the weather gives up its spot first; the clock and battery stay.
             val widgets = if (tightBar) railWidgets - RailWidget.WEATHER else railWidgets
@@ -430,6 +456,7 @@ private fun RailContent(state: CarUiState, actions: CarActions, horizontal: Bool
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) { apps(fit.recentSlots, fit.settings, fit.phone) }
             }
+            pinned()
             menu()
             Spacer(Modifier.height(8.dp))
             mic()
@@ -503,7 +530,7 @@ private fun RailApp(
             onLongClick = onLongClick, onLongClickLabel = stringResource(R.string.car_split_open_beside), onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
-        Image(app.icon.asImageBitmap(), app.label, Modifier.size(logoSize).clip(LocalCarTheme.current.appIcon), colorFilter = appIconFilter())
+        DockAppIcon(app.icon, app.label, Modifier.size(logoSize).clip(LocalCarTheme.current.appIcon))
     }
 }
 

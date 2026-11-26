@@ -130,6 +130,12 @@ private fun WorkspacePager(
     val pager = rememberPagerState(initialPage = virtualPageFor(startIndex, count)) { VIRTUAL_PAGE_COUNT }
     val scope = rememberCoroutineScope()
     val barHeight = if (state.showsWorkspaceBar) WORKSPACE_BAR_HEIGHT else 0.dp
+    // A live Android App Widget has its own horizontal gestures (a seek bar, a list, a map). A
+    // pager that swallowed every swipe would make it unusable, so with a widget anywhere the
+    // pager leaves the page's gestures alone and the workspace is switched by the bar or the empty
+    // space, exactly as with "swipe anywhere" off. Without a widget the setting behaves as before.
+    val hasAndroidWidget = workspaces.any { ws -> ws.items.any { it.kind == WorkspaceItemKind.ANDROID_WIDGET } }
+    val pageSwipes = !state.workspaceConfig.swipeAnywhere || hasAndroidWidget
 
     /** Moves to the workspace at [index] by the shortest way round the ring. */
     fun goTo(index: Int) {
@@ -168,7 +174,7 @@ private fun WorkspacePager(
             state = pager,
             modifier = Modifier.fillMaxSize(),
             beyondViewportPageCount = 0,
-            userScrollEnabled = state.workspaceConfig.swipeAnywhere,
+            userScrollEnabled = state.workspaceConfig.swipeAnywhere && !hasAndroidWidget,
             key = { it },
         ) { page ->
             val index = realIndexFor(page, count)
@@ -183,7 +189,7 @@ private fun WorkspacePager(
                     navMap = navMap,
                     modifier = Modifier.fillMaxSize().padding(bottom = barHeight),
                     active = current,
-                    onSwipe = if (state.workspaceConfig.swipeAnywhere) null else ({ direction -> step(direction) }),
+                    onSwipe = if (pageSwipes) ({ direction -> step(direction) }) else null,
                 )
             }
         }
@@ -300,6 +306,7 @@ private fun WorkspaceItemContent(
             }
         }
         WorkspaceItemKind.WIDGET -> WorkspaceWidget(item, state, actions, navMap, active)
+        WorkspaceItemKind.ANDROID_WIDGET -> AndroidWidgetCell(item, state, active, Modifier.fillMaxSize())
     }
 }
 
@@ -399,7 +406,7 @@ private fun WorkspaceAppTile(app: CarAppEntry, modifier: Modifier, onClick: () -
 
 /** What a widget shows when it has nothing to show, or while it isn't the live page: a calm, readable tile. */
 @Composable
-private fun WidgetPlaceholder(icon: ImageVector, title: String, hint: String?) {
+internal fun WidgetPlaceholder(icon: ImageVector, title: String, hint: String?) {
     Card(Modifier.fillMaxSize()) {
         BoxWithConstraints(Modifier.fillMaxSize().padding(12.dp), contentAlignment = Alignment.Center) {
             val compact = maxHeight < 150.dp

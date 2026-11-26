@@ -33,6 +33,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,6 +48,9 @@ import net.prototux.aare.ui.theme.carBackdrop
 import net.prototux.aare.ui.theme.CarTheme
 import net.prototux.aare.ui.theme.LocalCarTheme
 import net.prototux.aare.ui.theme.appIconFilter
+import net.prototux.aare.ui.theme.DockAppIcon
+import net.prototux.aare.ui.theme.DockIconStyle
+import net.prototux.aare.ui.theme.LocalDockIconStyle
 
 /**
  * The dock layout, like CarPlay's: a dock on the driver's side with the time, three apps, voice and
@@ -65,6 +69,7 @@ internal fun DockShell(
 ) {
     // A Surface, not a background: it also sets the content colour, which text without its own
     // colour (song titles, events) takes. Without it that text is black, unreadable at night.
+    CompositionLocalProvider(LocalDockIconStyle provides DockIconStyle(state.dockMonochrome, state.dockToneLight, state.dockToneDark)) {
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize().carBackdrop()) {
         BoxWithConstraints(Modifier.fillMaxSize().then(modifier)) {
             val content: @Composable (Modifier) -> Unit = { modifier ->
@@ -94,6 +99,7 @@ internal fun DockShell(
             CallOverlay(state, actions, Modifier.align(Alignment.TopCenter))
         }
     }
+    }
 }
 
 @Composable
@@ -113,13 +119,32 @@ private fun Dock(state: CarUiState, actions: CarActions, horizontal: Boolean = f
         }
     }
     // The home button: on a workspace it opens the app grid; anywhere else it returns to the
-    // workspace the driver left, never to the all-apps grid.
+    // workspace the driver left, never to the all-apps grid. The two fixed buttons below are the
+    // independent settings: each keeps one action in the dock on every screen, and the switching
+    // button is drawn only when its action isn't already fixed (so the dock never repeats one).
+    val onWorkspace = state.screen == CarScreen.Dashboard
+    val combinedVisible = dockShowsCombinedButton(onWorkspace, state.alwaysShowHome, state.alwaysShowAppDash)
     val homeButton: @Composable () -> Unit = {
-        val onWorkspace = state.screen == CarScreen.Dashboard
-        Box(Modifier.size(52.dp).clip(LocalCarTheme.current.appIcon).background(MaterialTheme.colorScheme.secondaryContainer)
-            .carClickable(LocalCarTheme.current.appIcon) { if (onWorkspace) actions.openLauncher() else actions.goHome() }, contentAlignment = Alignment.Center) {
-            Icon(if (onWorkspace) Icons.Rounded.Apps else Icons.Rounded.SpaceDashboard,
-                if (onWorkspace) "Apps" else "Home", tint = MaterialTheme.colorScheme.onSecondaryContainer)
+        if (combinedVisible) {
+            Box(Modifier.size(52.dp).clip(LocalCarTheme.current.appIcon).background(MaterialTheme.colorScheme.secondaryContainer)
+                .carClickable(LocalCarTheme.current.appIcon) { if (onWorkspace) actions.openLauncher() else actions.goHome() }, contentAlignment = Alignment.Center) {
+                Icon(if (onWorkspace) Icons.Rounded.Apps else Icons.Rounded.SpaceDashboard,
+                    stringResource(if (onWorkspace) R.string.dock_apps_action else R.string.dock_home_action),
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer)
+            }
+        }
+    }
+    val pinnedButtons: @Composable (Boolean) -> Unit = { horizontal ->
+        if (state.alwaysShowHome) {
+            DockSystemButton(Icons.Rounded.SpaceDashboard, stringResource(R.string.dock_home_action),
+                selected = state.screen == CarScreen.Dashboard) { actions.goHome() }
+        }
+        if (state.alwaysShowHome && state.alwaysShowAppDash) {
+            Spacer(if (horizontal) Modifier.width(12.dp) else Modifier.height(12.dp))
+        }
+        if (state.alwaysShowAppDash) {
+            DockSystemButton(Icons.Rounded.Apps, stringResource(R.string.dock_apps_action),
+                selected = state.screen == CarScreen.Launcher) { actions.openLauncher() }
         }
     }
     if (horizontal) {
@@ -131,10 +156,10 @@ private fun Dock(state: CarUiState, actions: CarActions, horizontal: Boolean = f
             Column(horizontalAlignment = Alignment.CenterHorizontally) { if (state.chrome.clock) Clock(); PhoneStatusIcons(state.chrome) }
             Spacer(Modifier.weight(1f))
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                listOfNotNull(nav, media, phone).forEach { app -> DockIcon(app, 60) { actions.openApp(app) } }
+                listOfNotNull(nav, media, phone).forEach { app -> DockIcon(app, 60, { actions.openApp(app) }, monochrome = true) }
             }
             Spacer(Modifier.weight(1f))
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { voice(); homeButton() }
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { voice(); pinnedButtons(true); homeButton() }
         }
         return@CarTheme
     }
@@ -152,12 +177,27 @@ private fun Dock(state: CarUiState, actions: CarActions, horizontal: Boolean = f
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                listOfNotNull(nav, media, phone).forEach { app -> DockIcon(app, 60) { actions.openApp(app) } }
+                listOfNotNull(nav, media, phone).forEach { app -> DockIcon(app, 60, { actions.openApp(app) }, monochrome = true) }
             }
         }
         voice()
+        pinnedButtons(false)
         Spacer(Modifier.height(12.dp))
         homeButton()
+    }
+}
+
+/** A fixed Home or App Dash button in the dock: the theme's icon shape and colours, like Home. */
+@Composable
+private fun DockSystemButton(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, selected: Boolean, onClick: () -> Unit) {
+    val shape = LocalCarTheme.current.appIcon
+    Box(
+        Modifier.size(52.dp).clip(shape)
+            .background(if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondaryContainer)
+            .carClickable(shape, onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(icon, label, tint = if (selected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSecondaryContainer)
     }
 }
 
@@ -205,12 +245,16 @@ private fun Home(state: CarUiState, actions: CarActions) = CarTheme(night = true
 }
 
 @Composable
-private fun DockIcon(app: CarAppEntry, sizeDp: Int, onClick: (() -> Unit)?) {
+private fun DockIcon(app: CarAppEntry, sizeDp: Int, onClick: (() -> Unit)?, monochrome: Boolean = false) {
     val shape = LocalCarTheme.current.appIcon
     val m = Modifier.size(sizeDp.dp).clip(shape).background(MaterialTheme.colorScheme.secondaryContainer)
     Box(m.carClickable(shape, onClick = onClick), contentAlignment = Alignment.Center) {
         val icon = app.icon
-        if (icon != null) Image(icon.asImageBitmap(), app.label, Modifier.size((sizeDp * 0.82f).dp).clip(shape), colorFilter = appIconFilter())
-        else Text(app.label.take(1), color = MaterialTheme.colorScheme.onSecondaryContainer, fontSize = (sizeDp / 2.5f).sp, fontWeight = FontWeight.SemiBold)
+        if (icon != null) {
+            // Only the dock's own icons follow the monochrome setting; the home screen's grid keeps
+            // the original artwork (the setting says "dock icons", not "all app icons").
+            if (monochrome) DockAppIcon(icon, app.label, Modifier.size((sizeDp * 0.82f).dp).clip(shape))
+            else Image(icon.asImageBitmap(), app.label, Modifier.size((sizeDp * 0.82f).dp).clip(shape), colorFilter = appIconFilter())
+        } else Text(app.label.take(1), color = MaterialTheme.colorScheme.onSecondaryContainer, fontSize = (sizeDp / 2.5f).sp, fontWeight = FontWeight.SemiBold)
     }
 }

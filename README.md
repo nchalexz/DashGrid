@@ -12,15 +12,15 @@
 </p>
 
 <p align="center">
-  <img alt="version 1.0.7" src="https://img.shields.io/badge/version-1.0.7-36D6C3?style=flat-square&labelColor=101418">
+  <img alt="version 1.1.0" src="https://img.shields.io/badge/version-1.1.0-36D6C3?style=flat-square&labelColor=101418">
   <img alt="Android 6+" src="https://img.shields.io/badge/Android-6%2B-36D6C3?style=flat-square&labelColor=101418">
   <img alt="GPL-3.0" src="https://img.shields.io/badge/licence-GPL--3.0-94A3B8?style=flat-square&labelColor=101418">
   <img alt="fork of AARE" src="https://img.shields.io/badge/fork-AARE-94A3B8?style=flat-square&labelColor=101418">
 </p>
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.7/DashGrid-standalone-v1.0.7.apk">
-    <img alt="Download DashGrid v1.0.7" src="https://img.shields.io/badge/Download-DashGrid--v1.0.7-36D6C3?style=for-the-badge&labelColor=101418">
+  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.1.0/DashGrid-standalone-v1.1.0.apk">
+    <img alt="Download DashGrid v1.1.0" src="https://img.shields.io/badge/Download-DashGrid--v1.1.0-36D6C3?style=for-the-badge&labelColor=101418">
   </a>
 </p>
 
@@ -73,6 +73,19 @@ expose a car library. No root and no Google Play Services.
 the car-side sessions and surfaces of that page and pauses its music. Leave the option off and
 routes, playback and app state stay alive, as before.
 
+**Host the widgets you already use.** A standard Android App Widget can sit in a workspace's
+cells: a clock, a weather card, a fuel log, an OBD dashboard from another app. It is the provider's
+own live RemoteViews — it updates, scrolls and takes taps like on a launcher — not a screenshot.
+Any installed provider appears in the picker; the first one from an app asks for Android's own
+permission on the phone, and the provider's configuration screen opens there too. No Shizuku, no
+root. See [docs/ANDROID_WIDGETS.md](docs/ANDROID_WIDGETS.md).
+
+**Let the dock match the car.** Turn the dock's icons monochrome and pick a tone for the light and
+the dark theme — white, grey, dark grey or black. The icon's shape, logo and detail stay; only its
+brightness range changes, and the setting applies to the dock alone (the app grid keeps its
+colours). Home and App Dash can each be pinned to a fixed place in the dock, on every screen,
+without waiting for the recent apps to make room.
+
 **Keep your own identity.** Different application ID, signing key, icon and theme from AARE. The
 published build stands on its own.
 
@@ -83,6 +96,20 @@ published build stands on its own.
 | <img src="docs/screenshots/dashgrid-workspaces.png" width="100%" alt="70/30 map and music workspace"> | <img src="docs/screenshots/dashgrid-four.png" width="100%" alt="Four widgets in a 2x2 grid"> |
 | **Three columns** | **Day colours** |
 | <img src="docs/screenshots/dashgrid-three.png" width="100%" alt="Three widgets in columns"> | <img src="docs/screenshots/dashgrid-day.png" width="100%" alt="Workspace in day colours"> |
+| **Monochrome dock (dark)** | **Fixed Home and App Dash** |
+| <img src="docs/screenshots/dock-monochrome-dark.png" width="100%" alt="Monochrome dock icons in the dark theme"> | <img src="docs/screenshots/pinned-buttons.png" width="100%" alt="Home and App Dash pinned in the rail"> |
+| **Four dock tones, dark theme** | **Four dock tones, light theme** |
+| <img src="docs/screenshots/dock-tones-dark.png" width="100%" alt="White, grey, dark grey and black dock tones on the dark theme"> | <img src="docs/screenshots/dock-tones-light.png" width="100%" alt="White, grey, dark grey and black dock tones on the light theme"> |
+
+The tone sheets are drawn from DashGrid's own app artwork by Paparazzi on the JVM; the settings
+preview uses the icons installed on the phone. No emulator or car was used for them.
+
+## Android widgets
+
+Add one in **Settings → Workspaces**, edit a workspace, tap **Android widget**, choose a provider.
+Android asks for permission the first time (on the phone), the provider may open its setup screen,
+and the widget then draws itself in the cells. It keeps its own design: no tint, no scaling, no
+dock filter. Full instructions and the limits: [docs/ANDROID_WIDGETS.md](docs/ANDROID_WIDGETS.md).
 
 ## Install
 
@@ -92,12 +119,12 @@ it first; that also removes AARE's settings.
 
 ```sh
 adb uninstall net.prototux.aare
-adb install -r DashGrid-standalone-v1.0.7.apk
+adb install -r DashGrid-standalone-v1.1.0.apk
 ```
 
-- Download: [DashGrid-standalone-v1.0.7.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.7/DashGrid-standalone-v1.0.7.apk)
-- Package: `io.dashgrid.app`, version 1.0.7 (10007)
-- SHA-256: `cd92208248335aeff8ab3da243b2cdc982c8450e79837fc6512e3d0640226731`
+- Download: [DashGrid-standalone-v1.1.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.1.0/DashGrid-standalone-v1.1.0.apk)
+- Package: `io.dashgrid.app`, version 1.1.0 (10100)
+- SHA-256: `f8ac4d91fe220fb0c2f01ac9cb810f5264086d2995e49c396636025c2310778a`
 - Signed with DashGrid's own key (`CN=DashGrid`); future updates must use the same key.
 
 Prefer to keep AARE installed? The side-by-side variant is still buildable locally with
@@ -120,11 +147,11 @@ sdk.dir=/path/to/android-sdk
 
 # Published standalone release APK
 ./gradlew dashgridStandaloneApk
-# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.0.7.apk
+# -> app/build/outputs/dashgrid/DashGrid-standalone-v1.1.0.apk
 
 # Side-by-side variant for installing next to AARE (local use)
 ./gradlew dashgridApk
-# -> app/build/outputs/dashgrid/DashGrid-v1.0.7.apk
+# -> app/build/outputs/dashgrid/DashGrid-v1.1.0.apk
 ```
 
 Signing reads `keystore.properties`, which is not committed. See
@@ -154,7 +181,9 @@ DashGrid.
 
 | Document | Contents |
 |:--|:--|
-| [ARCHITECTURE.md](ARCHITECTURE.md) | How workspaces, panes, paging and the media fallback fit into AARE |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | How workspaces, panes, paging, widgets and the dock fit into AARE |
+| [docs/ANDROID_WIDGETS.md](docs/ANDROID_WIDGETS.md) | Android App Widgets: architecture, adding one, limits, test status |
+| [docs/EXTERNAL_THEMES.md](docs/EXTERNAL_THEMES.md) | Proposal for theme files (not implemented) |
 | [DESIGN.md](DESIGN.md) | Palette, icon, typography and car-UI rules |
 | [TESTING.md](TESTING.md) | Automated tests and build checks |
 | [CHANGELOG.md](CHANGELOG.md) | Changes relative to AARE 1.6.0 |
@@ -169,7 +198,7 @@ DashGrid.
 - Сетка 10 × 6: перетаскивание, изменение размера, объединение ячеек.
 - Живые панели приложений и виджеты; карту и музыку можно закрепить за приложением.
 - Музыка не прерывается при переключении страниц; для каждого стола можно включить закрытие приложений при скрытии.
-- Установка: [DashGrid-standalone-v1.0.7.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.0.7/DashGrid-standalone-v1.0.7.apk).
+- Установка: [DashGrid-standalone-v1.1.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.1.0/DashGrid-standalone-v1.1.0.apk).
   AARE нужно удалить: standalone-сборка не ставится рядом с ним.
 
 ## Licence

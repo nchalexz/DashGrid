@@ -101,15 +101,20 @@ The phone editor (`ui/WorkspaceSettings.kt`) uses the same `WorkspaceStore` and
 - `Workspace.index` is the item's position in `workspaces`; the order is stored once, in the list,
   so reordering can never leave two workspaces with the same number.
 - `WorkspaceItem.kind` is `app` (a shortcut; `app` holds an entry id such as `phone`, or a package
-  name for a Car App Library app), `pane` (the app's own UI rendered into the cells) or `widget`
+  name for a Car App Library app), `pane` (the app's own UI rendered into the cells), `widget`
   (`widget` is a `DashCard` id: `map`, `media`, `calendar`, `notification`,
-  `weather`, `home`, `car`).
+  `weather`, `home`, `car`) or `android_widget` (a standard Android App Widget, with
+  `appWidgetId` and `appWidgetProvider`).
 - `WorkspaceItem.appId` on a `map` or `media` widget is optional: it pins that widget to an app;
   without it the widget follows the car's active navigation/media app.
 - `WorkspaceItem.settings` is a string map for per-widget settings. This version only uses
   `appId`; a future widget setting does not need a schema change.
 - A widget appears at most once per workspace (one map surface owner), an app shortcut once per
   workspace. Across workspaces the same app or widget can appear freely; the app session is shared.
+- An `appWidgetId` belongs to exactly one item in the whole config (a duplicate is dropped on
+  load; duplicating a workspace leaves its Android widgets out and says so), because one bound
+  widget cannot be owned by two cells. Several widgets, including several instances of one
+  provider, are ordinary separate ids.
 
 `WorkspaceJson` is deliberately forgiving: unknown fields are ignored, a newer `version` still
 loads known fields, duplicated ids are regenerated, overlapping items are moved to free cells and
@@ -192,6 +197,44 @@ navigation app when its workspace becomes visible (`ui.activeNavAppId`, `setting
 does not disconnect any other navigation app; the other connection stays alive, which is what
 preserves a route when switching between “City” (2GIS) and “Highway” (Yandex Navigator).
 
+### 2.5 Android App Widgets
+
+A fifth item kind hosts a standard App Widget through `AppWidgetHost`:
+`widgets/AndroidWidgets` owns the one process-wide host (id `DGRD`), `widgets/AndroidWidgetCatalog`
+lists `AppWidgetManager.getInstalledProviders()`, and `ui/AndroidWidgetPicker` runs the phone-side
+allocate → bind → configure flow, using Android's own permission dialog
+(`ACTION_APPWIDGET_BIND`) and the provider's configuration activity
+(`ACTION_APPWIDGET_CONFIGURE`). No Shizuku and no root are needed.
+
+`ui/car/AndroidWidgetCell` puts the host view in the cells with `AndroidView`. The view is created
+by `AppWidgetHost.createView(context, id, provider)` with the **car screen's** `Presentation`
+context, so the provider's dp values land at the virtual display's density; the cell size in dp is
+sent back with `AppWidgetManager.updateAppWidgetOptions`, and nothing is scaled or recoloured.
+Only the active page hosts a live view, exactly like a live app pane; inactive pages show a
+placeholder. The host listens only while a `CarRuntime` runs (`startListening`/`stopListening`,
+reference-counted), and an id no workspace refers to is released at the next session start.
+Removing the item or its workspace calls `deleteAppWidgetId`. The full description, including
+`PendingIntent`/activity limits on a virtual display, is in
+[docs/ANDROID_WIDGETS.md](docs/ANDROID_WIDGETS.md).
+
+### 2.6 Dock appearance and fixed navigation buttons
+
+The dock's icons (the taskbar rail and the dock layout's own three apps; the home-screen grid is
+not a dock) can be drawn as monochrome grayscale with `ui/theme/DockIconTone.kt`: a ColorMatrix
+(`saturation 0`, then a linear luminance range) applied to a cached copy of the **original**
+bitmap, never a tint, a replacement icon or an extracted adaptive-icon layer. Four tones (`white`,
+`grey`, `dark_grey`, `black`) have separate ids for day and night; `LocalCarNight` decides which
+one applies, so a day/night switch needs no restart, and turning the setting off restores the
+original artwork (or the single-colour theme's tint, which existed before). `DockIconCache` is an
+`LruCache` keyed by bitmap identity, generation and tone.
+
+`always_show_home` and `always_show_app_dash` are independent settings. AARE's single button
+switches between Apps (on a workspace) and Home (elsewhere); with a setting on, a fixed button is
+drawn at the driver's end of the rail/dock/classic bar, outside the scrolling app list, on every
+screen. `dockShowsCombinedButton()` suppresses the switching button only when it would repeat an
+action already fixed, so the dock never shows one action twice and both settings default to off
+(the old behaviour).
+
 ## 3. App lifecycle while switching workspaces
 
 AARE separates the app's connection from its view already:
@@ -265,7 +308,8 @@ solves the two-app case by giving each app its own connection.
 - editor: name, layout preset, split axis, capacity hint, the 10×6 grid preview;
 - long-press an item to drag it; width/height steppers merge or release cells; overlap is refused
   with a message;
-- add widget (one of the seven, not already on the workspace) or add app (built-in apps, installed
+- add widget (one of the seven, not already on the workspace), add an Android widget (any provider
+  installed on the phone, through the picker above) or add app (built-in apps, installed
   Car App Library apps, media apps found through their MediaBrowserService);
 - map/music widget can be pinned to a specific app (`Automatic` clears it);
 - switching settings (`swipeAnywhere`, `showBar`) and a button that opens `CarPreviewActivity`
@@ -280,7 +324,10 @@ car while the phone page was open isn't overwritten.
 - The pager composes the visible page (and neighbours only while a swipe is in progress,
   `beyondViewportPageCount = 0`); inactive workspaces have no composition and no surface.
 - Workspace state is a few data classes; no extra dependency was added. App icons/bitmaps come
-  from the existing `CarAppEntry`/catalog.
+  from the existing `CarAppEntry`/catalog. Monochrome dock icons are cached (64 entries at most) and
+  processed once per icon and tone; an App Widget view exists only for the page on screen, the host
+  listens only during a session, and an id is released when its item, its workspace or an
+  interrupted add goes away.
 - Recomposition on `NowPlaying`/`weather`/`events` is limited to the composed page(s); the pager
   key keeps page identity (`key(workspace.id)`).
 - The editor enumerates the catalog on `Dispatchers.IO`; the car runtime's settings listener runs
@@ -295,6 +342,12 @@ car while the phone page was open isn't overwritten.
 | `workspace/WorkspaceModel.kt` | Data classes, presets, cells, cyclic math, JSON, migration |
 | `workspace/WorkspaceStore.kt` | Load/save/migrate through `Settings` |
 | `workspace/WorkspaceCatalog.kt` | Apps the phone editor can add |
+| `widgets/AndroidWidgets.kt` | The App Widget host, ids, binding/configuration intents, sizes |
+| `widgets/AndroidWidgetCatalog.kt` | Every installed App Widget provider, for the picker |
+| `ui/AndroidWidgetPicker.kt` | Phone-side Android widget chooser and bind/configure flow |
+| `ui/car/AndroidWidgetCell.kt` | The live host view in a workspace's cells |
+| `ui/theme/DockIconTone.kt` | Monochrome tone matrices, icon cache, `DockAppIcon` |
+| `ui/DockAppearanceSettings.kt` | The car-screen settings' dock icon and button groups |
 | `ui/car/WorkspaceHome.kt` | Pager, bar, page grid, live app panes, widgets, placeholders |
 | `media/SessionTracker.kt` | Active MediaSession tracking behind the Music widget |
 | `ui/WorkspaceSettings.kt` | Phone editor and pickers |

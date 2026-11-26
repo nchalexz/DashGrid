@@ -59,6 +59,19 @@ Safe zone: everything that must survive a round mask sits inside the central 66 
 adaptive canvas; the side workspaces are intentionally clipped by the mask, which is what suggests
 “there is another one to the left/right”.
 
+## Dock appearance
+
+- **Monochrome is a gradient, not a tint.** The dock's app icons keep their artwork; a ColorMatrix
+  removes the hue and maps the luminance into White (light, for dark backgrounds), Grey (plain),
+  Dark grey (for light backgrounds) or Black (the darkest that still separates details). Never a
+  single-colour fill, never a replaced icon, never an AdaptiveIconDrawable's monochrome layer: the
+  same rule for every app, so the dock reads as one set.
+- The light theme's default is Dark grey, the dark theme's White. Only the dock's icons follow the
+  setting; the app grid and workspaces keep their colours, and the active-app ring is unchanged.
+- **Home and App Dash** are system actions, so they use the theme's shapes and colours, not the
+  icon treatment: secondary containers, the primary container when their screen is current. They
+  stay at the driver's end, outside the scrolling app row.
+
 ## Screen composition
 
 - **Wallpaper** fills the content area; workspaces are transparent over it.

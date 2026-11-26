@@ -267,6 +267,37 @@ class Settings(context: Context) {
         set(v) = prefs.edit { putBoolean("dark_bar", v) }
 
     /**
+     * Draw the dock's app icons as monochrome grayscale (a ColorMatrix over the original icon, never
+     * a replacement or a tint). Off by default: icons keep their own colours.
+     */
+    var dockMonochrome: Boolean
+        get() = prefs.getBoolean("dock_monochrome", false)
+        set(v) = prefs.edit { putBoolean("dock_monochrome", v) }
+
+    /** The grayscale tone [dockMonochrome] uses in day colours: an id from `DockIconTone`. */
+    var dockToneLight: String
+        get() = prefs.getString("dock_tone_light", null) ?: "dark_grey"
+        set(v) = prefs.edit { putString("dock_tone_light", v) }
+
+    /** The grayscale tone [dockMonochrome] uses in night colours: an id from `DockIconTone`. */
+    var dockToneDark: String
+        get() = prefs.getString("dock_tone_dark", null) ?: "white"
+        set(v) = prefs.edit { putString("dock_tone_dark", v) }
+
+    /**
+     * Keep a Home button in the dock at a fixed place on every screen (a workspace, the app grid,
+     * an open app), independent of the recent apps. Off: AARE's single Home/Apps button.
+     */
+    var alwaysShowHomeButton: Boolean
+        get() = prefs.getBoolean("always_show_home", false)
+        set(v) = prefs.edit { putBoolean("always_show_home", v) }
+
+    /** Keep an "App Dash" (the app grid) button in the dock at a fixed place, likewise. */
+    var alwaysShowAppDashButton: Boolean
+        get() = prefs.getBoolean("always_show_app_dash", false)
+        set(v) = prefs.edit { putBoolean("always_show_app_dash", v) }
+
+    /**
      * Act on `dashgrid://` links from the chosen assistant (AssistantLinkActivity). Off by default: the
      * driver chooses to let the assistant's replies drive the car screen.
      */

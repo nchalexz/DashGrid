@@ -50,6 +50,11 @@ object SettingsBackup {
         "show_weather" to Type.BOOLEAN,
         "wallpaper" to Type.STRING,
         "dark_bar" to Type.BOOLEAN,
+        "dock_monochrome" to Type.BOOLEAN,
+        "dock_tone_light" to Type.STRING,
+        "dock_tone_dark" to Type.STRING,
+        "always_show_home" to Type.BOOLEAN,
+        "always_show_app_dash" to Type.BOOLEAN,
         "dashboard_cards" to Type.STRING,
         "dashboard_media_first" to Type.BOOLEAN, // before dashboard_cards, same
         "show_calendar" to Type.BOOLEAN, // before dashboard_cards, same

@@ -171,6 +171,13 @@ fun CarThemeSpec.label(): String = if (nameRes != 0) stringResource(nameRes) els
 val LocalCarTheme = staticCompositionLocalOf { AareTheme }
 
 /**
+ * Whether the colours now applied are the theme's night ones. A theme may use the same scheme in
+ * day and night (most of them are dark only), so this can't be inferred from MaterialTheme alone:
+ * the dock's icon tone needs to know which of the two settings to apply.
+ */
+val LocalCarNight = staticCompositionLocalOf { true }
+
+/**
  * Applies [theme] in its day or night colours. [theme] defaults to the one already applied, so a
  * part of the screen can switch to night colours (the "dark bar") without knowing which theme it is.
  */
@@ -183,6 +190,7 @@ fun CarTheme(night: Boolean, theme: CarThemeSpec = LocalCarTheme.current, conten
     ) {
         CompositionLocalProvider(
             LocalCarTheme provides theme,
+            LocalCarNight provides night,
             LocalCarColors provides if (night) theme.nightColors else theme.dayColors,
             LocalCarDimens provides theme.dimens.scaled(LocalCarControlScale.current),
             content = content,

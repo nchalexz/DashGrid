@@ -62,3 +62,10 @@ keystore.properties
 
 # Paparazzi output (docs/screenshots keeps the curated images)
 app/src/test/snapshots/
+.staging/
+
+# Local Gradle cache (the sandboxed build copies it into the project)
+.gradle-home/
+
+# macOS metadata
+.DS_Store

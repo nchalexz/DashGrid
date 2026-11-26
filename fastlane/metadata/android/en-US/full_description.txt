@@ -7,6 +7,9 @@
 <li>Layouts: 100 %, 50/50, 60/40, 70/30, 30/70, three widgets, four widgets, or a custom grid.</li>
 <li>Live app panes draw an app into its cells; a per-workspace option opens one full screen when you tap its free space.</li>
 <li>Drag shortcuts, panes and widgets, resize and merge cells, pin a map or music widget to an app.</li>
+<li>Standard Android App Widgets in the cells: live RemoteViews of any installed provider, without Shizuku or root.</li>
+<li>Monochrome dock icons with four tones for light and dark colours, previewed with real icons.</li>
+<li>Home and App Dash can each stay in the dock on every screen.</li>
 <li>Edited on the phone; the car screen stays a clean viewer.</li>
 </ul>
 

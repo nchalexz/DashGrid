@@ -354,3 +354,68 @@ class WorkspaceModelTest {
         assertNull(firstFreeRect(listOf(WorkspaceRect.full()), 1, 1))
     }
 }
+
+// ------------------------------------------------------------------ Android App Widgets
+
+class AndroidWidgetWorkspaceTest {
+
+    private fun widget(id: Int, provider: String = "com.example/.Widget") =
+        WorkspaceItem.androidWidget(id, provider, WorkspaceRect(0, 0, 3, 2))
+
+    @Test
+    fun anAndroidWidgetRoundTripsThroughJson() {
+        val ws = Workspace(id = "ws", name = "Car", layout = WorkspaceLayout.CUSTOM, items = listOf(widget(42)))
+        val config = WorkspaceConfig(workspaces = listOf(ws), defaultId = "ws", lastId = "ws")
+        val decoded = WorkspaceJson.decode(WorkspaceJson.encode(config))
+        assertNotNull(decoded)
+        val item = decoded!!.workspaces.first().items.first()
+        assertEquals(WorkspaceItemKind.ANDROID_WIDGET, item.kind)
+        assertEquals(42, item.appWidgetId)
+        assertEquals("com.example/.Widget", item.appWidgetProvider)
+        assertEquals(WorkspaceRect(0, 0, 3, 2), item.rect)
+    }
+
+    @Test
+    fun anAndroidWidgetWithoutItsIdOrProviderIsDropped() {
+        val json = """{"version":1,"workspaces":[{"id":"ws","name":"Car","layout":"custom","items":[
+            {"id":"a","kind":"android_widget","appWidgetId":7,"col":0,"row":0,"colSpan":2,"rowSpan":2},
+            {"id":"b","kind":"android_widget","appWidgetProvider":"com.example/.W","col":2,"row":0,"colSpan":2,"rowSpan":2}
+        ]}]}"""
+        val decoded = WorkspaceJson.decode(json)
+        assertNotNull(decoded)
+        assertTrue(decoded!!.workspaces.first().items.isEmpty())
+    }
+
+    @Test
+    fun oneBoundWidgetBelongsToOneItemInTheWholeConfig() {
+        // Duplicating a workspace copies its items; the copy must not own the same bound widget.
+        val first = Workspace(id = "one", name = "One", layout = WorkspaceLayout.CUSTOM, items = listOf(widget(9)))
+        val second = Workspace(id = "two", name = "Two", layout = WorkspaceLayout.CUSTOM, items = listOf(widget(9), widget(10)))
+        val decoded = WorkspaceJson.decode(
+            WorkspaceJson.encode(WorkspaceConfig(workspaces = listOf(first, second))),
+        )!!
+        assertEquals(listOf(9), decoded.workspaces[0].appWidgetIds().toList())
+        assertEquals(listOf(10), decoded.workspaces[1].appWidgetIds().toList())
+    }
+
+    @Test
+    fun aFreeGridGivesANewWidgetTheCellsItsProviderAsksFor() {
+        val existing = WorkspaceItem.app("a", WorkspaceRect(0, 0, 10, 2))
+        val ws = Workspace(id = "ws", name = "Car", layout = WorkspaceLayout.CUSTOM, items = listOf(existing))
+        val added = ws.withAddedItem(WorkspaceItem.androidWidget(5, "com.example/.W", WorkspaceRect(0, 0, 3, 2)))
+        assertNotNull(added)
+        val item = added!!.items.last()
+        assertEquals(3, item.rect.colSpan)
+        assertEquals(2, item.rect.rowSpan)
+        assertEquals(0, item.rect.col)
+        assertEquals(2, item.rect.row)
+    }
+
+    @Test
+    fun aPresetStillPlacesItemsInItsOwnSlots() {
+        val ws = Workspace(id = "ws", name = "Car", layout = WorkspaceLayout.SPLIT_70_30)
+        val added = ws.withAddedItem(WorkspaceItem.androidWidget(5, "com.example/.W", WorkspaceRect(0, 0, 2, 2)))
+        assertNotNull(added)
+        assertEquals(WorkspaceRect(0, 0, 7, 6), added!!.items.first().rect)
+    }
+}

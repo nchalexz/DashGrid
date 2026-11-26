@@ -59,7 +59,10 @@ enum class WorkspaceAxis(val id: String) {
     }
 }
 
-/** What an item on a workspace is: a shortcut to an app, or one of AARE's dashboard widgets. */
+/**
+ * What an item on a workspace is: a shortcut to an app, one of AARE's dashboard widgets, or a
+ * standard Android App Widget hosted through [android.appwidget.AppWidgetHost].
+ */
 enum class WorkspaceItemKind(val id: String) {
     /** A shortcut tile: the app's icon and label; opening it shows the app full screen. */
     APP("app"),
@@ -67,7 +70,13 @@ enum class WorkspaceItemKind(val id: String) {
     /** The app itself, rendered into the item's cells (templates, map, media, a launched app…). */
     PANE("pane"),
 
-    WIDGET("widget");
+    WIDGET("widget"),
+
+    /**
+     * A standard Android App Widget: the provider's own RemoteViews, drawn into the item's cells.
+     * [WorkspaceItem.appWidgetId] is the id the host allocated and bound to the provider.
+     */
+    ANDROID_WIDGET("android_widget");
 
     companion object {
         fun byId(id: String?): WorkspaceItemKind? = entries.firstOrNull { it.id == id }
@@ -100,11 +109,14 @@ data class WorkspaceRect(val col: Int, val row: Int, val colSpan: Int, val rowSp
 }
 
 /**
- * One app shortcut or widget on a workspace. [appId] is a `CarAppEntry.id` (hosted car app, media
- * app, built-in app…) for an [WorkspaceItemKind.APP], and optionally the app a map or media widget
- * shows for a [WorkspaceItemKind.WIDGET]. [widgetId] is a `DashCard.id`. [settings] holds a
- * widget's own settings (for example which navigation app its map shows); this version stores
- * strings only, so a future widget setting needs no schema change.
+ * One app shortcut, dashboard widget or Android App Widget on a workspace. [appId] is a
+ * `CarAppEntry.id` (hosted car app, media app, built-in app…) for an [WorkspaceItemKind.APP], and
+ * optionally the app a map or media widget shows for a [WorkspaceItemKind.WIDGET]. [widgetId] is a
+ * `DashCard.id`. [appWidgetId] and [appWidgetProvider] belong to an
+ * [WorkspaceItemKind.ANDROID_WIDGET]: the id the [android.appwidget.AppWidgetHost] allocated and
+ * the flattened component of its provider, so an unavailable provider can be named in the editor.
+ * [settings] holds a widget's own settings (for example which navigation app its map shows); this
+ * version stores strings only, so a future widget setting needs no schema change.
  */
 data class WorkspaceItem(
     val id: String,
@@ -112,6 +124,8 @@ data class WorkspaceItem(
     val rect: WorkspaceRect,
     val appId: String? = null,
     val widgetId: String? = null,
+    val appWidgetId: Int? = null,
+    val appWidgetProvider: String? = null,
     val settings: Map<String, String> = emptyMap(),
 ) {
     companion object {
@@ -130,6 +144,13 @@ data class WorkspaceItem(
             WorkspaceItem(
                 id = UUID.randomUUID().toString(), kind = WorkspaceItemKind.WIDGET, widgetId = widgetId,
                 appId = appId, rect = rect.clamped(), settings = settings,
+            )
+
+        /** A new Android App Widget, with a fresh item id; [appWidgetId] is already bound by the host. */
+        fun androidWidget(appWidgetId: Int, provider: String, rect: WorkspaceRect, appId: String? = null) =
+            WorkspaceItem(
+                id = UUID.randomUUID().toString(), kind = WorkspaceItemKind.ANDROID_WIDGET,
+                appWidgetId = appWidgetId, appWidgetProvider = provider, appId = appId, rect = rect.clamped(),
             )
     }
 }
@@ -162,6 +183,9 @@ data class Workspace(
     /** The widget ids on this workspace (a widget appears at most once per workspace). */
     fun widgetIds(): Set<String> = items.mapNotNull { it.widgetId }.toSet()
 
+    /** The Android App Widget ids on this workspace, one per bound provider instance. */
+    fun appWidgetIds(): Set<Int> = items.mapNotNull { it.appWidgetId }.toSet()
+
     /** The cells of the preset's slots, in slot order, for this workspace's axis. */
     fun presetRects(): List<WorkspaceRect> = layout.slots(axis)
 
@@ -177,9 +201,18 @@ data class Workspace(
      */
     fun withAddedItem(item: WorkspaceItem): Workspace? {
         val occupied = items.map { it.rect }
+        // In a free grid, an item that asks for several cells (an Android App Widget sized from its
+        // provider's minimum) keeps that size where there is room. A preset keeps its own slots:
+        // every item there is placed (and reflowed) by the preset, as before.
+        val wanted = item.rect
+        val preferred = if (layout == WorkspaceLayout.CUSTOM && (wanted.colSpan > 1 || wanted.rowSpan > 1)) {
+            wanted.clamped().takeIf { r -> occupied.none { it.overlaps(r) } }
+                ?: firstFreeRect(occupied, wanted.colSpan, wanted.rowSpan)
+        } else null
         val preset = presetRects()
         val slot = preset.getOrNull(items.size)?.takeIf { r -> occupied.none { it.overlaps(r) } }
-        val rect = slot
+        val rect = preferred
+            ?: slot
             ?: firstFreeRect(occupied, 2, 2)
             ?: firstFreeRect(occupied, 1, 1)
             ?: return null
@@ -472,6 +505,8 @@ object WorkspaceJson {
                                 put("rowSpan", item.rect.rowSpan)
                                 item.appId?.let { put("app", it) }
                                 item.widgetId?.let { put("widget", it) }
+                                item.appWidgetId?.let { put("appWidgetId", it) }
+                                item.appWidgetProvider?.let { put("appWidgetProvider", it) }
                                 if (item.settings.isNotEmpty()) put("settings", JSONObject().apply {
                                     item.settings.forEach { (k, v) -> put(k, v) }
                                 })
@@ -532,6 +567,11 @@ object WorkspaceJson {
         val widget = json.optString("widget").takeIf { it.isNotBlank() }
         if ((kind == WorkspaceItemKind.APP || kind == WorkspaceItemKind.PANE) && app == null) return null
         if (kind == WorkspaceItemKind.WIDGET && widget == null) return null
+        // A widget whose id or provider didn't survive the file can't be drawn (and must not take
+        // cells the user can't see): it is dropped here rather than left as a dead item.
+        val appWidgetId = json.optInt("appWidgetId", -1).takeIf { it >= 0 }
+        val appWidgetProvider = json.optString("appWidgetProvider").takeIf { it.isNotBlank() }
+        if (kind == WorkspaceItemKind.ANDROID_WIDGET && (appWidgetId == null || appWidgetProvider == null)) return null
         val rect = WorkspaceRect(
             col = json.optInt("col", 0),
             row = json.optInt("row", 0),
@@ -548,6 +588,8 @@ object WorkspaceJson {
             rect = rect,
             appId = app,
             widgetId = widget,
+            appWidgetId = appWidgetId,
+            appWidgetProvider = appWidgetProvider,
             settings = settings,
         )
     }
@@ -560,6 +602,9 @@ object WorkspaceJson {
      */
     internal fun sanitizeWorkspaces(workspaces: List<Workspace>): List<Workspace> {
         val workspaceIds = HashSet<String>()
+        // An App Widget id belongs to one item in the whole config: duplicating a workspace copies
+        // its items, but the copy must not own the same bound widget (one view, two cells).
+        val usedAppWidgets = HashSet<Int>()
         return workspaces.mapNotNull { ws ->
             val id = ws.id.ifBlank { UUID.randomUUID().toString() }
             if (!workspaceIds.add(id)) return@mapNotNull null
@@ -572,6 +617,10 @@ object WorkspaceJson {
                 if ((item.kind == WorkspaceItemKind.APP || item.kind == WorkspaceItemKind.PANE) &&
                     item.appId != null && !usedApps.add(item.appId)) continue
                 if (item.kind == WorkspaceItemKind.WIDGET && item.widgetId != null && !usedWidgets.add(item.widgetId)) continue
+                if (item.kind == WorkspaceItemKind.ANDROID_WIDGET) {
+                    val widgetId = item.appWidgetId ?: continue
+                    if (!usedAppWidgets.add(widgetId)) continue
+                }
                 var rect = item.rect.clamped()
                 if (occupied.any { it.overlaps(rect) }) rect = firstFreeRect(occupied, rect.colSpan, rect.rowSpan) ?: continue
                 var itemId = item.id.ifBlank { UUID.randomUUID().toString() }

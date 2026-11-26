@@ -29,6 +29,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +45,8 @@ import net.prototux.aare.host.templates.CarFormat
 import net.prototux.aare.ui.theme.carBackdrop
 import net.prototux.aare.ui.theme.LocalCarColors
 import net.prototux.aare.ui.theme.LocalCarDimens
+import net.prototux.aare.ui.theme.DockIconStyle
+import net.prototux.aare.ui.theme.LocalDockIconStyle
 
 /**
  * The classic layout, like Android Auto's from 2019 to 2022: the clock and the phone's status along
@@ -61,6 +64,7 @@ internal fun ClassicShell(
     /** Insets the UI into the head unit's visible area (the codec frame minus its margins). */
     modifier: Modifier = Modifier,
 ) {
+    CompositionLocalProvider(LocalDockIconStyle provides DockIconStyle(state.dockMonochrome, state.dockToneLight, state.dockToneDark)) {
     Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize().carBackdrop()) {
         Box(Modifier.fillMaxSize().then(modifier)) {
             Column(Modifier.fillMaxSize()) {
@@ -77,6 +81,7 @@ internal fun ClassicShell(
             CallOverlay(state, actions, Modifier.align(Alignment.TopCenter))
         }
     }
+    }
 }
 
 @Composable
@@ -88,10 +93,21 @@ private fun BottomBar(state: CarUiState, actions: CarActions) {
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         // Home: on a workspace it opens the app grid; in an app or the grid it returns to the
-        // workspace the driver left from.
+        // workspace the driver left from. The two fixed buttons, when switched on, keep each
+        // action at a fixed place on every screen; the switching button appears only when its
+        // action isn't already fixed, so nothing is drawn twice.
         val onWorkspace = state.screen == CarScreen.Dashboard
-        RoundIcon(if (onWorkspace) Icons.Rounded.Apps else Icons.Rounded.Home, stringResource(R.string.dash_menu_home), filled = false) {
-            if (onWorkspace) actions.openLauncher() else actions.goHome()
+        val combinedVisible = dockShowsCombinedButton(onWorkspace, state.alwaysShowHome, state.alwaysShowAppDash)
+        if (state.alwaysShowHome) {
+            RoundIcon(Icons.Rounded.Home, stringResource(R.string.dock_home_action), filled = state.screen == CarScreen.Dashboard) { actions.goHome() }
+        }
+        if (state.alwaysShowAppDash) {
+            RoundIcon(Icons.Rounded.Apps, stringResource(R.string.dock_apps_action), filled = state.screen == CarScreen.Launcher) { actions.openLauncher() }
+        }
+        if (combinedVisible) {
+            RoundIcon(if (onWorkspace) Icons.Rounded.Apps else Icons.Rounded.Home, stringResource(R.string.dash_menu_home), filled = false) {
+                if (onWorkspace) actions.openLauncher() else actions.goHome()
+            }
         }
         Box(Modifier.weight(1f)) { ActivityPill(state, actions) }
         NotificationBell(state) { state.apps.firstOrNull { it.kind == CarAppKind.NOTIFICATIONS }?.let(actions::openApp) }

@@ -1,0 +1,1 @@
+Android App Widgets on workspaces, monochrome dock icons with four tones, and fixed Home / App Dash buttons.

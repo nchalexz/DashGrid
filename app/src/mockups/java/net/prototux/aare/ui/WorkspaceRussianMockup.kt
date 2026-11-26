@@ -50,6 +50,15 @@ class WorkspaceRussianMockup {
                             WorkspaceItem("r4", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 3, 5, 3), widgetId = "media"),
                         ),
                     ),
+                    Workspace(
+                        id = "widget", name = "Виджет", layout = WorkspaceLayout.CUSTOM,
+                        items = listOf(
+                            WorkspaceItem("a1", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 5, 6), widgetId = "map"),
+                            WorkspaceItem("a2", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 0, 5, 3), widgetId = "media"),
+                            WorkspaceItem("a3", WorkspaceItemKind.ANDROID_WIDGET, WorkspaceRect(5, 3, 5, 3),
+                                appWidgetId = 21, appWidgetProvider = "com.example.dashboard/.Widget"),
+                        ),
+                    ),
                     Workspace(id = "empty", name = "Пусто"),
                 ),
             defaultId = "city", lastId = "city",
@@ -57,7 +66,7 @@ class WorkspaceRussianMockup {
         paparazzi.snapshot {
             MaterialTheme {
                 Surface(Modifier.fillMaxSize()) {
-                    WorkspacesSettings(settings, initialEditingId = "city", initialConfig = config)
+                    WorkspacesSettings(settings, initialEditingId = "widget", initialConfig = config)
                 }
             }
         }

@@ -1110,4 +1110,52 @@
     <string name="msg_voice_reply_again">Ещё раз</string>
     <string name="msg_toggle_voice_reply_title">Ответить голосом</string>
     <string name="msg_toggle_voice_reply_subtitle">Продиктовать ответ с экрана автомобиля, в том числе в движении. Он зачитывается обратно и отправляется только после «да» или нажатия «Отправить». Если включён микрофон автомобиля для приложений телефона, используется микрофон автомобиля</string>
+
+    <!-- Оформление док-панели. -->
+    <string name="setup_section_dock">Оформление док-панели</string>
+    <string name="dock_monochrome_title">Монохромные иконки</string>
+    <string name="dock_monochrome_subtitle">Рисует иконки приложений в док-панели градациями серого по их собственной яркости, сохраняя форму и детали. Иконки вне дока (сетка приложений, рабочие столы) остаются в оригинальных цветах.</string>
+    <string name="dock_tone_light_title">Тональность иконок светлой темы</string>
+    <string name="dock_tone_dark_title">Тональность иконок тёмной темы</string>
+    <string name="dock_tone_white">Белая</string>
+    <string name="dock_tone_grey">Серая</string>
+    <string name="dock_tone_dark_grey">Тёмно-серая</string>
+    <string name="dock_tone_black">Чёрная</string>
+    <string name="dock_tone_preview_light">Светлая тема</string>
+    <string name="dock_tone_preview_dark">Тёмная тема</string>
+    <string name="dock_tone_preview_hint">Реальные иконки этого телефона в каждой тональности. Тональность — это диапазон яркости, а не заливка: логотип и его детали сохраняются.</string>
+    <string name="dock_tone_no_icons">На этом телефоне пока нет иконок приложений для превью.</string>
+
+    <!-- Кнопки навигации. -->
+    <string name="setup_section_navigation">Кнопки навигации</string>
+    <string name="dock_always_home_title">Всегда показывать кнопку Домой</string>
+    <string name="dock_always_home_subtitle">Оставляет кнопку «Домой» в док-панели на всех рабочих столах и внутри приложений, на фиксированном месте, вместо того чтобы она появлялась вместе с недавними приложениями. Действие прежнее: вернуться на рабочий стол, с которого вы ушли.</string>
+    <string name="dock_always_app_dash_title">Всегда показывать кнопку App Dash</string>
+    <string name="dock_always_app_dash_subtitle">Оставляет кнопку App Dash (сетка приложений) в док-панели на фиксированном месте, на всех рабочих столах и внутри приложений. Действие прежнее: открыть сетку приложений.</string>
+    <string name="dock_home_action">Домой</string>
+    <string name="dock_apps_action">App Dash</string>
+
+    <!-- Android-виджеты на рабочих столах. -->
+    <string name="workspaces_add_android_widget">Android-виджет</string>
+    <string name="workspaces_android_widget">Android-виджет</string>
+    <string name="workspaces_android_widget_named">Android-виджет: %1$s</string>
+    <string name="widget_picker_title">Выберите Android-виджет</string>
+    <string name="widget_picker_hint">Стандартные App Widget установленных на телефоне приложений, живьём в ячейках. Список не ограничен заранее заданным набором. Некоторые виджеты сначала попросят разрешение или откроют настройки на телефоне.</string>
+    <string name="widget_picker_empty">На этом телефоне нет установленных Android-виджетов.</string>
+    <string name="widget_provider_size">От %1$d × %2$d dp</string>
+    <string name="widget_provider_resizable">изменяемый размер</string>
+    <string name="widget_provider_fixed">фиксированный размер</string>
+    <string name="widget_allocate_failed">Android не выдал идентификатор виджета: ничего не добавлено.</string>
+    <string name="widget_bind_failed">Виджет не разрешён: ничего не добавлено.</string>
+    <string name="widget_configure_cancelled">Настройка виджета отменена: ничего не добавлено.</string>
+    <string name="widget_configure_failed">Не удалось открыть настройку виджета: ничего не добавлено.</string>
+    <string name="widget_no_space">На этом рабочем столе нет места для виджета: освободите место или выберите раскладку просторнее.</string>
+    <string name="widget_unavailable">Виджет недоступен</string>
+    <string name="widget_unavailable_hint">Приложение-поставщик удалено или привязка потеряна. Удалите его здесь и добавьте заново.</string>
+    <string name="widget_inactive">Виджет на другом рабочем столе</string>
+    <string name="widget_duplicate_dropped">Android-виджеты не скопированы: копия рабочего стола не может делить один привязанный виджет. Добавьте их здесь заново.</string>
+    <string name="widget_remove_frees_id">Удаление ячейки освобождает идентификатор виджета.</string>
+    <string name="workspaces_move_to">Переместить на другой стол</string>
+    <string name="widget_on_car_screen">Виджет показан на экране автомобиля</string>
+    <string name="workspaces_move_duplicate">Этот элемент уже есть на этом рабочем столе</string>
 </resources>

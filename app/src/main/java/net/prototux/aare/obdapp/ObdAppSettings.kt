@@ -9,10 +9,31 @@ import androidx.core.content.edit
  * kept apart from AARE's own settings: the whole app goes away with [net.prototux.aare.Settings.obdAdapter].
  */
 class ObdAppSettings(context: Context) {
+    companion object {
+        /** The compact card's five tiles. */
+        const val CARD_TILES = 5
+    }
     private val prefs: SharedPreferences = context.applicationContext.getSharedPreferences("obd_app", Context.MODE_PRIVATE)
 
     enum class Engine { AUTO, TURBO, ASPIRATED }
     enum class Fuel { PETROL, DIESEL }
+
+    /** The car picked from [CarProfiles] ("" is the generic one): a shortcut for the settings below. */
+    var profile: String
+        get() = prefs.getString("profile", "") ?: ""
+        set(v) = prefs.edit { putString("profile", v) }
+
+    /** Fills the settings from [p]: its fuel, size, tank, mass and rev counter, as plain settings after that. */
+    fun applyProfile(p: CarProfile) {
+        profile = p.id
+        engine = p.engine
+        fuel = p.fuel
+        displacementCc = p.displacementCc
+        tankLiters = p.tankLiters
+        massKg = p.massKg
+        rpmMax = p.rpmMax
+        redline = p.redline
+    }
 
     /** What the second gauge shows: boost (turbo) or engine load (aspirated). AUTO: load until boost is seen. */
     var engine: Engine
@@ -62,6 +83,16 @@ class ObdAppSettings(context: Context) {
     var massKg: Int
         get() = prefs.getInt("mass", 1300)
         set(v) = prefs.edit { putInt("mass", v) }
+
+    /** What the compact card's five tiles show, by id ("speed", "rpm", "fuel"…); empty = the defaults. */
+    var cardTiles: List<String>
+        get() = (prefs.getString("card_tiles", null) ?: "").split(',').filter { it.isNotBlank() }
+        set(v) = prefs.edit { putString("card_tiles", v.take(CARD_TILES).joinToString(",")) }
+
+    /** What the three dials show, by id ("coolant", "boost", "oil"…); empty = the app's defaults. */
+    var dialSlots: List<String>
+        get() = (prefs.getString("dials", null) ?: "").split(',').filter { it.isNotBlank() }
+        set(v) = prefs.edit { putString("dials", v.joinToString(",")) }
 
     /** The gear ratios learned while driving (km/h per 1000 rpm), "" = none yet. */
     var gears: String

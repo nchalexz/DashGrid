@@ -4,6 +4,117 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.1.0 — Android App Widgets, a monochrome dock and the Cockpit
+
+### Android App Widgets on workspaces
+
+- **A standard Android App Widget can live in a workspace's cells**: the provider's own live
+  RemoteViews, updating and taking taps, not a screenshot. Any installed provider is listed in the
+  editor's new **Android widget** picker — app icon, widget name, minimum size and preview — with
+  no hard-coded allow-list.
+- The first widget of a provider asks for Android's own permission on the phone
+  (`ACTION_APPWIDGET_BIND`); the provider's configuration screen (`ACTION_APPWIDGET_CONFIGURE`)
+  opens there too. No Shizuku and no root are needed for hosting.
+- The host view is created with the car screen's `Presentation` context, so the virtual display's
+  density applies; the cells' size in dp is reported to the provider with
+  `AppWidgetManager.updateAppWidgetOptions`, so a resizable widget reflows instead of being
+  stretched. No tint, no scale, no dock filter: the provider's design is kept.
+- Lifecycle: stable ids restored from the workspace JSON, `startListening`/`stopListening` around
+  a car session, release on item/workspace removal, cancellation of add and configuration, a
+  placeholder for a removed provider, one live view per id, and a release of ids no workspace
+  refers to at the next session start. Several widgets and several instances of one provider are
+  supported; a duplicated workspace does not copy Android widgets (one bound id, one owner).
+- A workspace with a live widget keeps its normal pager gestures even with "swipe anywhere" on,
+  so the widget's own horizontal gestures still work.
+- **Move to another workspace** in the item inspector moves any item (an Android widget included)
+  without allocating a new widget: the same bound instance follows it.
+- [docs/ANDROID_WIDGETS.md](docs/ANDROID_WIDGETS.md) describes the architecture, the instructions
+  and the limits; the widget-host code has not been run on a car head unit or EMUI in this release
+  (see [TESTING.md](TESTING.md)).
+
+### Dock icons
+
+- **Monochrome dock icons**, off by default: the dock's app icons are drawn as grayscale by their
+  own brightness (a ColorMatrix over the original bitmap), keeping shape, logo, detail, alpha,
+  size, spacing and the existing active-app highlight. The app grid and the workspaces keep the
+  original artwork.
+- **Four tones, one for the light theme and one for the dark theme**: White, Grey, Dark grey and
+  Black — a brightness range, not a fill. Defaults: Dark grey in light colours, White in dark
+  ones. A day/night switch applies the matching tone immediately, and turning the setting off
+  restores the original icons (or a single-colour theme's tint, as before).
+- Processed icons are cached (`LruCache`, 64 entries, keyed by bitmap and tone). The settings have
+  a preview of the phone's real icons in every tone, for both themes.
+
+### Fixed dock buttons
+
+- **Always show the Home button** and **Always show the App Dash button**, independent and off by
+  default. Switched on, each sits at a fixed place at the driver's end of the rail, dock or
+  classic bar — outside the scrolling/recent app list — on every workspace, the app grid and
+  inside every app.
+- The actions are AARE's: Home returns to the workspace you left, App Dash opens the app grid.
+  AARE's switching button is hidden only when it would repeat a fixed action, so no action is
+  drawn twice; switched off, the old behaviour is unchanged.
+- Both settings are exported and imported with the other settings.
+
+### Cockpit and car profile
+
+- **Car profile in the Cockpit's settings** (Settings → Автомобиль): *Generic* or
+  **Golf 7 2.0 TDI (CUNA) · DQ381**, which fills in diesel, 1968 cm³, a 50 L tank, 1500 kg with the
+  driver and a 5000 rpm rev counter with its red line at 4600. They stay ordinary settings after
+  that, so a number that's wrong for the car can be corrected without leaving the profile.
+- **Values page** in the Cockpit, right after the dashboard: three dials in the style of the car's
+  own instruments (coolant, boost or load, oil or intake air) and every other reading as a tile —
+  speed, revs, gear, throttle, pedal, intake and atmospheric pressure, rail pressure, EGT 1 and 2,
+  air flow, fuel rate, fuel level, battery and consumption.
+- **Exhaust gas temperature and rail pressure** from the standard PIDs (`0x78`, `0x79`, `0x23`),
+  read by the same poller; a car that doesn't report them gets no tile.
+- **VAG probe and identifier scan** in the Cockpit's settings (read-only, UDS service `22`): asks
+  the identifiers public VAG tools use for coolant and the DSG's oil, and walks the engine's
+  `0x1100–0x11FF` and the gearbox's `0x2100–0x21FF` ranges to find the identifiers a particular
+  software version uses for exhaust gas temperatures and injector corrections. The answers go to
+  the connection log, so they can be read from the phone afterwards.
+- **UDS values on the Values page**: a signal table, read every few seconds and sanity-checked by
+  range, adds named values the standard PIDs don't carry (gearbox oil, EGT, injector corrections)
+  once their identifiers are known — nothing is shown for an identifier the car doesn't answer.
+- **Compact Cockpit card in a live app pane**: under 800 dp wide or 420 dp tall (a workspace pane,
+  not a head unit's own screen) the Cockpit shows three dials and five main tiles instead of its
+  tab bar; the tabbed page opens when the app is opened full screen.
+- **Two dial looks**: the VW power display (bezel, wide value arc, red zone, needle) and a thinner
+  Porsche-cluster take (hairline rim, fine ticks, long thin needle, light numerals, upper-case
+  labels); the Cockpit draws itself in the Porsche one, the other is a one-line change.
+- **The values page's tiles are grouped**: engine, temperatures, fuel and gearbox, one group on
+  screen at a time, instead of every tile at once.
+- **The pretend adapter answers UDS too**: coolant, gearbox oil and one injector correction come
+  back over service `22`, so the parse, the scaling and the tiles can be exercised without a car
+  (the identifiers are the public ones, the numbers are made up).
+- **The Cockpit's own typeface**: Titillium Web (OFL, in `res/font`, licence in
+  `assets/licenses/ofl-titillium-web.txt`) for the dial numbers, units and tile labels — a
+  technical sans in the spirit of the cluster faces, since Audi Type, Porsche Next and VW Head
+  are not licensable here.
+- **Black backdrop and centred tiles**: on a dark theme the Cockpit sits on black, and every tile
+  (card and full page alike) centres its label, number and unit both ways.
+- **The Cockpit borrows the MIB head unit's space**: a dark-navy gradient behind the page, a
+  bright double rim on the dials, flat hairline tiles, and the pages in a thin bar at the bottom
+  with hairline separators and an accent underline, instead of chips along the top.
+- **Each dial carries its pictogram**: a thermometer for coolant, an oil can for oil, air for
+  intake, compression arrows for boost, a flame for EGT, a pump for fuel, a battery for the
+  electrical system — in the dial's open bottom, under the unit, where nothing else sits. They are
+  drawn in the app (ISO 2575-style strokes), not taken from a vendor icon set.
+- **The Cockpit's tiles are flat and quiet**: no filled cards — a hairline outline and a breath of
+  tint — and the numbers are pure white on a dark theme (black on a light one), the brightest thing
+  in the tile.
+- **The card's five tiles are chosen in the settings** (Settings → Приборы → *Card tiles*): tap
+  values in the order they should appear; a value the car stops reporting is replaced by one it
+  does. Speed, revs, gear, consumption, fuel, boost or load, coolant, oil, intake, EGT 1/2, rail
+  pressure and battery are on the list.
+- **The look is a hybrid**: the Porsche dial's hairline rim and fine ticks with the VW power
+  display's thick needle; the previous two looks stay one enum value away.
+- **Track, Lap and Dyno are gone from the Cockpit** (AARE's racing pages), and the first tab is now
+  the same card the app pane shows, so the glanceable screen and the full window can't drift apart.
+- **Tapping a dial changes what it shows** (coolant, oil, intake, boost or load, EGT 1/2, fuel,
+  battery), walking past the values the other two dials already show; the choice is kept in the
+  settings. A value the car stops reporting is replaced by one it does.
+
 ## 1.0.7 — hide the Android Auto version of an enabled phone app
 
 ### Added

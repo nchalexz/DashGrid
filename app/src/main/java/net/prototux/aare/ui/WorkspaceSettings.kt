@@ -104,6 +104,7 @@ import net.prototux.aare.workspace.WorkspaceItemKind
 import net.prototux.aare.workspace.WorkspaceLayout
 import net.prototux.aare.workspace.WorkspaceRect
 import net.prototux.aare.workspace.WorkspaceStore
+import net.prototux.aare.widgets.AndroidWidgets
 import java.util.UUID
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -130,6 +131,7 @@ internal fun WorkspacesSettings(
     var editingId by rememberSaveable { mutableStateOf(initialEditingId) }
     var deleteId by remember { mutableStateOf<String?>(null) }
     var addWidgetTo by remember { mutableStateOf<String?>(null) }
+    var androidWidgetTo by remember { mutableStateOf<String?>(null) }
     var appPicker by remember { mutableStateOf<AppPickerRequest?>(null) }
     val apps by produceState(initialValue = emptyList<WorkspaceAppChoice>(), settings) {
         value = withContext(Dispatchers.IO) { WorkspaceCatalog.apps(ctx) }
@@ -152,6 +154,25 @@ internal fun WorkspacesSettings(
 
     fun workspaceById(id: String): Workspace? = config.workspace(id)
     fun update(workspace: Workspace) = commit(config.withUpdated(workspace))
+    /** Moves [item] to [targetId], keeping its id and (for an Android widget) its bound appWidgetId. */
+    fun moveItem(item: WorkspaceItem, targetId: String) {
+        val source = config.workspaces.firstOrNull { ws -> ws.items.any { it.id == item.id } } ?: return
+        val target = config.workspace(targetId) ?: return
+        if (source.id == target.id) return
+        if (item.kind != WorkspaceItemKind.ANDROID_WIDGET && item.appId != null && item.appId in target.appIds() ||
+            item.kind == WorkspaceItemKind.WIDGET && item.widgetId != null && item.widgetId in target.widgetIds()
+        ) {
+            Toast.makeText(ctx, R.string.workspaces_move_duplicate, Toast.LENGTH_SHORT).show()
+            return
+        }
+        val updatedSource = source.withRemovedItem(item.id)
+        val updatedTarget = target.withAddedItem(item)
+        if (updatedTarget == null) {
+            Toast.makeText(ctx, R.string.workspaces_no_space, Toast.LENGTH_SHORT).show()
+            return
+        }
+        commit(config.withUpdated(updatedSource).withUpdated(updatedTarget))
+    }
     val editing = config.workspace(editingId)
 
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -170,11 +191,17 @@ internal fun WorkspacesSettings(
                     onUp = { commit(config.withMoved(workspace.id, -1)) },
                     onDown = { commit(config.withMoved(workspace.id, 1)) },
                     onDuplicate = {
+                        // An App Widget id belongs to one item: a copy would show the same bound
+                        // widget twice (one live view) and either copy's removal would release the
+                        // other's id. The copy keeps everything else and says what was left out.
+                        val droppedWidgets = workspace.items.count { it.kind == WorkspaceItemKind.ANDROID_WIDGET }
                         val copy = workspace.copy(
                             id = UUID.randomUUID().toString(),
                             name = ctx.getString(R.string.workspaces_duplicate_name, workspace.name),
-                            items = workspace.items.map { it.copy(id = UUID.randomUUID().toString()) },
+                            items = workspace.items.filterNot { it.kind == WorkspaceItemKind.ANDROID_WIDGET }
+                                .map { it.copy(id = UUID.randomUUID().toString()) },
                         )
+                        if (droppedWidgets > 0) Toast.makeText(ctx, R.string.widget_duplicate_dropped, Toast.LENGTH_LONG).show()
                         commit(config.withAdded(copy, index + 1))
                         editingId = copy.id
                     },
@@ -201,9 +228,12 @@ internal fun WorkspacesSettings(
                     context = ctx,
                     workspace = editing,
                     appLabels = appLabels,
+                    otherWorkspaces = config.workspaces.filter { it.id != editing.id },
                     onChange = ::update,
+                    onMoveItem = ::moveItem,
                     onClose = { editingId = null },
                     onAddWidget = { addWidgetTo = editing.id },
+                    onAddAndroidWidget = { androidWidgetTo = editing.id },
                     onPickApp = { appPicker = it },
                 )
             }
@@ -248,6 +278,8 @@ internal fun WorkspacesSettings(
             confirmButton = {
                 TextButton(onClick = {
                     config.without(id)?.let { next ->
+                        // Only once the removal is certain: the last workspace is refused above.
+                        config.workspace(id)?.items?.forEach { item -> item.appWidgetId?.let(AndroidWidgets::delete) }
                         commit(next)
                         if (editingId == id) editingId = next.startWorkspace()?.id
                     }
@@ -312,6 +344,20 @@ internal fun WorkspacesSettings(
                 }
             },
             confirmButton = { TextButton(onClick = { appPicker = null }) { Text(stringResource(R.string.common_cancel)) } },
+        )
+    }
+
+    androidWidgetTo?.let { workspaceId ->
+        val workspace = config.workspace(workspaceId)
+        if (workspace == null) { androidWidgetTo = null; return@let }
+        AndroidWidgetPicker(
+            onDismiss = { androidWidgetTo = null },
+            onAdd = { choice, appWidgetId ->
+                val (cols, rows) = defaultWidgetRect(choice.minWidthDp, choice.minHeightDp)
+                val item = WorkspaceItem.androidWidget(appWidgetId, choice.providerKey, WorkspaceRect(0, 0, cols, rows))
+                val added = workspace.withAddedItem(item)
+                if (added == null) false else { update(added); true }
+            },
         )
     }
 }
@@ -381,9 +427,12 @@ private fun WorkspaceEditor(
     context: android.content.Context,
     workspace: Workspace,
     appLabels: Map<String, String>,
+    otherWorkspaces: List<Workspace>,
     onChange: (Workspace) -> Unit,
+    onMoveItem: (WorkspaceItem, String) -> Unit,
     onClose: () -> Unit,
     onAddWidget: () -> Unit,
+    onAddAndroidWidget: () -> Unit,
     onPickApp: (AppPickerRequest) -> Unit,
 ) {
     var name by remember(workspace.id, workspace.name) { mutableStateOf(workspace.name) }
@@ -479,7 +528,10 @@ private fun WorkspaceEditor(
                 item = selected,
                 appLabels = appLabels,
                 onResize = { dW, dH -> resize(selected, dW, dH) },
+                otherWorkspaces = otherWorkspaces,
+                onMoveTo = { targetId -> onMoveItem(selected, targetId) },
                 onRemove = {
+                    selected.appWidgetId?.let(AndroidWidgets::delete)
                     onChange(workspace.withRemovedItem(selected.id))
                     selectedId = null
                 },
@@ -508,6 +560,11 @@ private fun WorkspaceEditor(
                 Icon(Icons.Rounded.Add, null)
                 Spacer(Modifier.width(6.dp))
                 Text(stringResource(R.string.workspaces_add_widget))
+            }
+            OutlinedButton(onClick = onAddAndroidWidget) {
+                Icon(Icons.Rounded.Widgets, null)
+                Spacer(Modifier.width(6.dp))
+                Text(stringResource(R.string.workspaces_add_android_widget))
             }
             OutlinedButton(onClick = {
                 onPickApp(AppPickerRequest(
@@ -642,6 +699,8 @@ private fun ItemInspector(
     item: WorkspaceItem,
     appLabels: Map<String, String>,
     onResize: (Int, Int) -> Unit,
+    otherWorkspaces: List<Workspace>,
+    onMoveTo: (String) -> Unit,
     onRemove: () -> Unit,
     onPickApp: (Boolean) -> Unit,
 ) {
@@ -675,9 +734,27 @@ private fun ItemInspector(
             Text("${item.rect.rowSpan}", style = MaterialTheme.typography.bodyLarge)
             IconButton(onClick = { onResize(0, 1) }, enabled = item.rect.row + item.rect.rowSpan < WORKSPACE_ROWS) { Icon(Icons.Rounded.Add, null) }
         }
+        if (item.kind == WorkspaceItemKind.ANDROID_WIDGET) {
+            Text(stringResource(R.string.widget_remove_frees_id), style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             if (item.kind == WorkspaceItemKind.APP || item.kind == WorkspaceItemKind.PANE) {
                 TextButton(onClick = { onPickApp(false) }) { Text(stringResource(R.string.workspaces_change_app)) }
+            }
+            if (otherWorkspaces.isNotEmpty()) {
+                var moveMenu by remember { mutableStateOf(false) }
+                Box {
+                    TextButton(onClick = { moveMenu = true }) { Text(stringResource(R.string.workspaces_move_to)) }
+                    DropdownMenu(expanded = moveMenu, onDismissRequest = { moveMenu = false }) {
+                        otherWorkspaces.forEach { target ->
+                            DropdownMenuItem(
+                                text = { Text(target.name) },
+                                onClick = { moveMenu = false; onMoveTo(target.id) },
+                            )
+                        }
+                    }
+                }
             }
             TextButton(onClick = onRemove) {
                 Icon(Icons.Rounded.Delete, null, tint = MaterialTheme.colorScheme.error)
@@ -758,4 +835,16 @@ private fun itemLabel(item: WorkspaceItem, appLabels: Map<String, String>): Stri
         val app = item.appId?.let { appLabels[it] ?: it }
         if (app != null) "$base · $app" else base
     } ?: "?"
+    WorkspaceItemKind.ANDROID_WIDGET -> {
+        val ctx = LocalContext.current
+        val provider = remember(item.appWidgetProvider) {
+            item.appWidgetProvider?.let { runCatching { android.content.ComponentName.unflattenFromString(it) }.getOrNull() }
+        }
+        val app = remember(provider) {
+            provider?.packageName?.let { pkg ->
+                runCatching { ctx.packageManager.getApplicationLabel(ctx.packageManager.getApplicationInfo(pkg, 0)).toString() }.getOrNull()
+            }
+        }
+        if (app != null) stringResource(R.string.workspaces_android_widget_named, app) else stringResource(R.string.workspaces_android_widget)
+    }
 }

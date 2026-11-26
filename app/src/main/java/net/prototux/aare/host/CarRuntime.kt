@@ -37,6 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import net.prototux.aare.widgets.AndroidWidgets
 import net.prototux.aare.ui.theme.OverMap
 import net.prototux.aare.DiagLog
 import net.prototux.aare.R
@@ -99,6 +100,7 @@ import net.prototux.aare.ui.theme.CarControlSize
 import net.prototux.aare.ui.theme.CarTextSize
 import net.prototux.aare.ui.theme.CarTheme
 import net.prototux.aare.ui.theme.CarThemes
+import net.prototux.aare.ui.theme.DockIconTone
 import net.prototux.aare.ui.theme.LocalCarControlScale
 import net.prototux.aare.ui.theme.forPhone
 import net.prototux.aare.ui.theme.withAccent
@@ -446,6 +448,11 @@ class CarRuntime(
         ui.textScale = CarTextSize.byId(settings.carTextSize).fontScale
         ui.controlScale = CarControlSize.byId(settings.carControlSize).scale
         ui.darkBar = settings.darkBar
+        ui.dockMonochrome = settings.dockMonochrome
+        ui.dockToneLight = DockIconTone.byId(settings.dockToneLight) ?: DockIconTone.DARK_GREY
+        ui.dockToneDark = DockIconTone.byId(settings.dockToneDark) ?: DockIconTone.WHITE
+        ui.alwaysShowHome = settings.alwaysShowHomeButton
+        ui.alwaysShowAppDash = settings.alwaysShowAppDashButton
         ui.dashboardCards = DashCard.parse(settings.dashboardCards)
         ui.dashboardMapBig = settings.dashboardMapBig
         ui.weatherInBar = settings.showWeather
@@ -499,7 +506,8 @@ class CarRuntime(
     private val settingsListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         when (key) {
             "car_theme", "rail_position", "style_theme", "style_layout", "style_accent", "dark_bar", "dashboard_cards", "dashboard_map_big", "show_weather", "car_chrome", "ignore_driving",
-            "car_text_size", "car_control_size", "night_source", "assistant_stop", "assistant_button", "rail_apps", "compact_rail", "rail_spacing", "rail_widgets", "split_screen" -> main.post { applyScreenSettings() }
+            "car_text_size", "car_control_size", "night_source", "assistant_stop", "assistant_button", "rail_apps", "compact_rail", "rail_spacing", "rail_widgets", "split_screen",
+            "dock_monochrome", "dock_tone_light", "dock_tone_dark", "always_show_home", "always_show_app_dash" -> main.post { applyScreenSettings() }
             "wallpaper" -> main.post { ui.wallpaper = ""; applyScreenSettings() }
             "workspaces" -> main.post { reloadWorkspaces() }
             // Apps shown or hidden from the phone: update the car's app list now.
@@ -512,7 +520,11 @@ class CarRuntime(
     // ------------------------------------------------------------------ apps
 
     private val packageReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) = refreshApps()
+        override fun onReceive(context: Context, intent: Intent) {
+            // A widget provider can come and go with its app: let the workspaces re-read theirs.
+            ui.appWidgetRevision++
+            refreshApps()
+        }
     }
 
     /** A calendar app's icon shows today's date (dynamicCalendarIcon): redrawn when the clock or the time zone changes. */
@@ -542,10 +554,15 @@ class CarRuntime(
         CarNotificationListener.rebind(context)
         applyScreenSettings()
         reloadWorkspaces()
+        // Android App Widgets: the host listens while the car screen is up (and only then, so no
+        // update traffic runs in the background), and releases ids no workspace holds any more.
+        ui.preview = !primary
+        AndroidWidgets.begin(context, carScreen = primary)
+        AndroidWidgets.reconcile(AndroidWidgets.referencedIds(ui.workspaceConfig.workspaces.flatMap { it.items }))
         settings.registerListener(settingsListener)
         refreshApps()
         context.registerReceiver(packageReceiver, IntentFilter().apply {
-            addAction(Intent.ACTION_PACKAGE_ADDED); addAction(Intent.ACTION_PACKAGE_REMOVED); addAction(Intent.ACTION_PACKAGE_CHANGED)
+            addAction(Intent.ACTION_PACKAGE_ADDED); addAction(Intent.ACTION_PACKAGE_REMOVED); addAction(Intent.ACTION_PACKAGE_CHANGED); addAction(Intent.ACTION_PACKAGE_REPLACED)
             addDataScheme("package")
         })
         context.registerReceiver(dateReceiver, IntentFilter().apply {
@@ -596,6 +613,7 @@ class CarRuntime(
         playbackGuard.release()
         lightSensor?.stop()
         lightSensor = null
+        AndroidWidgets.end(carScreen = primary)
         connections.values.forEach { it.release() }
         connections.clear()
         finished.clear()
@@ -1269,7 +1287,7 @@ class CarRuntime(
                             CarAppKind.BROWSER -> BrowserScreen(this, ui.drivingRestricted, settings.browserUrl, mod)
                             CarAppKind.CAR_DATA -> CarDataScreen(mod)
                             CarAppKind.HOME -> HomeScreen(ui.home, actions, mod)
-                            CarAppKind.OBD -> net.prototux.aare.ui.car.obd.ObdAppScreen(mod, ui.drivingRestricted, location = { carLocation })
+                            CarAppKind.OBD -> net.prototux.aare.ui.car.obd.ObdAppScreen(mod)
                             CarAppKind.PHONE -> PhoneScreen(this, mod)
                             CarAppKind.SETTINGS -> CarSettingsScreen(settings, mod)
                             CarAppKind.NOTIFICATIONS -> NotificationsScreen(ui, mod)

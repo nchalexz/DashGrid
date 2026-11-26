@@ -24,6 +24,25 @@ object ObdReader {
 
     data class Status(val state: State, val adapter: String = "", val detail: String = "")
 
+    /** One probe question and what came back (null: refused or silent). */
+    data class VagAnswer(val query: Vag.Query, val bytes: IntArray?)
+
+    /** The VAG probe: whether it's running, and the answers of the last run. */
+    data class Probe(val running: Boolean = false, val answers: List<VagAnswer> = emptyList())
+
+    private val _probe = MutableStateFlow(Probe())
+    /** The last VAG probe, for the settings page; see [requestProbe]. */
+    val probe: StateFlow<Probe> = _probe
+
+    @Volatile private var probeWanted = false
+    @Volatile private var scanWanted = false
+
+    /** Asks the reader to run the VAG probe once, on the adapter it holds. Safe from any thread. */
+    fun requestProbe() { probeWanted = true }
+
+    /** Asks for the identifier scan ([Vag.SCANS]) instead of the short list. */
+    fun requestScan() { scanWanted = true }
+
     private val _readings = MutableStateFlow<ObdReadings?>(null)
     /** The latest readings; null when not reading. */
     val readings: StateFlow<ObdReadings?> = _readings
@@ -51,6 +70,8 @@ object ObdReader {
     private const val RATE_LOG_MS = 60_000L
     /** At most this often to the screen (10 a second). */
     private const val SCREEN_MS = 100L
+    /** How often the UDS values ([Vag.signals]) are read, in rounds: a couple of seconds apart. */
+    private const val VAG_ROUNDS = 20
 
     @Volatile private var generation = 0
     @Volatile private var link: ObdLink? = null
@@ -119,6 +140,9 @@ object ObdReader {
                 log("OBD2: ${x.name} connected, ${supported.size} PIDs${if (fast) ", engine module only" else ", all modules"}")
                 status(State.CONNECTED, x.name, g = g)
                 val poller = ObdPoller(x, supported)
+                val vagValues = HashMap<Vag.Signal, Float>()
+                // The pretend adapter answers the demo identifiers, so the whole UDS path can be tried.
+                val vagSignals = if (simulated) Vag.demoSignals else Vag.signals
                 var shown = 0L
                 // The reading rate goes to the log once a minute (and a minute after connecting).
                 var rateFrom = System.currentTimeMillis(); var roundsFrom = 0; var questionsFrom = 0L; var rounds = 0
@@ -126,6 +150,16 @@ object ObdReader {
                     val start = System.currentTimeMillis()
                     val r = poller.readRound()
                     rounds++
+                    if (vagSignals.isNotEmpty() && rounds % VAG_ROUNDS == 0) readVag(x, fast, vagValues, vagSignals)
+                    val withVag = if (vagValues.isEmpty()) r else r.copy(vag = vagValues.toMap())
+                    if (probeWanted && alive(g)) {
+                        probeWanted = false
+                        runProbe(x, fast, g)
+                    }
+                    if (scanWanted && alive(g)) {
+                        scanWanted = false
+                        runScan(x, fast, g)
+                    }
                     if (start - rateFrom >= RATE_LOG_MS) {
                         val secs = (start - rateFrom) / 1000f
                         val q = poller.questions - questionsFrom
@@ -133,9 +167,9 @@ object ObdReader {
                         rateFrom = start; roundsFrom = rounds; questionsFrom = poller.questions
                     }
                     val now = System.currentTimeMillis()
-                    if (alive(g)) roundListener?.onRound(r, now, simulated)
+                    if (alive(g)) roundListener?.onRound(withVag, now, simulated)
                     (MIN_ROUND_MS - (now - start)).takeIf { it > 0 }?.let(::sleep)
-                    if (now - shown >= SCREEN_MS && alive(g)) { shown = now; _readings.value = r }
+                    if (now - shown >= SCREEN_MS && alive(g)) { shown = now; _readings.value = withVag }
                 }
             } catch (e: IOException) {
                 // Closed by stop() is not an error.
@@ -146,6 +180,61 @@ object ObdReader {
             }
             if (alive(g)) sleep(5_000)
         }
+    }
+
+    /**
+     * Reads the [Vag.signals] table, one module header at a time: a few slow values every couple of
+     * seconds. The standard PIDs' header is put back afterwards.
+     */
+    private fun readVag(x: ObdLink, engineOnly: Boolean, into: MutableMap<Vag.Signal, Float>, signals: List<Vag.Signal>) {
+        for ((header, group) in signals.groupBy { it.header }) {
+            x.send("ATSH" + header, 1_000)
+            for (s in group) {
+                val bytes = Vag.parse(x.send("22%04X".format(s.did), 800), s.did) ?: continue
+                Vag.decode(s, bytes)?.let { into[s] = it }
+            }
+        }
+        x.send(if (engineOnly) "ATSH7E0" else Elm327.ALL_MODULES, 1_000)
+    }
+
+    /**
+     * Asks each [Vag.candidates] question on [x] and keeps the answers. Runs on the reader's
+     * thread, between rounds: the other readings pause for the probe's few questions. The header
+     * is put back afterwards, so the poller's standard PIDs keep going to the engine module.
+     */
+    private fun runProbe(x: ObdLink, engineOnly: Boolean, g: Int) {
+        _probe.value = Probe(running = true, answers = _probe.value.answers)
+        val answers = Vag.candidates.map { q ->
+            x.send("ATSH" + q.header, 1_500)
+            val answer = x.send("22%04X".format(q.did), 1_500)
+            VagAnswer(q, Vag.parse(answer, q.did))
+        }
+        x.send(if (engineOnly) "ATSH7E0" else Elm327.ALL_MODULES, 1_500)
+        for (a in answers) {
+            log("VAG ${a.query.header} ${"%04X".format(a.query.did)} ${a.query.name}: " + (a.bytes?.let(Vag::hex) ?: "no answer"))
+        }
+        if (alive(g)) _probe.value = Probe(running = false, answers = answers)
+    }
+
+    /**
+     * Walks the identifier ranges in [Vag.SCANS] (engine and gearbox measured values) and
+     * keeps the ones that answer. This is how an unknown value's identifier is found (exhaust gas
+     * temperature, injector corrections): the answers go to the log, where the numbers can be
+     * matched to what the car is doing.
+     */
+    private fun runScan(x: ObdLink, engineOnly: Boolean, g: Int) {
+        _probe.value = Probe(running = true, answers = emptyList())
+        val answers = ArrayList<VagAnswer>()
+        for (scan in Vag.SCANS) {
+            x.send("ATSH" + scan.header, 1_500)
+            for (did in scan.from..scan.to) {
+                val bytes = Vag.parse(x.send("22%04X".format(did), 400), did) ?: continue
+                answers += VagAnswer(Vag.Query(scan.header, did, "%04X".format(did)), bytes)
+            }
+        }
+        x.send(if (engineOnly) "ATSH7E0" else Elm327.ALL_MODULES, 1_500)
+        for (a in answers.take(120)) log("VAG scan ${a.query.header} ${a.query.name}: ${a.bytes?.let(Vag::hex)}")
+        if (alive(g)) _probe.value = Probe(running = false, answers = answers)
     }
 
     private fun connect(context: Context): ObdLink? {

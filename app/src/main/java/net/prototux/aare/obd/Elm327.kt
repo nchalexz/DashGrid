@@ -167,6 +167,13 @@ data class ObdReadings(
     val pedal: Float? = null,
     /** Engine oil, °C. */
     val oil: Float? = null,
+    /** Exhaust gas temperatures, °C (bank 1, sensors 1 and 2), where the car reports them. */
+    val egt1: Float? = null,
+    val egt2: Float? = null,
+    /** Common-rail pressure, kPa. */
+    val railKpa: Float? = null,
+    /** Values read over UDS from the [Vag.signals] table, by signal. */
+    val vag: Map<Vag.Signal, Float> = emptyMap(),
 )
 
 /** The ELM327 language and the standard mode 01 formulas. */
@@ -200,11 +207,16 @@ object Elm327 {
     const val PEDAL = 0x49
     const val OIL = 0x5C
     const val FUEL_RATE = 0x5E
+    /** Diesel and turbo cars often report the exhaust gas temperatures here (bank 1, sensors 1 and 2). */
+    const val EGT1 = 0x78
+    const val EGT2 = 0x79
+    /** Common-rail pressure, kPa. */
+    const val RAIL = 0x23
 
     /** What we read: fast ones every round, medium and slow ones one at a time in turn (see [ObdPoller]). */
     val FAST = listOf(RPM, SPEED, MANIFOLD)
     val MEDIUM = listOf(MAF, FUEL_RATE, LOAD, PEDAL, THROTTLE)
-    val READ = listOf(LOAD, COOLANT, MANIFOLD, RPM, SPEED, MAF, THROTTLE, INTAKE_AIR, FUEL, BAROMETRIC, BATTERY, OUTSIDE, PEDAL, ETHANOL, OIL, FUEL_RATE)
+    val READ = listOf(LOAD, COOLANT, MANIFOLD, RPM, SPEED, MAF, THROTTLE, INTAKE_AIR, FUEL, BAROMETRIC, BATTERY, OUTSIDE, PEDAL, ETHANOL, OIL, FUEL_RATE, RAIL, EGT1, EGT2)
 
     /** Prepares the adapter and finds which PIDs the car has (empty: the car didn't answer, ignition off). */
     fun prepare(link: ObdLink): Set<Int> {
@@ -213,6 +225,7 @@ object Elm327 {
             0x00 to link.send("0100", 10_000),
             0x20 to link.send("0120", 4_000),
             0x40 to link.send("0140", 4_000),
+            0x60 to link.send("0160", 4_000),
         )
         return supported(maps)
     }
@@ -243,7 +256,7 @@ object Elm327 {
 
     /** The standard formulas; null for a cut answer. */
     fun value(pid: Int, b: IntArray): Float? {
-        if ((pid == RPM || pid == BATTERY || pid == MAF || pid == FUEL_RATE) && b.size < 2) return null
+        if ((pid == RPM || pid == BATTERY || pid == MAF || pid == FUEL_RATE || pid == RAIL || pid == EGT1 || pid == EGT2) && b.size < 2) return null
         if (b.isEmpty()) return null
         val a = b[0].toFloat()
         val ab = if (b.size >= 2) a * 256f + b[1] else a
@@ -255,6 +268,8 @@ object Elm327 {
             BATTERY -> ab / 1000f
             MAF -> if (b.size < 2) null else ab / 100f
             FUEL_RATE -> if (b.size < 2) null else ab / 20f
+            RAIL -> ab * 10f // kPa
+            EGT1, EGT2 -> ab / 10f - 40f
             else -> null
         }
     }
@@ -342,6 +357,9 @@ class ObdPoller(private val link: ObdLink, supported: Set<Int>) {
             throttle = values[Elm327.THROTTLE],
             pedal = values[Elm327.PEDAL],
             oil = values[Elm327.OIL],
+            egt1 = values[Elm327.EGT1],
+            egt2 = values[Elm327.EGT2],
+            railKpa = values[Elm327.RAIL],
         )
     }
 

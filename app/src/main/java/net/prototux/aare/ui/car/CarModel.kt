@@ -14,6 +14,7 @@ import net.prototux.aare.car.NextEvent
 import net.prototux.aare.car.Weather
 import net.prototux.aare.notify.PhoneGuidance
 import net.prototux.aare.ui.theme.AareTheme
+import net.prototux.aare.ui.theme.DockIconTone
 import net.prototux.aare.workspace.Workspace
 import net.prototux.aare.workspace.WorkspaceConfig
 
@@ -150,6 +151,17 @@ class CarUiState {
     var driverOnRight by mutableStateOf(false)
     /** The rail stays dark even with day colors (a setting). */
     var darkBar by mutableStateOf(false)
+    /** The dock's app icons are drawn as monochrome grayscale (a setting). */
+    var dockMonochrome by mutableStateOf(false)
+    /** The grayscale tone for day colours and for night colours (settings, DockIconTone ids). */
+    var dockToneLight by mutableStateOf(DockIconTone.DARK_GREY)
+    var dockToneDark by mutableStateOf(DockIconTone.WHITE)
+    /** A Home button that stays in the dock on every screen (a setting). */
+    var alwaysShowHome by mutableStateOf(false)
+    /** An App Dash (app grid) button that stays in the dock on every screen (a setting). */
+    var alwaysShowAppDash by mutableStateOf(false)
+    /** Bumped when Android App Widgets are added, removed or their provider changes: the UI redraws them. */
+    var appWidgetRevision by mutableIntStateOf(0)
     /** The rail's status widgets, in order (a setting). */
     var railWidgets by mutableStateOf(RailWidget.DEFAULT)
     /** The rail's chosen apps, in order (a setting; empty = the rail's built-in set). */
@@ -172,6 +184,8 @@ class CarUiState {
     var weatherInBar by mutableStateOf(true)
     /** The clock, phone signal and battery the bar shows: not those the car draws itself (and a setting). */
     var chrome by mutableStateOf(CarChrome.ALL)
+    /** The phone's preview of the car screen (not a real projection): a widget on the car isn't shown twice. */
+    var preview by mutableStateOf(false)
     /** The theme (a setting, with the phone's accent colours if asked). */
     var theme by mutableStateOf(AareTheme)
     /** Where things go: a taskbar and dashboard, or a dock and app pages (a setting). */
@@ -291,6 +305,14 @@ fun CarUiState.workspaceApp(ref: String?): CarAppEntry? {
 /** The app a message from [packageName] opens: its conversations where the car screen has them, else any app of it. */
 fun messageApp(apps: List<CarAppEntry>, packageName: String): CarAppEntry? =
     apps.filter { it.packageName == packageName }.let { own -> own.firstOrNull { it.kind == CarAppKind.MESSAGING } ?: own.firstOrNull() }
+
+/**
+ * Whether the dock still draws AARE's single switching button (Apps on a workspace, Home anywhere
+ * else). Each fixed button replaces the switching one only when it would repeat that button's
+ * action on this screen, so the two settings never make the dock show one action twice.
+ */
+fun dockShowsCombinedButton(onWorkspace: Boolean, alwaysShowHome: Boolean, alwaysShowAppDash: Boolean): Boolean =
+    if (onWorkspace) !alwaysShowAppDash else !alwaysShowHome
 
 /** The standard space between the rail's apps, in dp: tighter on a [compact] rail, wider on a [bottom] bar. */
 fun railGapDp(compact: Boolean, bottom: Boolean): Int = (if (compact) 6 else 8) + (if (bottom) 4 else 0)

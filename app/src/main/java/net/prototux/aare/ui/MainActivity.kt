@@ -1109,6 +1109,8 @@ private fun CarScreenSettings(settings: Settings, refresh: Int) {
             Spacer(Modifier.height(12.dp))
             Choices(stringResource(R.string.setup_choice_control_size), sizeOptions, controlSize) { controlSize = it; settings.carControlSize = it }
         }
+        DockAppearanceSettings(settings)
+        Spacer(Modifier.height(16.dp))
         Section(stringResource(R.string.setup_section_dashboard)) {
             Select(stringResource(R.string.setup_choice_wallpaper), listOf("none" to stringResource(R.string.setup_wallpaper_none)) + WALLPAPER_NAMES.map { it to it.replaceFirstChar(Char::uppercase) } +
                 listOf(Settings.WALLPAPER_CUSTOM to stringResource(R.string.setup_wallpaper_photo)), wallpaper) { choice ->

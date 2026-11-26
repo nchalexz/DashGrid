@@ -1121,4 +1121,52 @@
     <string name="calibration_car_target">Touch the centre of target %1$d</string>
     <string name="calibration_car_target_retry">Touch target %1$d again</string>
     <string name="calibration_car_verify">Touch the green target to keep this calibration (%1$d s)</string>
+
+    <!-- Dock appearance: monochrome icons and their tones. -->
+    <string name="setup_section_dock">Dock icons</string>
+    <string name="dock_monochrome_title">Monochrome dock icons</string>
+    <string name="dock_monochrome_subtitle">Draws the dock\'s app icons as grayscale, by their own brightness, so shapes and details stay readable. Icons elsewhere (the app grid, the workspaces) keep their colours.</string>
+    <string name="dock_tone_light_title">Icon tone in light colours</string>
+    <string name="dock_tone_dark_title">Icon tone in dark colours</string>
+    <string name="dock_tone_white">White</string>
+    <string name="dock_tone_grey">Grey</string>
+    <string name="dock_tone_dark_grey">Dark grey</string>
+    <string name="dock_tone_black">Black</string>
+    <string name="dock_tone_preview_light">Light theme</string>
+    <string name="dock_tone_preview_dark">Dark theme</string>
+    <string name="dock_tone_preview_hint">Real icons from this phone, drawn with each tone. The tone is a brightness range, not a fill: the logo and its details stay.</string>
+    <string name="dock_tone_no_icons">No app icons to preview on this phone yet.</string>
+
+    <!-- Dock navigation buttons. -->
+    <string name="setup_section_navigation">Navigation buttons</string>
+    <string name="dock_always_home_title">Always show the Home button</string>
+    <string name="dock_always_home_subtitle">Keeps a Home button in the dock on every workspace and inside every app, at a fixed place, instead of letting it come and go with the recent apps. Its action is unchanged: it returns to the workspace you left.</string>
+    <string name="dock_always_app_dash_title">Always show the App Dash button</string>
+    <string name="dock_always_app_dash_subtitle">Keeps an App Dash button (the app grid) in the dock at a fixed place, on every workspace and inside every app. Its action is unchanged: it opens the grid.</string>
+    <string name="dock_home_action">Home</string>
+    <string name="dock_apps_action">App Dash</string>
+
+    <!-- Android App Widgets on workspaces. -->
+    <string name="workspaces_add_android_widget">Android widget</string>
+    <string name="workspaces_android_widget">Android widget</string>
+    <string name="workspaces_android_widget_named">Android widget: %1$s</string>
+    <string name="widget_picker_title">Choose an Android widget</string>
+    <string name="widget_picker_hint">Standard App Widgets of the apps installed on this phone, drawn live in the cells. The list isn\'t limited to a fixed set. Some widgets ask for permission or open their settings on the phone first.</string>
+    <string name="widget_picker_empty">No Android widgets are installed on this phone.</string>
+    <string name="widget_provider_size">From %1$d × %2$d dp</string>
+    <string name="widget_provider_resizable">resizable</string>
+    <string name="widget_provider_fixed">fixed size</string>
+    <string name="widget_allocate_failed">Android didn\'t give a widget id: nothing was added.</string>
+    <string name="widget_bind_failed">The widget wasn\'t allowed: nothing was added.</string>
+    <string name="widget_configure_cancelled">Widget setup was cancelled: nothing was added.</string>
+    <string name="widget_configure_failed">The widget\'s setup couldn\'t be opened: nothing was added.</string>
+    <string name="widget_no_space">No room on this workspace for the widget: make space or use a roomier layout.</string>
+    <string name="widget_unavailable">Widget unavailable</string>
+    <string name="widget_unavailable_hint">Its provider app was removed or its binding was lost. Remove it here and add it again.</string>
+    <string name="widget_inactive">Widget is on another workspace</string>
+    <string name="widget_duplicate_dropped">App widgets were not copied: a workspace copy can\'t share one bound widget. Add them again here.</string>
+    <string name="widget_remove_frees_id">Removing the item releases its widget id.</string>
+    <string name="workspaces_move_to">Move to another workspace</string>
+    <string name="widget_on_car_screen">Widget is on the car screen</string>
+    <string name="workspaces_move_duplicate">That item is already on this workspace</string>
 </resources>

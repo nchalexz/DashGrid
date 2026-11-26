@@ -13,6 +13,9 @@ class Elm327Test {
         assertEquals(92f, Elm327.value(Elm327.COOLANT, intArrayOf(132))!!, 0.01f)
         assertEquals(14.1f, Elm327.value(Elm327.BATTERY, intArrayOf(0x37, 0x14))!!, 0.01f)
         assertEquals(100f, Elm327.value(Elm327.FUEL, intArrayOf(255))!!, 0.01f)
+        // 3400 / 10 - 40 = 300 °C; 3500 × 10 = 35000 kPa of rail pressure.
+        assertEquals(300f, Elm327.value(Elm327.EGT1, intArrayOf(0x0D, 0x48))!!, 0.01f)
+        assertEquals(35_000f, Elm327.value(Elm327.RAIL, intArrayOf(0x0D, 0xAC))!!, 0.01f)
         assertNull("a cut rpm answer is no number", Elm327.value(Elm327.RPM, intArrayOf(0x1F)))
     }
 

@@ -3,6 +3,7 @@
 <resources>
     <string name="obd_app_label">Cockpit</string>
     <string name="obd_tab_dash">Dashboard</string>
+    <string name="obd_tab_values">Values</string>
     <string name="obd_tab_trip">Trip</string>
     <string name="obd_tab_history">History</string>
     <string name="obd_tab_settings">Settings</string>
@@ -10,11 +11,25 @@
     <string name="obd_waiting">Waiting for the adapter…</string>
 
     <string name="obd_gear">Gear</string>
+    <string name="obd_manifold">Intake pressure</string>
+    <string name="obd_baro">Atmospheric</string>
+    <string name="obd_throttle">Throttle</string>
+    <string name="obd_maf">Air flow</string>
+    <string name="obd_fuel_rate">Fuel rate</string>
+    <string name="obd_rail">Rail pressure</string>
+    <string name="obd_egt1">Exhaust 1</string>
+    <string name="obd_egt2">Exhaust 2</string>
     <string name="obd_oil">Oil</string>
     <string name="obd_fuel_use">Fuel use</string>
     <string name="obd_pedal">Pedal</string>
     <string name="obd_peak">peak %1$s</string>
     <string name="obd_unit_kmpl">km/L</string>
+    <string name="obd_kmh">km/h</string>
+    <string name="obd_rpm_unit">rpm</string>
+    <string name="obd_percent">%</string>
+    <string name="obd_bar">bar</string>
+    <string name="obd_deg_c">°C</string>
+    <string name="obd_volt">V</string>
 
     <string name="obd_trip_distance">Distance</string>
     <string name="obd_trip_time">Time</string>
@@ -30,6 +45,24 @@
     <string name="obd_history_clear">Clear history</string>
     <string name="obd_history_clear_confirm">Tap again to clear</string>
 
+    <string name="obd_set_profile">Car</string>
+    <string name="obd_group_engine">Engine</string>
+    <string name="obd_group_temps">Temperatures</string>
+    <string name="obd_group_fuel">Fuel</string>
+    <string name="obd_group_gearbox">Gearbox</string>
+    <string name="obd_vag_gearbox_oil">Gearbox oil</string>
+    <string name="obd_vag_injector1">Injector 1</string>
+    <string name="obd_vag_egt3">Exhaust 3</string>
+    <string name="obd_set_vag">VAG probe (UDS)</string>
+    <string name="obd_vag_probe">Probe</string>
+    <string name="obd_vag_again">Again</string>
+    <string name="obd_vag_running">Probing…</string>
+    <string name="obd_vag_show">Results</string>
+    <string name="obd_vag_scan">Scan 11xx</string>
+    <string name="obd_vag_none">No answers.</string>
+    <string name="obd_vag_hint">Reads the VAG identifiers this car answers (UDS service 22). Read-only: nothing is written or cleared.</string>
+    <string name="obd_profile_generic">Generic</string>
+    <string name="obd_profile_golf7_cuna">Golf 7 2.0 TDI (CUNA) · DQ381</string>
     <string name="obd_set_engine">Second gauge</string>
     <string name="obd_set_engine_auto">Automatic</string>
     <string name="obd_set_engine_turbo">Turbo (boost)</string>
@@ -47,6 +80,8 @@
     <string name="obd_coolant_short">Coolant</string>
     <string name="obd_dash_card">Car</string>
     <string name="obd_set_card">Car card (dashboard)</string>
+    <string name="obd_set_card_tiles">Card tiles (app pane)</string>
+    <string name="obd_set_card_tiles_hint">Tap values in the order they should appear, up to 5. They make the compact card the Cockpit shows in an app pane.</string>
     <string name="obd_set_card_pick">Choose</string>
     <string name="obd_set_card_hint">Tap the values in the order you want, up to %1$d. They show on the dashboard\'s Car card.</string>
     <string name="obd_done">Done</string>

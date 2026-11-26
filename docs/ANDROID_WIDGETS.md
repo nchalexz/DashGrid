@@ -6,6 +6,9 @@ buttons work, and a scrollable widget scrolls. It is not a screenshot and it is 
 
 This document describes how it works, what it can and cannot do, and how to add one.
 
+Glance widgets are ordinary `AppWidgetProvider`s publishing `RemoteViews`, so they are hosted the
+same way: no Glance dependency is added to DashGrid and none is needed.
+
 ## 1. Architecture
 
 ```

@@ -18,19 +18,29 @@ class WorkspaceStore(
     private val settings: Settings,
     /** The first workspace's name when the old dashboard is migrated (localized by the caller). */
     private val migratedName: String = "Home",
+    /** The preinstalled VPM cockpit workspace's name (localized by the caller). */
+    private val carPresetName: String = "Car",
 ) {
 
     /** The saved configuration, migrated from the old dashboard on first use. */
     fun load(): WorkspaceConfig {
         val raw = settings.workspacesJson
-        WorkspaceJson.decode(raw)?.let { return it }
+        val decoded = WorkspaceJson.decode(raw)
+        if (decoded != null) return decoded.withCarPreset(carPresetName).also { offerCarPreset(decoded, it) }
         if (!raw.isNullOrBlank()) {
             Log.w(TAG, "saved workspaces can't be read (${raw.length} chars); keeping a copy under workspaces_broken")
             settings.workspacesBrokenJson = raw
         }
-        val migrated = migrateOldDashboard()
+        val migrated = migrateOldDashboard().withCarPreset(carPresetName)
         save(migrated)
         return migrated
+    }
+
+    /** Saves [next] when [current] didn't already have the preinstalled VPM cockpit workspace. */
+    private fun offerCarPreset(current: WorkspaceConfig, next: WorkspaceConfig) {
+        if (next == current) return
+        save(next)
+        Log.i(TAG, "added the preinstalled Car workspace (${VPM_COCKPIT_WIDGET_ID})")
     }
 
     /** Writes [config]; [WorkspaceConfig.version] goes with it. */

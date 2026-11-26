@@ -103,7 +103,7 @@ The phone editor (`ui/WorkspaceSettings.kt`) uses the same `WorkspaceStore` and
 - `WorkspaceItem.kind` is `app` (a shortcut; `app` holds an entry id such as `phone`, or a package
   name for a Car App Library app), `pane` (the app's own UI rendered into the cells), `widget`
   (`widget` is a `DashCard` id: `map`, `media`, `calendar`, `notification`,
-  `weather`, `home`, `car`) or `android_widget` (a standard Android App Widget, with
+  `weather`, `home`, `car`, `vpm`) or `android_widget` (a standard Android App Widget, with
   `appWidgetId` and `appWidgetProvider`).
 - `WorkspaceItem.appId` on a `map` or `media` widget is optional: it pins that widget to an app;
   without it the widget follows the car's active navigation/media app.
@@ -174,6 +174,14 @@ does; the app's own controls consume their taps first and keep working. Widgets 
 dashboard composables (`NavCard`, `MediaCard`, `CalendarAgendaCard`, `WeatherCard`,
 `HomeCard`, `LatestNotification`, `ObdDashCard`) inside the same `Card`. Empty widgets show a calm
 placeholder rather than collapsing the grid, so positions stay stable.
+
+One built-in widget is different: `vpm` is DashGrid's **own VAG Performance Monitor cockpit**. It
+draws VPM 0.4.1's gauges, tiles and category grid in Compose and fills its page; it neither hosts
+VPM's window nor starts VPM's activity, so it needs no Shizuku and no root. Its data is one
+read-only ContentProvider call (`vpm/VpmBridge`, contract v1), made every 500 ms only while its page
+is current; VPM keeps the only ELM327 connection and DashGrid's OBD stack is not touched. The states
+(missing app, missing bridge, no data, demo, live, stale) are a pure mapping with unit tests. Details
+in [docs/VPM.md](docs/VPM.md).
 
 ### 2.4 Surfaces: the one thing that isn't just Compose
 

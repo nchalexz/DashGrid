@@ -1,128 +1,149 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/social-preview.png" width="100%" alt="DashGrid 1.1.1 — Swipe. Arrange. Drive.">
+  <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/social-preview.png" width="100%" alt="DashGrid 1.2.0 — the VPM cockpit">
 </p>
 
-<h1 align="center">DashGrid 1.1.1</h1>
+<h1 align="center">DashGrid 1.2.0</h1>
 
 <p align="center">
-  <strong>Swipe. Arrange. Drive.</strong><br>
-  26 November 2026
+  <strong>TEST RELEASE — the VPM cockpit, drawn by DashGrid.</strong><br>
+  27 November 2026
 </p>
 
-DashGrid 1.1.1 is a design patch: a new **minimalist launcher icon** and a README that names the
-four things the app gives you. There are **no functional changes** — workspaces, live panes,
-Android app widgets, the dock and the Cockpit are the same as 1.1.0.
+> [!WARNING]
+> **This is a test release, not a stable one.** It is published as a GitHub pre-release so it can be
+> installed and checked, not as a daily driver. The VPM cockpit cannot show live values until VPM
+> ships its read-only bridge, nothing here is verified on a real head unit, and compatibility is
+> still open (see [Limits](#limits)).
 
-In this release: [Icon](#icon) · [README](#readme) · [Install](#install) ·
-[Verification](#verification)
+DashGrid 1.2.0 adds the first native cockpit: a preinstalled **Car** workspace with **VAG
+Performance Monitor**'s three gauges, five tiles and category grid, drawn by DashGrid itself. VPM
+stays the only owner of the ELM327 adapter; DashGrid opens no OBD connection and needs no root or
+Shizuku.
+
+In this release: [Cockpit](#cockpit) · [Car workspace](#car-workspace) · [Data](#data-from-vpm) ·
+[Install](#install) · [Verification](#verification) · [Limits](#limits)
 
 > [!IMPORTANT]
-> This release is **standalone only**. The APK defines `android.car.permission.TEMPLATE_RENDERER`
-> itself, so **AARE must be uninstalled first**. Removing AARE also removes its settings.
+> **Live values need a VPM with the read-only bridge.** VPM 0.4.1 exports no telemetry snapshot, so
+> today the Car workspace shows a calm “VPM is installed, but this version doesn't share telemetry”
+> card with **Update VPM** and **Open on the phone** instead of gauges. The exact VPM-side task is in
+> [docs/VPM_BRIDGE_PROMPT.md](https://github.com/nchalexz/DashGrid/blob/main/docs/VPM_BRIDGE_PROMPT.md);
+> when VPM ships it, this DashGrid build reads it without an update.
+
+## Cockpit
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.1.1/DashGrid-standalone-v1.1.1.apk"><img alt="Download DashGrid 1.1.1" src="https://img.shields.io/badge/Download_APK-v1.1.1-36D6C3?style=for-the-badge&labelColor=101418"></a>
+  <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/vpm-cockpit-main-1920x720.png" width="100%" alt="Three gauges and five tiles with DEMO values at 1920 by 720">
 </p>
-
-## Icon
+<p align="center"><sub>1920 × 720: coolant, boost and oil over speed, revs, gear, fuel use and fuel.
+A render of the running app on an emulator with VPM's own mock values — not a head-unit capture.</sub></p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="128" alt="DashGrid 1.1.1 launcher icon">
+  <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/vpm-cockpit-categories-1920x720.png" width="100%" alt="The category screen with six tabs and a two-row grid">
 </p>
+<p align="center"><sub>The extended screen: the same gauges smaller, the six category tabs and the
+adaptive grid. A gauge tap opens the tab of its category.</sub></p>
 
-The new mark is one workspace in a 70/30 layout: a tall turquoise pane on the left and two muted
-panes stacked on the right. **Three shapes, no frame, no paging dots and no side pages.** It keeps
-the graphite-and-turquoise identity and stays readable at 48 px.
+The composition is VPM 0.4.1's, not an approximation:
 
-- The adaptive foreground and monochrome layers are updated for Android's themed icons.
-- Every legacy square and round PNG (48–192 px) is regenerated.
-- The 512 px store icon, the social preview and [DESIGN.md](https://github.com/nchalexz/DashGrid/blob/main/DESIGN.md)
-  describe the same mark.
-- The APK's `mipmap-xxxhdpi/ic_launcher.png` is byte-identical to the source file.
+- three gauges with VPM's geometry — 0.44R disc, 0.78R value, 0.54R unit, 0.73R pictogram, 1.15R
+  name, 60 ticks, 135°/270° scale, the bright arc and the red zone;
+- five tiles, two-row category grid, Engine / Temperatures / Fuel / Gearbox / Turbo / Diagnostics;
+- VPM's night and day tokens, Titillium Web and its comma number style;
+- the **DEMO** pill stays, so VPM's demo values are never mistaken for a car;
+- VPM's own service row (catalog, settings, close) is not duplicated: the rail and dock are
+  DashGrid's, and the gauges get the height that row would take.
 
-## README
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/vpm-cockpit-main-1280x480.png" width="100%" alt="The same cockpit at 1280 by 480">
+</p>
+<p align="center"><sub>1280 × 480: the gauges shrink, the five tiles stay on one row.</sub></p>
 
-The README now follows the same standard as the other projects: a full-width banner, six
-flat-square badges, and the same section order from **What this is** to **License**. Its tagline
-states the four core features:
+## Car workspace
 
-> As many screens as you want, a 10 × 6 grid, live apps in their panes and any Android app widget.
+- A workspace with the fixed id `workspace-car`, named **Car** (`Автомобиль`), added once to a
+  configuration written before version 2.
+- A deleted Car workspace does not come back; existing names, items, the default and the last-shown
+  workspace are not touched.
+- One built-in widget (`vpm`) fills the 10 × 6 grid. The editor can add the same cockpit elsewhere;
+  the existing OBD `car` widget and the OBD app are unchanged and remain a separate product.
+- The widget is a new kind of built-in card, not an app shortcut and not a live pane: it needs no
+  Shizuku and no root.
 
-That is the whole feature summary: unlimited workspaces, a 10 × 6 grid, live apps inside their
-panes, and standard Android app widgets hosted in the cells. No functional change was needed for
-any of them.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/vpm-car-workspace-no-bridge-1920x720.png" width="100%" alt="The Car workspace explaining that this VPM has no telemetry bridge">
+</p>
+<p align="center"><sub>What VPM 0.4.1 shows today: the workspace is there, the card explains the
+missing bridge and offers the two next steps.</sub></p>
+
+## Data from VPM
+
+DashGrid reads one read-only ContentProvider call, nothing else:
+
+| Item | Value |
+|---|---|
+| Authority | `io.github.nchalexz.aaperfmon.telemetry` |
+| Permission | `io.github.nchalexz.aaperfmon.permission.READ_TELEMETRY` (`normal`) |
+| Call | `call("snapshot", null, null)` |
+| Contract version | `1` |
+
+The snapshot carries the link state, VPM's status line, `updatedAt` and up to 128 signals: id, label,
+formatted value, unit, numeric display value, stale flag, warning flag and category. The array is
+grouped by VPM's display category and keeps VPM's order; a signal VPM shows under two tabs appears
+once per tab. Only the visible page polls (500 ms), and a bridge problem is logged once, not five
+times a second.
+
+VPM stays the only owner of the adapter. DashGrid polls no PID, starts no service and opens no
+second ELM327 connection. The Cockpit's built-in OBD stack is untouched.
 
 ## Install
 
 Download
-[DashGrid-standalone-v1.1.1.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.1.1/DashGrid-standalone-v1.1.1.apk),
-then:
+[DashGrid-standalone-v1.2.0.apk](https://github.com/nchalexz/DashGrid/releases/download/dashgrid-v1.2.0/DashGrid-standalone-v1.2.0.apk),
+then install it with `adb install -r` or by opening the file.
 
-```sh
-adb uninstall net.prototux.aare   # only if AARE is installed
-adb install -r DashGrid-standalone-v1.1.1.apk
+```text
+19,707,760 bytes
+SHA-256  ee4e228afa6a94d2d4fbee1122237c8f359e221e0bdaed8208dfd4d34c939546  DashGrid-standalone-v1.2.0.apk
+certificate SHA-256: 4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5
 ```
 
-| | |
-|:--|:--|
-| **Package** | `io.dashgrid.app` |
-| **Version** | 1.1.1 (version code 10101) |
-| **Minimum Android** | 6.0 (API 23) |
-| **Size** | 19 MB |
-| **SHA-256** | `d9e5d2a09e0c2ab1b2c718af0b3588cad72fa1960ac1e8285b34304304eacd9d` |
-| **Signing key** | `CN=DashGrid` |
-| **Certificate SHA-256** | `4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5` |
+> [!IMPORTANT]
+> This release is **standalone only**. The APK defines `android.car.permission.TEMPLATE_RENDERER`
+> itself, so **AARE must be uninstalled first**. That also removes AARE's settings. DashGrid updates
+> use the same key and install over the old build.
 
-```sh
-shasum -a 256 DashGrid-standalone-v1.1.1.apk
-# d9e5d2a09e0c2ab1b2c718af0b3588cad72fa1960ac1e8285b34304304eacd9d
-```
-
-**Upgrading from 1.1.0:** install over the old version; the package name, application ID, signing
-key and version code order are unchanged, so settings and workspaces stay in place.
-
-**Coming from AARE:** uninstall AARE first. Its settings are removed with it and do not carry over.
+Requirements: Android 6.0 or newer, USB or wireless Android Auto, no Google Mobile Services.
+**No new runtime permission is requested.** The cockpit declares VPM's normal read-only permission;
+until VPM defines it, the declaration is inert.
 
 ## Verification
 
-- **1,162 unit tests pass**: `app` 918, `aap` 219, `headunit` 25.
-- The release build compiles and passes `lintVital`.
-- The APK is signed with `CN=DashGrid`; the certificate fingerprint is above.
-- The icon inside the APK is byte-identical to
-  `app/src/main/res/mipmap-xxxhdpi/ic_launcher.png`.
-- **No car, phone or emulator was available for this build.** The 1.1.0 hardware caveat still
-  applies: the widget host, dock tones and third-party icons are not confirmed on a real screen.
-  See [TESTING.md](https://github.com/nchalexz/DashGrid/blob/main/TESTING.md).
+- 1,191 JVM tests (947 app, 219 `aap`, 25 `headunit`), 0 failures.
+- `assembleDebug`, `assembleStandalone` and `lintVital` pass.
+- The Car workspace and the cockpit were run on an Android 15 emulator at 1920 × 720 and
+  1280 × 480: fresh install → Home + Car, the 100 % cockpit page, the no-bridge card, both cockpit
+  screens, the swipe, a tab tap and a gauge tap opening its category.
+- The cockpit was drawn with VPM's own mock values by a debug-only preview activity; the release APK
+  does not contain it.
+- No OBD/ELM327 attempt appears in the log while the cockpit is open.
+- Not verified: a real VPM with the bridge, a real ELM327 or car, a real head unit, EMUI 14+.
 
-## Known limitations
+## Limits
 
-1.1.1 changes no runtime code, so the 1.1.0 limitations are unchanged:
-
-- One live map surface per connection; inactive workspaces show a placeholder.
-- One live view per bound Android widget id; the phone preview shows a placeholder while a real car
-  session is connected.
-- A widget button whose action is an activity `PendingIntent` may open on the phone or be refused by
-  Android's background-activity rules.
-- Third-party dock icon tones follow each icon's own artwork, so they can read differently from app
-  to app.
-- The published build does not check for updates itself; new releases are installed by hand.
-
-The complete list is in the
-[README](https://github.com/nchalexz/DashGrid#limitations).
+- **Live values wait for VPM.** VPM 0.4.1 has no bridge; the cockpit shows the update card until a
+  VPM release adds the read-only provider. DashGrid then needs no update.
+- **No hardware verification.** 1.2.0 has not been run on a head unit, a phone in a car or EMUI; the
+  emulator captures are not compatibility proof.
+- **Head-unit quirks remain AARE's.** `vehicles.json` still handles cars that need a different
+  protocol.
+- **One live map surface and one Android widget view per bound id**, as before.
 
 ## Documentation
 
-- [README](https://github.com/nchalexz/DashGrid#readme)
-- [Architecture](https://github.com/nchalexz/DashGrid/blob/main/ARCHITECTURE.md)
-- [Android app widgets](https://github.com/nchalexz/DashGrid/blob/main/docs/ANDROID_WIDGETS.md)
-- [Test report](https://github.com/nchalexz/DashGrid/blob/main/TESTING.md)
-- [Full changelog](https://github.com/nchalexz/DashGrid/blob/main/CHANGELOG.md)
-- [All changes since 1.1.0](https://github.com/nchalexz/DashGrid/compare/dashgrid-v1.1.0...dashgrid-v1.1.1)
-
-## Thank you
-
-DashGrid is a fork of [AARE](https://github.com/prototux/AARE). The connection, transport, audio
-and app hosting are AARE's work; the workspaces, editor, dock, Cockpit and this icon are DashGrid's.
-
-AARE is GPL-3.0-or-later; DashGrid keeps that licence. This is a fork, not an official AARE
-release.
+- [VPM cockpit](https://github.com/nchalexz/DashGrid/blob/main/docs/VPM.md) — screens, contract,
+  states, checks and files.
+- [VPM bridge task](https://github.com/nchalexz/DashGrid/blob/main/docs/VPM_BRIDGE_PROMPT.md) — the
+  provider VPM must add.
+- [README](https://github.com/nchalexz/DashGrid/blob/main/README.md) · [CHANGELOG](https://github.com/nchalexz/DashGrid/blob/main/CHANGELOG.md) ·
+  [TESTING](https://github.com/nchalexz/DashGrid/blob/main/TESTING.md).

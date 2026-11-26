@@ -24,11 +24,17 @@ jobs:
           version="${GITHUB_REF_NAME#dashgrid-v}"
           standalone="dist/DashGrid-standalone-v${version}.apk"
           test -f "$standalone" || { echo "missing $standalone" >&2; exit 1; }
+          # A tag whose APK has a .prerelease marker beside it is published as a GitHub pre-release
+          # (a test build), not as the latest stable release.
+          prerelease=""
+          if [ -f "${standalone}.prerelease" ]; then prerelease="--prerelease"; fi
+          title="DashGrid ${version}"
+          if [ -n "$prerelease" ]; then title="DashGrid ${version} (test release)"; fi
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release edit "$GITHUB_REF_NAME" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
+            gh release edit "$GITHUB_REF_NAME" --title "$title" --notes-file RELEASE_NOTES.md $prerelease
             gh release upload "$GITHUB_REF_NAME" "$standalone" --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$standalone" --title "DashGrid ${version}" --notes-file RELEASE_NOTES.md
+            gh release create "$GITHUB_REF_NAME" "$standalone" --title "$title" --notes-file RELEASE_NOTES.md $prerelease
           fi
           # This release publishes only the standalone APK; drop a side-by-side asset if an older
           # run of this workflow uploaded one.

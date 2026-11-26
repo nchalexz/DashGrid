@@ -310,6 +310,7 @@ class WorkspaceModelTest {
         assertEquals(listOf("map", "media", "calendar", "notification"), ws.items.map { it.widgetId })
         assertEquals(migrated.workspaces.single().id, migrated.defaultId)
         assertEquals(migrated.workspaces.single().id, migrated.lastId)
+        assertEquals(1, migrated.version)
         ws.items.forEach { assertTrue(it.rect.isInsideGrid()) }
     }
 
@@ -330,11 +331,59 @@ class WorkspaceModelTest {
     @Test
     fun defaultConfigHasAUsableMapAndMediaSplit() {
         val config = WorkspaceConfig.default()
-        val ws = config.workspaces.single()
+        val ws = config.workspaces.first { it.name == "Home" }
         assertEquals(WorkspaceLayout.SPLIT_70_30, ws.layout)
         assertEquals(listOf("map", "media"), ws.items.map { it.widgetId })
         assertEquals(7, ws.items.first().rect.colSpan)
         assertNotNull(config.startWorkspace())
+        assertEquals(WorkspaceConfig.VERSION, config.version)
+        assertTrue(config.workspaces.any { it.id == CAR_WORKSPACE_ID })
+    }
+
+    // ---------------------------------------------------------------- preinstalled Car workspace
+
+    @Test
+    fun carPresetIsAddedOnceAndKeepsTheOldWorkspaces() {
+        val old = migrateDashboard(listOf("map", "media"))
+        assertEquals(1, old.workspaces.size)
+        val once = old.withCarPreset("Car")
+        assertEquals(2, once.workspaces.size)
+        assertEquals(WorkspaceConfig.VERSION, once.version)
+        assertEquals(old.workspaces.single().id, once.workspaces.first().id)
+        assertEquals(listOf("map", "media"), once.workspaces.first().items.map { it.widgetId })
+        assertEquals(CAR_WORKSPACE_ID, once.workspaces.last().id)
+        assertEquals(once, once.withCarPreset("Автомобиль"))
+        assertEquals("Car", once.workspaces.last().name)
+    }
+
+    @Test
+    fun carPresetIsAFullScreenVpmCockpit() {
+        val ws = Workspace.carPreset("Автомобиль")
+        assertEquals(WorkspaceLayout.FULL, ws.layout)
+        assertEquals(WORKSPACE_COLUMNS, ws.items.single().rect.colSpan)
+        assertEquals(WORKSPACE_ROWS, ws.items.single().rect.rowSpan)
+        assertEquals(WorkspaceItemKind.WIDGET, ws.items.single().kind)
+        assertEquals(VPM_COCKPIT_WIDGET_ID, ws.items.single().widgetId)
+        assertNull(ws.items.single().appId)
+        assertEquals(CAR_VPM_ITEM_ID, ws.items.single().id)
+    }
+
+    @Test
+    fun deletingTheCarPresetKeepsItDeleted() {
+        val config = WorkspaceConfig.default()
+        val without = config.without(CAR_WORKSPACE_ID)!!
+        assertEquals(1, without.workspaces.size)
+        assertEquals(without, without.withCarPreset())
+    }
+
+    @Test
+    fun carPresetRoundTripsThroughJsonAndIsNotDuplicated() {
+        val once = migrateDashboard(listOf("map")).withCarPreset()
+        val decoded = WorkspaceJson.decode(WorkspaceJson.encode(once))!!
+        assertEquals(WorkspaceConfig.VERSION, decoded.version)
+        assertEquals(2, decoded.workspaces.size)
+        assertEquals(decoded, decoded.withCarPreset())
+        assertEquals(VPM_COCKPIT_WIDGET_ID, decoded.workspaces.last().items.single().widgetId)
     }
 
     @Test

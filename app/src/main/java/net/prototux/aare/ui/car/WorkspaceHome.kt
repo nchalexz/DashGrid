@@ -61,6 +61,7 @@ import net.prototux.aare.R
 import net.prototux.aare.car.NextEvent
 import net.prototux.aare.obdapp.ObdApp
 import net.prototux.aare.ui.car.obd.ObdDashCard
+import net.prototux.aare.ui.car.vpm.VpmCockpit
 import net.prototux.aare.workspace.WORKSPACE_COLUMNS
 import net.prototux.aare.workspace.WORKSPACE_ROWS
 import net.prototux.aare.workspace.VIRTUAL_PAGE_COUNT
@@ -374,6 +375,9 @@ private fun WorkspaceWidget(
                 }
             }
         }
+        // The preset "Car" workspace: DashGrid draws VPM's cockpit itself, from VPM's read-only
+        // snapshot. Separate from the built-in OBD widget above, which stays DashGrid's own.
+        "vpm" -> VpmCockpit(active, Modifier.fillMaxSize())
         else -> WidgetPlaceholder(Icons.Rounded.Widgets, stringResource(R.string.workspace_widget_unavailable), null)
     }
 }

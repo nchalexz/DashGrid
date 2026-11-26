@@ -13,6 +13,20 @@ const val MIN_ITEM_COLUMNS = 1
 const val MIN_ITEM_ROWS = 1
 
 /**
+ * The preinstalled workspace that shows VAG Performance Monitor (VPM) as a native DashGrid cockpit.
+ *
+ * The id is fixed: an update adds the workspace once, and a second load must find the same one
+ * instead of adding a copy. The item is a built-in widget (`vpm`), not another app's pane: DashGrid
+ * draws the cockpit itself and reads VPM's read-only telemetry snapshot, so VPM stays the only
+ * owner of the ELM327 adapter.
+ */
+const val CAR_WORKSPACE_ID = "workspace-car"
+const val CAR_VPM_ITEM_ID = "workspace-car-vpm"
+
+/** The widget id of DashGrid's own VPM cockpit (see `ui/car/vpm`). */
+const val VPM_COCKPIT_WIDGET_ID = "vpm"
+
+/**
  * How a workspace arranges its items. Each preset has a fixed number of slots; [CUSTOM] stores
  * every item's own [WorkspaceRect]. Applying a preset never drops an item: with more items than
  * slots the preset doesn't fit and [Workspace.withLayout] returns null.
@@ -175,6 +189,24 @@ data class Workspace(
     companion object {
         fun create(name: String, layout: WorkspaceLayout = WorkspaceLayout.SPLIT_70_30): Workspace =
             Workspace(id = UUID.randomUUID().toString(), name = name.trim().ifBlank { "Workspace" }, layout = layout)
+
+        /**
+         * The preinstalled "Car" workspace: the full-screen [VPM_COCKPIT_WIDGET_ID] widget. Its ids
+         * are fixed, so adding it is idempotent and a test can name the item.
+         */
+        fun carPreset(name: String = "Car"): Workspace = Workspace(
+            id = CAR_WORKSPACE_ID,
+            name = name.trim().ifBlank { "Car" },
+            layout = WorkspaceLayout.FULL,
+            items = listOf(
+                WorkspaceItem(
+                    id = CAR_VPM_ITEM_ID,
+                    kind = WorkspaceItemKind.WIDGET,
+                    rect = WorkspaceRect.full(),
+                    widgetId = VPM_COCKPIT_WIDGET_ID,
+                ),
+            ),
+        )
     }
 
     /** The app ids this workspace already has as shortcuts or as a widget's app. */
@@ -335,10 +367,20 @@ data class WorkspaceConfig(
     fun withLast(id: String?): WorkspaceConfig =
         if (id == null || workspace(id) != null) copy(lastId = id) else this
 
-    companion object {
-        const val VERSION = 1
+    /** This config with the preinstalled "Car" workspace (VPM cockpit), added exactly once. */
+    fun withCarPreset(name: String = "Car"): WorkspaceConfig {
+        // The version is the marker: a config at VERSION has already been offered the preset, so
+        // deleting the workspace must not bring it back on the next load.
+        if (version >= VERSION) return this
+        val added = if (workspaces.any { it.id == CAR_WORKSPACE_ID }) this else withAdded(Workspace.carPreset(name))
+        return added.copy(version = VERSION)
+    }
 
-        /** What an install with no saved config starts with: one workspace, the map and the music. */
+    companion object {
+        /** Version 2 introduced the preinstalled "Car" workspace (the VPM cockpit). */
+        const val VERSION = 2
+
+        /** What an install with no saved config starts with: Home (map and music) and Car (VPM). */
         fun default(): WorkspaceConfig {
             val workspace = Workspace(
                 id = UUID.randomUUID().toString(),
@@ -350,7 +392,8 @@ data class WorkspaceConfig(
                     WorkspaceItem.widget("media", WorkspaceRect(7, 0, 3, 6)),
                 ),
             )
-            return WorkspaceConfig(workspaces = listOf(workspace), defaultId = workspace.id, lastId = workspace.id)
+            val car = Workspace.carPreset()
+            return WorkspaceConfig(workspaces = listOf(workspace, car), defaultId = workspace.id, lastId = workspace.id)
         }
 
         /** An empty config, for a runtime that hasn't loaded the settings yet. */
@@ -522,7 +565,9 @@ object WorkspaceJson {
     fun decode(text: String?): WorkspaceConfig? {
         if (text.isNullOrBlank()) return null
         val root = runCatching { JSONObject(text) }.getOrNull() ?: return null
-        val version = root.optInt("version", WorkspaceConfig.VERSION).coerceAtLeast(1)
+        // A config written before the field existed is treated as pre-VPM (version 1), so the
+        // preinstalled Car workspace is offered to it too.
+        val version = root.optInt("version", 1).coerceAtLeast(1)
         val array = root.optJSONArray("workspaces") ?: return null
         val workspaces = ArrayList<Workspace>(array.length())
         for (i in 0 until array.length()) {
@@ -669,5 +714,11 @@ fun migrateDashboard(widgetIds: List<String>, name: String = "Home"): WorkspaceC
         layout = layout,
         items = items,
     )
-    return WorkspaceConfig(workspaces = listOf(workspace), defaultId = workspace.id, lastId = workspace.id)
+    // Version 1 is the pre-VPM-cockpit config: WorkspaceStore then offers the "Car" preset once.
+    return WorkspaceConfig(
+        workspaces = listOf(workspace),
+        defaultId = workspace.id,
+        lastId = workspace.id,
+        version = 1,
+    )
 }

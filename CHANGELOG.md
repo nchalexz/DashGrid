@@ -4,6 +4,44 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.2.0 — the VPM cockpit (test release)
+
+### Workspaces
+
+- **A preinstalled "Car" workspace** with the fixed id `workspace-car` and one full-screen built-in
+  widget, `vpm`. The preset is added once to a configuration written before version 2; a deleted Car
+  workspace does not come back, and existing names, items, the default and the last-shown workspace
+  are not changed.
+- **A native VPM cockpit.** DashGrid draws VAG Performance Monitor's 0.4.1 composition itself: three
+  gauges (coolant, boost, oil) and five tiles (speed, revs, gear, fuel use, fuel), plus the
+  extended screen with the Engine / Temperatures / Fuel / Gearbox / Turbo / Diagnostics tabs and its
+  adaptive grid. The gauge geometry, the ring pair, the progress arc, the red zone, the 60 ticks, the
+  night and day tokens and Titillium Web follow VPM's own sources; the DEMO pill stays.
+- The cockpit reads **VPM's read-only telemetry snapshot** (`content://…aaperfmon.telemetry`,
+  contract v1). VPM keeps the only ELM327 connection: DashGrid opens no OBD connection, polls no
+  PID, needs no root and no Shizuku, and only asks for a snapshot while the Car page is on screen.
+- VPM missing, VPM without the bridge, no data yet, demo, live, a stale value and a refused read are
+  six distinct, unit-tested states. None of them is a drawn zero or a black square; the two missing
+  cases offer **Install** or **Update VPM** / **Open on the phone**.
+- The existing built-in OBD `car` widget and the OBD app are untouched: the VPM cockpit is a new
+  widget id, not a replacement of DashGrid's own OBD stack.
+- `<uses-permission …READ_TELEMETRY>` and a `<queries>` entry name VPM in the manifest.
+- A debug-only `VpmPreviewActivity` renders the cockpit with VPM's mock values for emulator checks;
+  it is not in a release build.
+
+### Documentation
+
+- [docs/VPM.md](docs/VPM.md) describes the preset, the two screens, the contract, the states, the
+  emulator checks and the honest limits. README, its limitation list and its documentation table
+  point there.
+- [docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md) is the VPM-side task for the read-only
+  provider; VPM 0.4.1 has none, so live values wait for that release.
+
+### Tests
+
+- 947 app tests, 219 `aap` tests and 25 `headunit` tests, all green; `lintVital` on the release
+  build; Paparazzi renders of the cockpit at 1920 × 720 and 1280 × 480.
+
 ## 1.1.1 — the minimalist icon
 
 ### Design

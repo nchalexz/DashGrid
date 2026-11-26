@@ -88,6 +88,18 @@
     <uses-feature android:name="android.hardware.wifi" android:required="false" />
     <uses-feature android:name="android.software.companion_device_setup" android:required="false" />
 
+    <!-- The preinstalled "Car" workspace reads VAG Performance Monitor's read-only telemetry
+         snapshot; VPM defines this normal permission and declares the provider. The uses-permission
+         is inert until VPM is installed with the bridge. -->
+    <uses-permission android:name="io.github.nchalexz.aaperfmon.permission.READ_TELEMETRY" />
+
+    <!-- The preset cockpit names VPM to check whether it is installed and to offer its releases
+         page. QUERY_ALL_PACKAGES already covers this; the explicit entry keeps the cockpit's
+         placeholder working on a build that drops that permission. -->
+    <queries>
+        <package android:name="io.github.nchalexz.aaperfmon" />
+    </queries>
+
     <application
         android:name=".AareApp"
         android:allowBackup="false"

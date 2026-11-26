@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- DEBUG ONLY: the cockpit preview on the real car display (VpmPreviewActivity). -->
+    <application>
+        <activity
+            android:name=".vpm.VpmPreviewActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:theme="@style/Theme.Aare" />
+    </application>
+</manifest>

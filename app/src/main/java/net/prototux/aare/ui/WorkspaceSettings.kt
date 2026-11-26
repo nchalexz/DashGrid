@@ -46,6 +46,7 @@ import androidx.compose.material.icons.rounded.MusicNote
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.Remove
+import androidx.compose.material.icons.rounded.Speed
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material.icons.rounded.Widgets
@@ -126,7 +127,13 @@ internal fun WorkspacesSettings(
     initialConfig: WorkspaceConfig? = null,
 ) {
     val ctx = LocalContext.current
-    val store = remember(settings) { WorkspaceStore(settings, ctx.getString(R.string.workspaces_default_home)) }
+    val store = remember(settings) {
+        WorkspaceStore(
+            settings,
+            ctx.getString(R.string.workspaces_default_home),
+            ctx.getString(R.string.vpm_car_workspace),
+        )
+    }
     var config by remember(store, initialConfig) { mutableStateOf(initialConfig ?: store.load()) }
     var editingId by rememberSaveable { mutableStateOf(initialEditingId) }
     var deleteId by remember { mutableStateOf<String?>(null) }
@@ -790,7 +797,7 @@ private val splitLayouts = setOf(
 )
 
 /** The dashboard widgets a workspace can hold. */
-private val widgetIds = listOf("map", "media", "calendar", "notification", "weather", "home", "car")
+private val widgetIds = listOf("map", "media", "calendar", "notification", "weather", "home", "car", "vpm")
 
 private fun widgetLabel(id: String): Int = when (id) {
     "map" -> R.string.dash_card_map
@@ -800,6 +807,7 @@ private fun widgetLabel(id: String): Int = when (id) {
     "weather" -> R.string.dash_card_weather
     "home" -> R.string.dash_card_home
     "car" -> R.string.obd_dash_card
+    "vpm" -> R.string.dash_card_vpm
     else -> R.string.workspaces_widget_unavailable
 }
 
@@ -811,6 +819,7 @@ private fun widgetIcon(id: String): ImageVector = when (id) {
     "weather" -> Icons.Rounded.Cloud
     "home" -> Icons.Rounded.Home
     "car" -> Icons.Rounded.DirectionsCar
+    "vpm" -> Icons.Rounded.Speed
     else -> Icons.Rounded.Widgets
 }
 

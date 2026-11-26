@@ -1,0 +1,1 @@
+New preinstalled Car workspace with DashGrid's native VPM cockpit: three gauges, five tiles and the category grid, drawn by DashGrid from VPM's read-only snapshot. VPM keeps the only OBD connection; no root needed. Live values appear once VPM ships its read-only bridge.

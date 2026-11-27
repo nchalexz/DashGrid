@@ -78,7 +78,7 @@ fun VpmMainScreen(
         } else {
             (maxHeight * 0.26f).coerceIn(62.dp, 110.dp)
         }
-        Column(Modifier.fillMaxSize().padding(start = 10.dp, end = 10.dp, top = 4.dp, bottom = 6.dp)) {
+        Column(Modifier.fillMaxSize().padding(start = 10.dp, end = 10.dp, top = 4.dp, bottom = 10.dp)) {
             VpmGaugePanel(
                 snapshot = snapshot,
                 onGauge = onGauge,
@@ -446,6 +446,7 @@ fun VpmSourcePill(snapshot: VpmSnapshot?, modifier: Modifier = Modifier) {
                 fontSize = 9.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f, fill = false),
             )
         }
     }

@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- VAG oil: oil can with a drop, not a barrel. -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3,12.4a2.2,2.2 0 0 1 2.2,-2.2h7.6a2.2,2.2 0 0 1 2.2,2.2v4.6a2.2,2.2 0 0 1 -2.2,2.2h-7.6a2.2,2.2 0 0 1 -2.2,-2.2z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.9"
+        android:strokeLineCap="round"
+        android:pathData="M14.2,11.4L21.2,5.6" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M5.1,10.2V8.4a2,2 0 0 1 2,-2h3.1" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M21.2,2.4c1.5,1.9 1.5,3.4 0,4.5c-1.5,-1.1 -1.5,-2.6 0,-4.5z" />
+</vector>

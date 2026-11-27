@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="docs/screenshots/social-preview.png" width="100%" alt="DashGrid — Swipe. Arrange. Drive. The VPM cockpit on an Android Auto screen.">
+  <img src="docs/screenshots/social-preview.png" width="100%" alt="DashGrid — Swipe. Arrange. Drive. A workspace home screen for Android Auto.">
 </p>
 
 <p align="center">
-  <a href="https://github.com/nchalexz/DashGrid/releases"><img alt="Version 1.3.1" src="https://img.shields.io/badge/version-1.3.1-36D6C3?style=flat-square"></a>
+  <a href="https://github.com/nchalexz/DashGrid/releases"><img alt="Version 1.3.2" src="https://img.shields.io/badge/version-1.3.2-36D6C3?style=flat-square"></a>
   <a href="LICENSE"><img alt="License GPL-3.0-or-later" src="https://img.shields.io/badge/license-GPL--3.0--or--later-38BDF8?style=flat-square"></a>
   <a href="#install"><img alt="Android 6.0+" src="https://img.shields.io/badge/Android-6.0%2B-3DDC84?style=flat-square&logo=android&logoColor=white"></a>
   <a href="gradle/libs.versions.toml"><img alt="Kotlin 2.4" src="https://img.shields.io/badge/Kotlin-2.4-7F52FF?style=flat-square&logo=kotlin&logoColor=white"></a>
@@ -12,9 +12,13 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/nchalexz/DashGrid/releases/latest"><img alt="Download the latest stable release" src="https://img.shields.io/badge/Download-latest%20stable-36D6C3?style=for-the-badge&logo=android&logoColor=white"></a>
+</p>
+
+<p align="center">
   <strong>A workspace home screen for Android Auto.</strong><br>
-  As many screens as you want, a 10 × 6 grid, live apps in their panes, any Android app widget —
-  and the VPM cockpit. No root, no GMS, no account.
+  As many screens as you want, a 10 × 6 grid, live apps in their panes and any Android app widget.
+  No root, no GMS, no account.
 </p>
 
 <p align="center">
@@ -30,20 +34,12 @@
 </p>
 
 > [!WARNING]
-> **1.3.1 is a fix for the emulator, not verified on a car.**
-> It is built, unit-tested and lint-checked. 1.3.1 is a patch on 1.3.0: the widget picker offers only
-> the VPM cockpit, and a saved workspace that still holds AARe's OBD cockpit widget is migrated to
-> the VPM cockpit on load. The VPM cockpit itself was run with VPM 0.5.0 on an Android 15 emulator at
-> 1920 × 720 and 1280 × 480. It has **not been run on a real head unit, a phone in a car or EMUI**,
-> and no ELM327 adapter or vehicle was available: the values shown are VPM's demo values, not live
-> sensor readings. The details are in [What is tested](#what-is-tested-what-is-not).
-
-> [!NOTE]
-> **1.3.2 is prepared locally and not released.** It aligns the Car cockpit with VPM 0.6.2: the
-> gauges are coolant / absolute boost / oil, the tiles are DSG / intake / EGT / voltage / rail, and a
-> stale value stays a number instead of a dash. Version 1.3.2 / `versionCode 10302` is built and
-> installed, but not tagged or published; the install section below still describes 1.3.1. See
-> [CHANGELOG.md](CHANGELOG.md) and [docs/VPM.md](docs/VPM.md).
+> **1.3.2 is checked on a real phone and a car, not on a head unit.**
+> It is built, unit-tested and lint-checked. The Car cockpit was run with VPM 0.6.2 on a Huawei
+> ALT-L29 over a Bluetooth ELM327, in demo and live: values, all six tabs and the five tiles in one
+> row were exercised. It has **not been run on a real head unit or EMUI's car screen**; the
+> car-screen pictures are phone previews, not head-unit captures. See
+> [What is tested](#what-is-tested-what-is-not).
 
 ## What this is
 
@@ -106,44 +102,47 @@ the same app hosting. The head unit sees a normal Android Auto phone; the car sc
 - Car App Library templates, maps, media apps and launched phone apps are hosted in workspaces.
   There is one live map surface per connection.
 - The car screen is a viewer: workspaces are arranged on the phone, not on the head unit.
-- **Not verified on a real head unit in 1.3.1.** See [What is tested](#what-is-tested-what-is-not).
+- **Not verified on a real head unit in 1.3.2.** See [What is tested](#what-is-tested-what-is-not).
 
 More: [ARCHITECTURE.md](ARCHITECTURE.md) and [TESTING.md](TESTING.md).
 
 ## Cockpit
 
 <p align="center">
-  <img src="docs/screenshots/vpm-cockpit-main-1920x720.png" width="100%" alt="The Car workspace at 1920 × 720: coolant, boost and oil gauges over speed, revs, gear, fuel use and fuel tiles, with VPM's DEMO values">
+  <img src="docs/screenshots/vpm-cockpit-main-1920x720.png" width="100%" alt="The Car workspace at 1920 × 720: coolant, absolute boost and oil gauges over DSG, intake, EGT, battery and rail tiles, with VPM's DEMO values">
 </p>
-<p align="center"><sub>The Car workspace at 1920 × 720: coolant, boost and oil over speed, revs, gear, fuel use and fuel. VPM's demo values from an Android 15 emulator — not a car or a head unit.</sub></p>
+<p align="center"><sub>The Car workspace at 1920 × 720: coolant, absolute boost and oil as gauges; DSG, intake, EGT, voltage and rail as five tiles in one row. VPM's demo values on the phone preview — not a head-unit capture.</sub></p>
 
 The Cockpit is DashGrid's native VAG dashboard, and it **works with VAG Performance Monitor (VPM)**.
 A preinstalled **Car** workspace fills the screen with three gauges, five tiles and a category grid.
 DashGrid draws them itself; VPM supplies the values.
 
-- **VPM 0.5.0+ owns the connection.** VPM (`io.github.nchalexz.aaperfmon`) keeps the only ELM327
+- **VPM 0.6.2 owns the connection.** VPM (`io.github.nchalexz.aaperfmon`) keeps the only ELM327
   and VAG UDS connection. DashGrid reads its read-only `ContentProvider` snapshot and opens no OBD
   connection, starts no VPM service and polls no PID. No root and no Shizuku.
-- **What is on screen.** Coolant, boost and oil as three gauges; speed, revs, gear, fuel use and fuel
-  as five tiles; Engine, Temperatures, Fuel, Gearbox, Turbo and Diagnostics as six tabs. Tapping a
-  gauge opens its category.
-- **DEMO or LIVE, never a guess.** VPM's DEMO pill stays while VPM is in demo; stale values show “—”
-  and the needle fades. With VPM 0.4.1 the Car workspace offers **Update VPM** / **Open on the
-  phone**; without VPM it offers **Install**.
+- **What is on screen.** Coolant, absolute boost and oil as three gauges; DSG oil, intake air,
+  exhaust gas, voltage and rail pressure as five tiles in **one row** from 480 dp wide; Engine,
+  Temperatures, Fuel, Gearbox, Turbo and Diagnostics as six tabs. Tapping a gauge opens its category.
+- **DEMO or LIVE, never a guess.** The DEMO/LIVE pill sits in a thin header above the instruments,
+  so a long adapter status never covers a dial. A stale value stays a number, dimmed and marked;
+  only a never-read value is “—”. With VPM 0.4.1 the Car workspace offers **Update VPM** / **Open on
+  the phone**; without VPM it offers **Install**.
+- **Fast enough for the pedal.** The visible cockpit polls VPM every 100 ms and the needle settles in
+  90 ms. VPM 0.6.2 refreshes MAP at 5 Hz; the adapter and VPM remain the limit, not the Binder call.
 - **Two screen sizes.** 1920 × 720 and 1280 × 480; both rows of the category grid stay readable.
-- **Requirement.** VPM 0.5.0+ installed on the same phone. Android grants the normal
-  `READ_TELEMETRY` permission when DashGrid is installed after VPM; an earlier DashGrid must be
-  updated or reinstalled once.
+- **Requirement.** **VPM 0.6.2** for the composition above; the contract works from 0.5.0. Android
+  grants the normal `READ_TELEMETRY` permission when DashGrid is installed after VPM; an earlier
+  DashGrid must be updated or reinstalled once.
 
 <p align="center">
   <img src="docs/screenshots/vpm-cockpit-categories-1920x720.png" width="100%" alt="The VPM cockpit category grid at 1920 × 720: six tabs and two fully visible rows of values">
 </p>
 <p align="center"><sub>The category grid at 1920 × 720: the same gauges smaller, six tabs and an adaptive two-row grid. A gauge tap opens its tab.</sub></p>
 
-The 1280 × 480 layout and the no-bridge, missing-VPM and stale states are in
-[docs/VPM.md](docs/VPM.md) and [RELEASE_NOTES.md](RELEASE_NOTES.md). The cockpit was verified on an
-Android 15 emulator with VPM 0.5.0's read-only provider and demo values; no real car, ELM327 adapter
-or head unit was available. See [What is tested](#what-is-tested-what-is-not).
+The 1280 × 480 layout, the no-bridge and missing-VPM cards, and the stale rules are in
+[docs/VPM.md](docs/VPM.md) and [RELEASE_NOTES.md](RELEASE_NOTES.md). The cockpit was verified on a
+real Huawei phone with VPM 0.6.2, in demo and live over a Bluetooth ELM327; a real head unit was not
+available. See [What is tested](#what-is-tested-what-is-not).
 
 ## One setup, three surfaces
 
@@ -212,12 +211,12 @@ second surface never opens a second app session or a second widget view.
 
 **Verification**
 
-- 1,193 JVM tests, Paparazzi renders and `lintVital` on the release build.
+- 1,206 JVM tests, Paparazzi renders and `lintVital` on the release build.
 - GitHub Actions runs the tests on every push and pull request.
 
 ## Install
 
-DashGrid 1.3.1 (**stable fix**) publishes **one APK: the standalone build**. It cannot be installed while AARE is
+DashGrid 1.3.2 (**stable**) publishes **one APK: the standalone build**. It cannot be installed while AARE is
 installed. The side-by-side variant is buildable locally but is not attached to the release.
 
 | Build | What is inside | Size |
@@ -226,10 +225,10 @@ installed. The side-by-side variant is buildable locally but is not attached to 
 | `side-by-side` | Local build only; installs next to AARE. | — |
 
 Requirements: Android 6.0 (API 23) or newer, USB or wireless Android Auto, no root, no Google Mobile
-Services. The VPM cockpit needs **VPM 0.5.0+** on the same phone; everything else works without it.
+Services. The VPM cockpit needs **VPM 0.6.2** on the same phone; everything else works without it.
 
 1. If AARE is installed, remove it first — see the note below.
-2. Download `DashGrid-standalone-v1.3.1.apk` from
+2. Download `DashGrid-standalone-v1.3.2.apk` from
    [Releases](https://github.com/nchalexz/DashGrid/releases).
 3. Allow installs from unknown sources if Android asks, then open the file.
 
@@ -237,19 +236,19 @@ Through `adb`:
 
 ```sh
 adb uninstall net.prototux.aare   # only if AARE is installed
-adb install -r DashGrid-standalone-v1.3.1.apk
+adb install -r DashGrid-standalone-v1.3.2.apk
 ```
 
 <details>
 <summary>SHA-256 and signing certificate</summary>
 
 ```text
-24f6679ee5247fb9ca246627a2c99f7d3a224afaba39cf4dc9fcae5ccf7e5570  DashGrid-standalone-v1.3.1.apk
+29168d3344e84c5d22f60440f6aef96980edbf84e42e03aec5464cf115c6f1cd  DashGrid-standalone-v1.3.2.apk
 certificate SHA-256: 4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5
 ```
 
 The APK is signed with `CN=DashGrid`. Check it with
-`apksigner verify --print-certs DashGrid-standalone-v1.3.1.apk`.
+`apksigner verify --print-certs DashGrid-standalone-v1.3.2.apk`.
 
 </details>
 
@@ -285,24 +284,24 @@ The APK is signed with `CN=DashGrid`. Check it with
 | Check | How | Result |
 |---|---|---|
 | Standalone build | `./gradlew dashgridStandaloneApk` | **yes** |
-| 1,193 JVM tests | `./gradlew :aap:test :app:testDebugUnitTest :headunit:test` | **yes** |
+| 1,206 JVM tests | `./gradlew :aap:test :app:testDebugUnitTest :headunit:test` | **yes** |
 | Release lint | `lintVital` | **yes** |
 | Car-screen renders | Paparazzi on the JVM | **yes** |
 | CI | GitHub Actions on push and pull request | **yes** |
 | Phone preview and the Car workspace | Android 15 emulator, 1920 × 720 and 1280 × 480 | **yes** |
-| VPM cockpit with VPM's demo values | emulator, VPM 0.5.0 provider | **yes** |
-| VPM cockpit with VPM 0.5.0 bridge | emulator, `content call` + cockpit | **yes** |
+| VPM cockpit with VPM 0.6.2 | real Huawei phone, demo mode | **yes** |
+| VPM cockpit live values | real phone, Bluetooth ELM327, car | **yes** |
 | VPM 0.4.1 / no VPM cards | emulator, install 0.4.1, uninstall VPM | **yes** |
-| Live values from an ELM327 or a car | real adapter and vehicle | **no** |
+| Live values from an ELM327 or a car | real adapter and vehicle | **yes** |
 | Android widget host on a car screen | real `Presentation` or head unit | **no** |
 | Real head unit, USB or wireless | — | **no** |
 | EMUI 14+ | — | **no** |
 | Third-party icons and dock tones | real icons on a real screen | **no** |
 
 Unit tests, Paparazzi renders and CI are **not** compatibility proof. The cockpit and the Car
-workspace were run on an emulator with VPM 0.5.0's read-only provider; no real car, head unit or
-phone was available, and the provider had no ELM327 adapter, so the values are VPM's demo values.
-The exact checklist and the open points are in [TESTING.md](TESTING.md).
+workspace were run on a real Huawei ALT-L29 with VPM 0.6.2, in demo and live over a Bluetooth
+ELM327 (ELM327 v1.5) in a car; a real head unit and EMUI's car screen were not available. The exact
+checklist and the open points are in [TESTING.md](TESTING.md).
 
 ## Build
 
@@ -324,8 +323,8 @@ echo "sdk.dir=/path/to/android-sdk" > local.properties
 Outputs:
 
 ```text
-app/build/outputs/dashgrid/DashGrid-standalone-v1.3.1.apk
-app/build/outputs/dashgrid/DashGrid-v1.3.1.apk
+app/build/outputs/dashgrid/DashGrid-standalone-v1.3.2.apk
+app/build/outputs/dashgrid/DashGrid-v1.3.2.apk
 ```
 
 Tests:
@@ -388,9 +387,9 @@ widget or Android widget — can occupy any slot.
 
 ## Limitations
 
-- **No hardware verification.** 1.3.1 has not been run on a head unit, a phone in a car or EMUI; the
-  widget host, dock tones, third-party icons and the VPM cockpit are not confirmed on a real screen.
-  The cockpit was checked on an emulator only, with VPM 0.5.0's demo values.
+- **No head-unit verification.** 1.3.2 was run on a real Huawei phone and in a car over a Bluetooth
+  ELM327, but not on a head unit, EMUI's car screen or a real Android Auto session. The widget host,
+  dock tones and third-party icons remain unconfirmed on a real screen.
 - **AARE must go first.** The standalone APK cannot coexist with AARE, and the side-by-side build is
   not published.
 - **One live map surface per connection.** Inactive workspaces show a placeholder.
@@ -400,11 +399,11 @@ widget or Android widget — can occupy any slot.
   on the phone or be refused; broadcast and service actions are unaffected.
 - **Third-party dock icons.** Tones read differently from app to app because they follow each icon's
   own artwork.
-- **The VPM cockpit needs VPM 0.5.0 or newer.** This is the only part of DashGrid that needs VPM:
+- **The VPM cockpit needs VPM 0.6.2.** This is the only part of DashGrid that needs VPM:
   workspaces, live panes and the dock work without it. 0.4.1 exports no telemetry
   snapshot, so the preinstalled Car workspace explains that and offers **Update VPM** / **Open on
   the phone** instead of gauges. Android grants the normal `READ_TELEMETRY` permission when DashGrid is installed after
-  VPM 0.5.0; a DashGrid installed earlier must be updated or reinstalled once. The contract is in
+  VPM; a DashGrid installed earlier must be updated or reinstalled once. The contract is in
   [docs/VPM_BRIDGE_PROMPT.md](docs/VPM_BRIDGE_PROMPT.md).
 - **No in-app update check.** New releases are installed by hand.
 - **Head-unit quirks remain AARE's.** `vehicles.json` still handles cars that need a different
@@ -438,7 +437,7 @@ in [Install](#install). AARE's TLS and certificate handling are unchanged.
 | [`docs/home-actions.md`](docs/home-actions.md) | Home shortcuts and the actions DashGrid exports |
 | [`DESIGN.md`](DESIGN.md) | Palette, icon, typography and car-UI rules |
 | [`TESTING.md`](TESTING.md) | Automated tests, build checks and the open device checklist |
-| [`RELEASE_NOTES.md`](RELEASE_NOTES.md) | What shipped in 1.3.1, with install and limits |
+| [`RELEASE_NOTES.md`](RELEASE_NOTES.md) | What shipped in 1.3.2, with install and limits |
 | [`CHANGELOG.md`](CHANGELOG.md) | Every change relative to AARE 1.6.0 |
 | [`UPSTREAM.md`](UPSTREAM.md) | Base commit, merge process, identifiers that must not change |
 | [`docs/EXTERNAL_THEMES.md`](docs/EXTERNAL_THEMES.md) | Theme-file proposal (not implemented) |

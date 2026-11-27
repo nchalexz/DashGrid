@@ -762,11 +762,14 @@ private fun ItemInspector(
                     }
                 }
             }
-            TextButton(onClick = onRemove) {
-                Icon(Icons.Rounded.Delete, null, tint = MaterialTheme.colorScheme.error)
-                Spacer(Modifier.width(4.dp))
-                Text(stringResource(R.string.workspaces_remove), color = MaterialTheme.colorScheme.error)
-            }
+        }
+        // Deleting a live pane must stay reachable on a narrow phone. When the delete action shared
+        // the row with "Change app" and "Move to", the three buttons overflowed and the red delete
+        // button was clipped off the right edge.
+        TextButton(onClick = onRemove) {
+            Icon(Icons.Rounded.Delete, null, tint = MaterialTheme.colorScheme.error)
+            Spacer(Modifier.width(4.dp))
+            Text(stringResource(R.string.workspaces_remove), color = MaterialTheme.colorScheme.error)
         }
     }
 }

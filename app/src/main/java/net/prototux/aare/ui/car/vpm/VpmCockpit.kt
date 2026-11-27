@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -60,10 +61,10 @@ sealed interface VpmUiState {
 /**
  * How often the cockpit asks VPM for its snapshot while it is the page on screen.
  *
- * VPM refreshes MAP at 5 Hz, so 200 ms does not skip a reading; the old 500 ms
- * added up to half a second of visible lag behind the pedal on the boost gauge.
+ * VPM refreshes MAP at 5 Hz, so 100 ms keeps the sample within one 5 Hz frame:
+ * the old 500 ms added up to half a second of visible lag behind the pedal.
  */
-private const val VPM_POLL_MS = 200L
+private const val VPM_POLL_MS = 100L
 
 /**
  * The bridge's four answers to the four cards the cockpit can show. Kept pure so a unit test can
@@ -149,10 +150,25 @@ fun VpmCockpitView(
         val showCategories = {
             scope.launch { pager.animateScrollToPage(1) }
         }
-        Box(modifier.fillMaxSize().background(colors.background)) {
+        Column(modifier.fillMaxSize().background(colors.background)) {
+            // The source pill used to float over the gauge panel; a live VPM status can be long
+            // ("Bluetooth OBDII · ELM327 v1.5 · 14.3V") and covered the coolant dial. A thin header
+            // keeps the pill and the page dots out of the instruments' way.
+            Row(
+                Modifier.fillMaxWidth().height(28.dp).padding(start = 8.dp, end = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                VpmSourcePill(snapshot, Modifier.weight(1f, fill = false))
+                Spacer(Modifier.weight(1f))
+                VpmPageDots(
+                    current = pager.currentPage,
+                    count = 2,
+                    onSelect = { target -> scope.launch { pager.animateScrollToPage(target) } },
+                )
+            }
             HorizontalPager(
                 state = pager,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.weight(1f).fillMaxWidth(),
                 // The page's own two screens still swipe inside the workspace; DashGrid's pager keeps
                 // its gesture on the empty margin and the bottom dots.
                 key = { it },
@@ -172,13 +188,6 @@ fun VpmCockpitView(
                     )
                 }
             }
-            VpmSourcePill(snapshot, Modifier.align(Alignment.TopStart).padding(start = 8.dp, top = 8.dp))
-            VpmPageDots(
-                current = pager.currentPage,
-                count = 2,
-                onSelect = { target -> scope.launch { pager.animateScrollToPage(target) } },
-                modifier = Modifier.align(Alignment.TopEnd).padding(end = 4.dp, top = 2.dp),
-            )
         }
     }
 }

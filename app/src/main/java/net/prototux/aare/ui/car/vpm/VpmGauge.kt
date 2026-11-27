@@ -18,10 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Cyclone
-import androidx.compose.material.icons.rounded.OilBarrel
-import androidx.compose.material.icons.rounded.Thermostat
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,9 +38,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -121,7 +117,7 @@ fun VpmGauge(
             val target = if (hasValue) reading.fraction ?: lastFraction else lastFraction
             val needle by animateFloatAsState(
                 targetValue = target,
-                animationSpec = tween(durationMillis = 150, easing = LinearEasing),
+                animationSpec = tween(durationMillis = 90, easing = LinearEasing),
                 label = "vpm-needle",
             )
             val needleAlpha by animateFloatAsState(
@@ -162,7 +158,7 @@ fun VpmGauge(
                 }
                 gaugeIcon(metric.icon)?.let { icon ->
                     Icon(
-                        icon,
+                        painterResource(icon),
                         contentDescription = null,
                         tint = colors.text.copy(alpha = 0.55f),
                         modifier = Modifier.align(Alignment.Center)
@@ -192,10 +188,10 @@ fun VpmGauge(
     }
 }
 
-private fun gaugeIcon(icon: VpmGaugeIcon): ImageVector? = when (icon) {
-    VpmGaugeIcon.COOLANT -> Icons.Rounded.Thermostat
-    VpmGaugeIcon.BOOST -> Icons.Rounded.Cyclone
-    VpmGaugeIcon.OIL -> Icons.Rounded.OilBarrel
+private fun gaugeIcon(icon: VpmGaugeIcon): Int? = when (icon) {
+    VpmGaugeIcon.COOLANT -> R.drawable.ic_vpm_coolant
+    VpmGaugeIcon.BOOST -> R.drawable.ic_vpm_boost
+    VpmGaugeIcon.OIL -> R.drawable.ic_vpm_oil
     VpmGaugeIcon.NONE -> null
 }
 

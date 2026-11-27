@@ -127,7 +127,7 @@ VPM applies its display factors before the bridge: `raw` for `engine.map_kpa` an
 arrives in bar, already divided by 100. DashGrid therefore keeps its own factor at 1 for the
 absolute-boost and rail metrics; a second 0.01 would under-read them by a hundred.
 
-Only the visible page polls: one Binder call every 200 ms while the Car workspace is on screen, and
+Only the visible page polls: one Binder call every 100 ms while the Car workspace is on screen, and
 nothing when it is not. A bridge problem is logged once, not five times a second.
 
 ## States the cockpit can be in
@@ -175,10 +175,13 @@ and then live through a Bluetooth **OBDII / ELM327 v1.5** adapter:
 - All six tabs open with two whole rows and no clipped values. **Turbo** shows the absolute boost in
   bar while **Engine** keeps the same signal id in kPa, and the boost gauge still reads bar.
 - The demo pill stays on both apps: demo values are never presented as a car.
+- The LIVE pill and the page dots sit in a thin header, not over the gauges; the gauge pictograms
+  are VAG/Porsche-style thermometer, oil can and turbo.
 - **Live:** the main screen showed **ОЖ 84 °C**, **наддув абс. 0,91 бар**, **масло 90 °C**,
   **DSG 80 °C**, **впуск 11 °C**, **выхлоп 185 °C**, **14,4 В**, **рампа 319 бар**, five tiles in
   one row and no clipping on the 2504 × 1080 car preview. The status line read
-  `Bluetooth OBDII · ELM327 v1.5 · 14.3V`.
+  `Bluetooth OBDII · ELM327 v1.5 · 14.3V`, five tiles in one row, and the status in the header
+  rather than over the coolant dial.
 - **Oil on a diesel:** the primary `engine.oil_c` was `never_read` while
   `vag.7e0.11be.oil_temp` carried 90 °C. The first build showed “—” for oil; the fixed source picker
   chose the live VAG alternative and the gauge came back. This is the reason the picker ranks a

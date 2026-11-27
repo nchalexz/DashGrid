@@ -18,15 +18,19 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
   screen when VPM's link drops but the bridge still carries it as stale.
 - The category grid takes the occurrence of a signal that belongs to its tab: `engine.map_kpa` is
   kPa under Engine and bar under Turbo, and the boost gauge reads the Turbo one.
-- The visible cockpit asks VPM for a snapshot every **200 ms** instead of 500 ms. VPM refreshes MAP
-  at 5 Hz, so the shorter poll follows the pedal instead of adding up to half a second of lag; the
-  page still polls nothing while it is off screen.
+- The visible cockpit asks VPM for a snapshot every **100 ms** instead of 500 ms. VPM refreshes MAP
+  at 5 Hz, so the sample arrives within one 5 Hz frame instead of adding up to half a second of lag;
+  the needle animation is 90 ms, and the page still polls nothing while it is off screen.
 - The five main tiles stay in **one row** from 480 dp wide: the old 700 dp threshold wrapped them
   into two rows at 500–700 dp and shrank the gauges. Tile height is now 26 % of the screen height
   (62–110 dp), so the gauges keep the rest.
 - The oil gauge takes the VAG temperature when the primary `engine.oil_c` is `never_read`: a live
   alternative is chosen over a dead primary, so a diesel that does not answer PID 0x5C still shows
   oil temperature.
+- The DEMO/LIVE pill and the page dots moved to a thin header, so a long adapter status cannot
+  cover the coolant dial. The gauge pictograms are VAG/Porsche-style thermometer, oil can and turbo.
+- In the workspace editor the red **Remove** action for a live pane got its own row: with **Change
+  app** and **Move to** in the same row it was clipped off a narrow phone.
 
 ### Contract
 
@@ -41,7 +45,7 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
 - `VpmMetricsTest`, `VpmSnapshotTest` and `VpmUiStateTest` cover the new composition, stale numbers,
   never-read dashes, an old VPM without `status`, an unknown status, a dropped link with a stale
   number, and the kPa/bar duplicate of `engine.map_kpa`.
-- 962 app tests, 219 `aap` tests and 25 `headunit` tests, all green; `lintVital` runs on the
+- 1,206 JVM tests (962 app + 219 `aap` + 25 `headunit`), all green; `lintVital` runs on the
   release build.
 
 ### Documentation
@@ -52,7 +56,7 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
 
 ### Status
 
-- 1.3.2 / 10302 is prepared and installed locally. No tag, no push and no release yet.
+- 1.3.2 / 10302 was released on 27 November 2026.
 
 ## 1.3.1 — one cockpit entry (fix)
 

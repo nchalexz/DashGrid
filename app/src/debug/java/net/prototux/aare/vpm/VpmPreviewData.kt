@@ -23,7 +23,7 @@ object VpmPreviewData {
                   {"id":"engine.baro_kpa","label":"Atmospheric","value":"100","unit":"кПа","raw":100,"category":"engine"},
                   {"id":"engine.maf_gs","label":"Air flow","value":"45,3","unit":"г/с","raw":45.3,"category":"engine"},
                   {"id":"electrical.voltage_v","label":"Battery","value":"14,8","unit":"В","raw":14.8,"category":"engine"},
-                  {"id":"engine.boost_kpa","label":"Наддув","value":"0,62","unit":"бар","raw":0.62,"category":"engine"},
+                  {"id":"engine.boost_kpa","label":"Boost","value":"0,62","unit":"бар","raw":0.62,"category":"engine"},
                   {"id":"engine.coolant_c","label":"ОЖ","value":"86","unit":"°C","raw":86,"category":"temperatures"},
                   {"id":"engine.oil_c","label":"Масло","value":"95","unit":"°C","raw":95,"category":"temperatures"},
                   {"id":"engine.intake_air_c","label":"Intake air","value":"31","unit":"°C","raw":31,"category":"temperatures"},

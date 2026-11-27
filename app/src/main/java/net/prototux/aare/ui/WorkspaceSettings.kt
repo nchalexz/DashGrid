@@ -38,7 +38,6 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Cloud
 import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Delete
-import androidx.compose.material.icons.rounded.DirectionsCar
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material.icons.rounded.MoreVert
@@ -797,7 +796,7 @@ private val splitLayouts = setOf(
 )
 
 /** The dashboard widgets a workspace can hold. */
-private val widgetIds = listOf("map", "media", "calendar", "notification", "weather", "home", "car", "vpm")
+private val widgetIds = listOf("map", "media", "calendar", "notification", "weather", "home", "vpm")
 
 private fun widgetLabel(id: String): Int = when (id) {
     "map" -> R.string.dash_card_map
@@ -806,7 +805,6 @@ private fun widgetLabel(id: String): Int = when (id) {
     "notification" -> R.string.dash_card_notification
     "weather" -> R.string.dash_card_weather
     "home" -> R.string.dash_card_home
-    "car" -> R.string.obd_dash_card
     "vpm" -> R.string.dash_card_vpm
     else -> R.string.workspaces_widget_unavailable
 }
@@ -818,7 +816,6 @@ private fun widgetIcon(id: String): ImageVector = when (id) {
     "notification" -> Icons.Rounded.Notifications
     "weather" -> Icons.Rounded.Cloud
     "home" -> Icons.Rounded.Home
-    "car" -> Icons.Rounded.DirectionsCar
     "vpm" -> Icons.Rounded.Speed
     else -> Icons.Rounded.Widgets
 }

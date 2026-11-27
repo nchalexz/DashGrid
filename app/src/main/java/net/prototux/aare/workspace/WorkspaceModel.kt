@@ -27,6 +27,13 @@ const val CAR_VPM_ITEM_ID = "workspace-car-vpm"
 const val VPM_COCKPIT_WIDGET_ID = "vpm"
 
 /**
+ * The widget id AARE's own OBD cockpit card used to have. It is no longer offered in the editor:
+ * [WorkspaceConfig.withVpmCockpit] replaces a saved item with [VPM_COCKPIT_WIDGET_ID] on load, so an
+ * update shows the VPM cockpit where the old AARe one was.
+ */
+const val LEGACY_OBD_COCKPIT_WIDGET_ID = "car"
+
+/**
  * How a workspace arranges its items. Each preset has a fixed number of slots; [CUSTOM] stores
  * every item's own [WorkspaceRect]. Applying a preset never drops an item: with more items than
  * slots the preset doesn't fit and [Workspace.withLayout] returns null.
@@ -269,6 +276,28 @@ data class Workspace(
     fun withItem(item: WorkspaceItem): Workspace =
         if (items.none { it.id == item.id }) this else copy(items = items.map { if (it.id == item.id) item.copy(rect = item.rect.clamped()) else it })
 
+    /**
+     * This workspace with AARe's old OBD cockpit widget ([LEGACY_OBD_COCKPIT_WIDGET_ID]) replaced by
+     * DashGrid's VPM cockpit. The first old item keeps its id and cells, so a saved layout doesn't
+     * move; if the workspace already has the VPM cockpit, the old item is dropped instead of making a
+     * second one. Unchanged when there is nothing to migrate.
+     */
+    fun withVpmCockpit(): Workspace {
+        val legacy = items.filter { it.widgetId == LEGACY_OBD_COCKPIT_WIDGET_ID }
+        if (legacy.isEmpty()) return this
+        if (items.any { it.widgetId == VPM_COCKPIT_WIDGET_ID }) {
+            return legacy.fold(this) { ws, item -> ws.withRemovedItem(item.id) }
+        }
+        val first = legacy.first()
+        return copy(items = items.mapNotNull { item ->
+            when {
+                item.id == first.id -> item.copy(widgetId = VPM_COCKPIT_WIDGET_ID)
+                item.widgetId == LEGACY_OBD_COCKPIT_WIDGET_ID -> null
+                else -> item
+            }
+        })
+    }
+
     /** This workspace with a different preset, or null when its items don't fit that preset. */
     fun withLayout(layout: WorkspaceLayout, axis: WorkspaceAxis = this.axis): Workspace? {
         if (layout == WorkspaceLayout.CUSTOM) return copy(layout = layout, axis = axis)
@@ -374,6 +403,16 @@ data class WorkspaceConfig(
         if (version >= VERSION) return this
         val added = if (workspaces.any { it.id == CAR_WORKSPACE_ID }) this else withAdded(Workspace.carPreset(name))
         return added.copy(version = VERSION)
+    }
+
+    /**
+     * This config with every saved AARe OBD cockpit widget ([LEGACY_OBD_COCKPIT_WIDGET_ID]) turned
+     * into the VPM cockpit, so an update from a build that still offered the old widget shows the
+     * cockpit the editor offers now. Idempotent: after the first load there is nothing to replace.
+     */
+    fun withVpmCockpit(): WorkspaceConfig {
+        val migrated = workspaces.map { it.withVpmCockpit() }
+        return if (migrated == workspaces) this else copy(workspaces = migrated)
     }
 
     companion object {

@@ -6,10 +6,10 @@
 ./gradlew :aap:test :app:testDebugUnitTest :headunit:test
 ```
 
-Result for this build (1.3.0, 2026-11-27):
+Result for this build (1.3.1, 2026-11-27):
 
 ```
-app       947 tests, 0 failures, 0 errors, 0 skipped
+app       949 tests, 0 failures, 0 errors, 0 skipped
 aap       219 tests, 0 failures, 0 errors, 0 skipped
 headunit   25 tests, 0 failures, 0 errors, 0 skipped
 ```
@@ -28,6 +28,9 @@ tests. What the new tests cover:
   JSON round-trip of `kind = android_widget` with its id and provider, dropping an item that lost
   either, one bound id owned by one item across the whole config, the free grid giving a widget
   the cells its provider's minimum asks for, and a preset keeping its own slots.
+- **Legacy cockpit migration** (`workspace/WorkspaceModelTest`): a saved `car` (AARe's OBD
+  cockpit) widget becomes `vpm` with the same item id and cells; when the workspace already has
+  VPM the old item is dropped instead of duplicated; the migration is idempotent.
 - **VPM cockpit preset** (`workspace/WorkspaceModelTest`): the fixed `workspace-car` id and the
   single 10 × 6 built-in `vpm` widget (no app shortcut, no pane); the preset is added once and a
   second call is a no-op; an old dashboard migration keeps every item and the new workspace does not
@@ -104,7 +107,7 @@ the values are VPM's demo values. It must not be reported as confirmed compatibl
 
 ```sh
 adb uninstall net.prototux.aare   # required for the standalone APK
-adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
+adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.3.1.apk
 
 # Preview without a car
 # DashGrid → Settings → Workspaces → Preview car screen
@@ -154,19 +157,19 @@ adb install -r app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
 Published artifact (filled at release time):
 
 ```
-app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
-19,707,769 bytes
-SHA-256 7a05a80d8a5d0dd2e6ea0b4511d77a6aff5d1b017fb4cd09501481e2248cb456
+app/build/outputs/dashgrid/DashGrid-standalone-v1.3.1.apk
+19,707,283 bytes
+SHA-256 24f6679ee5247fb9ca246627a2c99f7d3a224afaba39cf4dc9fcae5ccf7e5570
 ```
 
 Verified from the APK itself:
 
 ```sh
-apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
-aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.3.0.apk
+apksigner verify --print-certs app/build/outputs/dashgrid/DashGrid-standalone-v1.3.1.apk
+aapt2 dump badging app/build/outputs/dashgrid/DashGrid-standalone-v1.3.1.apk
 ```
 
-- `package: io.dashgrid.app`, `versionCode 10300`, `versionName 1.3.0`;
+- `package: io.dashgrid.app`, `versionCode 10301`, `versionName 1.3.1`;
 - `application-label: DashGrid`;
 - signature: DashGrid's own key (`CN=DashGrid`);
 - the standalone APK declares `android.car.permission.TEMPLATE_RENDERER`;

@@ -14,8 +14,10 @@ module with VPM 0.4.1's composition (`Gauge.kt`, `DashboardScreens.kt`, `MetricR
 - A workspace with the fixed id `workspace-car`, named **Car** (`Автомобиль` in Russian), added once
   to a configuration written before version 2. Its version marker is why deleting the workspace does
   not bring it back. Existing names, items, the default and the last-shown workspace are untouched.
-- One built-in widget, id `vpm`, across the whole 10 × 6 grid. The editor can add the same widget to
-  another workspace; the built-in `car` (OBD) widget is a separate widget and is unchanged.
+- One built-in widget, id `vpm`, across the whole 10 × 6 grid. The editor offers it as the cockpit
+  choice and can add it to another workspace. A saved workspace that still holds AARe's old `car`
+  (OBD cockpit) widget gets `vpm` in the same cells when the config is loaded, so the car screen and
+  the phone preview show the same cockpit.
 - No app shortcut, no Shizuku, no root: the cockpit reads a normal read-only ContentProvider, so the
   one pane that used to need a privileged launcher now needs none.
 
@@ -137,8 +139,7 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
 ## Requirements
 
 - VPM **0.5.0 or newer** installed on the same phone: it exports the provider above. This is the
-  only DashGrid feature that needs VPM; workspaces, the OBD widget, live panes and the dock work
-  without it. VPM 0.4.1
+  only DashGrid feature that needs VPM; workspaces, live panes and the dock work without it. VPM 0.4.1
   does not, and the cockpit then shows the **Update VPM** card. The contract is in
   [VPM_BRIDGE_PROMPT.md](VPM_BRIDGE_PROMPT.md).
 - If DashGrid was installed before VPM defined this permission, update DashGrid once after installing
@@ -161,7 +162,8 @@ VPM 0.5.0 that exports the bridge:
   **Install**. Neither crashes, and both recover once VPM 0.5.0 is back.
 - The unit tests cover the parser (bad JSON, missing fields, version mismatch, one entry per
   category), the readings (demo, live, disconnected, waiting, stale, warning/critical, the VAG oil
-  alternative), the preset (added once, deleted stays deleted, JSON round-trip) and the state cards.
+  alternative), the preset (added once, deleted stays deleted, JSON round-trip), the legacy `car`
+  → `vpm` migration and the state cards.
 - No OBD/ELM327 connection was opened by DashGrid: the cockpit has no OBD code, and the log showed
   no adapter attempt and no `SecurityException`, only a single bridge note per distinct problem.
 - 1280 × 480 clipped the second grid row at first; the layout was fixed (the grid gets the larger
@@ -187,7 +189,7 @@ The real car screen on the phone is the ordinary **Settings → Workspaces → P
 
 The session that verifies both apps, runs both test suites, checks compatibility and publishes VPM
 and DashGrid releases follows [VPM_COMPAT_PROMPT.md](VPM_COMPAT_PROMPT.md). The VPM 0.5.0 and
-DashGrid 1.3.0 releases were produced by it; this page remains the DashGrid-side description.
+DashGrid 1.3.x releases were produced by it; this page remains the DashGrid-side description.
 
 ## Files
 

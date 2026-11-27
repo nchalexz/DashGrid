@@ -194,7 +194,7 @@ class CarScreenMockups {
         ),
         Workspace(
             id = "car", name = "Car", layout = WorkspaceLayout.FULL,
-            items = listOf(WorkspaceItem("car-obd", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "car")),
+            items = listOf(WorkspaceItem("car-vpm", WorkspaceItemKind.WIDGET, WorkspaceRect.full(), widgetId = "vpm")),
         ),
     )
 

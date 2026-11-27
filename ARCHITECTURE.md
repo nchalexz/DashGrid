@@ -103,8 +103,9 @@ The phone editor (`ui/WorkspaceSettings.kt`) uses the same `WorkspaceStore` and
 - `WorkspaceItem.kind` is `app` (a shortcut; `app` holds an entry id such as `phone`, or a package
   name for a Car App Library app), `pane` (the app's own UI rendered into the cells), `widget`
   (`widget` is a `DashCard` id: `map`, `media`, `calendar`, `notification`,
-  `weather`, `home`, `car`, `vpm`) or `android_widget` (a standard Android App Widget, with
-  `appWidgetId` and `appWidgetProvider`).
+  `weather`, `home`, `vpm`) or `android_widget` (a standard Android App Widget, with
+  `appWidgetId` and `appWidgetProvider`). A saved `car` (AARe's OBD cockpit) is migrated to `vpm`
+  when the config is loaded.
 - `WorkspaceItem.appId` on a `map` or `media` widget is optional: it pins that widget to an app;
   without it the widget follows the car's active navigation/media app.
 - `WorkspaceItem.settings` is a string map for per-widget settings. This version only uses
@@ -172,10 +173,12 @@ session is started. With the per-workspace **Tap a live app to open it** option 
 a tap on the pane's free space calls `CarActions.openApp` for that app, as tapping a widget card
 does; the app's own controls consume their taps first and keep working. Widgets are the existing
 dashboard composables (`NavCard`, `MediaCard`, `CalendarAgendaCard`, `WeatherCard`,
-`HomeCard`, `LatestNotification`, `ObdDashCard`) inside the same `Card`. Empty widgets show a calm
+`HomeCard`, `LatestNotification`) inside the same `Card`. Empty widgets show a calm
 placeholder rather than collapsing the grid, so positions stay stable.
 
-One built-in widget is different: `vpm` is DashGrid's **own VAG Performance Monitor cockpit**. It
+The cockpit widget is `vpm`: DashGrid's **own VAG Performance Monitor cockpit**, the only cockpit
+the editor offers. AARe's old `car` (OBD cockpit) widget is migrated to it on load, so a saved
+workspace keeps its cells and shows the VPM cockpit. It
 draws VPM 0.4.1's gauges, tiles and category grid in Compose and fills its page; it neither hosts
 VPM's window nor starts VPM's activity, so it needs no Shizuku and no root. Its data is one
 read-only ContentProvider call (`vpm/VpmBridge`, contract v1), made every 500 ms only while its page

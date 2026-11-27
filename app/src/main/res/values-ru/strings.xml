@@ -391,7 +391,6 @@
     <string name="workspace_no_notifications">Нет новых уведомлений</string>
     <string name="workspace_no_weather">Погода недоступна</string>
     <string name="workspace_no_home">Нет действий умного дома</string>
-    <string name="workspace_no_obd">Адаптер не подключён</string>
     <string name="workspaces_page_title">Рабочие столы</string>
     <string name="workspaces_page_subtitle">Домашние экраны, их сетки, приложения и виджеты</string>
     <string name="workspaces_phone_hint">Домашний экран автомобиля теперь состоит из рабочих столов. Откройте «Рабочие столы», чтобы добавлять их, менять и переименовывать.</string>

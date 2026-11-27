@@ -26,21 +26,23 @@ class WorkspaceStore(
     fun load(): WorkspaceConfig {
         val raw = settings.workspacesJson
         val decoded = WorkspaceJson.decode(raw)
-        if (decoded != null) return decoded.withCarPreset(carPresetName).also { offerCarPreset(decoded, it) }
+        if (decoded != null) {
+            val preset = decoded.withCarPreset(carPresetName)
+            val migrated = preset.withVpmCockpit()
+            if (migrated != decoded) {
+                save(migrated)
+                if (preset != decoded) Log.i(TAG, "added the preinstalled Car workspace (${VPM_COCKPIT_WIDGET_ID})")
+                if (migrated != preset) Log.i(TAG, "moved the legacy OBD cockpit to the VPM cockpit")
+            }
+            return migrated
+        }
         if (!raw.isNullOrBlank()) {
             Log.w(TAG, "saved workspaces can't be read (${raw.length} chars); keeping a copy under workspaces_broken")
             settings.workspacesBrokenJson = raw
         }
-        val migrated = migrateOldDashboard().withCarPreset(carPresetName)
+        val migrated = migrateOldDashboard().withCarPreset(carPresetName).withVpmCockpit()
         save(migrated)
         return migrated
-    }
-
-    /** Saves [next] when [current] didn't already have the preinstalled VPM cockpit workspace. */
-    private fun offerCarPreset(current: WorkspaceConfig, next: WorkspaceConfig) {
-        if (next == current) return
-        save(next)
-        Log.i(TAG, "added the preinstalled Car workspace (${VPM_COCKPIT_WIDGET_ID})")
     }
 
     /** Writes [config]; [WorkspaceConfig.version] goes with it. */

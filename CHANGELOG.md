@@ -4,6 +4,29 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.3.1 — one cockpit entry (fix)
+
+### Settings
+
+- The workspace widget picker no longer offers AARe's **Car** (OBD cockpit) widget. The cockpit
+  choice there is DashGrid's **VPM cockpit**, from VPM's read-only telemetry.
+- A saved workspace that still holds the old `car` widget is migrated to `vpm` when the config is
+  loaded, keeping the item's cells (and dropping the old one when the workspace already has VPM).
+  The car screen and the phone preview then show the same cockpit instead of the old AARe one.
+- The old widget's dead code and its unused "adapter not connected" string are removed; the built-in
+  OBD app, its settings and the read-only OBD stack are unchanged.
+
+### Tests
+
+- 949 app tests, 219 `aap` tests and 25 `headunit` tests, all green; `lintVital` on the release
+  build. Two new `WorkspaceModelTest` cases cover the `car` → `vpm` migration and its idempotence.
+
+### Documentation
+
+- [RELEASE_NOTES.md](RELEASE_NOTES.md) is rewritten for 1.3.1; README, TESTING and
+  [docs/VPM.md](docs/VPM.md) describe the single cockpit entry and the migration; the F-Droid
+  changelog for `versionCode 10301` is added.
+
 ## 1.3.0 — live VPM telemetry (stable)
 
 ### Cockpit

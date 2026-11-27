@@ -23,7 +23,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.CalendarMonth
 import androidx.compose.material.icons.rounded.Cloud
-import androidx.compose.material.icons.rounded.DirectionsCar
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Map
 import androidx.compose.material.icons.rounded.Notifications
@@ -35,7 +34,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -59,8 +57,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import net.prototux.aare.R
 import net.prototux.aare.car.NextEvent
-import net.prototux.aare.obdapp.ObdApp
-import net.prototux.aare.ui.car.obd.ObdDashCard
 import net.prototux.aare.ui.car.vpm.VpmCockpit
 import net.prototux.aare.workspace.WORKSPACE_COLUMNS
 import net.prototux.aare.workspace.WORKSPACE_ROWS
@@ -364,19 +360,8 @@ private fun WorkspaceWidget(
                 }
             }
         }
-        "car" -> {
-            val obd by ObdApp.snapshot.collectAsState()
-            if (obd.readings == null) WidgetPlaceholder(Icons.Rounded.DirectionsCar, stringResource(R.string.obd_dash_card), stringResource(R.string.workspace_no_obd))
-            else {
-                val openApp = state.apps.firstOrNull { it.kind == CarAppKind.OBD }
-                val open: (() -> Unit)? = if (openApp != null) ({ actions.openApp(openApp) }) else null
-                BoxWithConstraints(Modifier.fillMaxSize()) {
-                    Card(Modifier.fillMaxSize(), onClick = open) { ObdDashCard(obd, maxHeight < 220.dp) }
-                }
-            }
-        }
-        // The preset "Car" workspace: DashGrid draws VPM's cockpit itself, from VPM's read-only
-        // snapshot. Separate from the built-in OBD widget above, which stays DashGrid's own.
+        // DashGrid draws VPM's cockpit itself, from VPM's read-only snapshot. The old AARe OBD
+        // cockpit widget is not offered any more: saved items arrive here already migrated.
         "vpm" -> VpmCockpit(active, Modifier.fillMaxSize())
         else -> WidgetPlaceholder(Icons.Rounded.Widgets, stringResource(R.string.workspace_widget_unavailable), null)
     }

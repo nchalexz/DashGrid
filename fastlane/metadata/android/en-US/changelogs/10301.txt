@@ -1,0 +1,1 @@
+One cockpit in the settings: AARe's old Car (OBD cockpit) widget is gone, and a saved workspace that still holds it switches to the VPM cockpit in the same cells. The OBD app and its settings are unchanged. Fix for 1.3.0.

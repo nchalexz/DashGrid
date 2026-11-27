@@ -737,7 +737,6 @@
     <string name="workspace_no_notifications">No new notifications</string>
     <string name="workspace_no_weather">Weather unavailable</string>
     <string name="workspace_no_home">No home actions</string>
-    <string name="workspace_no_obd">Adapter not connected</string>
     <string name="workspaces_page_title">Workspaces</string>
     <string name="workspaces_page_subtitle">Home screens, their grids, apps and widgets</string>
     <string name="workspaces_phone_hint">The car’s home screen is made of workspaces now. Open Workspaces to add, arrange and name them.</string>

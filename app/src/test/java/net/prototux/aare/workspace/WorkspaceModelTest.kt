@@ -5,6 +5,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -366,6 +367,37 @@ class WorkspaceModelTest {
         assertEquals(VPM_COCKPIT_WIDGET_ID, ws.items.single().widgetId)
         assertNull(ws.items.single().appId)
         assertEquals(CAR_VPM_ITEM_ID, ws.items.single().id)
+    }
+
+    @Test
+    fun legacyObdCockpitBecomesTheVpmCockpitInTheSameCells() {
+        val legacy = Workspace(
+            id = "car", name = "Car", layout = WorkspaceLayout.FULL,
+            items = listOf(WorkspaceItem("old", WorkspaceItemKind.WIDGET, WorkspaceRect.full(),
+                widgetId = LEGACY_OBD_COCKPIT_WIDGET_ID)),
+        )
+        val config = WorkspaceConfig(listOf(legacy), defaultId = "car")
+        val migrated = config.withVpmCockpit()
+        val item = migrated.workspaces.single().items.single()
+        assertEquals(VPM_COCKPIT_WIDGET_ID, item.widgetId)
+        assertEquals("old", item.id)
+        assertEquals(WorkspaceRect.full(), item.rect)
+        assertSame(migrated, migrated.withVpmCockpit())
+    }
+
+    @Test
+    fun legacyObdCockpitIsDroppedWhenTheWorkspaceAlreadyHasVpm() {
+        val ws = Workspace(
+            id = "w", name = "W", layout = WorkspaceLayout.CUSTOM,
+            items = listOf(
+                WorkspaceItem("old", WorkspaceItemKind.WIDGET, WorkspaceRect(0, 0, 5, 6),
+                    widgetId = LEGACY_OBD_COCKPIT_WIDGET_ID),
+                WorkspaceItem("vpm", WorkspaceItemKind.WIDGET, WorkspaceRect(5, 0, 5, 6),
+                    widgetId = VPM_COCKPIT_WIDGET_ID),
+            ),
+        )
+        val migrated = WorkspaceConfig(listOf(ws)).withVpmCockpit()
+        assertEquals(listOf("vpm"), migrated.workspaces.single().items.map { it.id })
     }
 
     @Test

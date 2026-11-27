@@ -162,7 +162,8 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
 ## What was checked
 
 On a **Huawei ALT-L29** (`HTV0223418000954`, Android 12) with the CI-signed **VPM 0.6.2**
-(`versionCode 11`) and a locally built **DashGrid 1.3.2** (`versionCode 10302`), VPM in demo mode:
+(`versionCode 11`) and a locally built **DashGrid 1.3.2** (`versionCode 10302`), VPM in demo mode
+and then live through a Bluetooth **OBDII / ELM327 v1.5** adapter:
 
 - Both packages report the expected version, and `dumpsys package io.dashgrid.app` reports
   `READ_TELEMETRY: granted=true`.
@@ -174,9 +175,16 @@ On a **Huawei ALT-L29** (`HTV0223418000954`, Android 12) with the CI-signed **VP
 - All six tabs open with two whole rows and no clipped values. **Turbo** shows the absolute boost in
   bar while **Engine** keeps the same signal id in kPa, and the boost gauge still reads bar.
 - The demo pill stays on both apps: demo values are never presented as a car.
+- **Live:** the main screen showed **ОЖ 84 °C**, **наддув абс. 0,91 бар**, **масло 90 °C**,
+  **DSG 80 °C**, **впуск 11 °C**, **выхлоп 185 °C**, **14,4 В**, **рампа 319 бар**, five tiles in
+  one row and no clipping on the 2504 × 1080 car preview. The status line read
+  `Bluetooth OBDII · ELM327 v1.5 · 14.3V`.
+- **Oil on a diesel:** the primary `engine.oil_c` was `never_read` while
+  `vag.7e0.11be.oil_temp` carried 90 °C. The first build showed “—” for oil; the fixed source picker
+  chose the live VAG alternative and the gauge came back. This is the reason the picker ranks a
+  drawable alternative above a dead primary.
 
-Not checked in this session: a live ELM327/car (the saved OBDII adapter was listed, but no car session was
-available), the stale and
+Not checked in this session: the stale and
 dropped-link states on a device, the **Update VPM** / **Install** cards, a real head unit, EMUI's
 car screen and the 1920 × 720 / 1280 × 480 sizes. The stale rules are covered by JVM tests; the
 earlier 1.3.0/1.3.1 emulator run covered the cards, gestures and the two sizes with VPM 0.5.0, but

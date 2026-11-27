@@ -1,28 +1,52 @@
-# Publishes a GitHub release when a DashGrid tag is pushed, using SSH/CLI only:
-# the signed APK and its SHA-256 are already committed in dist/ by the release commit.
+# Creates the GitHub release for a DashGrid version tag and attaches the signed APK that is
+# committed in dist/. Uses the token GitHub gives the workflow (contents: write), so no signing
+# key or personal token lives in the repository. The APK itself is built locally with
+# `./gradlew dashgridStandaloneApk` and committed, because the release key must never be uploaded to CI.
 name: DashGrid release
 
 on:
   push:
     tags: ["dashgrid-v*"]
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Publish the committed APK
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Publish the APK from dist/
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION="${GITHUB_REF_NAME#dashgrid-v}"
-          gh release create "$GITHUB_REF_NAME" \
-            --title "DashGrid $VERSION" \
-            --notes-file RELEASE_NOTES.md \
-            --latest \
-            "dist/DashGrid-standalone-$VERSION.apk" \
-            "dist/DashGrid-standalone-$VERSION.apk.sha256"
-          gh release view "$GITHUB_REF_NAME"
+          version="${GITHUB_REF_NAME#dashgrid-v}"
+          standalone="dist/DashGrid-standalone-v${version}.apk"
+          test -f "$standalone" || { echo "missing $standalone" >&2; exit 1; }
+          # A tag whose APK has a .prerelease marker beside it is published as a GitHub pre-release
+          # (a test build), not as the latest stable release.
+          prerelease=""
+          if [ -f "${standalone}.prerelease" ]; then prerelease="--prerelease"; fi
+          title="DashGrid ${version}"
+          if [ -n "$prerelease" ]; then title="DashGrid ${version} (test release)"; fi
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release edit "$GITHUB_REF_NAME" --title "$title" --notes-file RELEASE_NOTES.md --draft=false $prerelease
+            gh release upload "$GITHUB_REF_NAME" "$standalone" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$standalone" --title "$title" --notes-file RELEASE_NOTES.md --latest $prerelease
+          fi
+          # This release publishes only the standalone APK; drop a side-by-side asset if an older
+          # run of this workflow uploaded one.
+          gh release delete-asset "$GITHUB_REF_NAME" "DashGrid-v${version}.apk" --yes >/dev/null 2>&1 || true
+      - name: Hide older releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Older versions stay in the repository as drafts: hidden from the public release page,
+          # not deleted. The current tag is skipped.
+          gh api "repos/${GITHUB_REPOSITORY}/releases?per_page=100"             --jq '.[] | select(.draft == false) | .tag_name' |
+          while read -r tag; do
+            [ "$tag" = "$GITHUB_REF_NAME" ] && continue
+            gh release edit "$tag" --draft
+          done

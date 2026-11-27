@@ -340,7 +340,7 @@ private fun VpmTile(
         val h = maxHeight.value
         val labelSize = (w * 0.032f).coerceIn(9f, 13f).sp
         val unitSize = (w * 0.028f).coerceIn(8f, 12f).sp
-        val valueSize = minOf(w * 0.16f, h * 0.30f).coerceIn(16f, 58f).sp
+        val valueSize = minOf(w * 0.19f, h * 0.36f).coerceIn(18f, 66f).sp
         Column(
             Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 5.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -432,18 +432,18 @@ fun VpmSourcePill(snapshot: VpmSnapshot?, modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(4.dp))
             .background(color.copy(alpha = 0.12f))
             .border(1.dp, color.copy(alpha = 0.45f), RoundedCornerShape(4.dp))
-            .padding(horizontal = 6.dp, vertical = 3.dp),
+            .padding(horizontal = 5.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(Modifier.size(5.dp).clip(CircleShape).background(color))
         Spacer(Modifier.width(5.dp))
-        Text(label, color = color, fontFamily = VpmFont, fontSize = 10.sp, letterSpacing = 1.1.sp, maxLines = 1)
+        Text(label, color = color, fontFamily = VpmFont, fontSize = 9.sp, letterSpacing = 0.7.sp, maxLines = 1)
         if (channel.isNotBlank()) {
             Text(
                 " · $channel",
                 color = colors.dim,
                 fontFamily = VpmFont,
-                fontSize = 9.sp,
+                fontSize = 8.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f, fill = false),

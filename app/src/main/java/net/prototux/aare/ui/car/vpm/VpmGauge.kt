@@ -4,9 +4,9 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.Typeface
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -56,6 +56,7 @@ import net.prototux.aare.ui.car.carClickable
 import net.prototux.aare.vpm.VpmGaugeIcon
 import net.prototux.aare.vpm.VpmMetric
 import net.prototux.aare.vpm.VpmReading
+import net.prototux.aare.vpm.VpmStartupSweep
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -117,9 +118,11 @@ fun VpmGauge(
             // driver sees both the last known value and that it is no longer fresh.
             val hasValue = reading.isOk || reading.isStale
             val target = if (hasValue) reading.fraction ?: lastFraction else lastFraction
+            // A spring instead of a short linear tween: a big pedal-to-lift jump no longer
+            // snaps in 45 ms, it settles smoothly, while small changes still arrive quickly.
             val needle by animateFloatAsState(
                 targetValue = target,
-                animationSpec = tween(durationMillis = 90, easing = LinearEasing),
+                animationSpec = spring(dampingRatio = 1f, stiffness = 1400f),
                 label = "vpm-needle",
             )
             val needleAlpha by animateFloatAsState(
@@ -133,16 +136,30 @@ fun VpmGauge(
             )
             // The ignition-style needle test: sweep to the end of the scale and settle back on
             // the real reading. One shared animation per gauge, on first composition.
-            val startup = remember(metric.id) { Animatable(0f) }
-            LaunchedEffect(metric.id) {
-                startup.animateTo(1f, tween(durationMillis = 1100, easing = FastOutSlowInEasing))
+            val sweepStart = remember { VpmStartupSweep.start() }
+            val initialSweep = VpmStartupSweep.elapsedFraction(sweepStart)
+            val startup = remember(metric.id, sweepStart) { Animatable(initialSweep) }
+            LaunchedEffect(metric.id, sweepStart) {
+                if (initialSweep < 1f) {
+                    startup.animateTo(
+                        1f,
+                        tween(
+                            durationMillis = ((1f - initialSweep) * VpmStartupSweep.DURATION_MS).toInt(),
+                            easing = LinearEasing,
+                        ),
+                    )
+                }
             }
             val sweep = startup.value
             val sweeping = sweep < 1f
-            val shownNeedle = if (sweeping) {
-                if (sweep < 0.5f) sweep * 2f else 1f - (sweep - 0.5f) * 2f * (1f - needle)
-            } else {
-                needle
+            // Smoothstep: zero velocity at the start, at the top and at the end. The needle
+            // pauses for 180 ms on the end stop, then settles on the live reading.
+            fun smooth(x: Float): Float = x * x * (3f - 2f * x)
+            val shownNeedle = when {
+                !sweeping -> needle
+                sweep < 0.45f -> smooth((sweep / 0.45f).coerceIn(0f, 1f))
+                sweep < 0.55f -> 1f
+                else -> 1f - smooth(((sweep - 0.55f) / 0.45f).coerceIn(0f, 1f)) * (1f - needle)
             }
             val shownAlpha = if (sweeping) 1f else needleAlpha
 

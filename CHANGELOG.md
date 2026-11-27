@@ -18,9 +18,8 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
   screen when VPM's link drops but the bridge still carries it as stale.
 - The category grid takes the occurrence of a signal that belongs to its tab: `engine.map_kpa` is
   kPa under Engine and bar under Turbo, and the boost gauge reads the Turbo one.
-- The visible cockpit asks VPM for a snapshot every **100 ms** instead of 500 ms. VPM refreshes MAP
-  at 5 Hz, so the sample arrives within one 5 Hz frame instead of adding up to half a second of lag;
-  the needle animation is 90 ms, and the page still polls nothing while it is off screen.
+- The visible cockpit asks VPM for a snapshot every **50 ms** instead of 500 ms; the needle
+  animation is 45 ms, and the page still polls nothing while it is off screen.
 - The five main tiles stay in **one row** from 480 dp wide: the old 700 dp threshold wrapped them
   into two rows at 500–700 dp and shrank the gauges. Tile height is now 26 % of the screen height
   (62–110 dp), so the gauges keep the rest.
@@ -35,8 +34,12 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
   plain values) instead of the clipped full cockpit; it works in a 1 × 1 cell, a strip or a 2 × 2
   block, and is added at 5 × 3 by default. The full cockpit's two screens switch by the header dots
   or a gauge tap, so a horizontal swipe always reaches DashGrid's workspace pager.
-- On first composition the three cockpit needles run an ignition-style sweep to the end of the
-  scale and settle on the reading. VPM's own cockpit got the same sweep.
+- On the first cockpit of a process the three needles run a slow 1.8 s ignition sweep: smoothstep
+  up, a short pause at the end stop, then a smooth settle on the reading. Returning to the Car page
+  does not repeat it; VPM's own cockpit got the same sweep.
+- The needle uses a critically damped spring instead of a 45 ms linear tween, so a large pedal
+  change settles smoothly instead of jumping.
+- Tile digits are larger, and the LIVE pill is the smaller "Live" pill in both languages.
 
 ### Contract
 

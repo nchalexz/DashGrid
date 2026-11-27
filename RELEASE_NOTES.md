@@ -41,7 +41,7 @@ In this release: [What changed](#what-changed) · [Install](#install) · [Verifi
 - **A calmer header.** The DEMO/LIVE pill and the page dots moved into a thin header, so a long
   `Bluetooth OBDII · ELM327 v1.5 · 14.3V` status cannot cover a gauge. The gauge pictograms are
   drawn VAG/Porsche-style thermometer, oil can and turbo instead of generic Material icons.
-- **Faster follow.** The visible cockpit polls VPM every 100 ms and the needle settles in 90 ms.
+- **Faster follow.** The visible cockpit polls VPM every 50 ms and the needle settles in 45 ms.
   VPM 0.6.2 still refreshes MAP at 5 Hz, so the adapter remains the limit.
 - **Delete stays reachable.** In the workspace editor the red **Remove** action for a live pane was
   clipped when it shared a row with **Change app** and **Move to**; it now has its own row.
@@ -49,7 +49,7 @@ In this release: [What changed](#what-changed) · [Install](#install) · [Verifi
   shows boost, coolant, oil and DSG as plain values (1 × 1, a strip or a 2 × 2 block); the full
   composition still uses the gauges and tabs. Its two screens switch by the header dots or a gauge
   tap, so a horizontal swipe always pages the workspace.
-- **Ignition sweep.** On opening the Car workspace the three needles sweep to the end of the scale
+- **Ignition sweep.** On the first cockpit of a process the three needles sweep to the end of the scale
   and settle on the readings; VPM's own cockpit does the same.
 
 <p align="center">
@@ -70,7 +70,7 @@ no Google Mobile Services. The cockpit needs **VPM 0.6.2** on the same phone.
 
 | File | Size | SHA-256 |
 |---|---:|---|
-| `DashGrid-standalone-v1.3.2.apk` | 19 MB | `be3fcedc96f50ada3355391bf81556c74bdfd25413e5b9129f319dbc383982c6` |
+| `DashGrid-standalone-v1.3.2.apk` | 19 MB | `8819578715877aee20c8de8e5d87b0cad5009844685a96ad6f957244fd38d2fc` |
 
 ```sh
 adb uninstall net.prototux.aare   # only if AARE is installed

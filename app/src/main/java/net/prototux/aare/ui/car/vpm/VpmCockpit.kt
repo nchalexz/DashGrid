@@ -65,10 +65,10 @@ sealed interface VpmUiState {
 /**
  * How often the cockpit asks VPM for its snapshot while it is the page on screen.
  *
- * VPM refreshes MAP at 5 Hz, so 100 ms keeps the sample within one 5 Hz frame:
- * the old 500 ms added up to half a second of visible lag behind the pedal.
+ * The bridge is cheap; 50 ms keeps the displayed sample within half of VPM's MAP frame
+ * instead of waiting for the next one.
  */
-private const val VPM_POLL_MS = 100L
+private const val VPM_POLL_MS = 50L
 
 /**
  * The bridge's four answers to the four cards the cockpit can show. Kept pure so a unit test can

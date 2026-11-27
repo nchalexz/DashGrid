@@ -765,7 +765,7 @@
     <string name="vpm_stale">stale</string>
     <string name="vpm_no_link">no data</string>
     <string name="vpm_status_demo">DEMO</string>
-    <string name="vpm_status_live">LIVE</string>
+    <string name="vpm_status_live">Live</string>
     <string name="vpm_status_offline">NO LINK</string>
     <string name="vpm_status_connecting">LINKING</string>
     <string name="vpm_metric_coolant">Coolant</string>

@@ -419,7 +419,7 @@
     <string name="vpm_stale">устарело</string>
     <string name="vpm_no_link">нет данных</string>
     <string name="vpm_status_demo">ДЕМО</string>
-    <string name="vpm_status_live">ЖИВЫЕ</string>
+    <string name="vpm_status_live">Live</string>
     <string name="vpm_status_offline">НЕТ СВЯЗИ</string>
     <string name="vpm_status_connecting">ПОДКЛЮЧЕНИЕ</string>
     <string name="vpm_metric_coolant">ОЖ</string>

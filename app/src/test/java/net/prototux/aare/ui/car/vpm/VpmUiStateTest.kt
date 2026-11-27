@@ -38,4 +38,19 @@ class VpmUiStateTest {
         val state = vpmUiState(VpmRead.Failed("READ_TELEMETRY"))
         assertEquals(VpmUiState.Failed("READ_TELEMETRY"), state)
     }
+
+    @Test
+    fun staleValuesKeepTheCockpitOnScreenInsteadOfBecomingACard() {
+        val stale = parseVpmSnapshot(
+            VPM_BRIDGE_VERSION,
+            "connected",
+            "OBDII",
+            "OBDII",
+            1L,
+            """[{"id":"engine.coolant_c","value":"86","raw":86,"stale":true,"status":"stale"}]""",
+        )!!
+        val state = vpmUiState(VpmRead.Snapshot(stale))
+        assertTrue(state is VpmUiState.Cockpit)
+        assertEquals("86", (state as VpmUiState.Cockpit).snapshot!!.signal("engine.coolant_c")!!.value)
+    }
 }

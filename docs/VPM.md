@@ -7,7 +7,7 @@ the ELM327 adapter and the VAG UDS session; DashGrid opens no OBD connection and
 PID.
 
 This is not a copy of VPM's window and not a second app session. It is DashGrid's own Kotlin/Compose
-module with VPM 0.4.1's composition (`Gauge.kt`, `DashboardScreens.kt`, `MetricRegistry.kt`).
+module with VPM 0.6.2's composition (`Gauge.kt`, `DashboardScreens.kt`, `MetricRegistry.kt`).
 
 ## What the workspace contains
 
@@ -72,9 +72,9 @@ The gauge follows VPM 0.4.1's geometry (its `Gauge.kt`):
 The value is centred on the glyphs' real bounds, not on the baseline, and shrinks until the number,
 its comma and its minus fit the disc. The ring pair, the bright progress arc between them, the red
 zone, the 60 ticks and the needle are drawn from the same constants as VPM: 135° start, 270° sweep.
-The main screen is three gauges (`coolant 40…120 °C`, `boost −1…2 bar`, `oil 40…150 °C`) and five
-tiles (speed, revs, gear, fuel use, fuel); the category screen is the same gauges smaller, the six
-tabs and a grid of two full rows, 2–5 columns by width.
+The main screen is three gauges (`coolant 40…120 °C`, `absolute boost 0…2.5 bar`, `oil 40…150 °C`)
+and five tiles (DSG temperature, intake air, exhaust gas, voltage, rail pressure); the category
+screen is the same gauges smaller, the six tabs and a grid of two full rows, 2–5 columns by width.
 
 Text uses Titillium Web, which DashGrid already ships. Colours are VPM's night and day tokens
 (`#10151B…#E8ECEF` and the rest); the car screen's Material palette is not used inside the cockpit.
@@ -108,15 +108,22 @@ Every signal is what VPM's own cockpit shows:
   "raw": 86,
   "stale": false,
   "warning": false,
-  "category": "temperatures"
+  "category": "temperatures",
+  "status": "valid"
 }
 ```
 
 `value` is formatted text (comma decimals), `raw` is the same number in display units (bar for
-boost, not kPa), `stale` and `warning` are VPM's own flags. The array is grouped by category in
-VPM's display order; a signal VPM shows under two tabs (boost under Engine and Turbo) appears once
-per tab with the matching `category`. DashGrid keeps the order, so each tab has the tiles of its
-mockup.
+absolute boost and rail pressure, not kPa), `stale` and `warning` are VPM's own flags, and `status`
+(`valid`, `stale`, `never_read`, added in VPM 0.6.0) is the bridge's own statement about freshness.
+The array is grouped by category in VPM's display order; a signal VPM shows under two tabs (MAP
+under Engine in kPa and under Turbo in bar) appears once per tab with the matching `category`.
+DashGrid keeps the order and picks the occurrence of the metric's own category, so the boost gauge
+never mistakes 98 kPa for 98 bar.
+
+VPM applies its display factors before the bridge: `raw` for `engine.map_kpa` and `fuel.rail_kpa`
+arrives in bar, already divided by 100. DashGrid therefore keeps its own factor at 1 for the
+absolute-boost and rail metrics; a second 0.01 would under-read them by a hundred.
 
 Only the visible page polls: one Binder call every 500 ms while the Car workspace is on screen, and
 nothing when it is not. A bridge problem is logged once, not five times a second.
@@ -130,7 +137,8 @@ nothing when it is not. A bridge problem is logged once, not five times a second
 | Bridge present, VPM has not run yet | the cockpit with dashes and a **NO LINK** pill, never a drawn zero |
 | VPM in demo | VPM's demo values with the **DEMO** pill |
 | Live link | values, the **LIVE** pill and VPM's status line |
-| Stale value | a dash and a stale dot, the needle fades out |
+| Stale value | the last known number, dimmed, with a stale dot; the needle fades but stays on the scale |
+| Never read | a dash: there was no successful read in the session, which is not the same as zero |
 | Bridge refused | a card with **Open on the phone** / **Update VPM**, no crash |
 | The page is off screen | a calm "VPM cockpit — on another page" tile, no polling |
 
@@ -138,10 +146,12 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
 
 ## Requirements
 
-- VPM **0.5.0 or newer** installed on the same phone: it exports the provider above. This is the
-  only DashGrid feature that needs VPM; workspaces, live panes and the dock work without it. VPM 0.4.1
-  does not, and the cockpit then shows the **Update VPM** card. The contract is in
-  [VPM_BRIDGE_PROMPT.md](VPM_BRIDGE_PROMPT.md).
+- VPM **0.6.2** installed on the same phone for the composition described here; the contract is
+  v1 and works from VPM 0.5.0. This is the only DashGrid feature that needs VPM; workspaces, live
+  panes and the dock work without it. VPM 0.4.1 does not export the provider, and the cockpit then
+  shows the **Update VPM** card. An older 0.5.x bridge has no `status` field: DashGrid derives it
+  from `stale` and the presence of a value, so such a VPM never crashes the cockpit. The contract is
+  in [VPM_BRIDGE_PROMPT.md](VPM_BRIDGE_PROMPT.md).
 - If DashGrid was installed before VPM defined this permission, update DashGrid once after installing
   VPM's bridge (reinstall the same build): Android grants a normal permission when the app that
   requests it is installed or updated, not retroactively when another app defines it.
@@ -149,29 +159,34 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
 
 ## What was checked
 
-On a `sdk_gphone64_arm64` Android 15 emulator at 1920 × 720 and 1280 × 480, with a locally built
-VPM 0.5.0 that exports the bridge:
+On a **Huawei ALT-L29** (`HTV0223418000954`, Android 12) with the CI-signed **VPM 0.6.2**
+(`versionCode 11`) and a locally built **DashGrid 1.3.2** (`versionCode 10302`), VPM in demo mode:
 
-- A fresh install has **Home** and **Car**; the Car workspace is 100 % and contains one `vpm` item.
-- The Car workspace shows the DEMO pill and VPM's values in the gauges and tiles; both screens, the
-  swipe between them, a tab tap, a gauge tap opening its category, and leaving/returning to Car work.
-- `content call` on the provider returned `version=1`, 128 signals and a changing `updatedAt`;
-  `dumpsys package io.dashgrid.app` reported `READ_TELEMETRY: granted=true`.
-- With VPM 0.4.1 the Car workspace draws the "VPM is installed, but this version doesn't share
-  telemetry" card with **Update VPM** and **Open on the phone**; with VPM uninstalled it shows
-  **Install**. Neither crashes, and both recover once VPM 0.5.0 is back.
-- The unit tests cover the parser (bad JSON, missing fields, version mismatch, one entry per
-  category), the readings (demo, live, disconnected, waiting, stale, warning/critical, the VAG oil
-  alternative), the preset (added once, deleted stays deleted, JSON round-trip), the legacy `car`
-  → `vpm` migration and the state cards.
-- No OBD/ELM327 connection was opened by DashGrid: the cockpit has no OBD code, and the log showed
-  no adapter attempt and no `SecurityException`, only a single bridge note per distinct problem.
-- 1280 × 480 clipped the second grid row at first; the layout was fixed (the grid gets the larger
-  half on short screens and the tiles scale their text), and the final build keeps both rows whole.
+- Both packages report the expected version, and `dumpsys package io.dashgrid.app` reports
+  `READ_TELEMETRY: granted=true`.
+- The main screen draws VPM 0.6.2's set: gauges **ОЖ 86 °C**, **НАДДУВ АБС. 1,62 бар**,
+  **МАСЛО 95 °C**; tiles **DSG 82 °C**, **впуск 31 °C**, **выхлоп 320 °C**, **напряжение 14,4 В**,
+  **рампа 447 бар**. VPM's own cockpit at the same moment carried the same labels and units; the
+  numbers differed by a few units only because both apps sample the moving demo model at different
+  instants.
+- All six tabs open with two whole rows and no clipped values. **Turbo** shows the absolute boost in
+  bar while **Engine** keeps the same signal id in kPa, and the boost gauge still reads bar.
+- The demo pill stays on both apps: demo values are never presented as a car.
 
-Not checked: a real ELM327, a car, a real head unit and EMUI; the values are VPM's demo values, so
-live sensor readings and driving rules with a real vehicle-speed signal are unverified. Emulator
-captures are not proof of head-unit compatibility.
+Not checked in this session: a live ELM327/car (the saved OBDII adapter was listed, but no car session was
+available), the stale and
+dropped-link states on a device, the **Update VPM** / **Install** cards, a real head unit, EMUI's
+car screen and the 1920 × 720 / 1280 × 480 sizes. The stale rules are covered by JVM tests; the
+earlier 1.3.0/1.3.1 emulator run covered the cards, gestures and the two sizes with VPM 0.5.0, but
+its stale-as-dash behaviour is exactly what 1.3.2 replaces. Emulator or phone-preview captures are
+not proof of head-unit compatibility.
+
+The unit tests cover the parser (bad JSON, missing fields, version mismatch, one entry per category,
+`status` present/absent/unknown), the readings (demo, live, disconnected, waiting, stale,
+never-read, a dropped link with a stale number, warning/critical, the VAG oil alternative), the
+preset (added once, deleted stays deleted, JSON round-trip), the legacy `car` → `vpm` migration and
+the state cards. No OBD/ELM327 connection is opened by DashGrid: the cockpit has no OBD code, and
+the log shows no adapter attempt.
 
 ## Trying it without a car
 

@@ -4,6 +4,47 @@ DashGrid starts as a fork of **AARE 1.6.0** (upstream commit `1aa62163`). This f
 fork changed; everything not mentioned is AARE's and is intentionally unchanged. See
 [UPSTREAM.md](UPSTREAM.md) for the base and update process.
 
+## 1.3.2 — VPM 0.6.2 alignment
+
+### Cockpit
+
+- The Car cockpit now draws **VPM 0.6.2's main screen**: gauges coolant / absolute boost / oil and
+  tiles DSG oil / intake air / EGT / voltage / rail pressure. Speed, revs, gear, fuel use and fuel
+  level leave the main screen (they stay in the category grid, as in VPM).
+- Units follow VPM: °C, bar, V. Absolute boost and rail pressure arrive from the bridge already in
+  bar, so DashGrid keeps its own factor at 1 instead of dividing by 100 a second time.
+- A stale value stays a **number** — dimmed, with a stale dot, its needle faded — instead of turning
+  into “—”. A dash now means only `never_read` or no value. The same rule keeps the last number on
+  screen when VPM's link drops but the bridge still carries it as stale.
+- The category grid takes the occurrence of a signal that belongs to its tab: `engine.map_kpa` is
+  kPa under Engine and bar under Turbo, and the boost gauge reads the Turbo one.
+
+### Contract
+
+- `VpmSignal` carries `status` (`valid` / `stale` / `never_read`, VPM 0.6.0+). A VPM older than
+  0.6.0 has no status: it is derived from `stale` and the presence of a value. An unknown status
+  falls back the same way and never crashes the parser.
+- The bridge status wins over the `stale` flag; `stale` is used only as the fallback, as the
+  contract specifies.
+
+### Tests
+
+- `VpmMetricsTest`, `VpmSnapshotTest` and `VpmUiStateTest` cover the new composition, stale numbers,
+  never-read dashes, an old VPM without `status`, an unknown status, a dropped link with a stale
+  number, and the kPa/bar duplicate of `engine.map_kpa`.
+- 962 app tests, 219 `aap` tests and 25 `headunit` tests, all green; `lintVital` runs on the
+  release build.
+
+### Documentation
+
+- [docs/VPM.md](docs/VPM.md) describes VPM 0.6.2's composition, the `status` field, the
+  stale-as-number rule and the unit handoff; README and [RELEASE_NOTES.md](RELEASE_NOTES.md) are
+  updated; the F-Droid changelog for `versionCode 10302` is added.
+
+### Status
+
+- 1.3.2 / 10302 is prepared and installed locally. No tag, no push and no release yet.
+
 ## 1.3.1 — one cockpit entry (fix)
 
 ### Settings

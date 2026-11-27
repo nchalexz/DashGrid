@@ -41,16 +41,17 @@ import net.prototux.aare.ui.car.carClickable
 import net.prototux.aare.vpm.VpmCategory
 import net.prototux.aare.vpm.VpmMetric
 import net.prototux.aare.vpm.VpmMetrics
-import net.prototux.aare.vpm.VpmReadingState
 import net.prototux.aare.vpm.VpmSignal
+import net.prototux.aare.vpm.vpmSignalCategory
 import net.prototux.aare.vpm.VpmSnapshot
 import net.prototux.aare.vpm.formatVpmNumber
 import net.prototux.aare.vpm.readVpmMetric
 import net.prototux.aare.vpm.signalsIn
 
 /**
- * VPM's main screen: three gauges over five tiles, no category bar. The composition is VPM 0.4.1's
- * (`DashboardScreen`), drawn from a snapshot instead of from VPM's own telemetry state.
+ * VPM's main screen: three gauges over five tiles, no category bar. The composition is VPM
+ * 0.6.2's (`DashboardScreen`): coolant / absolute boost / oil and DSG / intake / EGT / voltage /
+ * rail, drawn from a snapshot instead of from VPM's own telemetry state.
  */
 @Composable
 fun VpmMainScreen(
@@ -92,6 +93,7 @@ fun VpmMainScreen(
 
 /**
  * VPM's extended screen: the same three gauges smaller, six category tabs and its adaptive grid.
+ * A stale value keeps VPM's number, dimmed, so the grid matches the main screen.
  */
 @Composable
 fun VpmCategoriesScreen(
@@ -185,7 +187,7 @@ private fun VpmTileRows(
                         unit = metric.unitRes?.let { stringResource(it) }.orEmpty(),
                         warning = reading.warning,
                         critical = reading.critical,
-                        stale = reading.state != VpmReadingState.OK,
+                        stale = reading.isStale,
                         modifier = Modifier.weight(1f).fillMaxHeight(),
                     )
                 }
@@ -273,14 +275,21 @@ private fun VpmMetricGrid(
     }
 }
 
-/** One tile of the extended grid: VPM's label, value and unit, localized for the signals DashGrid knows. */
+/**
+ * One tile of the extended grid: VPM's label, value and unit, localized for the signals DashGrid
+ * knows. A stale value is still VPM's number, dimmed and marked; only a never-read signal is a dash.
+ *
+ * The localized metric is used only when its category matches the tab. `engine.map_kpa` is kPa under
+ * Engine and bar under Turbo, and one metric cannot describe both.
+ */
 @Composable
 private fun VpmSignalTile(signal: VpmSignal, modifier: Modifier = Modifier) {
-    val metric = VpmMetrics.of(signal.id)
+    val category = vpmSignalCategory(signal)
+    val metric = VpmMetrics.of(signal.id)?.takeIf { it.category == category }
     val knownLabel = metric?.let { stringResource(it.labelRes) }
     val knownUnit = metric?.unitRes?.let { stringResource(it) }
     val value = when {
-        signal.stale -> "—"
+        signal.isNeverRead -> "—"
         signal.value != null -> signal.value
         signal.raw != null -> formatVpmNumber(signal.raw, metric?.decimals ?: 0)
         else -> "—"
@@ -289,9 +298,9 @@ private fun VpmSignalTile(signal: VpmSignal, modifier: Modifier = Modifier) {
         label = knownLabel ?: signal.label,
         value = value,
         unit = knownUnit ?: signal.unit,
-        warning = !signal.stale && (signal.warning || metric?.warning(signal.raw) == true),
-        critical = !signal.stale && metric?.critical(signal.raw) == true,
-        stale = signal.stale,
+        warning = !signal.isStale && (signal.warning || metric?.warning(signal.raw) == true),
+        critical = !signal.isStale && metric?.critical(signal.raw) == true,
+        stale = signal.isStale,
         modifier = modifier,
     )
 }

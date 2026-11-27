@@ -42,6 +42,7 @@ class VpmSnapshotTest {
         assertEquals("°C", coolant.unit)
         assertEquals(86.0, coolant.raw!!, 0.0)
         assertEquals("temperatures", coolant.category)
+        assertEquals(VpmSignalStatus.VALID, coolant.status)
         assertEquals(0.62, s.signal("engine.boost_kpa")!!.raw!!, 0.0)
         assertEquals("5,0", s.signal("fuel.l100_km")!!.value)
     }
@@ -123,5 +124,63 @@ class VpmSnapshotTest {
         val s = snapshot(signals = "[]")!!
         assertTrue(s.signals.isEmpty())
         assertNull(s.signal("vehicle.speed"))
+    }
+
+    @Test
+    fun everyStatusOfContractV1IsParsed() {
+        val signals = parseVpmSignals(
+            """[{"id":"a","raw":1,"status":"valid"},
+                {"id":"b","raw":1,"status":"stale"},
+                {"id":"c","status":"never_read"}]""",
+        )
+        assertEquals(VpmSignalStatus.VALID, signals[0].status)
+        assertEquals(VpmSignalStatus.STALE, signals[1].status)
+        assertEquals(VpmSignalStatus.NEVER_READ, signals[2].status)
+        assertFalse(signals[0].isStale)
+        assertTrue(signals[1].isStale)
+        assertTrue(signals[2].isNeverRead)
+    }
+
+    @Test
+    fun anOlderVpmWithoutStatusIsDerivedFromItsFlags() {
+        val signals = parseVpmSignals(
+            """[{"id":"valid","raw":86},
+                {"id":"stale","raw":86,"stale":true},
+                {"id":"never","stale":false}]""",
+        )
+        assertEquals(VpmSignalStatus.VALID, signals[0].status)
+        assertEquals(VpmSignalStatus.STALE, signals[1].status)
+        assertEquals(VpmSignalStatus.NEVER_READ, signals[2].status)
+    }
+
+    @Test
+    fun anExplicitStatusWinsOverTheStaleFlag() {
+        // The bridge is the authority on freshness; a future VPM may send status=valid with
+        // stale=true only during a transition, and it must not be drawn as stale.
+        val signals = parseVpmSignals(
+            """[{"id":"a","raw":1,"stale":true,"status":"valid"},
+                {"id":"b","raw":1,"stale":false,"status":"stale"}]""",
+        )
+        assertEquals(VpmSignalStatus.VALID, signals[0].status)
+        assertEquals(VpmSignalStatus.STALE, signals[1].status)
+    }
+
+    @Test
+    fun anUnknownStatusFallsBackToTheFlagsInsteadOfCrashing() {
+        val signals = parseVpmSignals(
+            """[{"id":"fresh","raw":1,"status":"bogus"},
+                {"id":"old","raw":1,"stale":true,"status":"bogus"},
+                {"id":"none","status":"bogus"}]""",
+        )
+        assertEquals(VpmSignalStatus.VALID, signals[0].status)
+        assertEquals(VpmSignalStatus.STALE, signals[1].status)
+        assertEquals(VpmSignalStatus.NEVER_READ, signals[2].status)
+    }
+
+    @Test
+    fun statusNeverReadIsADashEvenWhenAValueCameAlone() {
+        val signal = parseVpmSignals("""[{"id":"a","value":"86","raw":86,"status":"never_read"}]""").single()
+        assertTrue(signal.isNeverRead)
+        assertTrue(signal.hasValue)
     }
 }

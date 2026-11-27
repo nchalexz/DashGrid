@@ -18,7 +18,7 @@ val mockups = providers.gradleProperty("mockups").isPresent
 if (mockups) apply(plugin = libs.plugins.paparazzi.get().pluginId)
 
 // The fork's released version: raised here, and used for the APK file name below.
-val dashgridVersionName = "1.3.1"
+val dashgridVersionName = "1.3.2"
 
 android {
     namespace = "net.prototux.aare"
@@ -37,7 +37,7 @@ android {
         // The released version, raised in the release commit (the release workflow checks that the
         // tag matches): F-Droid builds the tag and reads it from here. versionCode is
         // major * 10000 + minor * 100 + patch. -PversionName / -PversionCode still override it.
-        versionCode = 10301
+        versionCode = 10302
         versionName = dashgridVersionName
         providers.gradleProperty("versionCode").orNull?.let { versionCode = it.toInt() }
         providers.gradleProperty("versionName").orNull?.let { versionName = it }

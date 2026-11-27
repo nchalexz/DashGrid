@@ -1,0 +1,1 @@
+VPM 0.6.2 alignment: the Car cockpit now shows coolant, absolute boost and oil as gauges, and DSG, intake, exhaust, voltage and rail pressure as tiles. Stale values stay numbers (dimmed, with a marker) instead of turning into dashes; never-read values remain dashes. Uses VPM's status field with a fallback for older VPM builds.

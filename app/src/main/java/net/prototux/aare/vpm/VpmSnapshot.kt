@@ -49,12 +49,28 @@ enum class VpmConnection(val wire: String) {
 }
 
 /**
+ * How fresh a signal is, from VPM's `status` field (added in VPM 0.6.0).
+ *
+ * [VALID] is a current value, [STALE] a value VPM still holds but has not refreshed, and
+ * [NEVER_READ] the absence of any successful read in the session. The numbers stay numbers when
+ * [STALE]: only [NEVER_READ] or a missing value is a dash on the cockpit.
+ */
+enum class VpmSignalStatus(val wire: String) {
+    VALID("valid"),
+    STALE("stale"),
+    NEVER_READ("never_read"),
+}
+
+/**
  * One metric of VPM's snapshot.
  *
  * [value] is the text VPM's cockpit shows (comma decimals, "—" for no value is not sent: null is).
  * [unit] is VPM's display unit. [raw] is the numeric value in that same display unit, used to place
  * a needle and to reach VPM's warning thresholds. [category] is one of VPM's display categories
  * (`engine`, `temperatures`, `fuel`, `gearbox`, `turbo`, `diagnostics`).
+ *
+ * [status] comes from VPM 0.6.0+; for an older provider it is derived from [stale] and the presence
+ * of a value, so an old VPM never looks like a new one and never crashes the parser.
  */
 data class VpmSignal(
     val id: String,
@@ -65,7 +81,15 @@ data class VpmSignal(
     val stale: Boolean,
     val warning: Boolean,
     val category: String?,
-)
+    val status: VpmSignalStatus,
+) {
+    /** A number worth drawing: VPM sent one, whether it is fresh or stale. */
+    val hasValue: Boolean get() = value != null || raw != null
+
+    val isStale: Boolean get() = status == VpmSignalStatus.STALE
+
+    val isNeverRead: Boolean get() = status == VpmSignalStatus.NEVER_READ
+}
 
 /** One VPM snapshot: the link's state and every value VPM had at [updatedAt]. */
 data class VpmSnapshot(
@@ -130,23 +154,48 @@ fun parseVpmSignals(json: String?): List<VpmSignal> {
         val category = o.optString("category").trim().takeIf { it.isNotEmpty() }
         // One entry per (id, category): VPM may list a signal under two tabs, but not twice in one.
         if (!seen.add(id + "\u0000" + category.orEmpty())) continue
+        val value = when {
+            !o.has("value") || o.isNull("value") -> null
+            else -> o.opt("value")?.toString()?.trim()?.takeIf { it.isNotEmpty() }
+        }
+        val raw = when (val raw = if (o.has("raw") && !o.isNull("raw")) o.opt("raw") else null) {
+            is Number -> raw.toDouble().takeIf { it.isFinite() }
+            is String -> raw.toDoubleOrNull()?.takeIf { it.isFinite() }
+            else -> null
+        }
+        val stale = o.optBoolean("stale", false)
+        val status = parseVpmSignalStatus(o.optString("status"), stale, value != null || raw != null)
         out += VpmSignal(
             id = id,
             label = o.optString("label").trim().ifEmpty { id },
-            value = when {
-                !o.has("value") || o.isNull("value") -> null
-                else -> o.opt("value")?.toString()?.trim()?.takeIf { it.isNotEmpty() }
-            },
+            value = value,
             unit = o.optString("unit").trim(),
-            raw = when (val raw = if (o.has("raw") && !o.isNull("raw")) o.opt("raw") else null) {
-                is Number -> raw.toDouble().takeIf { it.isFinite() }
-                is String -> raw.toDoubleOrNull()?.takeIf { it.isFinite() }
-                else -> null
-            },
-            stale = o.optBoolean("stale", false),
+            raw = raw,
+            stale = stale,
             warning = o.optBoolean("warning", false),
             category = category,
+            status = status,
         )
     }
     return out
+}
+
+/**
+ * Reads the contract's `status` with the compatibility rule of VPM 0.6.0:
+ *
+ * - a known `valid` / `stale` / `never_read` wins, even if `stale` disagrees with it;
+ * - a provider older than 0.6.0 has no `status`, so `stale = true` means [VpmSignalStatus.STALE],
+ *   a missing value means [VpmSignalStatus.NEVER_READ], and anything else is
+ *   [VpmSignalStatus.VALID];
+ * - an unknown word is not an error: `stale` and the presence of a value decide, so a future VPM
+ *   still draws its numbers instead of a black screen.
+ */
+fun parseVpmSignalStatus(status: String?, stale: Boolean, hasValue: Boolean): VpmSignalStatus {
+    val wire = status?.trim()?.lowercase()
+    VpmSignalStatus.entries.firstOrNull { it.wire == wire }?.let { return it }
+    return when {
+        stale -> VpmSignalStatus.STALE
+        !hasValue -> VpmSignalStatus.NEVER_READ
+        else -> VpmSignalStatus.VALID
+    }
 }

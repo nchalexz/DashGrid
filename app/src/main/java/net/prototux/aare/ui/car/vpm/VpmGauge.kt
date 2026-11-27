@@ -7,6 +7,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Cyclone
@@ -30,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -50,6 +53,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
+import net.prototux.aare.R
 import net.prototux.aare.ui.car.carClickable
 import net.prototux.aare.vpm.VpmGaugeIcon
 import net.prototux.aare.vpm.VpmMetric
@@ -88,6 +92,7 @@ fun VpmGauge(
     val density = LocalDensity.current
     val label = stringResource(metric.labelRes)
     val unit = metric.unitRes?.let { stringResource(it) }.orEmpty().uppercase()
+    val staleNote = stringResource(R.string.vpm_stale)
     val typeface = remember {
         runCatching { ResourcesCompat.getFont(context, net.prototux.aare.R.font.titillium_web_light) }
             .getOrNull() ?: Typeface.DEFAULT
@@ -110,24 +115,31 @@ fun VpmGauge(
             LaunchedEffect(reading.fraction) {
                 reading.fraction?.let { lastFraction = it }
             }
-            val target = if (reading.isOk) reading.fraction ?: lastFraction else lastFraction
+            // A stale number keeps its place on the scale; only the needle fades, so the
+            // driver sees both the last known value and that it is no longer fresh.
+            val hasValue = reading.isOk || reading.isStale
+            val target = if (hasValue) reading.fraction ?: lastFraction else lastFraction
             val needle by animateFloatAsState(
                 targetValue = target,
                 animationSpec = tween(durationMillis = 150, easing = LinearEasing),
                 label = "vpm-needle",
             )
             val needleAlpha by animateFloatAsState(
-                targetValue = if (reading.isOk) 1f else 0f,
+                targetValue = when {
+                    reading.isOk -> 1f
+                    reading.isStale -> 0.30f
+                    else -> 0f
+                },
                 animationSpec = tween(durationMillis = 200),
                 label = "vpm-needle-alpha",
             )
 
             Box(
                 Modifier.size(side).semantics {
-                    contentDescription = if (reading.isOk) {
-                        "$label ${reading.text} $unit".trim()
-                    } else {
-                        "$label —".trim()
+                    contentDescription = when {
+                        reading.isOk -> "$label ${reading.text} $unit".trim()
+                        reading.isStale -> "$label ${reading.text} $unit, $staleNote".trim()
+                        else -> "$label —".trim()
                     }
                 },
                 contentAlignment = Alignment.Center,
@@ -156,6 +168,12 @@ fun VpmGauge(
                         modifier = Modifier.align(Alignment.Center)
                             .offset(y = radius * 0.73f)
                             .size(radius * 0.18f),
+                    )
+                }
+                if (reading.isStale) {
+                    Box(
+                        Modifier.align(Alignment.TopEnd).padding(top = 6.dp, end = 6.dp)
+                            .size(6.dp).clip(CircleShape).background(colors.warning),
                     )
                 }
             }
@@ -291,6 +309,7 @@ private fun DrawScope.drawValue(
     if (text.isBlank()) return
 
     val color = when {
+        reading.isStale -> colors.text.copy(alpha = 0.55f)
         reading.critical -> colors.critical
         reading.warning -> colors.warning
         !reading.isOk -> colors.text.copy(alpha = 0.55f)

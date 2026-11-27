@@ -38,6 +38,13 @@
 > and no ELM327 adapter or vehicle was available: the values shown are VPM's demo values, not live
 > sensor readings. The details are in [What is tested](#what-is-tested-what-is-not).
 
+> [!NOTE]
+> **1.3.2 is prepared locally and not released.** It aligns the Car cockpit with VPM 0.6.2: the
+> gauges are coolant / absolute boost / oil, the tiles are DSG / intake / EGT / voltage / rail, and a
+> stale value stays a number instead of a dash. Version 1.3.2 / `versionCode 10302` is built and
+> installed, but not tagged or published; the install section below still describes 1.3.1. See
+> [CHANGELOG.md](CHANGELOG.md) and [docs/VPM.md](docs/VPM.md).
+
 ## What this is
 
 DashGrid is a standalone Android app that gives an Android Auto head unit a set of home screens you

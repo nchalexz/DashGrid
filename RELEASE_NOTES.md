@@ -2,6 +2,11 @@
   <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/social-preview.png" width="100%" alt="DashGrid 1.3.1 — one cockpit entry in the settings">
 </p>
 
+> [!NOTE]
+> **A 1.3.2 build is prepared locally and not released.** It aligns the cockpit with VPM 0.6.2
+> (coolant / absolute boost / oil gauges; DSG / intake / EGT / voltage / rail tiles; stale values stay
+> numbers). This page still describes the published 1.3.1; 1.3.2 has no tag, APK or SHA-256 yet.
+
 <h1 align="center">DashGrid 1.3.1</h1>
 
 <p align="center">

@@ -40,17 +40,20 @@ private fun vpmMockSnapshot(): VpmSnapshot = requireNotNull(parseVpmSnapshot(
           {"id":"engine.intake_air_c","label":"Intake air","value":"31","unit":"°C","raw":31,"category":"temperatures"},
           {"id":"engine.ambient_c","label":"Ambient","value":"18","unit":"°C","raw":18,"category":"temperatures"},
           {"id":"emissions.catalyst_c","label":"Catalyst","value":"412","unit":"°C","raw":412,"category":"temperatures"},
+          {"id":"vag.7e0.10fb.egt1","label":"Выхлоп","value":"152","unit":"°C","raw":152,"category":"temperatures","status":"valid"},
 
           {"id":"fuel.level_pct","label":"Топливо","value":"58","unit":"%","raw":58,"category":"fuel"},
           {"id":"fuel.l100_km","label":"Расход","value":"5,0","unit":"л/100 км","raw":5.0,"category":"fuel"},
           {"id":"fuel.rate_lph","label":"Fuel rate","value":"1,2","unit":"л/ч","raw":1.2,"category":"fuel"},
           {"id":"fuel.trim_short_pct","label":"Trim short","value":"−2,3","unit":"%","raw":-2.3,"category":"fuel"},
           {"id":"fuel.trim_long_pct","label":"Trim long","value":"1,6","unit":"%","raw":1.6,"category":"fuel"},
+          {"id":"fuel.rail_kpa","label":"Давл. рампы","value":"314","unit":"бар","raw":314.0,"category":"fuel","status":"valid"},
 
           {"id":"vehicle.gear","label":"Передача","value":"5","unit":"","raw":5,"category":"gearbox"},
+          {"id":"vag.7e1.2104.atf_temp","label":"Темп. DSG","value":"73","unit":"°C","raw":73,"category":"gearbox","status":"valid"},
 
-          {"id":"engine.boost_kpa","label":"Boost","value":"0,62","unit":"бар","raw":0.62,"category":"turbo"},
-          {"id":"engine.map_kpa","label":"Intake pressure","value":"161","unit":"кПа","raw":161,"category":"turbo"},
+          {"id":"engine.boost_kpa","label":"Boost","value":"0,62","unit":"бар","raw":0.62,"category":"turbo","status":"valid"},
+          {"id":"engine.map_kpa","label":"Наддув абс.","value":"1,61","unit":"бар","raw":1.61,"category":"turbo","status":"valid"},
           {"id":"engine.baro_kpa","label":"Atmospheric","value":"100","unit":"кПа","raw":100,"category":"turbo"},
 
           {"id":"electrical.voltage_v","label":"Battery","value":"14,8","unit":"В","raw":14.8,"category":"diagnostics"},
@@ -64,7 +67,7 @@ private fun vpmMockSnapshot(): VpmSnapshot = requireNotNull(parseVpmSnapshot(
 ))
 
 /**
- * JVM renders of the native cockpit for the README: VPM's 0.4.1 composition with VPM's own mock
+ * JVM renders of the native cockpit for the README: VPM 0.6.2's composition with VPM's own mock
  * values. These are drawings, not photographs of a head unit, and the data is VPM's demo sample.
  */
 class VpmCockpitMockups {

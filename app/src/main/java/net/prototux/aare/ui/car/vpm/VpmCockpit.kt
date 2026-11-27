@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,6 +49,8 @@ import net.prototux.aare.ui.car.carClickable
 import net.prototux.aare.vpm.Vpm
 import net.prototux.aare.vpm.VpmCategory
 import net.prototux.aare.vpm.VpmMetric
+import net.prototux.aare.vpm.VpmMetrics
+import net.prototux.aare.vpm.readVpmMetric
 import net.prototux.aare.vpm.VpmRead
 import net.prototux.aare.vpm.VpmSnapshot
 
@@ -151,44 +154,53 @@ fun VpmCockpitView(
         val showCategories = {
             scope.launch { pager.animateScrollToPage(1) }
         }
-        Column(modifier.fillMaxSize().background(colors.background)) {
-            // The source pill used to float over the gauge panel; a live VPM status can be long
-            // ("Bluetooth OBDII · ELM327 v1.5 · 14.3V") and covered the coolant dial. A thin header
-            // keeps the pill and the page dots out of the instruments' way.
-            Row(
-                Modifier.fillMaxWidth().height(28.dp).padding(start = 8.dp, end = 4.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                VpmSourcePill(snapshot, Modifier.weight(1f, fill = false))
-                Spacer(Modifier.weight(1f))
-                VpmPageDots(
-                    current = pager.currentPage,
-                    count = 2,
-                    onSelect = { target -> scope.launch { pager.animateScrollToPage(target) } },
-                )
-            }
-            HorizontalPager(
-                state = pager,
-                modifier = Modifier.weight(1f).fillMaxWidth(),
-                // The cockpit's own two screens are switched by the header dots or by tapping a
-                // gauge, never by a horizontal swipe: a swipe belongs to DashGrid's workspace
-                // pager, so "swipe anywhere" keeps working even when the cockpit fills the page.
-                userScrollEnabled = false,
-                key = { it },
-            ) { page ->
-                when (page) {
-                    0 -> VpmMainScreen(
-                        snapshot = snapshot,
-                        onGauge = { metric -> categoryId = metric.category.id; showCategories() },
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                    else -> VpmCategoriesScreen(
-                        snapshot = snapshot,
-                        selected = VpmCategory.byId(categoryId) ?: VpmCategory.ENGINE,
-                        onCategory = { categoryId = it.id },
-                        onGauge = { metric: VpmMetric -> categoryId = metric.category.id },
-                        modifier = Modifier.fillMaxSize(),
-                    )
+        BoxWithConstraints(modifier.fillMaxSize().background(colors.background)) {
+            // A cockpit in a small workspace cell gets the compact four-value panel; the full
+            // gauges/tabs composition needs roughly half a screen or more.
+            if (maxWidth < 360.dp || maxHeight < 220.dp) {
+                VpmCompactPanel(snapshot, Modifier.fillMaxSize())
+            } else {
+                Column(Modifier.fillMaxSize()) {
+                    // The source pill used to float over the gauge panel; a live VPM status can be
+                    // long ("Bluetooth OBDII · ELM327 v1.5 · 14.3V") and covered the coolant dial.
+                    // A thin header keeps the pill and the page dots out of the instruments' way.
+                    Row(
+                        Modifier.fillMaxWidth().height(28.dp).padding(start = 8.dp, end = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        VpmSourcePill(snapshot, Modifier.weight(1f, fill = false))
+                        Spacer(Modifier.weight(1f))
+                        VpmPageDots(
+                            current = pager.currentPage,
+                            count = 2,
+                            onSelect = { target -> scope.launch { pager.animateScrollToPage(target) } },
+                        )
+                    }
+                    HorizontalPager(
+                        state = pager,
+                        modifier = Modifier.weight(1f).fillMaxWidth(),
+                        // The cockpit's own two screens are switched by the header dots or by
+                        // tapping a gauge, never by a horizontal swipe: a swipe belongs to
+                        // DashGrid's workspace pager, so "swipe anywhere" keeps working even when
+                        // the cockpit fills the page.
+                        userScrollEnabled = false,
+                        key = { it },
+                    ) { page ->
+                        when (page) {
+                            0 -> VpmMainScreen(
+                                snapshot = snapshot,
+                                onGauge = { metric -> categoryId = metric.category.id; showCategories() },
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                            else -> VpmCategoriesScreen(
+                                snapshot = snapshot,
+                                selected = VpmCategory.byId(categoryId) ?: VpmCategory.ENGINE,
+                                onCategory = { categoryId = it.id },
+                                onGauge = { metric: VpmMetric -> categoryId = metric.category.id },
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -196,54 +208,92 @@ fun VpmCockpitView(
 }
 
 /**
- * What a VPM cockpit item smaller than the whole workspace shows.
+ * The compact cockpit for a workspace cell: boost, coolant, oil and DSG as plain values.
  *
- * The cockpit is drawn for the full 10 × 6 grid; a 2 × 2 cell used to clip it down to one tile
- * (usually the bottom-left DSG temperature) and its inner pager stole the workspace swipe. The
- * widget is now added full-size, and an old saved small item says what it needs instead of lying.
+ * A small VPM item used to clip the full cockpit down to one bottom-left tile. This panel never
+ * steals horizontal swipes and works in a 1 × 1 cell (one value), a strip (four in a row) or a
+ * block (2 × 2).
  */
 @Composable
-fun VpmCockpitNeedsFullWorkspace(modifier: Modifier = Modifier) {
-    VpmTheme {
-        val colors = LocalVpmColors.current
-        BoxWithConstraints(modifier.fillMaxSize().background(colors.background), contentAlignment = Alignment.Center) {
-            val tiny = maxWidth < 180.dp || maxHeight < 110.dp
-            Column(
-                Modifier.padding(if (tiny) 6.dp else 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                if (!tiny) {
-                    Icon(
-                        painterResource(R.drawable.ic_vpm_boost),
-                        null,
-                        tint = colors.dim,
-                        modifier = Modifier.size(28.dp),
-                    )
-                    Spacer(Modifier.size(8.dp))
-                }
-                Text(
-                    stringResource(if (tiny) R.string.dash_card_vpm else R.string.vpm_needs_full_workspace),
-                    color = colors.text,
-                    fontFamily = VpmFont,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = if (tiny) 10.sp else 14.sp,
-                    textAlign = TextAlign.Center,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                if (!tiny) {
-                    Spacer(Modifier.size(4.dp))
-                    Text(
-                        stringResource(R.string.vpm_needs_full_workspace_body),
-                        color = colors.dim,
-                        fontFamily = VpmFont,
-                        fontSize = 11.sp,
-                        textAlign = TextAlign.Center,
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis,
-                    )
+private fun VpmCompactPanel(snapshot: VpmSnapshot?, modifier: Modifier = Modifier) {
+    val colors = LocalVpmColors.current
+    val metrics = listOf(VpmMetrics.boostAbs, VpmMetrics.coolant, VpmMetrics.oil, VpmMetrics.dsgTemp)
+    BoxWithConstraints(modifier.fillMaxSize().background(colors.background).padding(6.dp)) {
+        val wideStrip = maxHeight < 150.dp && maxWidth >= 360.dp
+        val four = wideStrip || (maxWidth >= 360.dp && maxHeight >= 140.dp)
+        val two = !four && maxWidth >= 220.dp && maxHeight >= 110.dp
+        when {
+            wideStrip -> Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                metrics.forEach { metric ->
+                    VpmCompactCell(metric, snapshot, Modifier.weight(1f).fillMaxHeight(), compact = true)
                 }
             }
+            four || two -> Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                val shown = if (four) metrics else metrics.take(2)
+                shown.chunked(2).forEach { row ->
+                    Row(
+                        Modifier.weight(1f).fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        row.forEach { metric ->
+                            VpmCompactCell(metric, snapshot, Modifier.weight(1f).fillMaxHeight(), compact = true)
+                        }
+                        repeat(2 - row.size) { Spacer(Modifier.weight(1f)) }
+                    }
+                }
+            }
+            else -> VpmCompactCell(metrics.first(), snapshot, Modifier.fillMaxSize(), compact = false)
+        }
+    }
+}
+
+@Composable
+private fun VpmCompactCell(
+    metric: VpmMetric,
+    snapshot: VpmSnapshot?,
+    modifier: Modifier,
+    compact: Boolean,
+) {
+    val colors = LocalVpmColors.current
+    val reading = readVpmMetric(metric, snapshot)
+    val unit = metric.unitRes?.let { stringResource(it) }.orEmpty()
+    Column(
+        modifier.padding(2.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            stringResource(metric.labelRes).uppercase(),
+            color = colors.dim,
+            fontFamily = VpmFont,
+            fontSize = if (compact) 8.sp else 9.sp,
+            letterSpacing = 0.6.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        Text(
+            reading.text,
+            color = when {
+                reading.isStale -> colors.text.copy(alpha = 0.55f)
+                reading.critical -> colors.critical
+                reading.warning -> colors.warning
+                reading.isOk -> colors.text
+                else -> colors.dim
+            },
+            fontFamily = VpmFont,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = if (compact) 18.sp else 26.sp,
+            maxLines = 1,
+            softWrap = false,
+        )
+        if (unit.isNotEmpty()) {
+            Text(
+                unit,
+                color = colors.dim,
+                fontFamily = VpmFont,
+                fontSize = 8.sp,
+                maxLines = 1,
+            )
         }
     }
 }

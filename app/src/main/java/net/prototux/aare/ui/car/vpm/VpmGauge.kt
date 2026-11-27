@@ -3,6 +3,8 @@ package net.prototux.aare.ui.car.vpm
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.Typeface
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -129,6 +131,20 @@ fun VpmGauge(
                 animationSpec = tween(durationMillis = 200),
                 label = "vpm-needle-alpha",
             )
+            // The ignition-style needle test: sweep to the end of the scale and settle back on
+            // the real reading. One shared animation per gauge, on first composition.
+            val startup = remember(metric.id) { Animatable(0f) }
+            LaunchedEffect(metric.id) {
+                startup.animateTo(1f, tween(durationMillis = 1100, easing = FastOutSlowInEasing))
+            }
+            val sweep = startup.value
+            val sweeping = sweep < 1f
+            val shownNeedle = if (sweeping) {
+                if (sweep < 0.5f) sweep * 2f else 1f - (sweep - 0.5f) * 2f * (1f - needle)
+            } else {
+                needle
+            }
+            val shownAlpha = if (sweeping) 1f else needleAlpha
 
             Box(
                 Modifier.size(side).semantics {
@@ -141,7 +157,7 @@ fun VpmGauge(
                 contentAlignment = Alignment.Center,
             ) {
                 Canvas(Modifier.fillMaxSize()) {
-                    drawGauge(metric, needle, needleAlpha, colors)
+                    drawGauge(metric, shownNeedle, shownAlpha, colors)
                     drawValue(paint, reading, colors)
                 }
 

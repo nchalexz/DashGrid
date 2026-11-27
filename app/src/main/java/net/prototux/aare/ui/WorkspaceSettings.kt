@@ -309,21 +309,18 @@ internal fun WorkspacesSettings(
                 else LazyColumn(Modifier.heightIn(max = 420.dp)) {
                     items(available) { id ->
                         ChoiceRow(icon = widgetIcon(id), label = stringResource(widgetLabel(id))) {
-                            val fullScreen = id == VPM_COCKPIT_WIDGET_ID
-                            if (fullScreen && workspace.items.isNotEmpty()) {
-                                Toast.makeText(ctx, R.string.vpm_needs_empty_workspace, Toast.LENGTH_LONG).show()
+                            // The cockpit has a compact mode, so it can live in any free cells;
+                            // 5 × 3 is a useful default, and the editor can resize it after.
+                            val rect = if (id == VPM_COCKPIT_WIDGET_ID) {
+                                WorkspaceRect(0, 0, 5, 3)
                             } else {
-                                val rect = if (fullScreen) {
-                                    WorkspaceRect(0, 0, WORKSPACE_COLUMNS, WORKSPACE_ROWS)
-                                } else {
-                                    WorkspaceRect(0, 0, 1, 1)
-                                }
-                                val added = workspace.withAddedItem(WorkspaceItem.widget(id, rect))
-                                if (added == null) {
-                                    Toast.makeText(ctx, R.string.workspaces_no_space, Toast.LENGTH_SHORT).show()
-                                } else {
-                                    update(added)
-                                }
+                                WorkspaceRect(0, 0, 1, 1)
+                            }
+                            val added = workspace.withAddedItem(WorkspaceItem.widget(id, rect))
+                            if (added == null) {
+                                Toast.makeText(ctx, R.string.workspaces_no_space, Toast.LENGTH_SHORT).show()
+                            } else {
+                                update(added)
                             }
                             addWidgetTo = null
                         }

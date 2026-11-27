@@ -58,7 +58,6 @@ import kotlinx.coroutines.launch
 import net.prototux.aare.R
 import net.prototux.aare.car.NextEvent
 import net.prototux.aare.ui.car.vpm.VpmCockpit
-import net.prototux.aare.ui.car.vpm.VpmCockpitNeedsFullWorkspace
 import net.prototux.aare.workspace.WORKSPACE_COLUMNS
 import net.prototux.aare.workspace.WORKSPACE_ROWS
 import net.prototux.aare.workspace.VIRTUAL_PAGE_COUNT
@@ -363,11 +362,7 @@ private fun WorkspaceWidget(
         }
         // DashGrid draws VPM's cockpit itself, from VPM's read-only snapshot. The old AARe OBD
         // cockpit widget is not offered any more: saved items arrive here already migrated.
-        "vpm" -> if (item.rect.colSpan >= WORKSPACE_COLUMNS && item.rect.rowSpan >= WORKSPACE_ROWS) {
-            VpmCockpit(active, Modifier.fillMaxSize())
-        } else {
-            VpmCockpitNeedsFullWorkspace(Modifier.fillMaxSize())
-        }
+        "vpm" -> VpmCockpit(active, Modifier.fillMaxSize())
         else -> WidgetPlaceholder(Icons.Rounded.Widgets, stringResource(R.string.workspace_widget_unavailable), null)
     }
 }

@@ -244,7 +244,7 @@ adb install -r DashGrid-standalone-v1.3.2.apk
 <summary>SHA-256 and signing certificate</summary>
 
 ```text
-08efb682488e1220f2b375e3b6b57a47e785732b964f12472c697e7931d9a7bc  DashGrid-standalone-v1.3.2.apk
+29c28e8ca967d3e569af1b00ac270289cac4a5f8610e4b6bc3599adb8b7283f9  DashGrid-standalone-v1.3.2.apk
 certificate SHA-256: 4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5
 ```
 

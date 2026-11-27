@@ -437,13 +437,14 @@ fun VpmSourcePill(snapshot: VpmSnapshot?, modifier: Modifier = Modifier) {
     ) {
         Box(Modifier.size(5.dp).clip(CircleShape).background(color))
         Spacer(Modifier.width(5.dp))
-        Text(label, color = color, fontFamily = VpmFont, fontSize = 9.sp, letterSpacing = 0.7.sp, maxLines = 1)
+        Text(label, color = color, fontFamily = VpmFont, fontSize = 9.sp, lineHeight = 9.sp, letterSpacing = 0.7.sp, maxLines = 1)
         if (channel.isNotBlank()) {
             Text(
                 " · $channel",
                 color = colors.dim,
                 fontFamily = VpmFont,
                 fontSize = 8.sp,
+                lineHeight = 8.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f, fill = false),

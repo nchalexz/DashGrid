@@ -168,8 +168,9 @@ fun VpmCockpitView(
                         Modifier.fillMaxWidth().height(28.dp).padding(start = 8.dp, end = 4.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        VpmSourcePill(snapshot, Modifier.weight(1f, fill = false))
-                        Spacer(Modifier.weight(1f))
+                        Box(Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
+                            VpmSourcePill(snapshot)
+                        }
                         VpmPageDots(
                             current = pager.currentPage,
                             count = 2,

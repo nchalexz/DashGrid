@@ -70,7 +70,7 @@ no Google Mobile Services. The cockpit needs **VPM 0.6.2** on the same phone.
 
 | File | Size | SHA-256 |
 |---|---:|---|
-| `DashGrid-standalone-v1.3.2.apk` | 19 MB | `08efb682488e1220f2b375e3b6b57a47e785732b964f12472c697e7931d9a7bc` |
+| `DashGrid-standalone-v1.3.2.apk` | 19 MB | `29c28e8ca967d3e569af1b00ac270289cac4a5f8610e4b6bc3599adb8b7283f9` |
 
 ```sh
 adb uninstall net.prototux.aare   # only if AARE is installed

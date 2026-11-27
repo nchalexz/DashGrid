@@ -114,15 +114,30 @@ fun readVpmMetric(metric: VpmMetric, snapshot: VpmSnapshot?): VpmReading {
 }
 
 /**
- * The occurrence of a signal that belongs to the metric's own category.
+ * The best occurrence of a metric's signal: a number first, the metric's own tab second.
  *
- * Contract v1 may carry one id in two tabs with different display units: `engine.map_kpa` is kPa
- * under Engine and bar under Turbo, and the Turbo occurrence is the one the absolute-boost gauge
- * needs. The first occurrence is the fallback for a provider that sends only one.
+ * Two rules meet here, both from real VPM snapshots:
+ *
+ * - Contract v1 may carry one id in two tabs with different display units: `engine.map_kpa` is kPa
+ *   under Engine and bar under Turbo, and the Turbo occurrence is the one the absolute-boost gauge
+ *   needs.
+ * - A dead primary and a live alternative arrive together. On a diesel `engine.oil_c` (PID 0x5C)
+ *   can be `never_read` while `vag.7e0.11be.oil_temp` has the temperature; taking the first entry
+ *   would show “—” even though VPM has a number. The primary still wins when both are drawable.
  */
 private fun VpmSnapshot.signalFor(metric: VpmMetric): VpmSignal? {
     val candidates = signals.filter { it.id in metric.allIds }
-    return candidates.firstOrNull { vpmSignalCategory(it) == metric.category } ?: candidates.firstOrNull()
+    if (candidates.isEmpty()) return null
+    fun rank(signal: VpmSignal): Int = when {
+        signal.status == VpmSignalStatus.VALID && signal.hasValue -> 0
+        signal.status == VpmSignalStatus.STALE && signal.hasValue -> 1
+        signal.hasValue -> 2
+        else -> 3
+    }
+    fun bestOf(pool: List<VpmSignal>): VpmSignal? =
+        pool.minWithOrNull(compareBy({ rank(it) }, { metric.allIds.indexOf(it.id) }))
+    val inCategory = candidates.filter { vpmSignalCategory(it) == metric.category }
+    return bestOf(inCategory) ?: bestOf(candidates)
 }
 
 /** The metric DashGrid knows by id, including VPM's alternative signal ids. */

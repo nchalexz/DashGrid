@@ -61,13 +61,23 @@ fun VpmMainScreen(
 ) {
     BoxWithConstraints(modifier.fillMaxSize()) {
         val portrait = maxHeight > maxWidth
+        // Five tiles in one row from 480 dp: on a 640 dp car screen that is (640 - 4×6) / 5 ≈ 123 dp
+        // per tile, enough for the label at 9 sp and the value at ~19 sp. The old 700 dp threshold
+        // put five tiles into two rows at 500–700 dp and took the height away from the gauges.
         val columns = when {
-            maxWidth >= 700.dp -> 5
-            maxWidth >= 500.dp -> 3
+            maxWidth >= 480.dp -> 5
+            maxWidth >= 360.dp -> 3
             else -> 2
         }
         val portraitPanelHeight = maxWidth * 0.44f
-        val tileRowHeight = ((maxWidth - 6.dp * (columns - 1)) / columns) * 0.48f
+        // The tile height comes from the screen, not from the tile width. 26 % of a 240 dp car
+        // screen is 62 dp — label, value and unit still fit — and the gauges keep the rest. Two
+        // rows never appear while five columns fit.
+        val tileRowHeight = if (portrait) {
+            portraitPanelHeight * 0.82f
+        } else {
+            (maxHeight * 0.26f).coerceIn(62.dp, 110.dp)
+        }
         Column(Modifier.fillMaxSize().padding(start = 10.dp, end = 10.dp, top = 4.dp, bottom = 6.dp)) {
             VpmGaugePanel(
                 snapshot = snapshot,
@@ -83,7 +93,7 @@ fun VpmMainScreen(
                 metrics = VpmMetrics.mainTiles,
                 snapshot = snapshot,
                 columns = columns,
-                rowHeight = if (portrait) portraitPanelHeight * 0.82f else tileRowHeight,
+                rowHeight = tileRowHeight,
                 modifier = Modifier.fillMaxWidth(),
             )
             if (portrait) Spacer(Modifier.weight(1f))

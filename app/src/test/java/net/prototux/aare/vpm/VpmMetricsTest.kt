@@ -193,6 +193,46 @@ class VpmMetricsTest {
     }
 
     @Test
+    fun aNeverReadPrimaryDoesNotHideALiveVagOilSignal() {
+        // Real snapshot shape on a diesel: the main gauge entry exists but PID 0x5C never answered,
+        // while the VAG block already has the temperature. The first entry must not win by position.
+        val vag = snapshot(
+            signals = """
+                [
+                  {"id":"engine.oil_c","label":"Масло","value":null,"raw":null,"category":"temperatures","status":"never_read"},
+                  {"id":"vag.7e0.11be.oil_temp","label":"Масло (двиг.)","value":"91","raw":91,"category":"temperatures","status":"valid"}
+                ]
+            """.trimIndent(),
+        )
+        val reading = readVpmMetric(VpmMetrics.oil, vag)
+        assertEquals("91", reading.text)
+        assertEquals(VpmReadingState.OK, reading.state)
+    }
+
+    @Test
+    fun aFreshPrimaryWinsOverAFreshAlternativeAndAStalePrimaryLosesToAFreshAlternative() {
+        val bothFresh = snapshot(
+            signals = """
+                [
+                  {"id":"engine.oil_c","value":"95","raw":95,"category":"temperatures","status":"valid"},
+                  {"id":"vag.7e0.11be.oil_temp","value":"91","raw":91,"category":"temperatures","status":"valid"}
+                ]
+            """.trimIndent(),
+        )
+        assertEquals("95", readVpmMetric(VpmMetrics.oil, bothFresh).text)
+
+        val stalePrimary = snapshot(
+            signals = """
+                [
+                  {"id":"engine.oil_c","value":"95","raw":95,"category":"temperatures","status":"stale"},
+                  {"id":"vag.7e0.11be.oil_temp","value":"91","raw":91,"category":"temperatures","status":"valid"}
+                ]
+            """.trimIndent(),
+        )
+        assertEquals("91", readVpmMetric(VpmMetrics.oil, stalePrimary).text)
+    }
+
+    @Test
     fun categorySignalsKeepVpmsOwnOrderAndItsCategory() {
         val s = snapshot()!!
         assertEquals(

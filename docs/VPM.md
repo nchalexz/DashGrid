@@ -73,8 +73,10 @@ The value is centred on the glyphs' real bounds, not on the baseline, and shrink
 its comma and its minus fit the disc. The ring pair, the bright progress arc between them, the red
 zone, the 60 ticks and the needle are drawn from the same constants as VPM: 135° start, 270° sweep.
 The main screen is three gauges (`coolant 40…120 °C`, `absolute boost 0…2.5 bar`, `oil 40…150 °C`)
-and five tiles (DSG temperature, intake air, exhaust gas, voltage, rail pressure); the category
-screen is the same gauges smaller, the six tabs and a grid of two full rows, 2–5 columns by width.
+and five tiles (DSG temperature, intake air, exhaust gas, voltage, rail pressure) in **one row**
+from 480 dp wide; the tile height is 26 % of the screen height (62–110 dp) so the gauges keep the
+rest. Below 480 dp the five tiles wrap, as there is no honest way to fit them. The category screen
+is the same gauges smaller, the six tabs and a grid of two full rows, 2–5 columns by width.
 
 Text uses Titillium Web, which DashGrid already ships. Colours are VPM's night and day tokens
 (`#10151B…#E8ECEF` and the rest); the car screen's Material palette is not used inside the cockpit.

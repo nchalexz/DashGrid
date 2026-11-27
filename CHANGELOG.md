@@ -21,6 +21,12 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
 - The visible cockpit asks VPM for a snapshot every **200 ms** instead of 500 ms. VPM refreshes MAP
   at 5 Hz, so the shorter poll follows the pedal instead of adding up to half a second of lag; the
   page still polls nothing while it is off screen.
+- The five main tiles stay in **one row** from 480 dp wide: the old 700 dp threshold wrapped them
+  into two rows at 500–700 dp and shrank the gauges. Tile height is now 26 % of the screen height
+  (62–110 dp), so the gauges keep the rest.
+- The oil gauge takes the VAG temperature when the primary `engine.oil_c` is `never_read`: a live
+  alternative is chosen over a dead primary, so a diesel that does not answer PID 0x5C still shows
+  oil temperature.
 
 ### Contract
 

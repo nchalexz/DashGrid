@@ -154,9 +154,11 @@ The states are a pure mapping (`vpmUiState`) and are unit-tested, including the 
   shows the **Update VPM** card. An older 0.5.x bridge has no `status` field: DashGrid derives it
   from `stale` and the presence of a value, so such a VPM never crashes the cockpit. The contract is
   in [VPM_BRIDGE_PROMPT.md](VPM_BRIDGE_PROMPT.md).
-- If DashGrid was installed before VPM defined this permission, update DashGrid once after installing
-  VPM's bridge (reinstall the same build): Android grants a normal permission when the app that
-  requests it is installed or updated, not retroactively when another app defines it.
+- If DashGrid was installed before VPM defined this permission, or **VPM was reinstalled** with a
+  different signature, update DashGrid once after installing VPM (reinstall the same build): Android
+  grants a normal permission when the app that requests it is installed or updated, not
+  retroactively when another app defines it. A VPM update that keeps the same signature usually
+  keeps the grant; a reinstall does not.
 - Android 6 or newer, like the rest of DashGrid. No root and no Shizuku for this widget.
 
 ## What was checked

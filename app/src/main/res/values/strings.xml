@@ -796,6 +796,9 @@
     <string name="vpm_cat_turbo">Turbo</string>
     <string name="vpm_cat_diagnostics">Diagnostics</string>
     <string name="vpm_page_main">Main screen</string>
+    <string name="vpm_needs_full_workspace">VPM cockpit needs the whole workspace</string>
+    <string name="vpm_needs_full_workspace_body">VPM cockpit uses the whole 10 × 6 grid. Remove the other items or use the Car workspace.</string>
+    <string name="vpm_needs_empty_workspace">VPM cockpit needs an empty workspace</string>
     <string name="vpm_page_categories">Categories</string>
     <string name="workspaces_duplicate_name">%1$s copy</string>
     <string name="workspaces_section_edit">Edit “%1$s”</string>

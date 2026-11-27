@@ -450,6 +450,9 @@
     <string name="vpm_cat_turbo">Турбо</string>
     <string name="vpm_cat_diagnostics">Диагностика</string>
     <string name="vpm_page_main">Главный экран</string>
+    <string name="vpm_needs_full_workspace">Кокпиту VPM нужен весь рабочий стол</string>
+    <string name="vpm_needs_full_workspace_body">Кокпит VPM рассчитан на всю сетку 10 × 6. Удалите остальные элементы или используйте рабочий стол «Автомобиль».</string>
+    <string name="vpm_needs_empty_workspace">Кокпиту VPM нужен пустой рабочий стол</string>
     <string name="vpm_page_categories">Категории</string>
     <string name="workspaces_duplicate_name">%1$s — копия</string>
     <string name="workspaces_section_edit">Редактирование «%1$s»</string>

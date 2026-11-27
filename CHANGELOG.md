@@ -31,6 +31,9 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
   cover the coolant dial. The gauge pictograms are VAG/Porsche-style thermometer, oil can and turbo.
 - In the workspace editor the red **Remove** action for a live pane got its own row: with **Change
   app** and **Move to** in the same row it was clipped off a narrow phone.
+- The VPM cockpit is added only as the whole 10 × 6 workspace; a saved smaller item now shows a
+  clear hint instead of a clipped bottom-left tile. Its two screens switch by the header dots or a
+  gauge tap, so a horizontal swipe always reaches DashGrid's workspace pager.
 
 ### Contract
 

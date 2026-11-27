@@ -45,6 +45,10 @@ In this release: [What changed](#what-changed) · [Install](#install) · [Verifi
   VPM 0.6.2 still refreshes MAP at 5 Hz, so the adapter remains the limit.
 - **Delete stays reachable.** In the workspace editor the red **Remove** action for a live pane was
   clipped when it shared a row with **Change app** and **Move to**; it now has its own row.
+- **The cockpit keeps the workspace swipe.** A VPM cockpit item is added as the whole 10 × 6
+  workspace; an old smaller item says what it needs instead of clipping to one bottom-left tile.
+  The cockpit's own two screens switch by the header dots or a gauge tap, so a horizontal swipe
+  always pages the workspace.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/nchalexz/DashGrid/main/docs/screenshots/vpm-cockpit-main-1920x720.png" width="100%" alt="The Car cockpit at 1920 by 720: coolant, absolute boost and oil gauges over five tiles in one row">
@@ -64,7 +68,7 @@ no Google Mobile Services. The cockpit needs **VPM 0.6.2** on the same phone.
 
 | File | Size | SHA-256 |
 |---|---:|---|
-| `DashGrid-standalone-v1.3.2.apk` | 19 MB | `29168d3344e84c5d22f60440f6aef96980edbf84e42e03aec5464cf115c6f1cd` |
+| `DashGrid-standalone-v1.3.2.apk` | 19 MB | `b17d7dc65ec1e8f91c522d26b86bf3c26967d6f9e8511ed2b776745db2d04353` |
 
 ```sh
 adb uninstall net.prototux.aare   # only if AARE is installed

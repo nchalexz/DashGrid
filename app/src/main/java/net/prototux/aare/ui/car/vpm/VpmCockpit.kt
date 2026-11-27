@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -169,8 +170,10 @@ fun VpmCockpitView(
             HorizontalPager(
                 state = pager,
                 modifier = Modifier.weight(1f).fillMaxWidth(),
-                // The page's own two screens still swipe inside the workspace; DashGrid's pager keeps
-                // its gesture on the empty margin and the bottom dots.
+                // The cockpit's own two screens are switched by the header dots or by tapping a
+                // gauge, never by a horizontal swipe: a swipe belongs to DashGrid's workspace
+                // pager, so "swipe anywhere" keeps working even when the cockpit fills the page.
+                userScrollEnabled = false,
                 key = { it },
             ) { page ->
                 when (page) {
@@ -185,6 +188,59 @@ fun VpmCockpitView(
                         onCategory = { categoryId = it.id },
                         onGauge = { metric: VpmMetric -> categoryId = metric.category.id },
                         modifier = Modifier.fillMaxSize(),
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * What a VPM cockpit item smaller than the whole workspace shows.
+ *
+ * The cockpit is drawn for the full 10 × 6 grid; a 2 × 2 cell used to clip it down to one tile
+ * (usually the bottom-left DSG temperature) and its inner pager stole the workspace swipe. The
+ * widget is now added full-size, and an old saved small item says what it needs instead of lying.
+ */
+@Composable
+fun VpmCockpitNeedsFullWorkspace(modifier: Modifier = Modifier) {
+    VpmTheme {
+        val colors = LocalVpmColors.current
+        BoxWithConstraints(modifier.fillMaxSize().background(colors.background), contentAlignment = Alignment.Center) {
+            val tiny = maxWidth < 180.dp || maxHeight < 110.dp
+            Column(
+                Modifier.padding(if (tiny) 6.dp else 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                if (!tiny) {
+                    Icon(
+                        painterResource(R.drawable.ic_vpm_boost),
+                        null,
+                        tint = colors.dim,
+                        modifier = Modifier.size(28.dp),
+                    )
+                    Spacer(Modifier.size(8.dp))
+                }
+                Text(
+                    stringResource(if (tiny) R.string.dash_card_vpm else R.string.vpm_needs_full_workspace),
+                    color = colors.text,
+                    fontFamily = VpmFont,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = if (tiny) 10.sp else 14.sp,
+                    textAlign = TextAlign.Center,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                if (!tiny) {
+                    Spacer(Modifier.size(4.dp))
+                    Text(
+                        stringResource(R.string.vpm_needs_full_workspace_body),
+                        color = colors.dim,
+                        fontFamily = VpmFont,
+                        fontSize = 11.sp,
+                        textAlign = TextAlign.Center,
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis,
                     )
                 }
             }

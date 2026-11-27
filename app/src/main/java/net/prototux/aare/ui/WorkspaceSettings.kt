@@ -92,6 +92,7 @@ import kotlinx.coroutines.withContext
 import net.prototux.aare.R
 import net.prototux.aare.Settings
 import net.prototux.aare.ui.CarPreviewActivity
+import net.prototux.aare.workspace.VPM_COCKPIT_WIDGET_ID
 import net.prototux.aare.workspace.WORKSPACE_COLUMNS
 import net.prototux.aare.workspace.WORKSPACE_ROWS
 import net.prototux.aare.workspace.Workspace
@@ -308,11 +309,21 @@ internal fun WorkspacesSettings(
                 else LazyColumn(Modifier.heightIn(max = 420.dp)) {
                     items(available) { id ->
                         ChoiceRow(icon = widgetIcon(id), label = stringResource(widgetLabel(id))) {
-                            val added = workspace.withAddedItem(WorkspaceItem.widget(id, WorkspaceRect(0, 0, 1, 1)))
-                            if (added == null) {
-                                Toast.makeText(ctx, R.string.workspaces_no_space, Toast.LENGTH_SHORT).show()
+                            val fullScreen = id == VPM_COCKPIT_WIDGET_ID
+                            if (fullScreen && workspace.items.isNotEmpty()) {
+                                Toast.makeText(ctx, R.string.vpm_needs_empty_workspace, Toast.LENGTH_LONG).show()
                             } else {
-                                update(added)
+                                val rect = if (fullScreen) {
+                                    WorkspaceRect(0, 0, WORKSPACE_COLUMNS, WORKSPACE_ROWS)
+                                } else {
+                                    WorkspaceRect(0, 0, 1, 1)
+                                }
+                                val added = workspace.withAddedItem(WorkspaceItem.widget(id, rect))
+                                if (added == null) {
+                                    Toast.makeText(ctx, R.string.workspaces_no_space, Toast.LENGTH_SHORT).show()
+                                } else {
+                                    update(added)
+                                }
                             }
                             addWidgetTo = null
                         }

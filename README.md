@@ -125,8 +125,9 @@ DashGrid draws them itself; VPM supplies the values.
   Temperatures, Fuel, Gearbox, Turbo and Diagnostics as six tabs. Tapping a gauge opens its category.
 - **DEMO or LIVE, never a guess.** The DEMO/LIVE pill sits in a thin header above the instruments,
   so a long adapter status never covers a dial. A stale value stays a number, dimmed and marked;
-  only a never-read value is “—”. With VPM 0.4.1 the Car workspace offers **Update VPM** / **Open on
-  the phone**; without VPM it offers **Install**.
+  only a never-read value is “—”. The cockpit's two screens switch by the header dots or a gauge
+  tap, not by a horizontal swipe, so workspace **swipe anywhere** keeps working. With VPM 0.4.1
+  the Car workspace offers **Update VPM** / **Open on the phone**; without VPM it offers **Install**.
 - **Fast enough for the pedal.** The visible cockpit polls VPM every 100 ms and the needle settles in
   90 ms. VPM 0.6.2 refreshes MAP at 5 Hz; the adapter and VPM remain the limit, not the Binder call.
 - **Two screen sizes.** 1920 × 720 and 1280 × 480; both rows of the category grid stay readable.
@@ -243,7 +244,7 @@ adb install -r DashGrid-standalone-v1.3.2.apk
 <summary>SHA-256 and signing certificate</summary>
 
 ```text
-29168d3344e84c5d22f60440f6aef96980edbf84e42e03aec5464cf115c6f1cd  DashGrid-standalone-v1.3.2.apk
+b17d7dc65ec1e8f91c522d26b86bf3c26967d6f9e8511ed2b776745db2d04353  DashGrid-standalone-v1.3.2.apk
 certificate SHA-256: 4c464d2c35c723c2bc4ca30dafa84c3dbdf16473d61ec9961e37dc6e973420a5
 ```
 

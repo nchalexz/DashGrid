@@ -57,8 +57,13 @@ sealed interface VpmUiState {
     data class Cockpit(val snapshot: VpmSnapshot?) : VpmUiState
 }
 
-/** How often the cockpit asks VPM for its snapshot while it is the page on screen. */
-private const val VPM_POLL_MS = 500L
+/**
+ * How often the cockpit asks VPM for its snapshot while it is the page on screen.
+ *
+ * VPM refreshes MAP at 5 Hz, so 200 ms does not skip a reading; the old 500 ms
+ * added up to half a second of visible lag behind the pedal on the boost gauge.
+ */
+private const val VPM_POLL_MS = 200L
 
 /**
  * The bridge's four answers to the four cards the cockpit can show. Kept pure so a unit test can

@@ -125,7 +125,7 @@ VPM applies its display factors before the bridge: `raw` for `engine.map_kpa` an
 arrives in bar, already divided by 100. DashGrid therefore keeps its own factor at 1 for the
 absolute-boost and rail metrics; a second 0.01 would under-read them by a hundred.
 
-Only the visible page polls: one Binder call every 500 ms while the Car workspace is on screen, and
+Only the visible page polls: one Binder call every 200 ms while the Car workspace is on screen, and
 nothing when it is not. A bridge problem is logged once, not five times a second.
 
 ## States the cockpit can be in

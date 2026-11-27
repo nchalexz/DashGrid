@@ -18,6 +18,9 @@ fork changed; everything not mentioned is AARE's and is intentionally unchanged.
   screen when VPM's link drops but the bridge still carries it as stale.
 - The category grid takes the occurrence of a signal that belongs to its tab: `engine.map_kpa` is
   kPa under Engine and bar under Turbo, and the boost gauge reads the Turbo one.
+- The visible cockpit asks VPM for a snapshot every **200 ms** instead of 500 ms. VPM refreshes MAP
+  at 5 Hz, so the shorter poll follows the pedal instead of adding up to half a second of lag; the
+  page still polls nothing while it is off screen.
 
 ### Contract
 

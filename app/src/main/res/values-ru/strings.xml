@@ -418,7 +418,7 @@
     <string name="vpm_waiting">ожидание</string>
     <string name="vpm_stale">устарело</string>
     <string name="vpm_no_link">нет данных</string>
-    <string name="vpm_status_demo">ДЕМО</string>
+    <string name="vpm_status_demo">DEMO</string>
     <string name="vpm_status_live">Live</string>
     <string name="vpm_status_offline">НЕТ СВЯЗИ</string>
     <string name="vpm_status_connecting">ПОДКЛЮЧЕНИЕ</string>
